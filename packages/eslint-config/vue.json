@@ -1,0 +1,43 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2024": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2024,
+    "sourceType": "module"
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@", "@app-x/frontend/src"],
+          ["~", "@app-x/frontend/src/components"]
+        ]
+      }
+    }
+  },
+  "ignorePatterns": ["node_modules/", "lib/", "dist/", "build/"],
+  "extends": ["airbnb-base", "plugin:vue/vue3-recommended", "prettier"],
+  "rules": {
+    "no-param-reassign": "off",
+    "no-return-await": "off",
+    "vue/require-prop-types": "off",
+    "vue/no-undef-properties": "warn",
+    "vue/no-unused-properties": [
+      "warn",
+      {
+        "groups": ["props", "data", "computed", "methods", "setup"]
+      }
+    ],
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false,
+        "classes": true,
+        "variables": true
+      }
+    ]
+  }
+}

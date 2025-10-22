@@ -1,0 +1,17 @@
+ssl_cert/
+build/
+dist/
+node_modules/
+npm-debug.log
+logs/
+*.log
+*.tsbuildinfo
+.npm
+.eslintcache
+.env
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace

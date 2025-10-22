@@ -1,0 +1,50 @@
+{
+  "name": "@app-x/backend",
+  "version": "0.0.1",
+  "description": "backend",
+  "author": "YouROCK",
+  "license": "MIT",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "run-p nm ts",
+    "start": "node --env-file=../../.env.prod ../../dist/server/main.js",
+    "build:dev": "run-s clean ts:dev static:dev",
+    "build:prod": "run-s clean ts:prod babel:prod static:prod",
+    "ts": "tsc --watch",
+    "nm": "nodemon --watch ../../build/server --watch ../../.env.dev --env-file=../../.env.dev ../../build/server/main.js",
+    "look": "nodemon --env-file=../../.env.dev ../../build/server/main.js",
+    "clean": "rimraf ../../build/server",
+    "static:dev": "cp -R ./static ../../build/server/static",
+    "static:prod": "cp -R ./static ../../dist/server/static",
+    "ts:dev": "tsc --sourceMap --declaration --declarationMap",
+    "ts:prod": "tsc",
+    "babel:prod": "babel -d ../../dist/server ../../build/server --delete-dir-on-start",
+    "lint:js": "eslint ./src",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": "eslint"
+  },
+  "eslintConfig": {
+    "extends": [
+      "../../packages/eslint-config/node.json"
+    ]
+  },
+  "babel": {
+    "extends": "../../packages/babel-config/node.json"
+  },
+  "dependencies": {
+    "@yourock88/bind-self": "^0.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "socket.io": "4.8.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^24.1.0",
+    "nodemon": "^3.1.10",
+    "typescript": "^5.8.0"
+  }
+}

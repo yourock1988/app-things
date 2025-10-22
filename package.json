@@ -1,0 +1,65 @@
+{
+  "name": "app-x",
+  "version": "0.0.1",
+  "description": "fullstack app-things application",
+  "main": "./dist/server/https.js",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "clean": "rimraf build dist",
+    "clean:all": "rimraf build dist node_modules",
+    "deploy": "npm ci && run-s clean build:prod start:check",
+    "start": "npm run start --workspace=@app-x/backend",
+    "start:check": "npm run start -- -- --check",
+    "look": "run-s frontend:build:dev backend:build:dev backend:look",
+    "dev": "run-p backend:dev frontend:dev",
+    "build:dev": "run-s backend:build:dev frontend:build:dev",
+    "build:prod": "run-s backend:build:prod frontend:build:prod",
+    "backend:look": "npm run look --workspace=@app-x/backend",
+    "backend:dev": "npm run dev --workspace=@app-x/backend",
+    "frontend:dev": "npm run dev:simple --workspace=@app-x/frontend",
+    "backend:build:dev": "npm run build:dev --workspace=@app-x/backend",
+    "frontend:build:dev": "npm run build:dev --workspace=@app-x/frontend",
+    "backend:build:prod": "npm run build:prod --workspace=@app-x/backend",
+    "frontend:build:prod": "npm run build:prod --workspace=@app-x/frontend"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^6.0.1",
+    "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=22.11.0",
+    "npm": ">=10.9.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "private": false,
+  "license": "MIT",
+  "author": "YouROCK <admin@web-app.click> (https://web-app.click/)",
+  "homepage": "https://app-things.web-app.click/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourock1988/app-things.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourock1988/app-things/issues"
+  },
+  "keywords": [
+    "vue",
+    "node",
+    "express",
+    "fullstack",
+    "app-things"
+  ]
+}

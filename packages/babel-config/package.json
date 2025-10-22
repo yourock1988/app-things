@@ -1,0 +1,19 @@
+{
+  "name": "@app-x/babel-config",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "YouROCK",
+  "license": "MIT",
+  "description": "babel cofniguration files",
+  "exports": {
+    "./node": "./node.json",
+    "./web": "./web.json"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.26.4",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/register": "^7.25.9",
+    "core-js": "^3.40.0"
+  }
+}
