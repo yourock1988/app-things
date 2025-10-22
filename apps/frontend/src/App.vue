@@ -3,13 +3,14 @@ export default {}
 </script>
 
 <template>
-  <RouterView v-slot="{ Component, route }">
+  <h1>Hello Vue</h1>
+  <!-- <RouterView v-slot="{ Component, route }">
     <Transition name="fade" mode="out-in">
       <KeepAlive>
         <Component :is="Component" :key="route.path" />
       </KeepAlive>
     </Transition>
-  </RouterView>
+  </RouterView> -->
 </template>
 
 <style>
