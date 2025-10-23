@@ -4,6 +4,8 @@ const PATHS = require('./paths')
 const Dotenv = require('dotenv-webpack')
 const devPort = 9000
 
+console.log(PATHS.assets)
+
 class DoneMessage {
   constructor(message) {
     this.message = message
@@ -20,10 +22,15 @@ module.exports = merge(webpackBaseConfig, {
   devtool: 'inline-source-map',
 
   devServer: {
-    static: PATHS.assets,
     port: devPort,
     open: false,
     historyApiFallback: true,
+    static: {
+      directory: PATHS.assets,
+      serveIndex: true,
+    },
+    hot: false,
+    liveReload: true,
   },
 
   output: {
