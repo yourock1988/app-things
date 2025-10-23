@@ -42,6 +42,6 @@ module.exports = merge(webpackBaseConfig, {
       path: '../../.env.dev',
     }),
 
-    new DoneMessage(`Webpack dev server: http://localhost:${devPort}/products`),
+    new DoneMessage(`Webpack dev server: http://localhost:${devPort}`),
   ],
 })

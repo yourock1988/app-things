@@ -30,9 +30,9 @@ if (!isDevDir) {
   const clientDir = path.join(staticDir, '..', '..', 'client')
   global.console.log('clientDir :>> ', clientDir)
   staticRouter.use('/assets', express.static(path.join(clientDir, 'assets')))
-  staticRouter.use('/products', express.static(clientDir))
-  staticRouter.use('/product', express.static(clientDir))
-  staticRouter.use('/cart', express.static(clientDir))
+  // staticRouter.use('/products', express.static(clientDir))
+  // staticRouter.use('/product', express.static(clientDir))
+  // staticRouter.use('/cart', express.static(clientDir))
 }
 
 export default staticRouter
