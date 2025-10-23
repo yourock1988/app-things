@@ -6,10 +6,10 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "dev:simple": "webpack serve --config ../../packages/webpack-config/dev.js",
     "dev": "nodemon --watch \"../../packages/webpack-config/\" --exec \"webpack serve --config ../../packages/webpack-config/dev.js\"",
     "build:dev": "webpack -c ../../packages/webpack-config/dev.js",
     "build:prod": "webpack -c ../../packages/webpack-config/prod.js",
+    "dev:simple": "webpack serve --config ../../packages/webpack-config/dev.js",
     "lint:js": "eslint ./src",
     "lint-staged": "lint-staged"
   },
