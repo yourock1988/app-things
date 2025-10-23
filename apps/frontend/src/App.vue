@@ -1,5 +1,5 @@
 <script>
-import UsersWidget from './components/UsersWidget.vue'
+import UsersWidget from './components/users-widget/UsersWidget.vue'
 
 export default {
   components: { UsersWidget },
