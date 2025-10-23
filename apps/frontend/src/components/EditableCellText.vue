@@ -1,15 +1,17 @@
 <script>
 export default {
-  props: ['user'],
+  props: ['modelValue', 'caption'],
+
+  emits: ['update:model-value'],
 }
 </script>
 
 <template>
   <td
-    @input="user.nickname = $event.target.textContent"
-    data-label="nickname"
+    @input="$emit('update:model-value', $event.target.textContent)"
+    :data-label="caption"
     contenteditable="true"
   >
-    {{ user.nickname }}
+    {{ modelValue }}
   </td>
 </template>

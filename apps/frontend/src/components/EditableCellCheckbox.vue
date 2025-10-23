@@ -1,15 +1,18 @@
 <script>
 export default {
-  props: ['user'],
+  props: ['modelValue', 'caption'],
+
+  emits: ['update:model-value'],
 }
 </script>
 
 <template>
-  <td data-label="isOnline" class="online-checkbox-cell">
+  <td :data-label="caption" class="online-checkbox-cell">
     <input
       type="checkbox"
       class="online-status-checkbox"
-      v-model="user.isOnline"
+      :checked="modelValue"
+      @change="$emit('update:model-value', $event.target.checked)"
     />
   </td>
 </template>
