@@ -1,11 +1,5 @@
 <script>
-// const initUser = () => ({
-//   nickname: '',
-//   password: '',
-//   email: '',
-//   money: 0,
-//   isOnline: false,
-// })
+import randId from '../../functions/randId.js'
 
 export default {
   emits: ['user-submitted'],
@@ -19,6 +13,7 @@ export default {
   methods: {
     initUser() {
       return {
+        id: randId(),
         nickname: '',
         password: '',
         email: '',
