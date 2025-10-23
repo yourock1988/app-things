@@ -5,7 +5,7 @@ import usersRouter from './infra/routers/usersRouter.js'
 
 const routes = Router()
 
-routes.use('/users', usersRouter)
+routes.use('/api/v0/users', usersRouter)
 routes.use('/', welcomeRouter)
 routes.use('/', staticRouter)
 
