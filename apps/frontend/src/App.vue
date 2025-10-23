@@ -1,9 +1,13 @@
 <script>
-export default {}
+import UsersWidget from './components/UsersWidget.vue'
+
+export default {
+  components: { UsersWidget },
+}
 </script>
 
 <template>
-  <h1>Hello Vue</h1>
+  <UsersWidget />
   <!-- <RouterView v-slot="{ Component, route }">
     <Transition name="fade" mode="out-in">
       <KeepAlive>
