@@ -19,10 +19,10 @@ export default {
         },
         {
           id: 112,
-          nickname: 'YouROCK',
-          password: 'qwerty123',
-          email: 'yourock88@super-mail.com',
-          money: 42,
+          nickname: 'youri',
+          password: 'qwe321',
+          email: 'youri@mail.com',
+          money: 33,
           isOnline: false,
         },
       ],
@@ -33,12 +33,6 @@ export default {
     handleRefresh() {
       console.log('REFRESH')
     },
-    handleEdit(user) {
-      console.log('EDIT', user)
-    },
-    handleDelete(user) {
-      console.log('DELETE', user)
-    },
   },
 }
 </script>
@@ -47,7 +41,7 @@ export default {
   {{ users }}
 
   <div id="w">
-    <UsersUpdater />
+    <UsersUpdater @click="console.log(users)" />
 
     <UsersSubmitter @user-submitted="this.users.push($event)" />
 
@@ -65,7 +59,7 @@ export default {
           </tr>
         </thead>
 
-        <UsersList :users />
+        <UsersList :users @users-updated="users = $event" />
       </table>
     </div>
   </div>
