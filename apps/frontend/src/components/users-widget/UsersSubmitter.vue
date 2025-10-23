@@ -1,11 +1,44 @@
 <script>
-export default {}
+// const initUser = () => ({
+//   nickname: '',
+//   password: '',
+//   email: '',
+//   money: 0,
+//   isOnline: false,
+// })
+
+export default {
+  emits: ['user-submitted'],
+
+  data() {
+    return {
+      localUser: this.initUser(),
+    }
+  },
+
+  methods: {
+    initUser() {
+      return {
+        nickname: '',
+        password: '',
+        email: '',
+        money: 0,
+        isOnline: false,
+      }
+    },
+
+    handleSubmit() {
+      this.$emit('user-submitted', { ...this.localUser })
+      this.localUser = this.initUser()
+    },
+  },
+}
 </script>
 
 <template>
   <div class="card user-add-form-container">
     <h2>Новый пользователь</h2>
-    <form @submit="handleAdd" id="elFormAddUser">
+    <form @submit.prevent="handleSubmit" id="elFormAddUser">
       <div class="form-grid">
         <div class="form-group">
           <label for="new-nickname">Никнейм</label>
@@ -15,6 +48,7 @@ export default {}
             name="nickname"
             placeholder="Введите никнейм"
             required
+            v-model="localUser.nickname"
           />
         </div>
         <div class="form-group">
@@ -25,6 +59,7 @@ export default {}
             name="password"
             placeholder="Пароль"
             required
+            v-model="localUser.password"
           />
         </div>
         <div class="form-group">
@@ -35,14 +70,27 @@ export default {}
             name="email"
             placeholder="example@mail.com"
             required
+            v-model="localUser.email"
           />
         </div>
         <div class="form-group">
-          <label for="new-money">Баланс (₽)</label>
-          <input type="number" id="new-money" name="money" value="0" min="0" />
+          <label for="new-money">Баланс ($)</label>
+          <input
+            type="number"
+            id="new-money"
+            name="money"
+            value="0"
+            min="0"
+            v-model="localUser.money"
+          />
         </div>
         <div class="form-group checkbox-group">
-          <input type="checkbox" id="new-is-online" name="isOnline" />
+          <input
+            type="checkbox"
+            id="new-is-online"
+            name="isOnline"
+            v-model="localUser.isOnline"
+          />
           <label for="new-is-online">Пользователь онлайн</label>
         </div>
       </div>

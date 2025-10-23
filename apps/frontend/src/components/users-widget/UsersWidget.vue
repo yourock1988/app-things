@@ -8,13 +8,6 @@ export default {
 
   data() {
     return {
-      createdUser: {
-        nickname: '',
-        password: '',
-        email: '',
-        money: 0,
-        isOnline: false,
-      },
       users: [
         {
           id: 111,
@@ -40,14 +33,6 @@ export default {
     handleRefresh() {
       console.log('REFRESH')
     },
-    handleAdd(e) {
-      e.preventDefault()
-      console.log(e.target)
-      const data = Object.fromEntries(new FormData(e.target).entries())
-      data.money = +data.money
-      data.isOnline = !!data.isOnline
-      console.log('ADD', data)
-    },
     handleEdit(user) {
       console.log('EDIT', user)
     },
@@ -59,10 +44,12 @@ export default {
 </script>
 
 <template>
+  {{ users }}
+
   <div id="w">
     <UsersUpdater />
 
-    <UsersSubmitter />
+    <UsersSubmitter @user-submitted="this.users.push($event)" />
 
     <div class="card table-wrapper">
       <table id="user-table">
