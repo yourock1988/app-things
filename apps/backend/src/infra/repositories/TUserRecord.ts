@@ -1,5 +1,5 @@
 export type TUserRecord = {
-  readonly id: string
+  readonly id: number
   readonly nickname: string
   readonly password: string
   readonly email: string

@@ -4,7 +4,7 @@ import { TUserRecord } from './TUserRecord.js'
 export default class UserMapper {
   static toModel(record: TUserRecord): User {
     return new User(
-      +record.id,
+      record.id,
       record.nickname,
       record.password,
       record.email,
@@ -15,7 +15,7 @@ export default class UserMapper {
 
   static toRecord(model: User): TUserRecord {
     const userRecord: TUserRecord = {
-      id: model.id.toString(),
+      id: model.id,
       nickname: model.nickname,
       password: model.password,
       email: model.email,

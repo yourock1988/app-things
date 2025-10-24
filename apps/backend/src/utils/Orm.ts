@@ -8,7 +8,7 @@ export default class Orm {
   }
 
   selectById(id: number) {
-    return this.table.find(u => +u.id === id) ?? null
+    return this.table.find(u => u.id === id) ?? null
   }
 
   insert(dto: any) {
@@ -24,7 +24,7 @@ export default class Orm {
   }
 
   delete(id: number) {
-    const idx = this.table.findIndex(u => +u.id === id)
+    const idx = this.table.findIndex(u => u.id === id)
     if (idx > -1) this.table.splice(idx, 1)
   }
 }
