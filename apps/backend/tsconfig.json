@@ -13,8 +13,9 @@
     "allowJs": false,
     "sourceMap": false,
     "declarationMap": false,
-    "declaration": false
+    "declaration": false,
+    "skipLibCheck": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "build", "dist"]
+  "exclude": ["node_modules", "build", "dist", "frontend/**/*"]
 }
