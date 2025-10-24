@@ -8,7 +8,7 @@ export default {
 
   props: ['user'],
 
-  emits: ['user-edited'],
+  emits: ['user-edited', 'user-deleted-id'],
 
   data() {
     return {
@@ -17,14 +17,11 @@ export default {
   },
 
   watch: {
-    user(val, oldVal) {
-      this.localUser = val
-    },
-  },
-
-  methods: {
-    handleDelete(user) {
-      console.log('DELETE', user)
+    user: {
+      deep: true,
+      handler(val) {
+        this.localUser = { ...val }
+      },
     },
   },
 }
@@ -37,13 +34,13 @@ export default {
     <EditableCellText v-model="localUser.nickname" caption="nickname" />
     <EditableCellText v-model="localUser.password" caption="password" />
     <EditableCellText v-model="localUser.email" caption="email" />
-    <EditableCellText v-model="localUser.money" caption="money" />
+    <EditableCellText v-model.number="localUser.money" caption="money" />
 
     <EditableCellCheckbox v-model="localUser.isOnline" caption="isOnline" />
 
     <EditableCellButtons
       @edit="$emit('user-edited', { ...localUser })"
-      @delete="handleDelete"
+      @delete="$emit('user-deleted-id', localUser.id)"
     />
   </tr>
 </template>
