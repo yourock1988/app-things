@@ -14,25 +14,27 @@ export default {
     }
   },
 
-  computed: {},
+  computed: {
+    userKeys() {
+      return Object.keys(this.users.at(0) ?? {}).map(u => u.toUpperCase())
+    },
+  },
 
-  async created() {
-    this.users = await getUsers()
+  created() {
+    this.handleRefresh()
   },
 
   methods: {
-    // handleRefresh() {
-    //   console.log('REFRESH')
-    // },
+    async handleRefresh() {
+      this.users = await getUsers()
+    },
   },
 }
 </script>
 
 <template>
   <div id="w">
-    {{ users }}
-
-    <UsersUpdater />
+    <UsersUpdater @refresh="handleRefresh" />
 
     <UsersSubmitter @user-submitted="users.push($event)" />
 
@@ -40,13 +42,8 @@ export default {
       <table id="user-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Никнейм</th>
-            <th>Пароль</th>
-            <th>Email</th>
-            <th>Баланс</th>
-            <th>Онлайн</th>
-            <th>Действия</th>
+            <th v-for="userKey of userKeys" :key="userKey">{{ userKey }}</th>
+            <th></th>
           </tr>
         </thead>
 
