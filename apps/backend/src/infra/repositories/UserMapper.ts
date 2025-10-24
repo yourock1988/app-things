@@ -15,7 +15,7 @@ export default class UserMapper {
 
   static toRecord(model: User): TUserRecord {
     const userRecord: TUserRecord = {
-      id: model.id + '',
+      id: model.id.toString(),
       nickname: model.nickname,
       password: model.password,
       email: model.email,

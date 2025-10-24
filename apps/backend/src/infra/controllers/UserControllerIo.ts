@@ -34,7 +34,7 @@ export default class UserControllerIo {
   add(dto: TUserAddDto, ack: TAckFn<User>) {
     const user = this.userService.add(dto)
     ack?.(user)
-    //TODO:
+    // TODO:
     // socket.broadcast.emit('user:added-lol', user)
   }
 

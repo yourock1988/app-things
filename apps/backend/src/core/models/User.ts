@@ -9,6 +9,6 @@ export default class User {
   ) {}
 
   sayHello(info: string) {
-    console.log(info + ': hello! i am', this.nickname)
+    global.console.log(`${info} : hello! i am ${this.nickname}`)
   }
 }
