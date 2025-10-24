@@ -4,15 +4,22 @@ import UsersItem from './UsersItem.vue'
 export default {
   components: { UsersItem },
 
-  props: ['users'],
+  props: ['modelValue'],
 
-  emits: ['users-updated'],
+  emits: ['update:model-value'],
 
   methods: {
     handleEdit(editedUser) {
       this.$emit(
-        'users-updated',
-        this.users.map(u => (u.id === editedUser.id ? editedUser : u))
+        'update:model-value',
+        this.modelValue.map(u => (u.id === editedUser.id ? editedUser : u))
+      )
+    },
+
+    handleDelete(userId) {
+      this.$emit(
+        'update:model-value',
+        this.modelValue.filter(u => u.id !== userId)
       )
     },
   },
@@ -22,11 +29,12 @@ export default {
 <template>
   <tbody>
     <UsersItem
-      v-for="user of users"
+      v-for="user of modelValue"
       :key="user.id"
       :data-id="user.id"
       :user
       @user-edited="handleEdit"
+      @user-deleted-id="handleDelete"
     />
   </tbody>
 </template>
