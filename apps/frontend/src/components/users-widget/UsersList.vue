@@ -1,6 +1,8 @@
 <script>
 import UsersItem from './UsersItem.vue'
 
+import { patchUserById } from '../../api/users'
+
 export default {
   components: { UsersItem },
 
@@ -9,10 +11,12 @@ export default {
   emits: ['update:model-value'],
 
   methods: {
-    handleEdit(editedUser) {
+    async handleEdit(editedUser) {
+      const { id, ...body } = editedUser
+      const updatedUser = await patchUserById(id, body)
       this.$emit(
         'update:model-value',
-        this.modelValue.map(u => (u.id === editedUser.id ? editedUser : u))
+        this.modelValue.map(u => (u.id === updatedUser.id ? updatedUser : u))
       )
     },
 
