@@ -29,21 +29,23 @@ export default {
     }
   },
 
+  computed: {},
+
   methods: {
-    handleRefresh() {
-      console.log('REFRESH')
-    },
+    // handleRefresh() {
+    //   console.log('REFRESH')
+    // },
   },
 }
 </script>
 
 <template>
-  {{ users }}
-
   <div id="w">
-    <UsersUpdater @click="console.log(users)" />
+    {{ users }}
 
-    <UsersSubmitter @user-submitted="this.users.push($event)" />
+    <UsersUpdater />
+
+    <UsersSubmitter @user-submitted="users.push($event)" />
 
     <div class="card table-wrapper">
       <table id="user-table">
@@ -59,7 +61,7 @@ export default {
           </tr>
         </thead>
 
-        <UsersList :users @users-updated="users = $event" />
+        <UsersList v-model="users" />
       </table>
     </div>
   </div>
