@@ -37,11 +37,12 @@
   "dependencies": {
     "@yourock88/bind-self": "^0.0.3",
     "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
     "express": "^5.1.0",
+    "cors": "^2.8.5",
     "socket.io": "4.8.1"
   },
   "devDependencies": {
+    "@types/cookie-parser": "1.4.9",
     "@types/express": "^5.0.0",
     "@types/node": "^24.1.0",
     "typescript": "^5.8.0"
