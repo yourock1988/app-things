@@ -3,33 +3,22 @@ import UsersList from './UsersList.vue'
 import UsersSubmitter from './UsersSubmitter.vue'
 import UsersUpdater from './UsersUpdater.vue'
 
+import { getUsers } from '../../api/users.js'
+
 export default {
   components: { UsersSubmitter, UsersList, UsersUpdater },
 
   data() {
     return {
-      users: [
-        {
-          id: 111,
-          nickname: 'YouROCK',
-          password: 'qwerty123',
-          email: 'yourock88@super-mail.com',
-          money: 42,
-          isOnline: false,
-        },
-        {
-          id: 112,
-          nickname: 'youri',
-          password: 'qwe321',
-          email: 'youri@mail.com',
-          money: 33,
-          isOnline: false,
-        },
-      ],
+      users: [],
     }
   },
 
   computed: {},
+
+  async created() {
+    this.users = await getUsers()
+  },
 
   methods: {
     // handleRefresh() {
