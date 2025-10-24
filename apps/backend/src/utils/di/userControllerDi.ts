@@ -1,4 +1,4 @@
-import bindSelf from '../bindSelf.js'
+import bindSelf from '@yourock88/bind-self'
 import UserService from '../../core/services/UserService.js'
 import UserRepositoryDb from '../../infra/repositories/UserRepositoryDb.js'
 import UserControllerRest from '../../infra/controllers/UserControllerRest.js'
