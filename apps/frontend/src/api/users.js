@@ -24,6 +24,5 @@ export async function patchUserById(id, user) {
 }
 
 export async function deleteUserById(id) {
-  const response = await sendRequest(url + id, 'DELETE')
-  return response
+  await sendRequest(url + id, 'DELETE')
 }

@@ -20,7 +20,7 @@ export default class UserControllerRest {
     const dto: TUserAddDto = req.body
     global.console.log('>>>', dto)
     const user = this.userService.add(dto)
-    res.json(user)
+    res.status(201).json(user)
   }
 
   updateById(req: Request, res: Response) {
@@ -29,5 +29,11 @@ export default class UserControllerRest {
     const dto: TUserUpdateDto = { ...body, id }
     const user = this.userService.updateById(dto)
     res.json(user)
+  }
+
+  removeById(req: Request, res: Response) {
+    const id: number = +req.params.id
+    this.userService.removeById(id)
+    res.status(204).send()
   }
 }

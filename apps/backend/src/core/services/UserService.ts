@@ -31,4 +31,8 @@ export default class UserService extends EventEmitter {
     user?.sayHello('upd')
     return user
   }
+
+  removeById(id: number) {
+    this.userRepository.removeById(id)
+  }
 }

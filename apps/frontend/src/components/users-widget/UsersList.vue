@@ -1,7 +1,7 @@
 <script>
 import UsersItem from './UsersItem.vue'
 
-import { patchUserById } from '../../api/users'
+import { patchUserById, deleteUserById } from '../../api/users'
 
 export default {
   components: { UsersItem },
@@ -14,13 +14,19 @@ export default {
     async handleEdit(editedUser) {
       const { id, ...body } = editedUser
       const updatedUser = await patchUserById(id, body)
+      if (!updatedUser) {
+        // не странное ли поведение ?
+        await this.handleDelete(id)
+        return
+      }
       this.$emit(
         'update:model-value',
         this.modelValue.map(u => (u.id === updatedUser.id ? updatedUser : u))
       )
     },
 
-    handleDelete(userId) {
+    async handleDelete(userId) {
+      await deleteUserById(userId)
       this.$emit(
         'update:model-value',
         this.modelValue.filter(u => u.id !== userId)

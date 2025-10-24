@@ -7,5 +7,6 @@ usersRouter.get('/', userControllerRest.getAll)
 usersRouter.get('/:id', userControllerRest.getById)
 usersRouter.post('/', userControllerRest.add)
 usersRouter.patch('/:id', userControllerRest.updateById)
+usersRouter.delete('/:id', userControllerRest.removeById)
 
 export default usersRouter
