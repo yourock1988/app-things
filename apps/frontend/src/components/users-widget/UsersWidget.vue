@@ -3,7 +3,7 @@ import UsersList from './UsersList.vue'
 import UsersSubmitter from './UsersSubmitter.vue'
 import UsersUpdater from './UsersUpdater.vue'
 
-import { getUsers } from '../../api/users.js'
+import { getUsers, postUser } from '../../api/users.js'
 
 export default {
   components: { UsersSubmitter, UsersList, UsersUpdater },
@@ -28,6 +28,11 @@ export default {
     async handleRefresh() {
       this.users = await getUsers()
     },
+
+    async handleSubmit(user) {
+      const createdUser = await postUser(user)
+      this.users.push(createdUser)
+    },
   },
 }
 </script>
@@ -36,7 +41,7 @@ export default {
   <div id="w">
     <UsersUpdater @refresh="handleRefresh" />
 
-    <UsersSubmitter @user-submitted="users.push($event)" />
+    <UsersSubmitter @user-submitted="handleSubmit" />
 
     <div class="card table-wrapper">
       <table id="user-table">

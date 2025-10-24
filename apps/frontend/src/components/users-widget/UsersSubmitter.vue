@@ -1,5 +1,4 @@
 <script>
-import randId from '../../functions/randId.js'
 import FormGroup from '../FormGroup.vue'
 
 export default {
@@ -16,12 +15,11 @@ export default {
   methods: {
     initUser() {
       return {
-        id: randId(),
-        nickname: '',
-        password: '',
-        email: '',
-        money: 0,
-        isOnline: false,
+        nickname: 'foo',
+        password: 'bar',
+        email: 'foo@bar',
+        money: 321,
+        isOnline: true,
       }
     },
 
