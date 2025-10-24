@@ -144,20 +144,22 @@ h2 {
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px 30px;
   margin-bottom: 25px;
 }
 
-.form-group {
+.form-group > label {
   display: flex;
   flex-direction: column;
-}
-
-.form-group label {
   margin-bottom: 8px;
   color: var(--color-text-light);
   font-weight: 300;
+  /* width: 250px; */
+}
+.form-grid > label:has(input[type='checkbox']) {
+  flex-direction: row;
+  color: red;
 }
 
 input:not([type='checkbox']) {
