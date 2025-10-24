@@ -8,9 +8,9 @@ export default {
 
 <template>
   <td
-    @input="$emit('update:model-value', $event.target.textContent)"
-    :data-label="caption"
     contenteditable="true"
+    :data-label="caption"
+    @input="$emit('update:model-value', $event.target.textContent)"
   >
     {{ modelValue }}
   </td>
