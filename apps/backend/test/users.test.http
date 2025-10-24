@@ -4,7 +4,7 @@ GET http://localhost:8004/api/v0/users/
 GET http://localhost:8004/api/v0/users/111/
 ###
 
-POST http://localhost:8004/api/v0/users/111/
+POST http://localhost:8004/api/v0/users/
 content-type: application/json
 
 {"nickname":"ooooooo","password":"ooooooo","email":"qqq"}
