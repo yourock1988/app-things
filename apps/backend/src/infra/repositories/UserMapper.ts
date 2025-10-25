@@ -8,8 +8,7 @@ export default class UserMapper {
       record.nickname,
       record.password,
       record.email,
-      record.money,
-      false
+      record.money
     )
   }
 
