@@ -7,9 +7,9 @@ const moneySchema = z.number().min(0)
 
 export const zUserAddDto = z
   .object({
-    nickname: z.string().min(3),
-    password: z.string().min(8),
-    email: z.string().email(),
+    nickname: nicknameSchema,
+    password: passwordSchema,
+    email: emailSchema,
   })
   .strict()
 
