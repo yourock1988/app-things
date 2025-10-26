@@ -1,21 +1,32 @@
 GET http://localhost:8004/api/v0/users/
 ###
-
 GET http://localhost:8004/api/v0/users/111/
+###
+DELETE http://localhost:8004/api/v0/users/111/
 ###
 
 POST http://localhost:8004/api/v0/users/
 content-type: application/json
 
-{"nickname":"ooooooo","password":"ooooooo","email":"qqq"}
+{"nickname":"ooo","password":"ooooo","email":"ooo@ooo.oo"}
 ###
 
 PATCH http://localhost:8004/api/v0/users/111/
 content-type: application/json
 
-# {"bad":"xxxxx","qwe":"xxxxx"}
-{"money":11111,"password":"ooooooo","email":"qqq"}
+{"money":12345,"password":"xxxxx"}
+###
 ###
 
-DELETE http://localhost:8004/api/v0/users/111/
-###
+
+POST http://localhost:8004/api/v0/users/
+content-type: application/json
+
+{"nickname":"ooooooooo","password":"oooo","email":"ooo@ooooo"}
+### BAD
+
+PATCH http://localhost:8004/api/v0/users/111/
+content-type: application/json
+
+{"money":"12345","password":0}
+### BAD
