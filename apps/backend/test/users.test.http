@@ -11,7 +11,7 @@ content-type: application/json
 {"nickname":"ooo","password":"ooooo","email":"ooo@ooo.oo"}
 ###
 
-PATCH http://localhost:8004/api/v0/users/111/
+PATCH http://localhost:8004/api/v0/users/1111/
 content-type: application/json
 
 {"money":12345,"password":"xxxxx"}
@@ -19,14 +19,24 @@ content-type: application/json
 ###
 
 
+GET http://localhost:8004/api/v0/users/1111/
+###
+DELETE http://localhost:8004/api/v0/users/1111/
+###
+PATCH http://localhost:8004/api/v0/users/1111/
+content-type: application/json
+
+{"money":12345,"password":"xxxxx"}
+###
+PATCH http://localhost:8004/api/v0/users/111/
+content-type: application/json
+
+{"money":"12345","password":0}
+### BAD
+
 POST http://localhost:8004/api/v0/users/
 content-type: application/json
 
 {"nickname":"ooooooooo","password":"oooo","email":"ooo@ooooo"}
 ### BAD
 
-PATCH http://localhost:8004/api/v0/users/111/
-content-type: application/json
-
-{"money":"12345","password":0}
-### BAD
