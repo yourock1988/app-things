@@ -17,8 +17,8 @@ export default class Orm {
     return record
   }
 
-  update(dto: any) {
-    const record = this.selectById(dto.id)
+  updateById(id: number, dto: any) {
+    const record = this.selectById(id)
     if (record) Object.assign(record, dto)
     return record
   }

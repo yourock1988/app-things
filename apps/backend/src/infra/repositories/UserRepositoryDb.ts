@@ -23,8 +23,8 @@ export default class UserRepositoryDb implements IUserRepository {
     return UserMapper.toModel(record)
   }
 
-  updateById(dto: TUserUpdateDto): User | null {
-    const record: TUserRecord = this.orm.update(dto)
+  updateById(id: number, dto: TUserUpdateDto): User | null {
+    const record: TUserRecord = this.orm.updateById(id, dto)
     return record ? UserMapper.toModel(record) : null
   }
 

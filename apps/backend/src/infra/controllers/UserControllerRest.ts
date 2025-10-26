@@ -25,9 +25,8 @@ export default class UserControllerRest {
 
   updateById(req: Request, res: Response) {
     const id: number = +req.params.id
-    const { body } = req
-    const dto: TUserUpdateDto = { ...body, id }
-    const user = this.userService.updateById(dto)
+    const dto: TUserUpdateDto = req.body
+    const user = this.userService.updateById(id, dto)
     res.json(user)
   }
 

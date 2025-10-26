@@ -5,6 +5,6 @@ export interface IUserRepository {
   getAll(): User[]
   getById(id: number): User | null
   add(dto: TUserAddDto): User
-  updateById(dto: TUserUpdateDto): User | null
+  updateById(id: number, dto: TUserUpdateDto): User | null
   removeById(id: number): void
 }

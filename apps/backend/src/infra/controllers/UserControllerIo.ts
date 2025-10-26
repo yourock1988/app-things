@@ -38,8 +38,8 @@ export default class UserControllerIo {
     // socket.broadcast.emit('user:added-lol', user)
   }
 
-  updateById(dto: TUserUpdateDto, ack: TAckFn<User | null>) {
-    const user = this.userService.updateById(dto)
+  updateById(id: number, dto: TUserUpdateDto, ack: TAckFn<User | null>) {
+    const user = this.userService.updateById(id, dto)
     ack?.(user)
   }
 }
