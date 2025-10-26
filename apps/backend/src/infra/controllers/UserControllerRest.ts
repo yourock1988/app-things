@@ -18,7 +18,6 @@ export default class UserControllerRest {
 
   add(req: Request, res: Response) {
     const dto: TUserAddDto = req.body
-    global.console.log('>>>', dto)
     const user = this.userService.add(dto)
     res.status(201).json(user)
   }
