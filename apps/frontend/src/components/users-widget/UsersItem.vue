@@ -1,10 +1,9 @@
 <script>
 import EditableCellButtons from '../EditableCellButtons.vue'
-import EditableCellCheckbox from '../EditableCellCheckbox.vue'
 import EditableCellText from '../EditableCellText.vue'
 
 export default {
-  components: { EditableCellText, EditableCellCheckbox, EditableCellButtons },
+  components: { EditableCellText, EditableCellButtons },
 
   props: ['user'],
 
@@ -12,7 +11,7 @@ export default {
 
   data() {
     return {
-      localUser: { ...this.user },
+      localUser: this.parseUser(this.user),
     }
   },
 
@@ -20,8 +19,15 @@ export default {
     user: {
       deep: true,
       handler(val) {
-        this.localUser = { ...val }
+        this.localUser = this.parseUser(val)
       },
+    },
+  },
+
+  methods: {
+    parseUser(user) {
+      const { money, password } = user
+      return { money, password }
     },
   },
 }
@@ -29,18 +35,15 @@ export default {
 
 <template>
   <tr>
-    <td data-label="id">{{ localUser.id }}</td>
-
-    <EditableCellText v-model="localUser.nickname" caption="nickname" />
+    <td data-label="id">{{ user.id }}</td>
+    <td data-label="id">{{ user.nickname }}</td>
     <EditableCellText v-model="localUser.password" caption="password" />
-    <EditableCellText v-model="localUser.email" caption="email" />
+    <td data-label="id">{{ user.email }}</td>
     <EditableCellText v-model.number="localUser.money" caption="money" />
-
-    <EditableCellCheckbox v-model="localUser.isOnline" caption="isOnline" />
-
+    <td data-label="id">{{ user.isOnline }}</td>
     <EditableCellButtons
-      @edit="$emit('user-edited', { ...localUser })"
-      @delete="$emit('user-deleted-id', localUser.id)"
+      @edit="$emit('user-edited', user.id, { ...localUser })"
+      @delete="$emit('user-deleted-id', user.id)"
     />
   </tr>
 </template>

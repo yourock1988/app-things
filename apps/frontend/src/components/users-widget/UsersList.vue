@@ -11,12 +11,11 @@ export default {
   emits: ['update:model-value'],
 
   methods: {
-    async handleEdit(editedUser) {
-      const { id, ...body } = editedUser
-      const updatedUser = await patchUserById(id, body)
+    async handleEdit(userId, editedUser) {
+      const updatedUser = await patchUserById(userId, editedUser)
       if (!updatedUser) {
-        // не странное ли поведение ?
-        await this.handleDelete(id)
+        // TODO: не странное ли поведение ?
+        await this.handleDelete(userId)
         return
       }
       this.$emit(

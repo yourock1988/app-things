@@ -16,10 +16,8 @@ export default {
     initUser() {
       return {
         nickname: 'foo',
-        password: 'bar',
-        email: 'foo@bar',
-        money: 321,
-        isOnline: true,
+        password: 'xxxxx',
+        email: 'foo@bar.io',
       }
     },
 
