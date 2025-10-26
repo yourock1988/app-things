@@ -37,9 +37,10 @@
   "dependencies": {
     "@yourock88/bind-self": "^0.0.3",
     "cookie-parser": "^1.4.7",
-    "express": "^5.1.0",
     "cors": "^2.8.5",
-    "socket.io": "4.8.1"
+    "express": "^5.1.0",
+    "socket.io": "4.8.1",
+    "zod": "3.25.76"
   },
   "devDependencies": {
     "@types/cookie-parser": "1.4.9",
