@@ -28,7 +28,7 @@ export default class UserRepositoryDb implements IUserRepository {
     return record ? UserMapper.toModel(record) : null
   }
 
-  removeById(id: number): void {
-    this.orm.delete(id)
+  removeById(id: number): boolean {
+    return this.orm.delete(id)
   }
 }

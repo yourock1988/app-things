@@ -23,8 +23,12 @@ export default class Orm {
     return record
   }
 
-  delete(id: number) {
+  delete(id: number): boolean {
     const idx = this.table.findIndex(u => u.id === id)
-    if (idx > -1) this.table.splice(idx, 1)
+    if (idx > -1) {
+      this.table.splice(idx, 1)
+      return true
+    }
+    return false
   }
 }
