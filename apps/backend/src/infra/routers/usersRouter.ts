@@ -6,13 +6,15 @@ import { TUserAddDto, TUserUpdateDto } from '../../core/dtos/TUserDtos.js'
 
 const usersRouter = Router()
 
-const addMiddleware = validateSchema<TUserAddDto>(zUserAddDto)
-const updateMiddleware = validateSchema<TUserUpdateDto>(zUserUpdateDto)
+const validate = {
+  userAdd: validateSchema<TUserAddDto>(zUserAddDto),
+  userUpdate: validateSchema<TUserUpdateDto>(zUserUpdateDto),
+}
 
 usersRouter.get('/', userControllerRest.getAll)
 usersRouter.get('/:id', userControllerRest.getById)
-usersRouter.post('/', addMiddleware, userControllerRest.add)
-usersRouter.patch('/:id', updateMiddleware, userControllerRest.updateById)
+usersRouter.post('/', validate.userAdd, userControllerRest.add)
+usersRouter.patch('/:id', validate.userUpdate, userControllerRest.updateById)
 usersRouter.delete('/:id', userControllerRest.removeById)
 
 export default usersRouter
