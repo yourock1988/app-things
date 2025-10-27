@@ -1,5 +1,8 @@
 import { createServer } from 'node:http'
-import { Server } from 'socket.io'
+import initServerIo from './infra/initServerIo.js'
 
-export const appIo = createServer()
-export const io = new Server(appIo)
+const appIo = createServer()
+
+initServerIo(appIo)
+
+export default appIo

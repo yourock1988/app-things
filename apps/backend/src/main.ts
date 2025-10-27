@@ -1,5 +1,5 @@
 import appRest from './appRest.js'
-import { appIo } from './appIo.js'
+import appIo from './appIo.js'
 
 const PORT_REST = process.env.APP_BE_PORT || 8004
 const PORT_IO = 7700
