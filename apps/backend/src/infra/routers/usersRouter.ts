@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { userControllerRest } from '../../utils/di/userControllerDi.js'
+import { userControllerRest } from '../di/userDi.js'
 import { userAdd, userUpdate } from '../middlewares/mwUserRest.js'
 
 const usersRouter = Router()

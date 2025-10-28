@@ -5,31 +5,10 @@ import User from '../../core/models/User.js'
 
 type TAckFn<T> = (result: T) => void
 
-// нехочу видеть в контроллере входящий поток
-
-// а что если передвинуть создание io сервера прямо в DI контейнер нахуй ??
-
 export default class UserControllerIo {
-  sv: Server | undefined
-
-  constructor(readonly userService: UserService) {
-    // sv.on('connection', this.registerHandlers.bind(this))
+  constructor(readonly userService: UserService, io: Server) {
+    userService.on('user:added', (u: User) => io.emit('user:added', u))
   }
-
-  setServer(sv: Server) {
-    this.sv = sv
-    this.userService.on('user:added', (u: User) => sv.emit('user:added', u))
-  }
-
-  // registerHandlers(socket: Socket) {
-  //   socket.on('user:add', this.add)
-  //   socket.on('user:getAll', this.getAll)
-  //   socket.on('user:getById', this.getById)
-  //   socket.on('user:updateById', this.updateById)
-  //   socket.on('user:add', (user: User) =>
-  //     socket.broadcast.emit('user:added-lol', user)
-  //   )
-  // }
 
   getAll(_: string, ack: TAckFn<User[]>) {
     const users = this.userService.getAll()
@@ -44,8 +23,7 @@ export default class UserControllerIo {
   add(dto: TUserAddDto, ack: TAckFn<User>) {
     const user = this.userService.add(dto)
     ack?.(user)
-    // TODO:
-    // socket.broadcast.emit('user:added-lol', user)
+    // TODO: socket.broadcast.emit('user:added-lol', user)
   }
 
   updateById(id: number, dto: TUserUpdateDto, ack: TAckFn<User | null>) {

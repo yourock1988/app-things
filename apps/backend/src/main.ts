@@ -1,5 +1,7 @@
 import appRest from './appRest.js'
-import appIo from './appIo.js'
+import servDi from './infra/di/servDi.js'
+
+const appIo = servDi.getApp()
 
 const PORT_REST = process.env.APP_BE_PORT || 8004
 const PORT_IO = 7700
