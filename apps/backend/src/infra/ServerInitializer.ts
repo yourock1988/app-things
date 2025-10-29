@@ -1,5 +1,5 @@
-import { Server } from 'socket.io'
 import { createServer } from 'node:http'
+import { Server } from 'socket.io'
 
 export default class ServerInitializer {
   io: Server

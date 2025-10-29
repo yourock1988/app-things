@@ -1,6 +1,6 @@
 import { Server } from 'socket.io'
-import UserService from '../../core/services/UserService.js'
 import { TUserAddDto, TUserUpdateDto } from '../../core/dtos/TUserDtos.js'
+import UserService from '../../core/services/UserService.js'
 import User from '../../core/models/User.js'
 
 type TAckFn<T> = (result: T) => void

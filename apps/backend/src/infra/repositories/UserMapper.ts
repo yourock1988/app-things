@@ -1,5 +1,5 @@
-import User from '../../core/models/User.js'
 import { TUserRecord } from './TUserRecord.js'
+import User from '../../core/models/User.js'
 
 export default class UserMapper {
   static toModel(record: TUserRecord): User {

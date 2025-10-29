@@ -1,7 +1,7 @@
 <script>
-import UsersList from './UsersList.vue'
 import UsersSubmitter from './UsersSubmitter.vue'
 import UsersUpdater from './UsersUpdater.vue'
+import UsersList from './UsersList.vue'
 
 import { getUsers, postUser } from '../../api/users.js'
 

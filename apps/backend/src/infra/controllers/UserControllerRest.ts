@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import UserService from '../../core/services/UserService.js'
 import { TUserAddDto, TUserUpdateDto } from '../../core/dtos/TUserDtos.js'
+import UserService from '../../core/services/UserService.js'
 
 export default class UserControllerRest {
   constructor(readonly userService: UserService) {}

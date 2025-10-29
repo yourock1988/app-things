@@ -1,5 +1,5 @@
-import User from '../models/User.js'
 import { TUserAddDto, TUserUpdateDto } from '../dtos/TUserDtos.js'
+import User from '../models/User.js'
 
 export interface IUserRepository {
   getAll(): User[]

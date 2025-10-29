@@ -1,6 +1,6 @@
 import EventEmitter from 'node:events'
-import { TUserAddDto, TUserUpdateDto } from '../dtos/TUserDtos.js'
 import { IUserRepository } from '../i-repositories/IUserRepository.js'
+import { TUserAddDto, TUserUpdateDto } from '../dtos/TUserDtos.js'
 import User from '../models/User.js'
 
 export default class UserService extends EventEmitter {
