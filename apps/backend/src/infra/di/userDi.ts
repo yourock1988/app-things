@@ -7,19 +7,23 @@ import usersTable from '../../utils/tables/usersTable.js'
 import UserControllerIo from '../controllers/UserControllerIo.js'
 import UserRouterIo from '../routers/UserRouterIo.js'
 import serv from './servDi.js'
+import UserRouterRest from '../routers/UserRouterRest.js'
+import mwUserRest from '../middlewares/mwUserRest.js'
 
 const usersOrm = new Orm(usersTable)
 const userRepositoryDb = new UserRepositoryDb(usersOrm)
 const userService = new UserService(userRepositoryDb)
-const userControllerRest = new UserControllerRest(userService)
-const userControllerIo = new UserControllerIo(userService, serv.getIo())
-const userRouterIo = new UserRouterIo(userControllerIo)
 
+const userControllerRest = new UserControllerRest(userService)
 bindSelf(userControllerRest)
+const userRouterRest = new UserRouterRest(userControllerRest, mwUserRest).router
+
+const userControllerIo = new UserControllerIo(userService, serv.getIo())
 bindSelf(userControllerIo)
+const userRouterIo = new UserRouterIo(userControllerIo)
 bindSelf(userRouterIo)
 
 serv.addRouterIo(userRouterIo.registerHandlers)
 serv.addMiddleware(userRouterIo.getMiddleware())
 
-export { userControllerRest, serv, userRouterIo }
+export { userRouterIo, userRouterRest }
