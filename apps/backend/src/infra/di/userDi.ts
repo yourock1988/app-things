@@ -9,6 +9,7 @@ import UserRouterIo from '../routers/UserRouterIo.js'
 import serv from './servDi.js'
 import UserRouterRest from '../routers/UserRouterRest.js'
 import mwUserRest from '../middlewares/mwUserRest.js'
+import mwUserIo from '../middlewares/mwUserIo.js'
 
 const usersOrm = new Orm(usersTable)
 const userRepositoryDb = new UserRepositoryDb(usersOrm)
@@ -20,10 +21,10 @@ const userRouterRest = new UserRouterRest(userControllerRest, mwUserRest).router
 
 const userControllerIo = new UserControllerIo(userService, serv.getIo())
 bindSelf(userControllerIo)
-const userRouterIo = new UserRouterIo(userControllerIo)
+const userRouterIo = new UserRouterIo(userControllerIo, mwUserIo)
 bindSelf(userRouterIo)
 
-serv.addRouterIo(userRouterIo.registerHandlers)
-serv.addMiddleware(userRouterIo.getMiddleware())
+// serv.addRouterIo(userRouterIo.registerHandlers)
+// serv.addMiddleware(userRouterIo.getMiddleware())
 
 export { userRouterIo, userRouterRest }

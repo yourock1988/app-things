@@ -15,7 +15,6 @@ export default class ServerInitializer {
 
     this.io.use((socket, next) => {
       this.middlewares.forEach(mw => socket.use(mw))
-      // socket.use(mwUserIo)
       next()
     })
   }
@@ -28,11 +27,8 @@ export default class ServerInitializer {
     return this.app
   }
 
-  addMiddleware(mw: any) {
-    this.middlewares.push(mw)
-  }
-
   addRouterIo(routerIo: any) {
-    this.io.on('connection', routerIo)
+    this.middlewares.push(routerIo.getMiddleware())
+    this.io.on('connection', routerIo.registerHandlers)
   }
 }

@@ -1,7 +1,5 @@
-import mwUserIo from '../middlewares/mwUserIo.js'
-
 export default class UserRouterIo {
-  constructor(readonly userControllerIo: any) {}
+  constructor(readonly userControllerIo: any, readonly mwUserIo: any) {}
 
   registerHandlers(socket: any) {
     socket.on('user:add', this.userControllerIo.add)
@@ -13,8 +11,7 @@ export default class UserRouterIo {
     )
   }
 
-  // eslint-disable-next-line class-methods-use-this
   getMiddleware() {
-    return mwUserIo
+    return this.mwUserIo
   }
 }
