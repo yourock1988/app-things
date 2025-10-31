@@ -5,5 +5,5 @@ import validateSchemaIo from '../../utils/validateSchemaIo.js'
 
 export default compileMiddlewares({
   'user:add': validateSchemaIo<TUserAddDto>(zUserAddDto),
-  'user:update': validateSchemaIo<TUserUpdateDto>(zUserUpdateDto),
+  'user:updateById': validateSchemaIo<TUserUpdateDto>(zUserUpdateDto),
 })
