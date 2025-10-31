@@ -2,6 +2,7 @@ import { Server } from 'socket.io'
 import { TUserAddDto, TUserUpdateDto } from '../../core/dtos/TUserDtos.js'
 import UserService from '../../core/services/UserService.js'
 import User from '../../core/models/User.js'
+import SocketError from '../../errors/SocketError.js'
 
 type TAckFn<T> = (result: T) => void
 
@@ -29,5 +30,11 @@ export default class UserControllerIo {
   updateById(id: number, dto: TUserUpdateDto, ack: TAckFn<User | null>) {
     const user = this.userService.updateById(id, dto)
     ack?.(user)
+  }
+
+  removeById(id: number, ack: TAckFn<User | null | SocketError>) {
+    const hasBeenExists = this.userService.removeById(id)
+    if (hasBeenExists) ack?.(null)
+    else ack?.(new SocketError(404, 'removeById'))
   }
 }

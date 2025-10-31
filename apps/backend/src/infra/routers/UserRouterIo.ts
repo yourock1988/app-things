@@ -6,6 +6,7 @@ export default class UserRouterIo {
     socket.on('user:getAll', this.userControllerIo.getAll)
     socket.on('user:getById', this.userControllerIo.getById)
     socket.on('user:updateById', this.userControllerIo.updateById)
+    socket.on('user:removeById', this.userControllerIo.removeById)
     socket.on('user:add', (user: any) =>
       socket.broadcast.emit('user:added-lol', user)
     )
