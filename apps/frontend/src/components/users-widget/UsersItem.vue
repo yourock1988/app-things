@@ -1,4 +1,6 @@
 <script>
+import { mapActions } from 'vuex'
+
 import EditableCellButtons from '../EditableCellButtons.vue'
 import EditableCellText from '../EditableCellText.vue'
 
@@ -25,6 +27,8 @@ export default {
   },
 
   methods: {
+    ...mapActions('users', ['updateUserById', 'deleteUserById']),
+
     parseUser(user) {
       const { money, password } = user
       return { money, password }
@@ -42,8 +46,8 @@ export default {
     <EditableCellText v-model.number="localUser.money" caption="money" />
     <td data-label="id">{{ user.isOnline }}</td>
     <EditableCellButtons
-      @edit="$emit('user-edited', user.id, { ...localUser })"
-      @delete="$emit('user-deleted-id', user.id)"
+      @edit="updateUserById({ id: user.id, user: localUser })"
+      @delete="deleteUserById(user.id)"
     />
   </tr>
 </template>

@@ -1,47 +1,36 @@
 <script>
+import { mapState, mapActions } from 'vuex'
+
 import UsersSubmitter from './UsersSubmitter.vue'
 import UsersUpdater from './UsersUpdater.vue'
 import UsersList from './UsersList.vue'
 
-import { getUsers, postUser } from '../../api/users.js'
-
 export default {
   components: { UsersSubmitter, UsersList, UsersUpdater },
 
-  data() {
-    return {
-      users: [],
-    }
-  },
-
   computed: {
+    ...mapState('users', ['users']),
+
     userKeys() {
       return Object.keys(this.users.at(0) ?? {}).map(u => u.toUpperCase())
     },
   },
 
   created() {
-    this.handleRefresh()
+    this.readUsers()
   },
 
   methods: {
-    async handleRefresh() {
-      this.users = await getUsers()
-    },
-
-    async handleSubmit(user) {
-      const createdUser = await postUser(user)
-      this.users.push(createdUser)
-    },
+    ...mapActions('users', ['readUsers', 'createUser']),
   },
 }
 </script>
 
 <template>
   <div id="w">
-    <UsersUpdater @refresh="handleRefresh" />
+    <UsersUpdater @refresh="readUsers" />
 
-    <UsersSubmitter @user-submitted="handleSubmit" />
+    <UsersSubmitter @user-submitted="createUser" />
 
     <div class="card table-wrapper">
       <table id="user-table">

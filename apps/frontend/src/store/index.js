@@ -1,11 +1,9 @@
 import { createStore } from 'vuex'
 
-import product from './product'
-import products from './products'
+import users from './users'
 
 export default createStore({
   modules: {
-    product,
-    products,
+    users,
   },
 })
