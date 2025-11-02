@@ -21,11 +21,12 @@
   "ignorePatterns": ["node_modules/", "lib/", "dist/", "build/"],
   "extends": ["airbnb-base", "plugin:vue/vue3-recommended", "prettier"],
   "rules": {
+    "no-promise-executor-return": "off",
     "import/extensions": "off",
     "no-param-reassign": "off",
     "no-return-await": "off",
+    "vue/no-undef-properties": "off",
     "vue/require-prop-types": "off",
-    "vue/no-undef-properties": "warn",
     "vue/no-unused-properties": [
       "warn",
       {
