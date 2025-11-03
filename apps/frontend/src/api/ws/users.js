@@ -2,9 +2,6 @@ import { io } from 'socket.io-client'
 
 const socket = io('ws://localhost:7700', { transports: ['websocket'] })
 
-socket.on('connect', () => global.console.log('connect'))
-socket.on('user:added', () => global.console.log('user:added'))
-
 export function getAll() {
   return new Promise(resolve => socket.emit('user:getAll', '_', resolve))
 }

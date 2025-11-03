@@ -1,5 +1,12 @@
 import * as apiUsers from '@/api/ws/users'
 
+const socket = apiUsers.default
+
+export const usersInit = store => {
+  socket.on('connect', () => store.dispatch('users/readUsers'))
+  socket.on('user:added-lol', d => store.commit('users/ADD_USER', d))
+}
+
 export default {
   namespaced: true,
 

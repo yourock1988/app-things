@@ -17,7 +17,7 @@ export default {
   },
 
   created() {
-    this.readUsers()
+    // подключатся к socket-io серверу при криэйтеде
   },
 
   methods: {
