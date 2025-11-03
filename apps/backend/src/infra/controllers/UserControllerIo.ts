@@ -1,13 +1,13 @@
-import { Server } from 'socket.io'
+import { Server, Socket } from 'socket.io'
 import { TUserAddDto, TUserUpdateDto } from '../../core/dtos/TUserDtos.js'
 import UserService from '../../core/services/UserService.js'
-import User from '../../core/models/User.js'
 import SocketError from '../../errors/SocketError.js'
+import User from '../../core/models/User.js'
 
 type TAckFn<T> = (result: T) => void
 
 export default class UserControllerIo {
-  constructor(readonly userService: UserService, io: Server) {
+  constructor(readonly userService: UserService, readonly io: Server) {
     userService.on('user:added', (u: User) => io.emit('user:added', u))
   }
 
@@ -21,10 +21,11 @@ export default class UserControllerIo {
     ack?.(user)
   }
 
-  add(dto: TUserAddDto, ack: TAckFn<User>) {
+  add(dto: TUserAddDto, ack: TAckFn<User>, socket: Socket) {
     const user = this.userService.add(dto)
     ack?.(user)
-    // TODO: socket.broadcast.emit('user:added-lol', user)
+    socket.broadcast.emit('user:added-lol', user)
+    // this.io.emit('user:added-lol', user)
   }
 
   updateById(id: number, dto: TUserUpdateDto, ack: TAckFn<User | null>) {
