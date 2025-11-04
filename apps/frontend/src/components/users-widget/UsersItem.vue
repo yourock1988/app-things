@@ -41,9 +41,19 @@ export default {
   <tr>
     <td data-label="id">{{ user.id }}</td>
     <td data-label="id">{{ user.nickname }}</td>
-    <EditableCellText v-model="localUser.password" caption="password" />
+    <EditableCellText
+      v-model="localUser.password"
+      type="text"
+      caption="password"
+      :err="user?.err?.['password']?._errors?.[0]"
+    />
     <td data-label="id">{{ user.email }}</td>
-    <EditableCellText v-model.number="localUser.money" caption="money" />
+    <EditableCellText
+      v-model.number="localUser.money"
+      type="number"
+      caption="money"
+      :err="user?.err?.['money']?._errors?.[0]"
+    />
     <td data-label="id">{{ user.isOnline }}</td>
     <EditableCellButtons
       @edit="updateUserById({ id: user.id, user: localUser })"

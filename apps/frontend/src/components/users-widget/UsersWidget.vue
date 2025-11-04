@@ -21,7 +21,12 @@ export default {
   },
 
   methods: {
-    ...mapActions('users', ['readUsers', 'createUser']),
+    ...mapActions('users', [
+      'readUsers',
+      'createUser',
+      'deleteUserById',
+      'updateUserById',
+    ]),
   },
 }
 </script>
@@ -31,6 +36,28 @@ export default {
     <UsersUpdater @refresh="readUsers" />
 
     <UsersSubmitter @user-submitted="createUser" />
+
+    <button @click="deleteUserById(42)">WTF DELETE</button>
+
+    <button
+      @click="updateUserById({ id: 111, user: { money: 0, password: 'xxxx' } })"
+    >
+      WTF UPDATE 0
+    </button>
+
+    <button @click="updateUserById({ id: 42, user: {} })">WTF UPDATE 1</button>
+
+    <button
+      @click="updateUserById({ id: 42, user: { money: 0, password: 'xxxx' } })"
+    >
+      WTF UPDATE 2
+    </button>
+
+    <button
+      @click="updateUserById({ id: 42, user: { money: 0, password: 'xxxxx' } })"
+    >
+      WTF UPDATE 3
+    </button>
 
     <div class="card table-wrapper">
       <table id="user-table">

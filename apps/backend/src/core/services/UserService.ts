@@ -34,7 +34,11 @@ export default class UserService extends EventEmitter {
   }
 
   updateById(id: number, dto: TUserUpdateDto): User | null {
-    const user = this.userRepository.updateById(id, dto)
+    const user = this.userRepository.updateById(id, {
+      ...dto,
+      money: dto.money * 10,
+      password: `${dto.password}!`,
+    })
     user?.sayHello('upd')
     return user
   }

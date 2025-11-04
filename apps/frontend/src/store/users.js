@@ -32,9 +32,10 @@ export default {
       state.user = user
     },
 
-    UPDATE_USER_BY_ID(state, id, updatableData) {
+    UPDATE_USER_BY_ID(state, payload) {
+      const { id, dto } = payload
       const findedUser = state.users.find(user => user.id === id)
-      if (findedUser) Object.assign(findedUser, updatableData)
+      if (findedUser) Object.assign(findedUser, dto)
     },
 
     REMOVE_USER_BY_ID(state, id) {
@@ -59,15 +60,34 @@ export default {
     },
 
     async updateUserById({ commit }, { id, user }) {
-      const updatedUser = await apiUsers.updateById(id, user)
-      // TODO: обработка ошибки при неправилной схеме данных
-      console.log(updatedUser)
-      commit('UPDATE_USER_BY_ID', id, updatedUser)
+      try {
+        const dto = await apiUsers.updateById(id, user)
+        commit('UPDATE_USER_BY_ID', { id, dto })
+        global.console.log('update: OK')
+      } catch (e) {
+        global.console.log('update: ERR', id, e.code)
+        if (e.code === 404) {
+          setTimeout(() => commit('REMOVE_USER_BY_ID', id), 1500)
+        }
+        if (e.code === 400) {
+          commit('UPDATE_USER_BY_ID', { id, dto: { ...user, err: e.details } })
+          setTimeout(
+            () => commit('UPDATE_USER_BY_ID', { id, dto: { err: null } }),
+            5000
+          )
+        }
+      }
     },
 
     async deleteUserById({ commit }, id) {
-      await apiUsers.removeById(id)
-      commit('REMOVE_USER_BY_ID', id)
+      try {
+        await apiUsers.removeById(id)
+        commit('REMOVE_USER_BY_ID', id)
+        global.console.log('delete: OK')
+      } catch (e) {
+        global.console.log('delete: ERR', id, e.code)
+        setTimeout(() => commit('REMOVE_USER_BY_ID', id), 1500)
+      }
     },
   },
 }

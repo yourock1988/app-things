@@ -1,12 +1,19 @@
 export default class SocketError extends Error {
-  constructor(readonly code: number, readonly methodName: string) {
-    super(code + methodName)
+  constructor(
+    readonly code: number,
+    readonly cause: string,
+    readonly message: string,
+    readonly details?: object
+  ) {
+    super(message, { cause })
   }
 
   toJSON() {
     return {
       code: this.code,
-      methodName: this.methodName,
+      cause: this.cause,
+      message: this.message,
+      details: this.details,
     }
   }
 }
