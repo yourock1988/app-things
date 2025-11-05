@@ -4,7 +4,13 @@ const socket = apiUsers.default
 
 export const usersInit = store => {
   socket.on('connect', () => store.dispatch('users/readUsers'))
-  socket.on('user:added-bc', d => store.commit('users/ADD_USER', d))
+  socket.on('bc-cl:user:added', data => store.commit('users/ADD_USER', data))
+  socket.on('bc-cl:user:updated', ({ id, ...dto }) =>
+    store.commit('users/UPDATE_USER_BY_ID', { id, dto })
+  )
+  socket.on('bc-cl:user:deleted', id =>
+    store.commit('users/REMOVE_USER_BY_ID', id)
+  )
 }
 
 export default {
@@ -57,9 +63,7 @@ export default {
       try {
         const createdUser = await apiUsers.add(user)
         commit('ADD_USER', createdUser)
-        global.console.log('createUser: OK', user)
       } catch (e) {
-        global.console.log('createUser: ERR', user, e.code)
         commit('SET_ERR', e.details)
         setTimeout(() => commit('UNSET_ERR'), 5000)
       }
@@ -74,9 +78,7 @@ export default {
       try {
         const readedUser = await apiUsers.getById(id)
         commit('SET_USER_BY_ID', readedUser)
-        global.console.log('readUserById: OK')
       } catch (e) {
-        global.console.log('readUserById: ERR', id, e.code)
         commit('SET_ERR', e)
         setTimeout(() => commit('UNSET_ERR'), 5000)
       }
@@ -86,9 +88,7 @@ export default {
       try {
         const dto = await apiUsers.updateById(id, user)
         commit('UPDATE_USER_BY_ID', { id, dto })
-        global.console.log('update: OK')
       } catch (e) {
-        global.console.log('update: ERR', id, e.code)
         if (e.code === 404) {
           setTimeout(() => commit('REMOVE_USER_BY_ID', id), 1500)
         }
@@ -106,9 +106,7 @@ export default {
       try {
         await apiUsers.removeById(id)
         commit('REMOVE_USER_BY_ID', id)
-        global.console.log('delete: OK')
       } catch (e) {
-        global.console.log('delete: ERR', id, e.code)
         setTimeout(() => commit('REMOVE_USER_BY_ID', id), 1500)
       }
     },

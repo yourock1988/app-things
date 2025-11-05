@@ -7,8 +7,12 @@ export default class UserRouterIo {
     )
     socket.on('user:getAll', this.userControllerIo.getAll)
     socket.on('user:getById', this.userControllerIo.getById)
-    socket.on('user:updateById', this.userControllerIo.updateById)
-    socket.on('user:removeById', this.userControllerIo.removeById)
+    socket.on('user:updateById', (...args: any[]) =>
+      this.userControllerIo.updateById(...args, socket)
+    )
+    socket.on('user:removeById', (...args: any[]) =>
+      this.userControllerIo.removeById(...args, socket)
+    )
   }
 
   getMiddleware() {
