@@ -1,15 +1,12 @@
 <script>
-import state from '@/functions/state'
-
-export default {
-  components: {},
-
-  computed: {
-    searchQuery: state('products', 'searchQuery', 'setSearchQuery', true),
-  },
-}
+export default {}
 </script>
 
 <template>
-  <h1>Main Page</h1>
+  <div>
+    <h3>PAGE MAIN</h3>
+    <p>Welcome to site</p>
+  </div>
 </template>
+
+<style scoped></style>

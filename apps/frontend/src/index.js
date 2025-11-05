@@ -1,6 +1,6 @@
 import * as Vue from 'vue'
 import store from '@/store'
-// import router from '@/router'
+import router from '@/router'
 
 import App from '@/App.vue'
 import '@/assets/css/style.css'
@@ -14,6 +14,6 @@ global.console.log(APP_FE_COMMENT)
 global.console.log(APP_ORIGIN)
 
 app.use(store)
-// app.use(router)
+app.use(router)
 
 window.vm = app.mount('#app')

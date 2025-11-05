@@ -1,25 +1,20 @@
 import { createWebHistory, createRouter } from 'vue-router'
+import PageTests from '../pages/PageTests.vue'
+import PageUsers from '../pages/PageUsers.vue'
+import PageMain from '../pages/PageMain.vue'
 
 const routes = [
   {
     path: '/',
     component: PageMain,
-    children: [
-      {
-        path: 'products',
-        component: PageProducts,
-      },
-      {
-        path: 'product/:id',
-        component: PageProduct,
-        props: true,
-      },
-      {
-        path: 'cart',
-        component: PageCart,
-        props: true,
-      },
-    ],
+  },
+  {
+    path: '/users',
+    component: PageUsers,
+  },
+  {
+    path: '/tests',
+    component: PageTests,
   },
 ]
 
