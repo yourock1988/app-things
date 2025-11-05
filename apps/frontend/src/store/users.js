@@ -4,7 +4,7 @@ const socket = apiUsers.default
 
 export const usersInit = store => {
   socket.on('connect', () => store.dispatch('users/readUsers'))
-  socket.on('user:added-lol', d => store.commit('users/ADD_USER', d))
+  socket.on('user:added-bc', d => store.commit('users/ADD_USER', d))
 }
 
 export default {
@@ -14,12 +14,21 @@ export default {
     return {
       users: [],
       user: null,
+      err: null,
     }
   },
 
   getters: {},
 
   mutations: {
+    SET_ERR(state, err) {
+      state.err = err
+    },
+
+    UNSET_ERR(state) {
+      state.err = null
+    },
+
     ADD_USER(state, user) {
       state.users.push(user)
     },
@@ -45,8 +54,15 @@ export default {
 
   actions: {
     async createUser({ commit }, user) {
-      const createdUser = await apiUsers.add(user)
-      commit('ADD_USER', createdUser)
+      try {
+        const createdUser = await apiUsers.add(user)
+        commit('ADD_USER', createdUser)
+        global.console.log('createUser: OK', user)
+      } catch (e) {
+        global.console.log('createUser: ERR', user, e.code)
+        commit('SET_ERR', e.details)
+        setTimeout(() => commit('UNSET_ERR'), 5000)
+      }
     },
 
     async readUsers({ commit }) {
@@ -54,9 +70,16 @@ export default {
       commit('SET_USERS', readedUsers)
     },
 
-    async readUserById({ commit }) {
-      const readedUser = await apiUsers.getAll()
-      commit('SET_USER_BY_ID', readedUser)
+    async readUserById({ commit }, id) {
+      try {
+        const readedUser = await apiUsers.getById(id)
+        commit('SET_USER_BY_ID', readedUser)
+        global.console.log('readUserById: OK')
+      } catch (e) {
+        global.console.log('readUserById: ERR', id, e.code)
+        commit('SET_ERR', e)
+        setTimeout(() => commit('UNSET_ERR'), 5000)
+      }
     },
 
     async updateUserById({ commit }, { id, user }) {

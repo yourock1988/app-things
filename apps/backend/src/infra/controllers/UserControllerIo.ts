@@ -17,14 +17,15 @@ export default class UserControllerIo {
 
   getById(id: number, ack: TAckFn<User | null>) {
     const user = this.userService.getById(+id)
-    ack?.(null, user)
+    if (user) ack?.(null, user)
+    else ack?.(new SocketError(404, 'getById', `user id ${id} not exists`))
   }
 
   add(dto: TUserAddDto, ack: TAckFn<User>, socket: Socket) {
     const user = this.userService.add(dto)
     ack?.(null, user)
-    socket.broadcast.emit('user:added-lol', user)
-    // this.io.emit('user:added-lol', user)
+    socket.broadcast.emit('user:added-bc', user)
+    // this.io.emit('user:added-sv', user)
   }
 
   updateById(id: number, dto: TUserUpdateDto, ack: TAckFn<User | null>) {

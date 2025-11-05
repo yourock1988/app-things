@@ -41,16 +41,6 @@ export default {
           placeholder="Ваш email"
           type="email"
         />
-        <FormGroup
-          v-model.number="localUser.money"
-          placeholder="Ваш баланс ($)"
-          type="number"
-        />
-        <FormGroup
-          v-model="localUser.isOnline"
-          placeholder="Вы онлайн ?"
-          type="checkbox"
-        />
       </div>
       <button type="submit" class="control-btn primary">
         <span class="icon">➕</span> Добавить пользователя

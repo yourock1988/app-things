@@ -9,7 +9,7 @@ export default {
   components: { UsersSubmitter, UsersList, UsersUpdater },
 
   computed: {
-    ...mapState('users', ['users']),
+    ...mapState('users', ['users', 'err']),
 
     userKeys() {
       return Object.keys(this.users.at(0) ?? {}).map(u => u.toUpperCase())
@@ -26,6 +26,7 @@ export default {
       'createUser',
       'deleteUserById',
       'updateUserById',
+      'readUserById',
     ]),
   },
 }
@@ -36,6 +37,8 @@ export default {
     <UsersUpdater @refresh="readUsers" />
 
     <UsersSubmitter @user-submitted="createUser" />
+
+    <div>{{ err }}</div>
 
     <button @click="deleteUserById(42)">WTF DELETE</button>
 
@@ -58,6 +61,20 @@ export default {
     >
       WTF UPDATE 3
     </button>
+
+    <button
+      @click="
+        createUser({
+          nickname: 'nicknameSchema',
+          password: 'passwordSchema',
+          email: 'emailSchema',
+        })
+      "
+    >
+      WTF CREATE
+    </button>
+
+    <button @click="readUserById(42)">WTF GET</button>
 
     <div class="card table-wrapper">
       <table id="user-table">
