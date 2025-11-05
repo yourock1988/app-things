@@ -7,7 +7,7 @@ export default {
   data() {
     return {
       style: {
-        good: 'border: 1px solid gray',
+        good: 'border: 1px solid #5678',
         bad: 'border: 2px solid red',
       },
     }
@@ -18,7 +18,7 @@ export default {
 <template>
   <td :style="err ? style.bad : style.good" :title="err">
     <input
-      style="width: 100px"
+      style="width: 150px"
       :type
       :value="modelValue"
       @input="$emit('update:model-value', $event.target.value)"

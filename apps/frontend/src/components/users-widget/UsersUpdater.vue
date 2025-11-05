@@ -6,7 +6,7 @@ export default {
 
 <template>
   <header class="main-header">
-    <h1>Панель Управления Пользователями ✨</h1>
+    <h4>Панель Управления Пользователями</h4>
     <div class="table-controls">
       <button
         id="elButtonRefreshAll"
