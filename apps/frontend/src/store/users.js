@@ -3,18 +3,33 @@ import * as apiUsers from '@/api/ws/users'
 const socket = apiUsers.default
 
 export const usersInit = store => {
-  socket.on('connect', () => store.dispatch('users/readUsers'))
-  socket.on('bc-cl:user:added', data => store.commit('users/ADD_USER', data))
-  socket.on('bc-cl:user:updated', ({ id, ...dto }) =>
-    store.commit('users/UPDATE_USER_BY_ID', { id, dto })
-  )
-  socket.on('bc-cl:user:deleted', id =>
-    store.commit('users/REMOVE_USER_BY_ID', id)
-  )
+  store.subscribe(mutation => {
+    console.log('plugin Мутация:', mutation.type, mutation.payload)
+    if (mutation.type === 'users/SET_USERS') {
+      console.log('PLUGIN SUBSCRIBE SOCKET')
+      socket.on('bc-cl:user:added', data =>
+        store.commit('users/ADD_USER', data)
+      )
+      socket.on('bc-cl:user:updated', ({ id, ...dto }) =>
+        store.commit('users/UPDATE_USER_BY_ID', { id, dto })
+      )
+      socket.on('bc-cl:user:deleted', id =>
+        store.commit('users/REMOVE_USER_BY_ID', id)
+      )
+    }
+    if (mutation.type === 'users/RESET_USERS') {
+      console.log('PLUGIN UNSUBSCRIBE SOCKET')
+      socket.removeAllListeners('bc-cl:user:added')
+      socket.removeAllListeners('bc-cl:user:updated')
+      socket.removeAllListeners('bc-cl:user:deleted')
+    }
+  })
 }
 
 export default {
   namespaced: true,
+
+  // plugins: [usersInit], ???
 
   state() {
     return {
@@ -36,11 +51,18 @@ export default {
     },
 
     ADD_USER(state, user) {
+      console.log('ADD_USER')
       state.users.push(user)
     },
 
     SET_USERS(state, users) {
+      console.log('SET_USERS')
       state.users = users
+    },
+
+    RESET_USERS(state) {
+      console.log('RESET_USERS')
+      state.users = []
     },
 
     SET_USER_BY_ID(state, user) {
@@ -48,12 +70,14 @@ export default {
     },
 
     UPDATE_USER_BY_ID(state, payload) {
+      console.log('UPDATE_USER_BY_ID')
       const { id, dto } = payload
       const findedUser = state.users.find(user => user.id === id)
       if (findedUser) Object.assign(findedUser, dto)
     },
 
     REMOVE_USER_BY_ID(state, id) {
+      console.log('REMOVE_USER_BY_ID')
       state.users = state.users.filter(user => user.id !== id)
     },
   },

@@ -2,6 +2,8 @@ import { io } from 'socket.io-client'
 
 const socket = io('ws://localhost:7700', { transports: ['websocket'] })
 
+// socket.on('connect', () => store.dispatch('users/readUsers')) ???
+
 export function getAll() {
   return new Promise((resolve, reject) =>
     socket.emit('user:getAll', '_', (err, data) => {

@@ -16,8 +16,12 @@ export default {
     },
   },
 
-  created() {
-    // подключатся к socket-io серверу при криэйтеде
+  mounted() {
+    console.log('mounted')
+  },
+
+  unmounted() {
+    console.log('unmounted')
   },
 
   methods: {
