@@ -1,8 +1,4 @@
-import { io } from 'socket.io-client'
-
-const socket = io('ws://localhost:7700', { transports: ['websocket'] })
-
-// socket.on('connect', () => store.dispatch('users/readUsers')) ???
+import socket from './index.js'
 
 export function getAll() {
   return new Promise((resolve, reject) =>
@@ -48,5 +44,3 @@ export function removeById(id) {
     })
   )
 }
-
-export default socket

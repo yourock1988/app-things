@@ -1,6 +1,5 @@
 import * as apiUsers from '@/api/ws/users'
-
-const socket = apiUsers.default
+import socket from '@/api/ws/index.js'
 
 export const usersInit = store => {
   store.subscribe(mutation => {

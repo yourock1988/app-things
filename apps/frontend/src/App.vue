@@ -1,8 +1,13 @@
 <script>
 import UsersWidget from './components/users-widget/UsersWidget.vue'
+import socket from './api/ws/index.js'
 
 export default {
   components: { UsersWidget },
+
+  created() {
+    socket.connect()
+  },
 }
 </script>
 
