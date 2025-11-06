@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./types"],
+    "typeRoots": ["../../node_modules/@types", "./types"],
+    "types": ["jest", "node"],
     "target": "es2022",
     "module": "ESNext",
     "moduleResolution": "node",
@@ -16,6 +17,6 @@
     "declaration": false,
     "skipLibCheck": true
   },
-  "include": ["src"],
+  "include": ["src", "src/spec"],
   "exclude": ["node_modules", "build", "dist", "frontend/**/*"]
 }
