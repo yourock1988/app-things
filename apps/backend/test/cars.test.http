@@ -1,0 +1,42 @@
+GET http://localhost:8004/api/v0/cars/
+###
+GET http://localhost:8004/api/v0/cars/1001/
+###
+DELETE http://localhost:8004/api/v0/cars/1001/
+###
+
+POST http://localhost:8004/api/v0/cars/
+content-type: application/json
+
+{"type":"SUV","brand":"Tesla","model":"X","price":42000,"engine":"EL","hasTurbo": false, "hp": 420}
+###
+
+PATCH http://localhost:8004/api/v0/cars/1001/
+content-type: application/json
+
+{"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
+###
+###
+
+
+GET http://localhost:8004/api/v0/cars/6666/
+###
+DELETE http://localhost:8004/api/v0/cars/6666/
+###
+PATCH http://localhost:8004/api/v0/cars/6666/
+content-type: application/json
+
+{"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
+###
+PATCH http://localhost:8004/api/v0/cars/1001/
+content-type: application/json
+
+{"price":-666,"engine":"V666", "hasTurbo": "true", "hp": 1000}
+### BAD
+
+POST http://localhost:8004/api/v0/cars/
+content-type: application/json
+
+{"type":"SU","brand":"Te","model":6,"price":-6,"engine":"f","hasTurbo": 0, "hp": 42}
+### BAD
+
