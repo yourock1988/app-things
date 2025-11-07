@@ -1,6 +1,12 @@
 import { z } from 'zod'
 import SocketError from '../errors/SocketError.js'
 
+/**
+ * TODO:
+ *
+ * необходимо реализовать проверку входящей функции ack
+ * она должна быть обязательно TAckFn (по схеме)
+ */
 export default function validateSchemaIo<T>(schema: z.ZodSchema) {
   return (args: any[], next: any) => {
     const data = args.find(a => typeof a === 'object')

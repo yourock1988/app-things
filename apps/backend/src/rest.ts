@@ -1,7 +1,7 @@
 import cors from 'cors'
 import { json, Router } from 'express'
 import { userRouterRest } from './infra/di/userDi.js'
-import carRouterRest from './infra/di/carDi.js'
+import { carRouterRest } from './infra/di/carDi.js'
 
 const rest = Router()
 const corsOptions = { origin: true, credentials: true }
