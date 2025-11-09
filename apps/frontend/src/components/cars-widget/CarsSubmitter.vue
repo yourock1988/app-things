@@ -1,10 +1,9 @@
 <script>
+import { mapActions } from 'vuex'
 import FormGroup from '../FormGroup.vue'
 
 export default {
   components: { FormGroup },
-
-  emits: ['car-submitted'],
 
   data() {
     return {
@@ -13,6 +12,8 @@ export default {
   },
 
   methods: {
+    ...mapActions('cars', ['createCar']),
+
     initCar() {
       return {
         type: 'Muscle',
@@ -26,7 +27,7 @@ export default {
     },
 
     handleSubmit() {
-      this.$emit('car-submitted', { ...this.localCar })
+      this.createCar({ ...this.localCar })
       this.localCar = this.initCar()
     },
   },
@@ -35,7 +36,7 @@ export default {
 
 <template>
   <div class="card car-add-form-container">
-    <h2>Новый автомобиль</h2>
+    <h2>Добавить автомобиль</h2>
     <form id="elFormAddCar" @submit.prevent="handleSubmit">
       <div class="form-grid">
         <FormGroup v-model="localCar.type" placeholder="type" />
@@ -47,7 +48,7 @@ export default {
         <FormGroup v-model.number="localCar.hp" placeholder="hp" />
       </div>
       <button type="submit" class="control-btn primary">
-        <span class="icon">➕</span> Добавить автомобиль
+        <span class="icon">➕</span> Добавить
       </button>
     </form>
   </div>

@@ -1,10 +1,9 @@
 <script>
+import { mapActions } from 'vuex'
 import FormGroup from '../FormGroup.vue'
 
 export default {
   components: { FormGroup },
-
-  emits: ['user-submitted'],
 
   data() {
     return {
@@ -13,16 +12,18 @@ export default {
   },
 
   methods: {
+    ...mapActions('users', ['createUser']),
+
     initUser() {
       return {
-        nickname: 'foo',
-        password: 'xxxxx',
+        nickname: 'Foobar',
+        password: 'qwerty1',
         email: 'foo@bar.io',
       }
     },
 
     handleSubmit() {
-      this.$emit('user-submitted', { ...this.localUser })
+      this.createUser({ ...this.localUser })
       this.localUser = this.initUser()
     },
   },
@@ -31,7 +32,7 @@ export default {
 
 <template>
   <div class="card user-add-form-container">
-    <h2>Новый пользователь</h2>
+    <h2>Добавить пользователя</h2>
     <form id="elFormAddUser" @submit.prevent="handleSubmit">
       <div class="form-grid">
         <FormGroup v-model="localUser.nickname" placeholder="Ваш никнейм" />
@@ -43,7 +44,7 @@ export default {
         />
       </div>
       <button type="submit" class="control-btn primary">
-        <span class="icon">➕</span> Добавить пользователя
+        <span class="icon">➕</span> Добавить
       </button>
     </form>
   </div>

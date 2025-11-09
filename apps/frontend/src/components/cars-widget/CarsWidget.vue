@@ -1,6 +1,5 @@
 <script>
-import { mapState, mapActions } from 'vuex'
-
+import { mapState } from 'vuex'
 import CarsSubmitter from './CarsSubmitter.vue'
 import CarsList from './CarsList.vue'
 
@@ -14,16 +13,12 @@ export default {
       return Object.keys(this.cars.at(0) ?? {}).map(u => u.toUpperCase())
     },
   },
-
-  methods: {
-    ...mapActions('cars', ['createCar']),
-  },
 }
 </script>
 
 <template>
   <div id="w">
-    <CarsSubmitter @car-submitted="createCar" />
+    <CarsSubmitter />
 
     <h3>{{ err }}</h3>
 

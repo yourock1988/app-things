@@ -1,6 +1,5 @@
 <script>
-import { mapState, mapActions } from 'vuex'
-
+import { mapState } from 'vuex'
 import UsersSubmitter from './UsersSubmitter.vue'
 import UsersList from './UsersList.vue'
 
@@ -14,16 +13,12 @@ export default {
       return Object.keys(this.users.at(0) ?? {}).map(u => u.toUpperCase())
     },
   },
-
-  methods: {
-    ...mapActions('users', ['createUser']),
-  },
 }
 </script>
 
 <template>
   <div id="w">
-    <UsersSubmitter @user-submitted="createUser" />
+    <UsersSubmitter />
 
     <h3>{{ err }}</h3>
 
