@@ -2,11 +2,10 @@
 import { mapState, mapActions } from 'vuex'
 
 import UsersSubmitter from './UsersSubmitter.vue'
-import UsersUpdater from './UsersUpdater.vue'
 import UsersList from './UsersList.vue'
 
 export default {
-  components: { UsersSubmitter, UsersList, UsersUpdater },
+  components: { UsersSubmitter, UsersList },
 
   computed: {
     ...mapState('users', ['users', 'err']),
@@ -16,24 +15,14 @@ export default {
     },
   },
 
-  mounted() {
-    console.log('mounted')
-  },
-
-  unmounted() {
-    console.log('unmounted')
-  },
-
   methods: {
-    ...mapActions('users', ['readUsers', 'createUser']),
+    ...mapActions('users', ['createUser']),
   },
 }
 </script>
 
 <template>
   <div id="w">
-    <UsersUpdater @refresh="readUsers" />
-
     <UsersSubmitter @user-submitted="createUser" />
 
     <h3>{{ err }}</h3>

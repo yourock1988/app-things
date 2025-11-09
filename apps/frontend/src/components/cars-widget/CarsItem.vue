@@ -1,6 +1,5 @@
 <script>
 import { mapActions } from 'vuex'
-
 import EditableCellButtons from '../EditableCellButtons.vue'
 import EditableCellText from '../EditableCellText.vue'
 import EditableCellCheckbox from '../EditableCellCheckbox.vue'
@@ -9,8 +8,6 @@ export default {
   components: { EditableCellText, EditableCellButtons, EditableCellCheckbox },
 
   props: ['car'],
-
-  // emits: ['car-edited', 'car-deleted-id'],
 
   data() {
     return {
@@ -40,10 +37,10 @@ export default {
 
 <template>
   <tr>
-    <td data-label="id">{{ car.id }}</td>
-    <td data-label="id">{{ car.type }}</td>
-    <td data-label="id">{{ car.brand }}</td>
-    <td data-label="id">{{ car.model }}</td>
+    <td>{{ car.id }}</td>
+    <td>{{ car.type }}</td>
+    <td>{{ car.brand }}</td>
+    <td>{{ car.model }}</td>
     <EditableCellText
       v-model.number="localCar.price"
       type="number"
@@ -67,7 +64,7 @@ export default {
       caption="hp"
       :err="car?.err?.['hp']?._errors?.[0]"
     />
-    <td data-label="id">{{ car.isRunning }}</td>
+    <td>{{ car.isRunning }}</td>
     <EditableCellButtons
       @edit="updateCarById({ id: car.id, car: localCar })"
       @delete="deleteCarById(car.id)"

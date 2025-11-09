@@ -1,6 +1,5 @@
 <script>
 import { mapActions } from 'vuex'
-
 import EditableCellButtons from '../EditableCellButtons.vue'
 import EditableCellText from '../EditableCellText.vue'
 
@@ -39,22 +38,22 @@ export default {
 
 <template>
   <tr>
-    <td data-label="id">{{ user.id }}</td>
-    <td data-label="id">{{ user.nickname }}</td>
+    <td>{{ user.id }}</td>
+    <td>{{ user.nickname }}</td>
     <EditableCellText
       v-model="localUser.password"
       type="text"
       caption="password"
       :err="user?.err?.['password']?._errors?.[0]"
     />
-    <td data-label="id">{{ user.email }}</td>
+    <td>{{ user.email }}</td>
     <EditableCellText
       v-model.number="localUser.money"
       type="number"
       caption="money"
       :err="user?.err?.['money']?._errors?.[0]"
     />
-    <td data-label="id">{{ user.isOnline }}</td>
+    <td>{{ user.isOnline }}</td>
     <EditableCellButtons
       @edit="updateUserById({ id: user.id, user: localUser })"
       @delete="deleteUserById(user.id)"

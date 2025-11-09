@@ -2,11 +2,10 @@
 import { mapState, mapActions } from 'vuex'
 
 import CarsSubmitter from './CarsSubmitter.vue'
-import CarsUpdater from './CarsUpdater.vue'
 import CarsList from './CarsList.vue'
 
 export default {
-  components: { CarsSubmitter, CarsList, CarsUpdater },
+  components: { CarsSubmitter, CarsList },
 
   computed: {
     ...mapState('cars', ['cars', 'err']),
@@ -16,24 +15,14 @@ export default {
     },
   },
 
-  mounted() {
-    console.log('mounted')
-  },
-
-  unmounted() {
-    console.log('unmounted')
-  },
-
   methods: {
-    ...mapActions('cars', ['readCars', 'createCar']),
+    ...mapActions('cars', ['createCar']),
   },
 }
 </script>
 
 <template>
   <div id="w">
-    <CarsUpdater @refresh="readCars" />
-
     <CarsSubmitter @car-submitted="createCar" />
 
     <h3>{{ err }}</h3>

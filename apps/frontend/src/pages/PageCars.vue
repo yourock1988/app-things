@@ -1,16 +1,14 @@
 <script>
 import { mapActions, mapMutations } from 'vuex'
-import CarsWidget from '../components/cars-widget/CarsWidget.vue'
+import CarsWidget from '@/components/cars-widget/CarsWidget.vue'
 
 export default {
   components: { CarsWidget },
 
   beforeRouteEnter(to, from, next) {
-    console.log('beforeRouteEnter')
     next(vm => vm.readCars())
   },
   beforeRouteLeave(to, from, next) {
-    console.log('beforeRouteLeave')
     this.RESET_CARS()
     next()
   },

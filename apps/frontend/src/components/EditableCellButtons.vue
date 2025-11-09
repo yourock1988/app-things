@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-  <td data-label="actions" class="actions-cell">
+  <td class="actions-cell">
     <button class="action-btn edit-btn" @click="$emit('edit')">
       Редактировать
     </button>

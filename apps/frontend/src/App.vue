@@ -1,10 +1,7 @@
 <script>
-import UsersWidget from './components/users-widget/UsersWidget.vue'
-import socket from './api/ws/index.js'
+import socket from '@/api/ws/index.js'
 
 export default {
-  components: { UsersWidget },
-
   created() {
     socket.connect()
   },
@@ -16,8 +13,8 @@ export default {
     <h2>APP</h2>
     <div>
       <RouterLink to="/">Главная</RouterLink> |
-      <RouterLink to="/users">Пользователи</RouterLink> |
       <RouterLink to="/cars">Автомобили</RouterLink> |
+      <RouterLink to="/users">Пользователи</RouterLink> |
       <RouterLink to="/tests">Тесты</RouterLink>
     </div>
     <RouterView v-slot="{ Component, route }">
@@ -36,7 +33,7 @@ a {
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 150ms ease;
+  transition: opacity 100ms ease;
 }
 
 .fade-enter-from,
