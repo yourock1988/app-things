@@ -17,6 +17,7 @@ export default {
     <div>
       <RouterLink to="/">Главная</RouterLink> |
       <RouterLink to="/users">Пользователи</RouterLink> |
+      <RouterLink to="/cars">Автомобили</RouterLink> |
       <RouterLink to="/tests">Тесты</RouterLink>
     </div>
     <RouterView v-slot="{ Component, route }">

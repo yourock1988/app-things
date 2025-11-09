@@ -262,7 +262,7 @@ input:not([type='checkbox']):focus {
 }
 
 /* Центрирование чекбокса */
-.online-checkbox-cell {
+.checkbox-cell {
   text-align: center;
 }
 

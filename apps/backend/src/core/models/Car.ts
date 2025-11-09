@@ -16,6 +16,6 @@ export default class Car {
   }
 
   toJSON() {
-    return { ...this, isOnline: this.isRunning() }
+    return { ...this, isRunning: this.isRunning() }
   }
 }

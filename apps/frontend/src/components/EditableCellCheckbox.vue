@@ -1,18 +1,32 @@
 <script>
 export default {
-  props: ['modelValue', 'caption'],
+  props: ['modelValue', 'err'],
 
   emits: ['update:model-value'],
 }
 </script>
 
 <template>
-  <td :data-label="caption" class="online-checkbox-cell">
+  <td class="checkbox-cell">
     <input
       type="checkbox"
-      class="online-status-checkbox"
       :checked="modelValue"
       @change="$emit('update:model-value', $event.target.checked)"
     />
+    <div v-if="err">{{ err }}</div>
   </td>
 </template>
+
+<style scoped>
+td {
+  position: relative;
+}
+div {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  font-size: 14px;
+  color: red;
+  background: #2345;
+}
+</style>
