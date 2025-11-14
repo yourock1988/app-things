@@ -13,7 +13,10 @@ const staticDir = isDevDir
 
 staticRouter.use('/static', express.static(staticDir))
 if (!isDevDir) {
-  const clientDir = path.join(staticDir, '..', '..', 'client')
+  const clientDir = path.join(baseDir, 'dist', 'client')
+  staticRouter.use('/', express.static(path.join(clientDir)))
+  staticRouter.use('/cars', express.static(path.join(clientDir)))
+  staticRouter.use('/users', express.static(path.join(clientDir)))
   staticRouter.use('/assets', express.static(path.join(clientDir, 'assets')))
 }
 
