@@ -8,7 +8,7 @@ appHttp.listen(PORT_HTTP, () => global.console.log(`rest PORT: ${PORT_HTTP}`))
 appWs.listen(PORT_IO, () => global.console.log(`io PORT: ${PORT_IO}`))
 
 global.console.log(process.env.APP_BE_COMMENT)
-if (process.argv[2] === '--check') {
-  global.console.log('!!!STARTED_IN_CHECK_MODE!!!')
+if (process.argv[2] === '--tmp') {
+  global.console.log('!!!STARTED_IN_TEMPORALLY_MODE!!!')
   setTimeout(() => process.exit(0), 7000)
 }
