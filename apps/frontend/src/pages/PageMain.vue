@@ -2,5 +2,6 @@
   <div>
     <h3>PAGE MAIN</h3>
     <p>Welcome to site</p>
+    <v-btn>Foobar</v-btn>
   </div>
 </template>

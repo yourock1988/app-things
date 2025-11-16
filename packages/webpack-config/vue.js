@@ -1,5 +1,6 @@
 const { DefinePlugin } = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
+const { VuetifyPlugin } = require('webpack-plugin-vuetify')
 
 module.exports = {
   resolve: {
@@ -16,6 +17,8 @@ module.exports = {
 
   plugins: [
     new VueLoaderPlugin(),
+
+    new VuetifyPlugin(),
 
     new DefinePlugin({
       __VUE_PROD_DEVTOOLS__: 'false',
