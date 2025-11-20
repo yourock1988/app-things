@@ -3,7 +3,6 @@ import store from '@/store'
 import router from '@/router'
 
 import App from '@/App.vue'
-import '@/assets/css/style.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import vuetifyConfig from '../vuetify-config.js'
 

@@ -1,14 +1,16 @@
 <script>
-import { mapActions } from 'vuex'
-import FormGroup from '../FormGroup.vue'
+import { mapActions, mapState } from 'vuex'
 
 export default {
-  components: { FormGroup },
-
   data() {
     return {
       localUser: this.initUser(),
+      loading: false,
     }
+  },
+
+  computed: {
+    ...mapState('users', ['err']),
   },
 
   methods: {
@@ -16,36 +18,70 @@ export default {
 
     initUser() {
       return {
-        nickname: 'Foobar',
-        password: 'qwerty1',
-        email: 'foo@bar.io',
+        nickname: '',
+        password: '',
+        email: '',
       }
     },
 
-    handleSubmit() {
-      this.createUser({ ...this.localUser })
+    async handleSubmit() {
+      this.loading = true
+      await this.createUser({ ...this.localUser })
       this.localUser = this.initUser()
+      this.loading = false
     },
   },
 }
 </script>
 
 <template>
-  <div class="card user-add-form-container">
-    <h2>Добавить пользователя</h2>
-    <form id="elFormAddUser" @submit.prevent="handleSubmit">
-      <div class="form-grid">
-        <FormGroup v-model="localUser.nickname" placeholder="Ваш никнейм" />
-        <FormGroup v-model="localUser.password" placeholder="Ваш пароль" />
-        <FormGroup
-          v-model="localUser.email"
-          placeholder="Ваш email"
-          type="email"
-        />
-      </div>
-      <button type="submit" class="control-btn primary">
-        <span class="icon">➕</span> Добавить
-      </button>
-    </form>
-  </div>
+  <v-container>
+    <v-row class="justify-center">
+      <v-col cols="12">
+        <v-sheet class="elevation-5 overflow-hidden" border="thin" rounded="xl">
+          <h6 class="text-h6 text-center">Create user</h6>
+          <v-form validate-on="submit lazy" @submit.prevent="handleSubmit">
+            <v-container>
+              <v-row class="justify-center">
+                <v-col cols="3">
+                  <v-text-field
+                    v-model="localUser.nickname"
+                    :error-messages="err?.nickname?._errors"
+                    label="nickname"
+                    variant="underlined"
+                    autocomplete="off"
+                  />
+                </v-col>
+                <v-col cols="3">
+                  <v-text-field
+                    v-model="localUser.password"
+                    :error-messages="err?.password?._errors"
+                    label="password"
+                    variant="underlined"
+                    autocomplete="off"
+                  />
+                </v-col>
+                <v-col cols="3">
+                  <v-text-field
+                    v-model="localUser.email"
+                    :error-messages="err?.email?._errors"
+                    label="email"
+                    variant="underlined"
+                    autocomplete="off"
+                  />
+                </v-col>
+                <v-col cols="3">
+                  <v-btn :loading text="Submit" type="submit" block></v-btn>
+                </v-col>
+
+                <v-col v-if="err?._errors.length > 0" cols="12">
+                  <p>{{ err?._errors }}</p>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
+        </v-sheet>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>

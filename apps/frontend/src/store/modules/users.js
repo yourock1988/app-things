@@ -91,7 +91,7 @@ export default {
           setTimeout(() => commit('REMOVE_USER_BY_ID', id), 1500)
         }
         if (e.code === 400) {
-          commit('UPDATE_USER_BY_ID', { id, dto: { ...user, err: e.details } })
+          commit('UPDATE_USER_BY_ID', { id, dto: { err: e.details } })
           setTimeout(
             () => commit('UPDATE_USER_BY_ID', { id, dto: { err: null } }),
             5000

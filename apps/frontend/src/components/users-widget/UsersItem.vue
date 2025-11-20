@@ -1,18 +1,13 @@
 <script>
 import { mapActions } from 'vuex'
-import EditableCellButtons from '../EditableCellButtons.vue'
-import EditableCellText from '../EditableCellText.vue'
 
 export default {
-  components: { EditableCellText, EditableCellButtons },
-
   props: ['user'],
-
-  emits: ['user-edited', 'user-deleted-id'],
 
   data() {
     return {
       localUser: this.parseUser(this.user),
+      isEdit: false,
     }
   },
 
@@ -20,6 +15,7 @@ export default {
     user: {
       deep: true,
       handler(val) {
+        if (val.err || this.isEdit) return
         this.localUser = this.parseUser(val)
       },
     },
@@ -32,6 +28,20 @@ export default {
       const { money, password } = user
       return { money, password }
     },
+    async save() {
+      this.isEdit = false
+      await this.updateUserById({
+        id: this.user.id,
+        user: { ...this.localUser },
+      })
+      if (this.user.err) {
+        this.isEdit = true
+      }
+    },
+    cancel() {
+      this.localUser = this.parseUser(this.user)
+      this.isEdit = false
+    },
   },
 }
 </script>
@@ -40,23 +50,65 @@ export default {
   <tr>
     <td>{{ user.id }}</td>
     <td>{{ user.nickname }}</td>
-    <EditableCellText
-      v-model="localUser.password"
-      type="text"
-      caption="password"
-      :err="user?.err?.['password']?._errors?.[0]"
-    />
+    <td>
+      <v-text-field
+        v-if="isEdit"
+        v-model="localUser.password"
+        :error-messages="user.err?.password?._errors"
+        variant="underlined"
+        density="compact"
+      />
+      <span v-else>{{ localUser.password }}</span>
+    </td>
     <td>{{ user.email }}</td>
-    <EditableCellText
-      v-model.number="localUser.money"
-      type="number"
-      caption="money"
-      :err="user?.err?.['money']?._errors?.[0]"
-    />
+    <td>
+      <v-text-field
+        v-if="isEdit"
+        v-model.number="localUser.money"
+        :error-messages="user.err?.money?._errors"
+        variant="underlined"
+        density="compact"
+      />
+      <span v-else>{{ localUser.money }}</span>
+    </td>
     <td>{{ user.isOnline }}</td>
-    <EditableCellButtons
-      @edit="updateUserById({ id: user.id, user: localUser })"
-      @delete="deleteUserById(user.id)"
-    />
+    <td class="d-flex align-center justify-space-around">
+      <template v-if="isEdit">
+        <v-btn
+          size="small"
+          color="warning"
+          prepend-icon="mdi-cancel"
+          @click="cancel"
+        >
+          Cancel
+        </v-btn>
+        <v-btn
+          size="small"
+          color="secondary"
+          prepend-icon="mdi-content-save-edit"
+          @click="save"
+        >
+          Save
+        </v-btn>
+      </template>
+      <template v-else>
+        <v-btn
+          size="small"
+          color="primary"
+          prepend-icon="mdi-pencil"
+          @click="isEdit = true"
+        >
+          Edit
+        </v-btn>
+        <v-btn
+          size="small"
+          color="error"
+          prepend-icon="mdi-delete-forever"
+          @click="deleteUserById(user.id)"
+        >
+          Delete
+        </v-btn>
+      </template>
+    </td>
   </tr>
 </template>
