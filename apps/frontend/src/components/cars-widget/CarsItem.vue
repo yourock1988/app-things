@@ -1,17 +1,13 @@
 <script>
 import { mapActions } from 'vuex'
-import EditableCellButtons from '../EditableCellButtons.vue'
-import EditableCellText from '../EditableCellText.vue'
-import EditableCellCheckbox from '../EditableCellCheckbox.vue'
 
 export default {
-  components: { EditableCellText, EditableCellButtons, EditableCellCheckbox },
-
   props: ['car'],
 
   data() {
     return {
       localCar: this.parseCar(this.car),
+      isEdit: false,
     }
   },
 
@@ -19,6 +15,7 @@ export default {
     car: {
       deep: true,
       handler(val) {
+        if (val.err || this.isEdit) return
         this.localCar = this.parseCar(val)
       },
     },
@@ -31,6 +28,20 @@ export default {
       const { price, engine, hasTurbo, hp } = car
       return { price, engine, hasTurbo, hp }
     },
+    async save() {
+      this.isEdit = false
+      await this.updateCarById({
+        id: this.car.id,
+        car: { ...this.localCar },
+      })
+      if (this.car.err) {
+        this.isEdit = true
+      }
+    },
+    cancel() {
+      this.localCar = this.parseCar(this.car)
+      this.isEdit = false
+    },
   },
 }
 </script>
@@ -41,33 +52,84 @@ export default {
     <td>{{ car.type }}</td>
     <td>{{ car.brand }}</td>
     <td>{{ car.model }}</td>
-    <EditableCellText
-      v-model.number="localCar.price"
-      type="number"
-      caption="price"
-      :err="car?.err?.['price']?._errors?.[0]"
-    />
-    <EditableCellText
-      v-model="localCar.engine"
-      type="text"
-      caption="engine"
-      :err="car?.err?.['engine']?._errors?.[0]"
-    />
-    <EditableCellCheckbox
-      v-model="localCar.hasTurbo"
-      caption="hasTurbo"
-      :err="car?.err?.['hasTurbo']?._errors?.[0]"
-    />
-    <EditableCellText
-      v-model.number="localCar.hp"
-      type="number"
-      caption="hp"
-      :err="car?.err?.['hp']?._errors?.[0]"
-    />
+    <td>
+      <v-text-field
+        v-if="isEdit"
+        v-model.number="localCar.price"
+        :error-messages="car.err?.price?._errors"
+        variant="underlined"
+        density="compact"
+      />
+      <span v-else>{{ localCar.price }}</span>
+    </td>
+    <td>
+      <v-text-field
+        v-if="isEdit"
+        v-model="localCar.engine"
+        :error-messages="car.err?.engine?._errors"
+        variant="underlined"
+        density="compact"
+      />
+      <span v-else>{{ localCar.engine }}</span>
+    </td>
+    <td>
+      <v-checkbox
+        v-if="isEdit"
+        v-model="localCar.hasTurbo"
+        :error-messages="car.err?.hasTurbo?._errors"
+        variant="underlined"
+        density="compact"
+      />
+      <span v-else>{{ localCar.hasTurbo }}</span>
+    </td>
+    <td>
+      <v-text-field
+        v-if="isEdit"
+        v-model.number="localCar.hp"
+        :error-messages="car.err?.hp?._errors"
+        variant="underlined"
+        density="compact"
+      />
+      <span v-else>{{ localCar.hp }}</span>
+    </td>
     <td>{{ car.isRunning }}</td>
-    <EditableCellButtons
-      @edit="updateCarById({ id: car.id, car: localCar })"
-      @delete="deleteCarById(car.id)"
-    />
+    <td class="d-flex align-center justify-space-around">
+      <template v-if="isEdit">
+        <v-btn
+          size="small"
+          color="warning"
+          prepend-icon="mdi-cancel"
+          @click="cancel"
+        >
+          Cancel
+        </v-btn>
+        <v-btn
+          size="small"
+          color="secondary"
+          prepend-icon="mdi-content-save-edit"
+          @click="save"
+        >
+          Save
+        </v-btn>
+      </template>
+      <template v-else>
+        <v-btn
+          size="small"
+          color="primary"
+          prepend-icon="mdi-pencil"
+          @click="isEdit = true"
+        >
+          Edit
+        </v-btn>
+        <v-btn
+          size="small"
+          color="error"
+          prepend-icon="mdi-delete-forever"
+          @click="deleteCarById(car.id)"
+        >
+          Delete
+        </v-btn>
+      </template>
+    </td>
   </tr>
 </template>

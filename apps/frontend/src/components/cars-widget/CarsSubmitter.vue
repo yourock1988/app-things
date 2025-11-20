@@ -1,14 +1,16 @@
 <script>
-import { mapActions } from 'vuex'
-import FormGroup from '../FormGroup.vue'
+import { mapActions, mapState } from 'vuex'
 
 export default {
-  components: { FormGroup },
-
   data() {
     return {
       localCar: this.initCar(),
+      loading: false,
     }
+  },
+
+  computed: {
+    ...mapState('cars', ['err']),
   },
 
   methods: {
@@ -26,30 +28,100 @@ export default {
       }
     },
 
-    handleSubmit() {
-      this.createCar({ ...this.localCar })
+    async handleSubmit() {
+      this.loading = true
+      await this.createCar({ ...this.localCar })
       this.localCar = this.initCar()
+      this.loading = false
     },
   },
 }
 </script>
 
 <template>
-  <div class="card car-add-form-container">
-    <h2>Добавить автомобиль</h2>
-    <form id="elFormAddCar" @submit.prevent="handleSubmit">
-      <div class="form-grid">
-        <FormGroup v-model="localCar.type" placeholder="type" />
-        <FormGroup v-model="localCar.brand" placeholder="brand" />
-        <FormGroup v-model="localCar.model" placeholder="model" />
-        <FormGroup v-model.number="localCar.price" placeholder="price" />
-        <FormGroup v-model="localCar.engine" placeholder="engine" />
-        <FormGroup v-model="localCar.hasTurbo" placeholder="hasTurbo" />
-        <FormGroup v-model.number="localCar.hp" placeholder="hp" />
-      </div>
-      <button type="submit" class="control-btn primary">
-        <span class="icon">➕</span> Добавить
-      </button>
-    </form>
-  </div>
+  <v-container>
+    <v-row class="justify-center">
+      <v-col cols="12">
+        <v-sheet class="elevation-5 overflow-hidden" border="thin" rounded="xl">
+          <h6 class="text-h6 text-center">Create car</h6>
+          <v-form validate-on="submit lazy" @submit.prevent="handleSubmit">
+            <v-container>
+              <v-row class="justify-center">
+                <v-col cols="3">
+                  <v-text-field
+                    v-model="localCar.type"
+                    :error-messages="err?.type?._errors"
+                    label="type"
+                    variant="underlined"
+                    autocomplete="off"
+                  />
+                </v-col>
+                <v-col cols="3">
+                  <v-text-field
+                    v-model="localCar.brand"
+                    :error-messages="err?.brand?._errors"
+                    label="brand"
+                    variant="underlined"
+                    autocomplete="off"
+                  />
+                </v-col>
+                <v-col cols="3">
+                  <v-text-field
+                    v-model="localCar.model"
+                    :error-messages="err?.model?._errors"
+                    label="model"
+                    variant="underlined"
+                    autocomplete="off"
+                  />
+                </v-col>
+                <v-col cols="3">
+                  <v-text-field
+                    v-model.number="localCar.price"
+                    :error-messages="err?.price?._errors"
+                    label="price"
+                    variant="underlined"
+                    autocomplete="off"
+                  />
+                </v-col>
+                <v-col cols="3">
+                  <v-text-field
+                    v-model="localCar.engine"
+                    :error-messages="err?.engine?._errors"
+                    label="engine"
+                    variant="underlined"
+                    autocomplete="off"
+                  />
+                </v-col>
+                <v-col cols="3">
+                  <v-checkbox
+                    v-model="localCar.hasTurbo"
+                    :error-messages="err?.hasTurbo?._errors"
+                    label="hasTurbo"
+                    variant="underlined"
+                    autocomplete="off"
+                  />
+                </v-col>
+                <v-col cols="3">
+                  <v-text-field
+                    v-model.number="localCar.hp"
+                    :error-messages="err?.hp?._errors"
+                    label="hp"
+                    variant="underlined"
+                    autocomplete="off"
+                  />
+                </v-col>
+                <v-col cols="3">
+                  <v-btn :loading text="Submit" type="submit" block></v-btn>
+                </v-col>
+
+                <v-col v-if="err?._errors.length > 0" cols="12">
+                  <p>{{ err?._errors }}</p>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
+        </v-sheet>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
