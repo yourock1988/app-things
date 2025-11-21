@@ -3,6 +3,7 @@ import PageTests from '../pages/PageTests.vue'
 import PageUsers from '../pages/PageUsers.vue'
 import PageCars from '../pages/PageCars.vue'
 import PageMain from '../pages/PageMain.vue'
+import PagePicsum from '../pages/PagePicsum.vue'
 
 const routes = [
   {
@@ -20,6 +21,10 @@ const routes = [
   {
     path: '/tests',
     component: PageTests,
+  },
+  {
+    path: '/pics',
+    component: PagePicsum,
   },
 ]
 

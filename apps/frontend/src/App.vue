@@ -1,7 +1,16 @@
 <script>
 import socket from '@/api/ws/index.js'
+import AppLayout from './components/AppLayout.vue'
+import PagePicsum from './pages/PagePicsum.vue'
+import PageUsers from './pages/PageUsers.vue'
 
 export default {
+  components: {
+    AppLayout,
+    PagePicsum,
+    PageUsers,
+  },
+
   created() {
     socket.connect()
   },
@@ -9,35 +18,11 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h2>APP</h2>
-    <div>
-      <RouterLink to="/">Главная</RouterLink> |
-      <RouterLink to="/cars">Автомобили</RouterLink> |
-      <RouterLink to="/users">Пользователи</RouterLink> |
-      <RouterLink to="/tests">Тесты</RouterLink>
-    </div>
-    <RouterView v-slot="{ Component, route }">
-      <Transition name="fade" mode="out-in">
-        <KeepAlive>
-          <Component :is="Component" :key="route.path" />
-        </KeepAlive>
-      </Transition>
-    </RouterView>
-  </div>
+  <AppLayout :tabs="['users', 'cars', 'tests', 'pics']">
+    <router-view v-slot="{ Component }">
+      <v-fade-transition hide-on-leave>
+        <component :is="Component" />
+      </v-fade-transition>
+    </router-view>
+  </AppLayout>
 </template>
-
-<style>
-a {
-  color: dodgerblue;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 100ms ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>
