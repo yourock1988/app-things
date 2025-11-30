@@ -1,10 +1,13 @@
 <script>
 import { mapActions, mapState } from 'vuex'
+import FormField from '../FormField.vue'
 
 export default {
+  components: { FormField },
+
   data() {
     return {
-      localCar: this.initCar(),
+      dto: this.initCar(),
       loading: false,
     }
   },
@@ -30,8 +33,8 @@ export default {
 
     async handleSubmit() {
       this.loading = true
-      await this.createCar({ ...this.localCar })
-      this.localCar = this.initCar()
+      await this.createCar({ ...this.dto })
+      this.dto = this.initCar()
       this.loading = false
     },
   },
@@ -39,84 +42,52 @@ export default {
 </script>
 
 <template>
-  <v-container>
-    <v-row class="justify-center">
-      <v-col cols="12">
-        <v-sheet class="elevation-5 overflow-hidden" border="thin" rounded="xl">
-          <h6 class="text-h6 text-center">Create car</h6>
+  <v-row class="justify-center">
+    <v-col cols="12">
+      <v-sheet border="thin" rounded="xl">
+        <v-container>
+          <h5 class="text-h5 text-center">Create car</h5>
           <v-form validate-on="submit lazy" @submit.prevent="handleSubmit">
-            <v-container>
-              <v-row class="justify-center">
-                <v-col cols="3">
-                  <v-text-field
-                    v-model="localCar.type"
-                    :error-messages="err?.type?._errors"
-                    label="type"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="3">
-                  <v-text-field
-                    v-model="localCar.brand"
-                    :error-messages="err?.brand?._errors"
-                    label="brand"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="3">
-                  <v-text-field
-                    v-model="localCar.model"
-                    :error-messages="err?.model?._errors"
-                    label="model"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="3">
-                  <v-text-field
-                    v-model.number="localCar.price"
-                    :error-messages="err?.price?._errors"
-                    label="price"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="3">
-                  <v-text-field
-                    v-model="localCar.engine"
-                    :error-messages="err?.engine?._errors"
-                    label="engine"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="3">
-                  <v-text-field
-                    v-model.number="localCar.hp"
-                    :error-messages="err?.hp?._errors"
-                    label="hp"
-                    autocomplete="off"
-                  />
-                </v-col>
+            <v-row class="justify-center">
+              <v-col cols="3">
+                <FormField v-model="dto" :err field="type" />
+              </v-col>
+              <v-col cols="3">
+                <FormField v-model="dto" :err field="brand" />
+              </v-col>
+              <v-col cols="3">
+                <FormField v-model="dto" :err field="model" />
+              </v-col>
+              <v-col cols="3">
+                <FormField v-model.number="dto" :err field="price" />
+              </v-col>
+              <v-col cols="3">
+                <FormField v-model="dto" :err field="engine" />
+              </v-col>
+              <v-col cols="3">
+                <FormField v-model.number="dto" :err field="hp" />
+              </v-col>
 
-                <v-col cols="3">
-                  <v-checkbox
-                    v-model="localCar.hasTurbo"
-                    :error-messages="err?.hasTurbo?._errors"
-                    label="hasTurbo"
-                    autocomplete="off"
-                  />
-                </v-col>
+              <v-col cols="3">
+                <FormField
+                  v-model.number="dto"
+                  :err
+                  field="hasTurbo"
+                  comp="v-checkbox"
+                />
+              </v-col>
 
-                <v-col cols="3">
-                  <v-btn :loading type="submit">Submit</v-btn>
-                </v-col>
+              <v-col cols="3">
+                <v-btn :loading type="submit">Submit</v-btn>
+              </v-col>
 
-                <v-col v-if="err?._errors.length > 0" cols="12">
-                  <p>{{ err?._errors }}</p>
-                </v-col>
-              </v-row>
-            </v-container>
+              <v-col v-if="err?._errors.length > 0" cols="12">
+                <p>{{ err?._errors }}</p>
+              </v-col>
+            </v-row>
           </v-form>
-        </v-sheet>
-      </v-col>
-    </v-row>
-  </v-container>
+        </v-container>
+      </v-sheet>
+    </v-col>
+  </v-row>
 </template>
