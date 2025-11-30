@@ -11,6 +11,15 @@ export default {
     PageUsers,
   },
 
+  computed: {
+    tabs() {
+      return this.$router
+        .getRoutes()
+        .filter(r => r.path)
+        .map(r => r.path)
+    },
+  },
+
   created() {
     socket.connect()
   },
@@ -18,7 +27,7 @@ export default {
 </script>
 
 <template>
-  <AppLayout :tabs="['sign-up', 'users', 'cars', 'tests', 'pics']">
+  <AppLayout :tabs>
     <router-view v-slot="{ Component }">
       <v-fade-transition hide-on-leave>
         <component :is="Component" />
