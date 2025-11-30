@@ -52,7 +52,6 @@ export default {
                     v-model="localCar.type"
                     :error-messages="err?.type?._errors"
                     label="type"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
@@ -61,7 +60,6 @@ export default {
                     v-model="localCar.brand"
                     :error-messages="err?.brand?._errors"
                     label="brand"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
@@ -70,7 +68,6 @@ export default {
                     v-model="localCar.model"
                     :error-messages="err?.model?._errors"
                     label="model"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
@@ -79,7 +76,6 @@ export default {
                     v-model.number="localCar.price"
                     :error-messages="err?.price?._errors"
                     label="price"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
@@ -88,16 +84,6 @@ export default {
                     v-model="localCar.engine"
                     :error-messages="err?.engine?._errors"
                     label="engine"
-                    variant="underlined"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="3">
-                  <v-checkbox
-                    v-model="localCar.hasTurbo"
-                    :error-messages="err?.hasTurbo?._errors"
-                    label="hasTurbo"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
@@ -106,12 +92,27 @@ export default {
                     v-model.number="localCar.hp"
                     :error-messages="err?.hp?._errors"
                     label="hp"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
+
                 <v-col cols="3">
-                  <v-btn :loading text="Submit" type="submit" block></v-btn>
+                  <v-checkbox
+                    v-model="localCar.hasTurbo"
+                    :error-messages="err?.hasTurbo?._errors"
+                    label="hasTurbo"
+                    autocomplete="off"
+                  />
+                </v-col>
+
+                <v-col cols="3">
+                  <v-btn
+                    :loading
+                    size="x-large"
+                    type="submit"
+                    text="Submit"
+                    block
+                  ></v-btn>
                 </v-col>
 
                 <v-col v-if="err?._errors.length > 0" cols="12">

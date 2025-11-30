@@ -62,7 +62,6 @@ export default {
                     v-model="dto.nickname"
                     :error-messages="err?.nickname?._errors"
                     label="nickname"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
@@ -71,7 +70,6 @@ export default {
                     v-model="dto.password"
                     :error-messages="err?.password?._errors"
                     label="password"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
@@ -80,7 +78,6 @@ export default {
                     v-model="dto.repasswd"
                     :error-messages="err?.repasswd?._errors"
                     label="repasswd"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
@@ -89,7 +86,6 @@ export default {
                     v-model="dto.email"
                     :error-messages="err?.email?._errors"
                     label="email"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
@@ -100,7 +96,6 @@ export default {
                     :items="['California', 'Florida', 'Texas']"
                     :error-messages="err?.city?._errors"
                     label="city"
-                    variant="underlined"
                     autocomplete="off"
                   ></v-select>
                 </v-col>
@@ -115,7 +110,13 @@ export default {
                 </v-col>
 
                 <v-col cols="12">
-                  <v-btn text="sign up" type="submit" block :is-loading></v-btn>
+                  <v-btn
+                    :is-loading
+                    size="x-large"
+                    type="submit"
+                    text="sign up"
+                    block
+                  ></v-btn>
                 </v-col>
 
                 <v-col v-if="err?._errors?.length > 0" cols="12">

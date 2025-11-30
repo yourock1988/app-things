@@ -48,7 +48,6 @@ export default {
                     v-model="localUser.nickname"
                     :error-messages="err?.nickname?._errors"
                     label="nickname"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
@@ -57,7 +56,6 @@ export default {
                     v-model="localUser.password"
                     :error-messages="err?.password?._errors"
                     label="password"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
@@ -66,12 +64,17 @@ export default {
                     v-model="localUser.email"
                     :error-messages="err?.email?._errors"
                     label="email"
-                    variant="underlined"
                     autocomplete="off"
                   />
                 </v-col>
                 <v-col cols="3">
-                  <v-btn :loading text="Submit" type="submit" block></v-btn>
+                  <v-btn
+                    :loading
+                    size="x-large"
+                    type="submit"
+                    text="Submit"
+                    block
+                  ></v-btn>
                 </v-col>
 
                 <v-col v-if="err?._errors.length > 0" cols="12">

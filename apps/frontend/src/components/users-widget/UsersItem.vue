@@ -55,7 +55,6 @@ export default {
         v-if="isEdit"
         v-model="localUser.password"
         :error-messages="user.err?.password?._errors"
-        variant="underlined"
         density="compact"
       />
       <span v-else>{{ localUser.password }}</span>
@@ -66,7 +65,6 @@ export default {
         v-if="isEdit"
         v-model.number="localUser.money"
         :error-messages="user.err?.money?._errors"
-        variant="underlined"
         density="compact"
       />
       <span v-else>{{ localUser.money }}</span>

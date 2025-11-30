@@ -1,11 +1,11 @@
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
 import colors from 'vuetify/util/colors'
-import { md3 } from 'vuetify/blueprints'
+import { md2 } from 'vuetify/blueprints'
 import { createVuetify } from 'vuetify'
 
 export default createVuetify({
-  blueprint: md3,
+  blueprint: md2,
   theme: {
     defaultTheme: 'dark',
     themes: {

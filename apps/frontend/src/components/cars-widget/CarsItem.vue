@@ -57,7 +57,6 @@ export default {
         v-if="isEdit"
         v-model.number="localCar.price"
         :error-messages="car.err?.price?._errors"
-        variant="underlined"
         density="compact"
       />
       <span v-else>{{ localCar.price }}</span>
@@ -67,7 +66,6 @@ export default {
         v-if="isEdit"
         v-model="localCar.engine"
         :error-messages="car.err?.engine?._errors"
-        variant="underlined"
         density="compact"
       />
       <span v-else>{{ localCar.engine }}</span>
@@ -77,7 +75,6 @@ export default {
         v-if="isEdit"
         v-model="localCar.hasTurbo"
         :error-messages="car.err?.hasTurbo?._errors"
-        variant="underlined"
         density="compact"
       />
       <span v-else>{{ localCar.hasTurbo }}</span>
@@ -87,7 +84,6 @@ export default {
         v-if="isEdit"
         v-model.number="localCar.hp"
         :error-messages="car.err?.hp?._errors"
-        variant="underlined"
         density="compact"
       />
       <span v-else>{{ localCar.hp }}</span>
