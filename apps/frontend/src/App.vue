@@ -18,7 +18,7 @@ export default {
 </script>
 
 <template>
-  <AppLayout :tabs="['users', 'cars', 'tests', 'pics']">
+  <AppLayout :tabs="['sign-up', 'users', 'cars', 'tests', 'pics']">
     <router-view v-slot="{ Component }">
       <v-fade-transition hide-on-leave>
         <component :is="Component" />

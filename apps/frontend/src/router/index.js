@@ -4,11 +4,16 @@ import PageUsers from '../pages/PageUsers.vue'
 import PageCars from '../pages/PageCars.vue'
 import PageMain from '../pages/PageMain.vue'
 import PagePicsum from '../pages/PagePicsum.vue'
+import PageSignUp from '../pages/PageSignUp.vue'
 
 const routes = [
   {
     path: '/',
     component: PageMain,
+  },
+  {
+    path: '/sign-up',
+    component: PageSignUp,
   },
   {
     path: '/users',
