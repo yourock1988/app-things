@@ -1,11 +1,15 @@
 <script>
+import FormField from '@/components/FormField.vue'
 // import { mapActions, mapState } from 'vuex'
 
 export default {
+  components: { FormField },
+
   data() {
     return {
-      dto: this.initDto(),
       isLoading: false,
+      items: ['California', 'Florida', 'Texas'],
+      dto: this.initDto(),
       err: null,
       // err: {
       //   _errors: ['very bad'],
@@ -28,7 +32,7 @@ export default {
 
     initDto() {
       return {
-        isConfirmed: '',
+        isConfirmed: false,
         nickname: '',
         password: '',
         repasswd: '',
@@ -40,7 +44,7 @@ export default {
 
     async handleSubmit() {
       this.isLoading = true
-      await this.signUp({ ...this.dto })
+      // await this.signUp({ ...this.dto })
       this.dto = this.initDto()
       this.isLoading = false
     },
@@ -49,84 +53,64 @@ export default {
 </script>
 
 <template>
-  <v-container>
-    <v-row class="justify-center">
-      <v-col cols="12" sm="8" md="6" xl="4">
-        <v-sheet class="elevation-5 overflow-hidden" border="thin" rounded="xl">
-          <h6 class="text-h6 text-center">SIGN UP</h6>
-          <v-form validate-on="submit lazy" @submit.prevent="handleSubmit">
-            <v-container>
-              <v-row class="justify-center">
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="dto.nickname"
-                    :error-messages="err?.nickname?._errors"
-                    label="nickname"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="dto.password"
-                    :error-messages="err?.password?._errors"
-                    label="password"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="dto.repasswd"
-                    :error-messages="err?.repasswd?._errors"
-                    label="repasswd"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="dto.email"
-                    :error-messages="err?.email?._errors"
-                    label="email"
-                    autocomplete="off"
-                  />
-                </v-col>
+  <v-row class="justify-center">
+    <v-col cols="12" sm="8" md="6" xl="4">
+      <v-sheet border="thin" rounded="xl">
+        <v-container>
+          <h5 class="text-h5 text-center">SIGN UP</h5>
+          <v-form @submit.prevent="handleSubmit">
+            <v-row class="justify-center">
+              <v-col cols="12">
+                <FormField v-model="dto" :err field="nickname" />
+              </v-col>
+              <v-col cols="12">
+                <FormField v-model="dto" :err field="password" />
+              </v-col>
+              <v-col cols="12">
+                <FormField v-model="dto" :err field="repasswd" />
+              </v-col>
+              <v-col cols="12">
+                <FormField v-model="dto" :err field="email" />
+              </v-col>
+              <v-col cols="12">
+                <FormField v-model="dto" :err field="phone" />
+              </v-col>
+              <v-col cols="12">
+                <FormField
+                  v-model="dto"
+                  :err
+                  field="city"
+                  comp="v-select"
+                  :items
+                />
+              </v-col>
 
-                <v-col cols="12">
-                  <v-select
-                    v-model="dto.city"
-                    :items="['California', 'Florida', 'Texas']"
-                    :error-messages="err?.city?._errors"
-                    label="city"
-                    autocomplete="off"
-                  ></v-select>
-                </v-col>
+              <v-col cols="12">
+                <FormField
+                  v-model="dto"
+                  :err
+                  field="isConfirmed"
+                  comp="v-checkbox"
+                />
+              </v-col>
 
-                <v-col cols="12">
-                  <v-checkbox
-                    v-model="dto.isConfirmed"
-                    :error-messages="err?.isConfirmed?._errors"
-                    label="isConfirmed"
-                    density="compact"
-                  ></v-checkbox>
-                </v-col>
+              <v-col cols="12">
+                <v-btn
+                  :is-loading
+                  size="x-large"
+                  type="submit"
+                  text="sign up"
+                  block
+                ></v-btn>
+              </v-col>
 
-                <v-col cols="12">
-                  <v-btn
-                    :is-loading
-                    size="x-large"
-                    type="submit"
-                    text="sign up"
-                    block
-                  ></v-btn>
-                </v-col>
-
-                <v-col v-if="err?._errors?.length > 0" cols="12">
-                  <p>{{ err?._errors }}</p>
-                </v-col>
-              </v-row>
-            </v-container>
+              <v-col v-if="err?._errors?.length > 0" cols="12">
+                <p>{{ err?._errors }}</p>
+              </v-col>
+            </v-row>
           </v-form>
-        </v-sheet>
-      </v-col>
-    </v-row>
-  </v-container>
+        </v-container>
+      </v-sheet>
+    </v-col>
+  </v-row>
 </template>
