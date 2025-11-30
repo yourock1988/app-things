@@ -1,10 +1,13 @@
 <script>
 import { mapActions, mapState } from 'vuex'
+import FormField from '../FormField.vue'
 
 export default {
+  components: { FormField },
+
   data() {
     return {
-      localUser: this.initUser(),
+      dto: this.initUser(),
       loading: false,
     }
   },
@@ -26,8 +29,8 @@ export default {
 
     async handleSubmit() {
       this.loading = true
-      await this.createUser({ ...this.localUser })
-      this.localUser = this.initUser()
+      await this.createUser({ ...this.dto })
+      this.dto = this.initUser()
       this.loading = false
     },
   },
@@ -35,50 +38,33 @@ export default {
 </script>
 
 <template>
-  <v-container>
-    <v-row class="justify-center">
-      <v-col cols="12">
-        <v-sheet class="elevation-5 overflow-hidden" border="thin" rounded="xl">
+  <v-row class="justify-center">
+    <v-col cols="12">
+      <v-sheet class="elevation-5 overflow-hidden" border="thin" rounded="xl">
+        <v-container>
           <h6 class="text-h6 text-center">Create user</h6>
           <v-form validate-on="submit lazy" @submit.prevent="handleSubmit">
-            <v-container>
-              <v-row class="justify-center">
-                <v-col cols="3">
-                  <v-text-field
-                    v-model="localUser.nickname"
-                    :error-messages="err?.nickname?._errors"
-                    label="nickname"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="3">
-                  <v-text-field
-                    v-model="localUser.password"
-                    :error-messages="err?.password?._errors"
-                    label="password"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="3">
-                  <v-text-field
-                    v-model="localUser.email"
-                    :error-messages="err?.email?._errors"
-                    label="email"
-                    autocomplete="off"
-                  />
-                </v-col>
-                <v-col cols="3">
-                  <v-btn :loading type="submit">Submit</v-btn>
-                </v-col>
+            <v-row class="justify-center">
+              <v-col cols="3">
+                <FormField v-model="dto" :err field="nickname" />
+              </v-col>
+              <v-col cols="3">
+                <FormField v-model="dto" :err field="password" />
+              </v-col>
+              <v-col cols="3">
+                <FormField v-model="dto" :err field="email" />
+              </v-col>
 
-                <v-col v-if="err?._errors.length > 0" cols="12">
-                  <p>{{ err?._errors }}</p>
-                </v-col>
-              </v-row>
-            </v-container>
+              <v-col cols="3">
+                <v-btn :loading type="submit">Submit</v-btn>
+              </v-col>
+              <v-col v-if="err?._errors.length > 0" cols="12">
+                <p>{{ err?._errors }}</p>
+              </v-col>
+            </v-row>
           </v-form>
-        </v-sheet>
-      </v-col>
-    </v-row>
-  </v-container>
+        </v-container>
+      </v-sheet>
+    </v-col>
+  </v-row>
 </template>

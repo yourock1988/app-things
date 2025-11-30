@@ -67,7 +67,6 @@ export default {
               <v-col cols="3">
                 <FormField v-model.number="dto" :err field="hp" />
               </v-col>
-
               <v-col cols="3">
                 <FormField
                   v-model.number="dto"
@@ -80,7 +79,6 @@ export default {
               <v-col cols="3">
                 <v-btn :loading type="submit">Submit</v-btn>
               </v-col>
-
               <v-col v-if="err?._errors.length > 0" cols="12">
                 <p>{{ err?._errors }}</p>
               </v-col>

@@ -76,6 +76,7 @@ export default {
       <v-col cols="12">
         <FormField v-model="dto" :err field="isAgree" comp="v-checkbox" />
       </v-col>
+
       <v-col cols="12">
         <v-btn :is-loading type="submit">Submit</v-btn>
       </v-col>
