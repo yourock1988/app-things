@@ -1,20 +1,18 @@
 <script>
+import FormSheet from '../FormSheet.vue'
 import UsersForm from '../UsersForm.vue'
 
 export default {
-  components: { UsersForm },
+  components: { UsersForm, FormSheet },
+
+  data() {
+    return {
+      sizing: { cols: 12 },
+    }
+  },
 }
 </script>
 
 <template>
-  <v-row class="justify-center">
-    <v-col cols="12">
-      <v-sheet border="thin" rounded="xl">
-        <v-container>
-          <h5 class="text-h5 text-center">Create user</h5>
-          <UsersForm />
-        </v-container>
-      </v-sheet>
-    </v-col>
-  </v-row>
+  <FormSheet caption="Create car" :sizing><UsersForm /></FormSheet>
 </template>
