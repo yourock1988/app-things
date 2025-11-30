@@ -8,15 +8,14 @@ export default {
   data() {
     return {
       isLoading: false,
-      items: ['California', 'Florida', 'Texas'],
       dto: this.initDto(),
       err: null,
       // err: {
       //   _errors: ['very bad'],
-      //   isAgree: {
+      //   nickname: {
       //     _errors: ['bad'],
       //   },
-      //   city: {
+      //   password: {
       //     _errors: ['bad'],
       //   },
       // },
@@ -28,23 +27,18 @@ export default {
   },
 
   methods: {
-    // ...mapActions('auth', ['signUp']),
+    // ...mapActions('auth', ['signIn']),
 
     initDto() {
       return {
-        isAgree: false,
         nickname: '',
         password: '',
-        repasswd: '',
-        email: '',
-        phone: '',
-        city: '',
       }
     },
 
     async handleSubmit() {
       this.isLoading = true
-      // await this.signUp({ ...this.dto })
+      // await this.signIn({ ...this.dto })
       this.dto = this.initDto()
       this.isLoading = false
     },
@@ -60,21 +54,6 @@ export default {
       </v-col>
       <v-col cols="12">
         <FormField v-model="dto" :err field="password" />
-      </v-col>
-      <v-col cols="12">
-        <FormField v-model="dto" :err field="repasswd" />
-      </v-col>
-      <v-col cols="6">
-        <FormField v-model="dto" :err field="email" />
-      </v-col>
-      <v-col cols="6">
-        <FormField v-model="dto" :err field="phone" />
-      </v-col>
-      <v-col cols="12">
-        <FormField v-model="dto" :err field="city" comp="v-select" :items />
-      </v-col>
-      <v-col cols="12">
-        <FormField v-model="dto" :err field="isAgree" comp="v-checkbox" />
       </v-col>
       <v-col cols="12">
         <v-btn :is-loading type="submit">Submit</v-btn>

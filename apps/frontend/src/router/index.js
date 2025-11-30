@@ -5,6 +5,7 @@ import PageCars from '../pages/PageCars.vue'
 import PageMain from '../pages/PageMain.vue'
 import PagePicsum from '../pages/PagePicsum.vue'
 import PageSignUp from '../pages/PageSignUp.vue'
+import PageSignIn from '../pages/PageSignIn.vue'
 
 const routes = [
   {
@@ -14,6 +15,10 @@ const routes = [
   {
     path: '/sign-up',
     component: PageSignUp,
+  },
+  {
+    path: '/sign-in',
+    component: PageSignIn,
   },
   {
     path: '/users',
