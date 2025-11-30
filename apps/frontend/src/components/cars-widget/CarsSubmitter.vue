@@ -106,13 +106,7 @@ export default {
                 </v-col>
 
                 <v-col cols="3">
-                  <v-btn
-                    :loading
-                    size="x-large"
-                    type="submit"
-                    text="Submit"
-                    block
-                  ></v-btn>
+                  <v-btn :loading type="submit">Submit</v-btn>
                 </v-col>
 
                 <v-col v-if="err?._errors.length > 0" cols="12">

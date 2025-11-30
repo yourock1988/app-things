@@ -49,5 +49,11 @@ export default createVuetify({
     VBreadcrumbs: {
       bgColor: 'indigo-lighten-2',
     },
+    VForm: {
+      VBtn: {
+        block: true,
+        size: 'x-large',
+      },
+    },
   },
 })
