@@ -12,7 +12,7 @@
     "noEmitOnError": true,
     "noEmit": false,
     "allowJs": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "declarationMap": false,
     "declaration": false,
     "skipLibCheck": true
