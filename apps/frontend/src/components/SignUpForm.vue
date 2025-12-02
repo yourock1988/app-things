@@ -16,7 +16,7 @@ export default {
       //   isAgree: {
       //     _errors: ['bad'],
       //   },
-      //   city: {
+      //   country: {
       //     _errors: ['bad'],
       //   },
       // },
@@ -32,13 +32,13 @@ export default {
 
     initDto() {
       return {
-        isAgree: false,
         nickname: '',
         password: '',
         repasswd: '',
         email: '',
         phone: '',
-        city: '',
+        country: '',
+        isAgree: false,
       }
     },
 
@@ -71,7 +71,7 @@ export default {
         <FormField v-model="dto" :err field="phone" />
       </v-col>
       <v-col cols="12">
-        <FormField v-model="dto" :err field="city" comp="v-select" :items />
+        <FormField v-model="dto" :err field="country" comp="v-select" :items />
       </v-col>
       <v-col cols="12">
         <FormField v-model="dto" :err field="isAgree" comp="v-checkbox" />

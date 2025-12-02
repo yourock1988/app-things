@@ -1,4 +1,4 @@
-import parsePhoneNumberFromString, { CountryCode } from 'libphonenumber-js'
+import parsePhoneNumberFromString, { CountryCode } from 'libphonenumber-js/max'
 
 export default function validatePhoneStrict(
   phone: string,

@@ -1,0 +1,41 @@
+GET http://localhost:8004/api/v0/accounts/
+###
+GET http://localhost:8004/api/v0/accounts/420/
+###
+DELETE http://localhost:8004/api/v0/accounts/420/
+###
+
+POST http://localhost:8004/api/v0/accounts/
+content-type: application/json
+
+{"nickname":"ooo","password":"oO1!oooo","repasswd":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true  }
+###
+
+PATCH http://localhost:8004/api/v0/accounts/420/
+content-type: application/json
+
+{"favoriteNumbers": [111,222,333]}
+###
+###
+
+
+GET http://localhost:8004/api/v0/accounts/1111/
+###
+DELETE http://localhost:8004/api/v0/accounts/1111/
+###
+PATCH http://localhost:8004/api/v0/accounts/1111/
+content-type: application/json
+
+{"favoriteNumbers": [111,222,333]}
+###
+PATCH http://localhost:8004/api/v0/accounts/420/
+content-type: application/json
+
+{"favoriteNumbers"}
+### BAD
+
+POST http://localhost:8004/api/v0/accounts/
+content-type: application/json
+
+{"nickname":"ooooooooo","password":"oooo","email":"ooo@ooooo"}
+### BAD
