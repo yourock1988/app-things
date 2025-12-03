@@ -29,7 +29,7 @@ export default {
 <template>
   <AppLayout :tabs>
     <router-view v-slot="{ Component }">
-      <v-fade-transition hide-on-leave>
+      <v-fade-transition mode="out-in" :duration="50">
         <component :is="Component" />
       </v-fade-transition>
     </router-view>
