@@ -7,7 +7,7 @@ export default {
 
   data() {
     return {
-      isLoading: false,
+      loading: false,
       dto: this.initDto(),
       err: null,
       // err: {
@@ -37,10 +37,10 @@ export default {
     },
 
     async handleSubmit() {
-      this.isLoading = true
+      this.loading = true
       // await this.signIn({ ...this.dto })
       this.dto = this.initDto()
-      this.isLoading = false
+      this.loading = false
     },
   },
 }
@@ -57,7 +57,7 @@ export default {
       </v-col>
 
       <v-col cols="12">
-        <v-btn :is-loading type="submit">Submit</v-btn>
+        <v-btn :loading type="submit">Submit</v-btn>
       </v-col>
       <v-col v-if="err?._errors?.length > 0" cols="12">
         <p>{{ err?._errors }}</p>
