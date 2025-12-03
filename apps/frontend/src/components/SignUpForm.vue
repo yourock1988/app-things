@@ -1,13 +1,16 @@
 <script>
 // import { mapActions, mapState } from 'vuex'
 import FormField from '@/components/FormField.vue'
+import signUp from '../api/rest/accounts.js'
 
 export default {
   components: { FormField },
 
+  emits: ['success'],
+
   data() {
     return {
-      isLoading: false,
+      loading: false,
       items: ['California', 'Florida', 'Texas'],
       dto: this.initDto(),
       err: null,
@@ -32,21 +35,27 @@ export default {
 
     initDto() {
       return {
-        nickname: '',
-        password: '',
-        repasswd: '',
-        email: '',
-        phone: '',
-        country: '',
-        isAgree: false,
+        nickname: 'xxx',
+        password: 'xX1!xxxx',
+        repasswd: 'xX1!xxxx',
+        email: 'xxx@xx.xx',
+        phone: '+380334445566',
+        country: 'xxxxx',
+        isAgree: true,
       }
     },
 
     async handleSubmit() {
-      this.isLoading = true
-      // await this.signUp({ ...this.dto })
-      this.dto = this.initDto()
-      this.isLoading = false
+      this.loading = true
+      this.err = null
+      const [err, data] = await signUp({ ...this.dto })
+      if (err) {
+        this.err = err
+      } else {
+        this.dto = this.initDto()
+        this.$emit('success', data.id)
+      }
+      this.loading = false
     },
   },
 }
@@ -78,7 +87,7 @@ export default {
       </v-col>
 
       <v-col cols="12">
-        <v-btn :is-loading type="submit">Submit</v-btn>
+        <v-btn :loading type="submit">Submit</v-btn>
       </v-col>
       <v-col v-if="err?._errors?.length > 0" cols="12">
         <p>{{ err?._errors }}</p>
