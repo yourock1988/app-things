@@ -2,9 +2,8 @@
   "name": "@app-x/frontend",
   "version": "0.0.1",
   "description": "frontend",
-  "author": "YouROCK",
-  "license": "MIT",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon --watch \"../../packages/webpack-config/\" --exec \"webpack serve --config ../../packages/webpack-config/dev.js\"",
     "build:dev": "webpack -c ../../packages/webpack-config/dev.js",

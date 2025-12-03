@@ -10,8 +10,8 @@ const app = Vue.createApp(App)
 const { APP_ORIGIN } = process.env
 const { APP_FE_COMMENT } = process.env
 
-global.console.log(APP_FE_COMMENT)
-global.console.log(APP_ORIGIN)
+globalThis.console.log(APP_FE_COMMENT)
+globalThis.console.log(APP_ORIGIN)
 
 app.use(vuetifyConfig)
 app.use(store)
