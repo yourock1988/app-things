@@ -1,6 +1,7 @@
 import {
   FetchRequestError,
-  HttpStatusError,
+  HttpEmptyError,
+  HttpRespError,
   ParseJsonError,
 } from '../../errors.js'
 
@@ -25,6 +26,10 @@ export default async function sendRequest(url, method = 'GET', payload = null) {
 
   if (resp.status === 204) return [null, true]
 
+  if ([409, 401, 403, 404, 405, 500].includes(resp.status)) {
+    return [new HttpEmptyError(resp.status)]
+  }
+
   try {
     text = await resp.text()
     data = JSON.parse(text)
@@ -33,8 +38,8 @@ export default async function sendRequest(url, method = 'GET', payload = null) {
     throw new Error(e.message)
   }
 
-  if ([400, 401, 403, 404, 405, 500].includes(resp.status)) {
-    return [new HttpStatusError(data)]
+  if ([400].includes(resp.status)) {
+    return [new HttpRespError(data)]
   }
 
   return [null, data]

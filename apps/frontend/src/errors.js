@@ -14,13 +14,16 @@ export class ParseJsonError extends Error {
   }
 }
 
-export class HttpStatusError extends Error {
-  constructor(message) {
-    super(JSON.stringify(message))
+export class HttpEmptyError extends Error {
+  constructor(cause) {
+    super('HttpEmptyError', { cause })
     this.name = this.constructor.name
   }
+}
 
-  get msg() {
-    return JSON.parse(this.message)
+export class HttpRespError extends Error {
+  constructor(cause) {
+    super('HttpRespError', { cause })
+    this.name = this.constructor.name
   }
 }

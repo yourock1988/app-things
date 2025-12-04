@@ -20,12 +20,15 @@ export default class AccountService extends EventEmitter {
     return account
   }
 
-  add(dto: TAccountAddDto): Account {
+  add(dto: TAccountAddDto): Account | null {
     // TODO: в репозиторий должны сохранятся модели, а не dto
     // TODO: точнее модель нужно конвертировать в запись
     // TODO: тоесть из dto нужно создать модель, а потом сконвертировать её в запись
     // TODO: а вот и нет. модель сущности может быть только у уже добавленной в репозиторий сущности.
     // TODO: не должно быть моделей, у которых нет записи в репозитории
+
+    const existedAccount = this.accountRepository.getByNickname(dto.nickname)
+    if (existedAccount) return null
     const account = this.accountRepository.add(dto)
     // account.sayHello('new')
     this.emit('account:added', account)

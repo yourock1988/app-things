@@ -25,7 +25,8 @@ export default class AccountControllerRest {
   add(req: Request, res: Response): void {
     const dto: TAccountAddDto = req.body
     const account = this.accountService.add(dto)
-    res.status(201).json(account)
+    if (account) res.status(201).json(account)
+    else res.status(409).send()
   }
 
   updateById(req: Request, res: Response): void {
