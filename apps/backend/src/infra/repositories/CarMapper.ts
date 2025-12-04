@@ -1,5 +1,7 @@
+import { TCarAddDto } from '../../core/dtos/TCarDtos.js'
 import { TCarRecord } from './TCarRecord.js'
 import Car from '../../core/models/Car.js'
+import randId from '../../utils/randId.js'
 
 export default class CarMapper {
   static toModel(record: TCarRecord): Car {
@@ -15,17 +17,17 @@ export default class CarMapper {
     )
   }
 
-  static toRecord(model: Car): TCarRecord {
+  static toRecord(dto: TCarAddDto): TCarRecord {
     const userRecord: TCarRecord = {
-      id: model.id,
-      type: model.type,
-      brand: model.brand,
-      model: model.model,
-      price: model.price,
-      engine: model.engine,
-      hasTurbo: model.hasTurbo,
-      hp: model.hp,
-      isRunning: model.isRunning(),
+      id: randId(),
+      type: dto.type,
+      brand: dto.brand,
+      model: dto.model,
+      price: dto.price,
+      engine: dto.engine,
+      hasTurbo: dto.hasTurbo,
+      hp: dto.hp,
+      isRunning: Math.random() > 0.5,
     }
     return userRecord
   }

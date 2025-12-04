@@ -1,5 +1,7 @@
 import { TUserRecord } from './TUserRecord.js'
 import User from '../../core/models/User.js'
+import { TUserAddDto } from '../../core/dtos/TUserDtos.js'
+import randId from '../../utils/randId.js'
 
 export default class UserMapper {
   static toModel(record: TUserRecord): User {
@@ -12,13 +14,13 @@ export default class UserMapper {
     )
   }
 
-  static toRecord(model: User): TUserRecord {
+  static toRecord(dto: TUserAddDto): TUserRecord {
     const userRecord: TUserRecord = {
-      id: model.id,
-      nickname: model.nickname,
-      password: model.password,
-      email: model.email,
-      money: model.money,
+      id: randId(),
+      nickname: dto.nickname,
+      password: dto.password,
+      email: dto.email,
+      money: 0,
     }
     return userRecord
   }

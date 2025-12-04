@@ -19,8 +19,9 @@ export default class UserRepositoryDb implements IUserRepository {
   }
 
   add(dto: TUserAddDto): User {
-    const record: TUserRecord = this.orm.insert({ ...dto, money: 0 })
-    return UserMapper.toModel(record)
+    const record = UserMapper.toRecord(dto)
+    const appendedRecord: TUserRecord = this.orm.insert(record)
+    return UserMapper.toModel(appendedRecord)
   }
 
   updateById(id: number, dto: TUserUpdateDto): User | null {

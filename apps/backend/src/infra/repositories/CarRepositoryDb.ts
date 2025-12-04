@@ -21,8 +21,9 @@ export default class CarRepositoryDb implements ICarRepository {
   }
 
   add(dto: TCarAddDto): Car {
-    const record: TCarRecord = this.orm.insert({ ...dto, money: 0 })
-    return CarMapper.toModel(record)
+    const record = CarMapper.toRecord(dto)
+    const appendedRecord: TCarRecord = this.orm.insert(record)
+    return CarMapper.toModel(appendedRecord)
   }
 
   updateById(id: number, dto: TCarUpdateDto): Car | null {
