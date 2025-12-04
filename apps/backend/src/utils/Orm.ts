@@ -36,4 +36,8 @@ export default class Orm {
   selectByNickname(nickname: string) {
     return this.table.find(u => u.nickname === nickname) ?? null
   }
+
+  selectBySessionId(sessionId: string) {
+    return this.table.find(u => u.sessionId === sessionId) ?? null
+  }
 }

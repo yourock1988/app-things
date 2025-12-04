@@ -1,0 +1,44 @@
+GET http://localhost:8004/api/v0/sessions/
+###
+GET http://localhost:8004/api/v0/sessions/1/
+###
+GET http://localhost:8004/api/v0/sessions/abcdef/
+###
+DELETE http://localhost:8004/api/v0/sessions/2/
+###
+
+POST http://localhost:8004/api/v0/sessions/
+content-type: application/json
+
+{"nickname":"admin"}
+###
+
+PATCH http://localhost:8004/api/v0/sessions/2/
+content-type: application/json
+
+{"nickname":"админ"}
+###
+###
+
+
+GET http://localhost:8004/api/v0/sessions/1111/
+###
+DELETE http://localhost:8004/api/v0/sessions/1111/
+###
+PATCH http://localhost:8004/api/v0/sessions/1111/
+content-type: application/json
+
+{"nickname":"админ"}
+###
+PATCH http://localhost:8004/api/v0/sessions/111/
+content-type: application/json
+
+{"sessionId":"12345"}
+### BAD
+
+POST http://localhost:8004/api/v0/sessions/
+content-type: application/json
+
+{"nickname"}
+### BAD
+
