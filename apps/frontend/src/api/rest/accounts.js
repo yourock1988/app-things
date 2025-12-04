@@ -5,7 +5,8 @@ import {
 } from '../../errors.js'
 import sendRequest from './sendRequest.js'
 
-const url = 'http://localhost:8004/api/v0/accounts'
+const { APP_ORIGIN } = process.env
+const url = `${APP_ORIGIN}/api/v0/accounts/`
 
 export default async function signUp(dto) {
   const [err, data] = await sendRequest(url, 'POST', dto)

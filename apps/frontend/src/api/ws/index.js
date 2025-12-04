@@ -1,6 +1,8 @@
 import { io } from 'socket.io-client'
 
-const socket = io('ws://localhost:7700', {
+const { APP_WEBSOCK } = process.env
+
+const socket = io(APP_WEBSOCK, {
   transports: ['websocket'],
   autoConnect: false,
 })
