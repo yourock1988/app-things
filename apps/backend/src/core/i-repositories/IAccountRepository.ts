@@ -7,5 +7,5 @@ export interface IAccountRepository {
   add(dto: TAccountAddDto): Account
   updateInfoById(id: number, dto: TAccountUpdateInfoDto): Account | null
   removeById(id: number): boolean
-  getByNickname(nickname: string): string
+  getByNickname(nickname: string): Account | null
 }

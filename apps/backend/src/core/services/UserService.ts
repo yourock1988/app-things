@@ -21,16 +21,10 @@ export default class UserService extends EventEmitter {
   }
 
   add(dto: TUserAddDto): User {
-    // TODO: в репозиторий должны сохранятся модели, а не dto
-    // TODO: точнее модель нужно конвертировать в запись
-    // TODO: тоесть из dto нужно создать модель, а потом сконвертировать её в запись
-
     const user = this.userRepository.add(dto)
     user.sayHello('new')
     this.emit('user:added', user)
     return user
-    // TODO: и на выход должен уходить либо dto либо json
-    // TODO: не нужно работающую модель выплёвывать в контроллер
   }
 
   updateById(id: number, dto: TUserUpdateDto): User | null {

@@ -22,9 +22,6 @@ export default class AccountRepositoryDb implements IAccountRepository {
   }
 
   add(dto: TAccountAddDto): Account {
-    // TODO: поля, которые не пришли в dto база данных устанавливает по дефолту
-    // TODO: пока временно буду делать дефолтные поля в маппере конструкторе
-    // TODO: хотя можно и в конструкторе, но лучше не надо
     const record = AccountMapper.toRecord(dto)
     const appendedRecord: TAccountRecord = this.orm.insert(record)
     return AccountMapper.toModel(appendedRecord)
@@ -39,7 +36,8 @@ export default class AccountRepositoryDb implements IAccountRepository {
     return this.orm.delete(id)
   }
 
-  getByNickname(nickname: string): string {
-    return this.orm.selectByNickname(nickname)
+  getByNickname(nickname: string): Account | null {
+    const record: TAccountRecord = this.orm.selectByNickname(nickname)
+    return record ? AccountMapper.toModel(record) : null
   }
 }

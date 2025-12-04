@@ -21,16 +21,10 @@ export default class CarService extends EventEmitter {
   }
 
   add(dto: TCarAddDto): Car {
-    // TODO: в репозиторий должны сохранятся модели, а не dto
-    // TODO: точнее модель нужно конвертировать в запись
-    // TODO: тоесть из dto нужно создать модель, а потом сконвертировать её в запись
-
     const car = this.carRepository.add(dto)
     // car.sayHello('new')
     this.emit('car:added', car)
     return car
-    // TODO: и на выход должен уходить либо dto либо json
-    // TODO: не нужно работающую модель выплёвывать в контроллер
   }
 
   updateById(id: number, dto: TCarUpdateDto): Car | null {
