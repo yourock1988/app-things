@@ -6,10 +6,14 @@ import AuthService from '../../core/services/AuthService.js'
 import AuthControllerRest from '../controllers/AuthControllerRest.js'
 import AuthRouterRest from '../routers/AuthRouterRest.js'
 import mwAuthRest from '../middlewares/mwAuthRest.js'
+import SessionRepositoryDb from '../repositories/SessionRepositoryDb.js'
+import sessionsTable from '../../utils/tables/sessionsTable.js'
 
 const accountsOrm = new Orm(accountsTable)
+const sessionsOrm = new Orm(sessionsTable)
 const accountRepositoryDb = new AccountRepositoryDb(accountsOrm)
-const authService = new AuthService(accountRepositoryDb)
+const sessionRepositoryDb = new SessionRepositoryDb(sessionsOrm)
+const authService = new AuthService(accountRepositoryDb, sessionRepositoryDb)
 const authControllerRest = new AuthControllerRest(authService)
 bindSelf(authControllerRest)
 const authRouterRest = new AuthRouterRest(authControllerRest, mwAuthRest).router

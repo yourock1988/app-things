@@ -1,6 +1,12 @@
 POST http://localhost:8004/api/v0/auth/sign-up
 content-type: application/json
 
-{"nickname":"ooo2","password":"oO1!oooo","repasswd":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true  }
+{"nickname":"ooo","password":"oO1!oooo","repasswd":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true  }
+###
+
+POST http://localhost:8004/api/v0/auth/sign-in
+content-type: application/json
+
+{"nickname":"ooo","password":"oO1!oooo"  }
 ###
 

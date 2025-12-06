@@ -32,7 +32,9 @@
 
 ✅ регистрация
 
-🔄 аутентификация
+✅ аутентификация
+
+🔄 завершение сессии
 
 ✅ добавить сущность сессий
 
@@ -42,8 +44,8 @@
 🔄 self-made
 
 ✅ POST /auth/sign-up
-🔄 POST /auth/sign-in
-DELETE /auth/sign-out
+✅ POST /auth/sign-in
+🔄 DELETE /auth/sign-out
 POST /auth/change-password
 POST /auth/profile
 GET /auth/profile

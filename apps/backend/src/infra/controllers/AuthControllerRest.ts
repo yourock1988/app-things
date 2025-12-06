@@ -3,7 +3,7 @@ import {
   // TAuthChangePasswordDto,
   // TAuthUpdateProfileDto,
   TAuthSignUpDto,
-  // TAuthSignInDto,
+  TAuthSignInDto,
 } from '../../core/dtos/TAuthDtos.js'
 import AuthService from '../../core/services/AuthService.js'
 
@@ -17,12 +17,12 @@ export default class AuthControllerRest {
     else res.status(409).send()
   }
 
-  // signIn(req: Request, res: Response): void {
-  //   const dto: TAuthSignInDto = req.body
-  //   const sessionId = this.authService.signIn(dto)
-  //   if (sessionId) res.status(201).json({ sessionId })
-  //   else res.status(404).send()
-  // }
+  signIn(req: Request, res: Response): void {
+    const dto: TAuthSignInDto = req.body
+    const session = this.authService.signIn(dto)
+    if (session) res.status(201).json(session)
+    else res.status(404).send()
+  }
 
   // signOut(req: Request, res: Response): void {
   //   const { sessionId } = req.params

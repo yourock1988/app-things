@@ -1,18 +1,32 @@
 import EventEmitter from 'node:events'
 import { IAccountRepository } from '../i-repositories/IAccountRepository.js'
-import { TAuthSignUpDto } from '../dtos/TAuthDtos.js'
+import { TAuthSignInDto, TAuthSignUpDto } from '../dtos/TAuthDtos.js'
 import Account from '../models/Account.js'
+import { ISessionRepository } from '../i-repositories/ISessionRepository.js'
+import Session from '../models/Session.js'
 
 export default class AuthService extends EventEmitter {
-  constructor(readonly accountRepository: IAccountRepository) {
+  constructor(
+    readonly accountRepository: IAccountRepository,
+    readonly sessionRepository: ISessionRepository
+  ) {
     super()
   }
 
   signUp(dto: TAuthSignUpDto): Account | null {
-    const existedAuth = this.accountRepository.getByNickname(dto.nickname)
-    if (existedAuth) return null
+    const account = this.accountRepository.getByNickname(dto.nickname)
+    if (account) return null
     const appendedAccount = this.accountRepository.add(dto)
     return appendedAccount
+  }
+
+  signIn(dto: TAuthSignInDto): Session | null {
+    const account = this.accountRepository.getByNickname(dto.nickname)
+    if (!account) return null
+    if (account.password !== dto.password) return null
+    const sessionAddDto = { nickname: account.nickname }
+    const appendedSession = this.sessionRepository.add(sessionAddDto)
+    return appendedSession
   }
 
   // getAll(): Auth[] {
