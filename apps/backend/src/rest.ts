@@ -1,15 +1,16 @@
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 import { json, NextFunction, Request, Response, Router } from 'express'
 import { userRouterRest } from './infra/di/userDi.js'
 import { carRouterRest } from './infra/di/carDi.js'
 import accountRouterRest from './infra/di/accountDi.js'
 import sessionRouterRest from './infra/di/sessionDi.js'
-import authRouterRest from './infra/di/authDi.js'
+import { authRouterRest } from './infra/di/authDi.js'
 
 const rest = Router()
 const corsOptions = { origin: true, credentials: true }
 
-rest.use([json(), cors(corsOptions)])
+rest.use([cookieParser(), json(), cors(corsOptions)])
 
 rest.use('/users', userRouterRest)
 rest.use('/cars', carRouterRest)

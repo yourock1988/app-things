@@ -13,6 +13,24 @@ export default class AuthService extends EventEmitter {
     super()
   }
 
+  authN(sessionId: string): Session | null {
+    const session = this.sessionRepository.getBySessionId(sessionId)
+    return session
+  }
+
+  authZ(nickname: string, resource: string, method: string): boolean {
+    const account = this.accountRepository.getByNickname(nickname)
+    if (!account) return false
+    if (
+      account.role === 'admin' &&
+      resource === '/api/v0/cars/' &&
+      method === 'GET'
+    ) {
+      return true
+    }
+    return false
+  }
+
   signUp(dto: TAuthSignUpDto): Account | null {
     const account = this.accountRepository.getByNickname(dto.nickname)
     if (account) return null

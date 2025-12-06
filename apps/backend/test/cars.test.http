@@ -1,6 +1,11 @@
 GET http://localhost:8004/api/v0/cars/
+cookie: sessionId=abcdef
 ###
 GET http://localhost:8004/api/v0/cars/1001/
+cookie: sessionId=abcdef
+###
+GET http://localhost:8004/api/v0/cars/1001/
+cookie: sessionId=abcde
 ###
 DELETE http://localhost:8004/api/v0/cars/1001/
 ###
