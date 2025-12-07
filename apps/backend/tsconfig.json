@@ -15,7 +15,8 @@
     "sourceMap": true,
     "declarationMap": false,
     "declaration": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "include": ["src", "src/spec"],
   "exclude": ["node_modules", "build", "dist", "frontend/**/*"]
