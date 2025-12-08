@@ -1,15 +1,7 @@
 import { z } from 'zod'
+import messages from './messages.json' with { type: 'json' }
 
-const msg = {
-  require: 'Пришлите это поле',
-  nonempty: 'Заполните поле',
-  minlength: 'Увеличьте хотябы до 8 символов',
-  maxlength: 'Сократите хотябы до 20 символов',
-  uppercase: 'Добавьте хотябы один символ в верхнем регистре',
-  lowercase: 'Добавьте хотябы один символ в нижнем регистре',
-  digit: 'Добавьте хотябы одну цифру',
-  special: 'Добавьте хотябы один спец-символ',
-}
+const msg = { ...messages, ...messages.password }
 
 export default z
   .string({ required_error: msg.require })
