@@ -166,3 +166,29 @@ router.get('/') - неправильно
 router.get('') - правильно
 
 на get запросы на обычные ресурсы не должны проходить авторизацию
+
+названия мидлварей писать в UPPERCASE одним словом, чтоб было сразу заметно
+
+нужно настроить typescript на понимание алиаса @/ в импортах
+
+валидация всех входных данных:
+cookie
+params
+query
+body
+
+каждое поле имеет свою проверку
+verifyField(fieldName, fieldData)
+
+для каждого входа своя функция
+verifyCookies
+verifyParams
+verifyQuery
+verifyBody
+
+все 4 функции можно будет скомпилировать в одну единую мидлварю
+verifyEntrance
+
+нужно разделить мидлвари на 2 вида
+shared middlewares (ID, SESSID)
+entity middlewares (ADD, UPD)

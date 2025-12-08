@@ -7,10 +7,14 @@ import {
   TSessionUpdateDto,
 } from '../../core/dtos/TSessionDtos.js'
 import validateSchema from '../../utils/validateSchema.js'
+import zParamsIdDto from '../../core/schemas/zParamsIdDto.js'
+import validateSchemaRestParams from '../../utils/validateSchemaRestParams.js'
+import { authMW as AUTH } from '../di/authDi.js'
 
-const sessionAdd = validateSchema<TSessionAddDto>(zSessionAddDto)
-const sessionUpdate = validateSchema<TSessionUpdateDto>(zSessionUpdateDto)
+const ID = validateSchemaRestParams(zParamsIdDto)
+const ADD = validateSchema<TSessionAddDto>(zSessionAddDto)
+const UPD = validateSchema<TSessionUpdateDto>(zSessionUpdateDto)
 
-const mwSessionRest = { sessionAdd, sessionUpdate }
+const mwSessionRest = { ID, ADD, UPD, AUTH }
 
 export default mwSessionRest

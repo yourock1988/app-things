@@ -7,10 +7,10 @@ import { TAuthSignInDto, TAuthSignUpDto } from '../../core/dtos/TAuthDtos.js'
 import validateSchema from '../../utils/validateSchema.js'
 import validateSchemaRestParams from '../../utils/validateSchemaRestParams.js'
 
-const sessionId = validateSchemaRestParams(zAuthSessionIdDto)
-const signUp = validateSchema<TAuthSignUpDto>(zAuthSignUpDto)
-const signIn = validateSchema<TAuthSignInDto>(zAuthSignInDto)
+const SESSID = validateSchemaRestParams(zAuthSessionIdDto)
+const SIGNUP = validateSchema<TAuthSignUpDto>(zAuthSignUpDto)
+const SIGNIN = validateSchema<TAuthSignInDto>(zAuthSignInDto)
 
-const mwAuthRest = { sessionId, signUp, signIn }
+const mwAuthRest = { SESSID, SIGNUP, SIGNIN }
 
 export default mwAuthRest

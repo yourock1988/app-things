@@ -7,12 +7,14 @@ import {
   TAccountUpdateInfoDto,
 } from '../../core/dtos/TAccountDtos.js'
 import validateSchema from '../../utils/validateSchema.js'
+import zParamsIdDto from '../../core/schemas/zParamsIdDto.js'
+import validateSchemaRestParams from '../../utils/validateSchemaRestParams.js'
+import { authMW as AUTH } from '../di/authDi.js'
 
-const accountAdd = validateSchema<TAccountAddDto>(zAccountAddDto)
-const accountUpdate = validateSchema<TAccountUpdateInfoDto>(
-  zAccountUpdateInfoDto
-)
+const ID = validateSchemaRestParams(zParamsIdDto)
+const ADD = validateSchema<TAccountAddDto>(zAccountAddDto)
+const UPD = validateSchema<TAccountUpdateInfoDto>(zAccountUpdateInfoDto)
 
-const mwAccountRest = { accountAdd, accountUpdate }
+const mwAccountRest = { ID, ADD, UPD, AUTH }
 
 export default mwAccountRest

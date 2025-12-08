@@ -8,11 +8,11 @@ export default class UserRouterRest {
     readonly mwUserRest: any,
   ) {
     this.router = Router()
-    const { userAdd, userUpdate } = mwUserRest
+    const { ID, ADD, UPD, AUTH } = mwUserRest
     this.router.get('', userControllerRest.getAll)
-    this.router.get('/:id', userControllerRest.getById)
-    this.router.post('', userAdd, userControllerRest.add)
-    this.router.patch('/:id', userUpdate, userControllerRest.updateById)
-    this.router.delete('/:id', userControllerRest.removeById)
+    this.router.get('/:id', ID, userControllerRest.getById)
+    this.router.post('', ADD, AUTH, userControllerRest.add)
+    this.router.patch('/:id', ID, UPD, AUTH, userControllerRest.updateById)
+    this.router.delete('/:id', ID, AUTH, userControllerRest.removeById)
   }
 }
