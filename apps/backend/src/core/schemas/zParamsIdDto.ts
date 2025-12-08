@@ -1,11 +1,7 @@
 import z from 'zod'
+import messages from './messages.json' with { type: 'json' }
 
-const msg = {
-  dto: 'Пришлите объект в формате JSON',
-  require: 'Пришлите это поле',
-  extra: 'Уберите лишние поля из запроса',
-  mustNum: 'Пришлите корректный ID',
-}
+const msg = { ...messages, ...messages.id }
 
 export default z
   .object(
@@ -15,6 +11,6 @@ export default z
         invalid_type_error: msg.mustNum,
       }),
     },
-    { required_error: msg.dto }
+    { required_error: msg.dto },
   )
   .strict({ message: msg.extra })
