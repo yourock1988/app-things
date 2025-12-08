@@ -1,7 +1,7 @@
 import {
   zAccountAddDto,
   zAccountUpdInfoDto,
-} from '../../core/schemas/zNewAccountDtos.js'
+} from '../../core/schemas/zAccountDtos.js'
 import {
   TAccountAddDto,
   TAccountUpdateInfoDto,

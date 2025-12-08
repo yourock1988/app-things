@@ -2,7 +2,7 @@ import {
   zAccountGetDto,
   zAccountAddDto,
   zAuthSessionIdDto,
-} from '../../core/schemas/zNewAccountDtos.js'
+} from '../../core/schemas/zAccountDtos.js'
 import validateSchema from '../../utils/validateSchema.js'
 import validateSchemaRestParams from '../../utils/validateSchemaRestParams.js'
 import { TAccountAddDto, TAccountGetDto } from '../../core/dtos/TAccountDtos.js'
