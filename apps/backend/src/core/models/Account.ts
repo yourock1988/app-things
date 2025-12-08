@@ -13,20 +13,8 @@ export default class Account {
     readonly authorizationsCount: number,
     readonly authenticationsCount: number,
     readonly createdAt: number,
-    readonly updatedAt: number
+    readonly updatedAt: number,
   ) {}
-
-  register(info: string) {
-    global.console.log(`${info} : register ${this.nickname}`)
-  }
-
-  authenticate(info: string) {
-    global.console.log(`${info} : authenticate ${this.nickname}`)
-  }
-
-  authorize(info: string) {
-    global.console.log(`${info} : atuthorize ${this.nickname}`)
-  }
 
   toJSON() {
     return { ...this }

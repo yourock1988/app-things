@@ -1,10 +1,10 @@
 import EventEmitter from 'node:events'
 import { IAccountRepository } from '../i-repositories/IAccountRepository.js'
-import { TAuthSignInDto, TAuthSignUpDto } from '../dtos/TAuthDtos.js'
 import Account from '../models/Account.js'
 import { ISessionRepository } from '../i-repositories/ISessionRepository.js'
 import Session from '../models/Session.js'
 import accesses from '../accesses.json' with { type: 'json' }
+import { TAccountAddDto, TAccountGetDto } from '../dtos/TAccountDtos.js'
 
 type TAccessesJSON = Record<string, Record<string, string[]>>
 
@@ -32,14 +32,14 @@ export default class AuthService extends EventEmitter {
     return false
   }
 
-  signUp(dto: TAuthSignUpDto): Account | null {
+  signUp(dto: TAccountAddDto): Account | null {
     const account = this.accountRepository.getByNickname(dto.nickname)
     if (account) return null
     const appendedAccount = this.accountRepository.add(dto)
     return appendedAccount
   }
 
-  signIn(dto: TAuthSignInDto): Session | null {
+  signIn(dto: TAccountGetDto): Session | null {
     const account = this.accountRepository.getByNickname(dto.nickname)
     if (!account) return null
     if (account.password !== dto.password) return null
@@ -60,7 +60,7 @@ export default class AuthService extends EventEmitter {
   //   return auth
   // }
 
-  // add(dto: TAuthAddDto): Auth | null {
+  // add(dto: TAccountAddDto): Auth | null {
   //   const existedAuth = this.accountRepository.getByNickname(dto.nickname)
   //   if (existedAuth) return null
   //   const auth = this.accountRepository.add(dto)
@@ -69,7 +69,7 @@ export default class AuthService extends EventEmitter {
   //   return auth
   // }
 
-  // updateById(id: number, dto: TAuthUpdateInfoDto): Auth | null {
+  // updateById(id: number, dto: TAccountUpdateInfoDto): Auth | null {
   //   const auth = this.accountRepository.updateInfoById(id, {
   //     ...dto,
   //     favoriteNumbers: dto.favoriteNumbers.concat(42),

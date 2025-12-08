@@ -1,7 +1,7 @@
 import {
   zAccountAddDto,
-  zAccountUpdateInfoDto,
-} from '../../core/schemas/zAccountDtos.js'
+  zAccountUpdInfoDto,
+} from '../../core/schemas/zNewAccountDtos.js'
 import {
   TAccountAddDto,
   TAccountUpdateInfoDto,
@@ -13,7 +13,7 @@ import { authMW as AUTH } from '../di/authDi.js'
 
 const ID = validateSchemaRestParams(zParamsIdDto)
 const ADD = validateSchema<TAccountAddDto>(zAccountAddDto)
-const UPD = validateSchema<TAccountUpdateInfoDto>(zAccountUpdateInfoDto)
+const UPD = validateSchema<TAccountUpdateInfoDto>(zAccountUpdInfoDto)
 
 const mwAccountRest = { ID, ADD, UPD, AUTH }
 

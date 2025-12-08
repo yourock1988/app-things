@@ -1,15 +1,15 @@
 import {
+  zAccountGetDto,
+  zAccountAddDto,
   zAuthSessionIdDto,
-  zAuthSignInDto,
-  zAuthSignUpDto,
-} from '../../core/schemas/zAuthDtos.js'
-import { TAuthSignInDto, TAuthSignUpDto } from '../../core/dtos/TAuthDtos.js'
+} from '../../core/schemas/zNewAccountDtos.js'
 import validateSchema from '../../utils/validateSchema.js'
 import validateSchemaRestParams from '../../utils/validateSchemaRestParams.js'
+import { TAccountAddDto, TAccountGetDto } from '../../core/dtos/TAccountDtos.js'
 
 const SESSID = validateSchemaRestParams(zAuthSessionIdDto)
-const SIGNUP = validateSchema<TAuthSignUpDto>(zAuthSignUpDto)
-const SIGNIN = validateSchema<TAuthSignInDto>(zAuthSignInDto)
+const SIGNUP = validateSchema<TAccountAddDto>(zAccountAddDto)
+const SIGNIN = validateSchema<TAccountGetDto>(zAccountGetDto)
 
 const mwAuthRest = { SESSID, SIGNUP, SIGNIN }
 
