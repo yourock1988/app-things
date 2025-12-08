@@ -1,30 +1,18 @@
 import { z } from 'zod'
-import passwordSchema from './passwordSchema.js'
-import phoneSchema from './phoneSchema.js'
+import passwordSchema from './field/passwordSchema.js'
+import isAgreeSchema from './field/isAgreeSchema.js'
+import emailSchema from './field/emailSchema.js'
+import phoneSchema from './field/phoneSchema.js'
 import msg from './messages.json' with { type: 'json' }
 
 const nicknameSchema = z.string({ required_error: msg.require }).min(2).max(15)
-const emailSchema = z
-  .string({ required_error: msg.require })
-  .email({ message: msg.email })
-  .max(23)
 const countrySchema = z.string({ required_error: msg.require }).min(3).max(21)
-const favoriteNumbersSchema = z.array(z.number().positive()).min(1).max(3)
 const stringSchema = z.string({ required_error: msg.require })
-const isAgreeSchema = z
-  .boolean({ message: msg.require })
-  .refine(q => q, { message: msg.check })
+const favoriteNumbers = z.array(z.number().positive()).min(1).max(3)
+const role = z.string({ required_error: msg.require }).min(2).max(9)
 
-const roleSchema = z.string({ required_error: msg.require }).min(2).max(9)
-
-export const zAuthSessionIdDto = z
-  .object(
-    {
-      sessionId: z.string({ required_error: msg.require }).uuid(),
-    },
-    { required_error: msg.dto },
-  )
-  .strict({ message: msg.extra })
+const required = { required_error: msg.dto }
+const strict = { message: msg.extra }
 
 export const zAccountAddDto = z
   .object(
@@ -37,9 +25,9 @@ export const zAccountAddDto = z
       country: countrySchema,
       isAgree: isAgreeSchema,
     },
-    { required_error: msg.dto },
+    required,
   )
-  .strict({ message: msg.extra })
+  .strict(strict)
   .refine(d => d.password === d.repasswd, {
     message: msg.missmatch,
     path: ['repasswd'],
@@ -51,9 +39,9 @@ export const zAccountGetDto = z
       nickname: nicknameSchema,
       password: stringSchema,
     },
-    { required_error: msg.dto },
+    required,
   )
-  .strict({ message: msg.extra })
+  .strict(strict)
 
 export const zAccountUpdPasswordDto = z
   .object(
@@ -62,28 +50,16 @@ export const zAccountUpdPasswordDto = z
       password: passwordSchema,
       repasswd: stringSchema,
     },
-    { required_error: msg.dto },
+    required,
   )
-  .strict({ message: msg.extra })
+  .strict(strict)
   .refine(d => d.password === d.repasswd, {
     message: msg.missmatch,
     path: ['repasswd'],
   })
 
-export const zAccountUpdRoleDto = z
-  .object(
-    {
-      role: roleSchema,
-    },
-    { required_error: msg.dto },
-  )
-  .strict({ message: msg.extra })
+export const zAccountUpdRoleDto = z.object({ role }, required).strict(strict)
 
 export const zAccountUpdInfoDto = z
-  .object(
-    {
-      favoriteNumbers: favoriteNumbersSchema,
-    },
-    { required_error: msg.dto },
-  )
-  .strict({ message: msg.extra })
+  .object({ favoriteNumbers }, required)
+  .strict(strict)

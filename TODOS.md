@@ -172,7 +172,7 @@ router.get('') - правильно
 нужно настроить typescript на понимание алиаса @/ в импортах
 
 валидация всех входных данных:
-cookie
+cookies
 params
 query
 body

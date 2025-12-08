@@ -1,6 +1,6 @@
 import z from 'zod'
-import validatePhoneStrict from '../../utils/validatePhoneStrict.js'
-import messages from './messages.json' with { type: 'json' }
+import validatePhoneStrict from '../../../utils/validatePhoneStrict.js'
+import messages from '../messages.json' with { type: 'json' }
 
 const msg = { ...messages, ...messages.phone }
 
