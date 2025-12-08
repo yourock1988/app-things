@@ -29,7 +29,7 @@ export default class AuthControllerRest {
 
   // changePassword(req: Request, res: Response): void {
   //   const { sessionId } = req.params
-  //   const dto: TAccountUpdatePasswordDto = req.body
+  //   const dto: TAccountUpdPasswordDto = req.body
   //   const auth = this.authService.changePassword(sessionId, dto)
   //   if (auth) res.status(200).json(auth)
   //   else res.status(404).send()
@@ -37,7 +37,7 @@ export default class AuthControllerRest {
 
   // updateProfile(req: Request, res: Response): void {
   //   const { sessionId } = req.params
-  //   const dto: TAccountUpdateInfoDto = req.body
+  //   const dto: TAccountUpdInfoDto = req.body
   //   const auth = this.authService.updateProfile(sessionId, dto)
   //   if (auth) res.status(200).json(auth)
   //   else res.status(404).send()

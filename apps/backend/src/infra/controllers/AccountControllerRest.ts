@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import {
   TAccountAddDto,
-  TAccountUpdateInfoDto,
+  TAccountUpdInfoDto,
 } from '../../core/dtos/TAccountDtos.js'
 import AccountService from '../../core/services/AccountService.js'
 
@@ -31,7 +31,7 @@ export default class AccountControllerRest {
 
   updateById(req: Request, res: Response): void {
     const id: number = +req.params.id
-    const dto: TAccountUpdateInfoDto = req.body
+    const dto: TAccountUpdInfoDto = req.body
     const account = this.accountService.updateById(id, dto)
     if (account) res.status(200).json(account)
     else res.status(404).send()

@@ -69,7 +69,7 @@ export default class AuthService extends EventEmitter {
   //   return auth
   // }
 
-  // updateById(id: number, dto: TAccountUpdateInfoDto): Auth | null {
+  // updateById(id: number, dto: TAccountUpdInfoDto): Auth | null {
   //   const auth = this.accountRepository.updateInfoById(id, {
   //     ...dto,
   //     favoriteNumbers: dto.favoriteNumbers.concat(42),
