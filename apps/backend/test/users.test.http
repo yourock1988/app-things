@@ -1,42 +1,118 @@
 GET http://localhost:8004/api/v0/users/
 ###
-GET http://localhost:8004/api/v0/users/111/
+GET http://localhost:8004/api/v0/users/101/
 ###
-DELETE http://localhost:8004/api/v0/users/111/
+DELETE http://localhost:8004/api/v0/users/102/
+cookie: sessionId=abcdef
 ###
-
 POST http://localhost:8004/api/v0/users/
+cookie: sessionId=abcdef
 content-type: application/json
 
 {"nickname":"ooo","password":"ooooo","email":"ooo@ooo.oo"}
 ###
 
-PATCH http://localhost:8004/api/v0/users/1111/
+PATCH http://localhost:8004/api/v0/users/101/
+cookie: sessionId=abcdef
 content-type: application/json
 
 {"money":12345,"password":"xxxxx"}
 ###
 ###
 
+###
+###
+###
+### AuthN PROBLEMS
 
-GET http://localhost:8004/api/v0/users/1111/
+DELETE http://localhost:8004/api/v0/users/101/
+cookie: sessionId=xxx
 ###
-DELETE http://localhost:8004/api/v0/users/1111/
+POST http://localhost:8004/api/v0/users/
+cookie: sessionId=xxx
+content-type: application/json
+
+{"nickname":"ooo","password":"ooooo","email":"ooo@ooo.oo"}
 ###
-PATCH http://localhost:8004/api/v0/users/1111/
+
+PATCH http://localhost:8004/api/v0/users/101/
+cookie: sessionId=xxx
 content-type: application/json
 
 {"money":12345,"password":"xxxxx"}
 ###
-PATCH http://localhost:8004/api/v0/users/111/
+###
+
+###
+###
+###
+### AuthZ PROBLEMS
+
+DELETE http://localhost:8004/api/v0/users/101/
+cookie: sessionId=fedcba
+###
+POST http://localhost:8004/api/v0/users/
+cookie: sessionId=fedcba
 content-type: application/json
 
-{"money":"12345","password":0}
+{"nickname":"ooo","password":"ooooo","email":"ooo@ooo.oo"}
+###
+
+PATCH http://localhost:8004/api/v0/users/101/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"money":12345,"password":"xxxxx"}
+###
+###
+
+###
+###
+###
+### Path WRONG
+
+GET http://localhost:8004/api/v0/users/666/
+###
+DELETE http://localhost:8004/api/v0/users/666/
+cookie: sessionId=fedcba
+###
+PATCH http://localhost:8004/api/v0/users/666/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"money":12345,"password":"xxxxx"}
+###
+###
+
+###
+###
+###
+### Payload WRONG
+
+PATCH http://localhost:8004/api/v0/users/101/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"money":-321,"password":"xxx"}
 ### BAD
+POST http://localhost:8004/api/v0/users/
+cookie: sessionId=abcdef
+content-type: application/json
 
+{"nickname":"oo","password":"oooo","email":"oooooo.oo", "x": "x"}
+### BAD
+PATCH http://localhost:8004/api/v0/users/101/
+content-type: application/json
+
+{,}
+### BAD
 POST http://localhost:8004/api/v0/users/
 content-type: application/json
 
-{"nickname":"ooooooooo","password":"oooo","email":"ooo@ooooo"}
+{,}
 ### BAD
 
+GET http://localhost:8004/api/v0/users/1001/foo/321/
+###
+DELETE http://localhost:8004/api/v0/users/1001/foo/321/
+###

@@ -10,3 +10,28 @@ content-type: application/json
 {"nickname":"ooo","password":"oO1!oooo"  }
 ###
 
+
+###
+### BAD
+POST http://localhost:8004/api/v0/auth/sign-up
+content-type: application/json
+
+{"nickname":"o","password":"oO1oooo","repasswd":"oO1!oooo","email":"oooooo.oo", "phone": "380667654321", "country":"э", "isAgree": false  }
+###
+
+POST http://localhost:8004/api/v0/auth/sign-in
+content-type: application/json
+
+{"nickname":"admin","password":"oO1oooo"  }
+###
+
+POST http://localhost:8004/api/v0/auth/xxxxx
+content-type: application/json
+
+{"nickname":"admin","password":"oO1oooo"  }
+###
+
+GET http://localhost:8004/api/v0/auth/xxxxx/1
+content-type: application/json
+###
+

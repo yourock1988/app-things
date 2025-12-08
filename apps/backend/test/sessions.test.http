@@ -1,44 +1,131 @@
 GET http://localhost:8004/api/v0/sessions/
+cookie: sessionId=abcdef
 ###
-GET http://localhost:8004/api/v0/sessions/1/
+GET http://localhost:8004/api/v0/sessions/11/
+cookie: sessionId=abcdef
 ###
-GET http://localhost:8004/api/v0/sessions/abcdef/
+DELETE http://localhost:8004/api/v0/sessions/12/
+cookie: sessionId=abcdef
 ###
-DELETE http://localhost:8004/api/v0/sessions/2/
-###
-
 POST http://localhost:8004/api/v0/sessions/
+cookie: sessionId=abcdef
 content-type: application/json
 
 {"nickname":"admin"}
 ###
 
-PATCH http://localhost:8004/api/v0/sessions/2/
+PATCH http://localhost:8004/api/v0/sessions/11/
+cookie: sessionId=abcdef
 content-type: application/json
 
-{"nickname":"админ"}
+{"nickname":"admin"}
 ###
 ###
 
+###
+###
+###
+### AuthN PROBLEMS
 
-GET http://localhost:8004/api/v0/sessions/1111/
+GET http://localhost:8004/api/v0/sessions/
+cookie: sessionId=xxx
 ###
-DELETE http://localhost:8004/api/v0/sessions/1111/
+GET http://localhost:8004/api/v0/sessions/11/
+cookie: sessionId=xxx
 ###
-PATCH http://localhost:8004/api/v0/sessions/1111/
+DELETE http://localhost:8004/api/v0/sessions/11/
+cookie: sessionId=xxx
+###
+POST http://localhost:8004/api/v0/sessions/
+cookie: sessionId=xxx
 content-type: application/json
 
-{"nickname":"админ"}
+{"nickname":"admin"}
 ###
-PATCH http://localhost:8004/api/v0/sessions/111/
+
+PATCH http://localhost:8004/api/v0/sessions/11/
+cookie: sessionId=xxx
 content-type: application/json
 
-{"sessionId":"12345"}
+{"nickname":"admin"}
+###
+###
+
+###
+###
+###
+### AuthZ PROBLEMS
+
+GET http://localhost:8004/api/v0/sessions/
+cookie: sessionId=fedcba
+###
+GET http://localhost:8004/api/v0/sessions/11/
+cookie: sessionId=fedcba
+###
+DELETE http://localhost:8004/api/v0/sessions/11/
+cookie: sessionId=fedcba
+###
+POST http://localhost:8004/api/v0/sessions/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"nickname":"admin"}
+###
+
+PATCH http://localhost:8004/api/v0/sessions/11/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"nickname":"admin"}
+###
+###
+
+###
+###
+###
+### Path WRONG
+
+GET http://localhost:8004/api/v0/sessions/66/
+cookie: sessionId=abcdef
+###
+DELETE http://localhost:8004/api/v0/sessions/66/
+cookie: sessionId=abcdef
+###
+PATCH http://localhost:8004/api/v0/sessions/66/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"nickname":"admin"}
+###
+###
+
+###
+###
+###
+### Payload WRONG
+
+PATCH http://localhost:8004/api/v0/sessions/11/
+content-type: application/json
+
+{"nickname":-321}
 ### BAD
-
 POST http://localhost:8004/api/v0/sessions/
 content-type: application/json
 
-{"nickname"}
+{"nickname":false}
+### BAD
+PATCH http://localhost:8004/api/v0/sessions/11/
+content-type: application/json
+
+{,}
+### BAD
+POST http://localhost:8004/api/v0/sessions/
+content-type: application/json
+
+{,}
 ### BAD
 
+GET http://localhost:8004/api/v0/sessions/1001/foo/321/
+###
+DELETE http://localhost:8004/api/v0/sessions/1001/foo/321/
+###

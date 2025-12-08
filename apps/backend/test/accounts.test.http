@@ -1,41 +1,143 @@
 GET http://localhost:8004/api/v0/accounts/
+cookie: sessionId=abcdef
 ###
-GET http://localhost:8004/api/v0/accounts/420/
+GET http://localhost:8004/api/v0/accounts/1/
+cookie: sessionId=abcdef
 ###
-DELETE http://localhost:8004/api/v0/accounts/420/
+DELETE http://localhost:8004/api/v0/accounts/2/
+cookie: sessionId=abcdef
 ###
-
 POST http://localhost:8004/api/v0/accounts/
+cookie: sessionId=abcdef
 content-type: application/json
 
 {"nickname":"ooo","password":"oO1!oooo","repasswd":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true  }
 ###
 
-PATCH http://localhost:8004/api/v0/accounts/420/
+PATCH http://localhost:8004/api/v0/accounts/1/
+cookie: sessionId=abcdef
 content-type: application/json
 
 {"favoriteNumbers": [111,222,333]}
 ###
 ###
 
+###
+###
+###
+### AuthN PROBLEMS
 
-GET http://localhost:8004/api/v0/accounts/1111/
+GET http://localhost:8004/api/v0/accounts/
+cookie: sessionId=xxx
 ###
-DELETE http://localhost:8004/api/v0/accounts/1111/
+GET http://localhost:8004/api/v0/accounts/1/
+cookie: sessionId=xxx
 ###
-PATCH http://localhost:8004/api/v0/accounts/1111/
+DELETE http://localhost:8004/api/v0/accounts/1/
+cookie: sessionId=xxx
+###
+POST http://localhost:8004/api/v0/accounts/
+cookie: sessionId=xxx
+content-type: application/json
+
+{"nickname":"ooo","password":"oO1!oooo","repasswd":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true  }
+###
+
+PATCH http://localhost:8004/api/v0/accounts/1/
+cookie: sessionId=xxx
 content-type: application/json
 
 {"favoriteNumbers": [111,222,333]}
 ###
-PATCH http://localhost:8004/api/v0/accounts/420/
+###
+
+###
+###
+###
+### AuthZ PROBLEMS
+
+GET http://localhost:8004/api/v0/accounts/
+cookie: sessionId=fedcba
+###
+GET http://localhost:8004/api/v0/accounts/1/
+cookie: sessionId=fedcba
+###
+DELETE http://localhost:8004/api/v0/accounts/1/
+cookie: sessionId=fedcba
+###
+POST http://localhost:8004/api/v0/accounts/
+cookie: sessionId=fedcba
 content-type: application/json
 
-{"favoriteNumbers"}
+{"nickname":"ooo","password":"oO1!oooo","repasswd":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true  }
+###
+
+PATCH http://localhost:8004/api/v0/accounts/1/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"favoriteNumbers": [111,222,333]}
+###
+###
+
+###
+###
+###
+### Path WRONG
+
+GET http://localhost:8004/api/v0/accounts/6/
+cookie: sessionId=abcdef
+###
+DELETE http://localhost:8004/api/v0/accounts/6/
+cookie: sessionId=abcdef
+###
+PATCH http://localhost:8004/api/v0/accounts/6/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"favoriteNumbers": [111,222,333]}
+###
+GET http://localhost:8004/api/v0/accounts/xxx/
+cookie: sessionId=abcdef
+###
+DELETE http://localhost:8004/api/v0/accounts/xxx/
+cookie: sessionId=abcdef
+###
+PATCH http://localhost:8004/api/v0/accounts/xxx/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"favoriteNumbers": [111,222,333]}
+###
+###
+
+###
+###
+###
+### Payload WRONG
+
+PATCH http://localhost:8004/api/v0/accounts/1/
+content-type: application/json
+
+{"favoriteNumbers":[]}
 ### BAD
-
 POST http://localhost:8004/api/v0/accounts/
 content-type: application/json
 
-{"nickname":"ooooooooo","password":"oooo","email":"ooo@ooooo"}
+{"nickname":"o","password":"oO1oooo","repasswd":"oO1!oooo","email":"oooooo.oo", "phone": "380667654321", "country":"э", "isAgree": false  }
 ### BAD
+PATCH http://localhost:8004/api/v0/accounts/1/
+content-type: application/json
+
+{,}
+### BAD
+POST http://localhost:8004/api/v0/accounts/
+content-type: application/json
+
+{,}
+### BAD
+
+GET http://localhost:8004/api/v0/accounts/1001/foo/321/
+###
+DELETE http://localhost:8004/api/v0/accounts/1001/foo/321/
+###

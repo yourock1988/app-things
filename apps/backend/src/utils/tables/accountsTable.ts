@@ -2,7 +2,7 @@ import { TAccountRecord } from '../../infra/repositories/TAccountRecord.js'
 
 const accountsTable: TAccountRecord[] = [
   {
-    id: 420,
+    id: 1,
     nickname: 'admin',
     password: 'Qq1!ssss',
     email: 'admin@web-app.click',
@@ -12,6 +12,22 @@ const accountsTable: TAccountRecord[] = [
     role: 'admin',
     isLoggedIn: false,
     favoriteNumbers: [42, 101],
+    authorizationsCount: 0,
+    authenticationsCount: 0,
+    createdAt: 1764588532761,
+    updatedAt: 1764588532761,
+  },
+  {
+    id: 2,
+    nickname: 'user',
+    password: 'Qq1!ssss',
+    email: 'user@web-app.click',
+    phone: '+380997654321',
+    country: 'Spain',
+    isAgree: true,
+    role: 'user',
+    isLoggedIn: false,
+    favoriteNumbers: [33, 303],
     authorizationsCount: 0,
     authenticationsCount: 0,
     createdAt: 1764588532761,
