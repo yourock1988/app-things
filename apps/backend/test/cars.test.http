@@ -1,4 +1,4 @@
-GET http://localhost:8004/api/v0/cars
+GET http://localhost:8004/api/v0/cars/
 ###
 GET http://localhost:8004/api/v0/cars/1001/
 ###
@@ -110,9 +110,9 @@ content-type: application/json
 {,}
 ### BAD
 
-GET http://localhost:8004/api/v0/cars/1001/foo/321
+GET http://localhost:8004/api/v0/cars/1001/foo/321/
 cookie: sessionId=abcdef
 ###
-DELETE http://localhost:8004/api/v0/cars/1001/foo/321
+DELETE http://localhost:8004/api/v0/cars/1001/foo/321/
 cookie: sessionId=abcdef
 ###
