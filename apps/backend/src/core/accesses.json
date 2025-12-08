@@ -1,0 +1,30 @@
+{
+  "/api/v0/accounts": {
+    "admin": ["GET", "POST"]
+  },
+  "/api/v0/accounts/:id": {
+    "admin": ["GET", "PATCH", "DELETE"]
+  },
+  "/api/v0/sessions": {
+    "admin": ["GET", "POST"]
+  },
+  "/api/v0/sessions/:id": {
+    "admin": ["GET", "PATCH", "DELETE"]
+  },
+  "/api/v0/cars": {
+    "admin": ["GET", "POST"],
+    "user": ["GET"]
+  },
+  "/api/v0/cars/:id": {
+    "admin": ["GET", "PATCH", "DELETE"],
+    "user": ["GET"]
+  },
+  "/api/v0/users": {
+    "admin": ["GET", "POST"],
+    "user": ["GET"]
+  },
+  "/api/v0/users/:id": {
+    "admin": ["GET", "PATCH", "DELETE"],
+    "user": ["GET"]
+  }
+}

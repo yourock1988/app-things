@@ -4,11 +4,14 @@ import { TAuthSignInDto, TAuthSignUpDto } from '../dtos/TAuthDtos.js'
 import Account from '../models/Account.js'
 import { ISessionRepository } from '../i-repositories/ISessionRepository.js'
 import Session from '../models/Session.js'
+import accesses from '../accesses.json' with { type: 'json' }
+
+type TAccessesJSON = Record<string, Record<string, string[]>>
 
 export default class AuthService extends EventEmitter {
   constructor(
     readonly accountRepository: IAccountRepository,
-    readonly sessionRepository: ISessionRepository
+    readonly sessionRepository: ISessionRepository,
   ) {
     super()
   }
@@ -21,11 +24,9 @@ export default class AuthService extends EventEmitter {
   authZ(nickname: string, resource: string, method: string): boolean {
     const account = this.accountRepository.getByNickname(nickname)
     if (!account) return false
-    if (
-      account.role === 'admin' &&
-      resource === '/api/v0/cars/' &&
-      method === 'GET'
-    ) {
+    const permissions = (accesses as TAccessesJSON)[resource]
+    const hasAccess = permissions?.[account.role]?.includes(method)
+    if (hasAccess) {
       return true
     }
     return false

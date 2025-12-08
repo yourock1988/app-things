@@ -18,6 +18,7 @@ rest.use('/accounts', accountRouterRest)
 rest.use('/sessions', sessionRouterRest)
 rest.use('/auth', authRouterRest)
 
+rest.use('/*unknown', (req, res) => res.status(404).json(req.params))
 rest.use((err: any, req: Request, res: Response, next: NextFunction) => {
   if (err && 'body' in err && err.status === 400) {
     const message = `Невалидный JSON: ${err.body}`

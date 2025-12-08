@@ -1,47 +1,118 @@
-GET http://localhost:8004/api/v0/cars/
-cookie: sessionId=abcdef
+GET http://localhost:8004/api/v0/cars
 ###
 GET http://localhost:8004/api/v0/cars/1001/
+###
+DELETE http://localhost:8004/api/v0/cars/1002/
 cookie: sessionId=abcdef
 ###
-GET http://localhost:8004/api/v0/cars/1001/
-cookie: sessionId=abcde
-###
-DELETE http://localhost:8004/api/v0/cars/1001/
-###
-
 POST http://localhost:8004/api/v0/cars/
+cookie: sessionId=abcdef
 content-type: application/json
 
 {"type":"SUV","brand":"Tesla","model":"X","price":42000,"engine":"EL","hasTurbo": false, "hp": 420}
 ###
 
 PATCH http://localhost:8004/api/v0/cars/1001/
+cookie: sessionId=abcdef
 content-type: application/json
 
 {"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
 ###
 ###
 
+###
+###
+###
+### AuthN PROBLEMS
+
+DELETE http://localhost:8004/api/v0/cars/1001/
+cookie: sessionId=xxx
+###
+POST http://localhost:8004/api/v0/cars/
+cookie: sessionId=xxx
+content-type: application/json
+
+{"type":"SUV","brand":"Tesla","model":"X","price":42000,"engine":"EL","hasTurbo": false, "hp": 420}
+###
+
+PATCH http://localhost:8004/api/v0/cars/1001/
+cookie: sessionId=xxx
+content-type: application/json
+
+{"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
+###
+###
+
+###
+###
+###
+### AuthZ PROBLEMS
+
+DELETE http://localhost:8004/api/v0/cars/1001/
+cookie: sessionId=fedcba
+###
+POST http://localhost:8004/api/v0/cars/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"type":"SUV","brand":"Tesla","model":"X","price":42000,"engine":"EL","hasTurbo": false, "hp": 420}
+###
+
+PATCH http://localhost:8004/api/v0/cars/1001/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
+###
+###
+
+###
+###
+###
+### Path WRONG
 
 GET http://localhost:8004/api/v0/cars/6666/
 ###
 DELETE http://localhost:8004/api/v0/cars/6666/
+cookie: sessionId=fedcba
 ###
 PATCH http://localhost:8004/api/v0/cars/6666/
+cookie: sessionId=fedcba
 content-type: application/json
 
 {"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
 ###
+###
+
+###
+###
+###
+### Payload WRONG
+
 PATCH http://localhost:8004/api/v0/cars/1001/
 content-type: application/json
 
 {"price":-666,"engine":"V666", "hasTurbo": "true", "hp": 1000}
 ### BAD
-
 POST http://localhost:8004/api/v0/cars/
 content-type: application/json
 
 {"type":"SU","brand":"Te","model":6,"price":-6,"engine":"f","hasTurbo": 0, "hp": 42}
 ### BAD
+PATCH http://localhost:8004/api/v0/cars/1001/
+content-type: application/json
 
+{,}
+### BAD
+POST http://localhost:8004/api/v0/cars/
+content-type: application/json
+
+{,}
+### BAD
+
+GET http://localhost:8004/api/v0/cars/1001/foo/321
+cookie: sessionId=abcdef
+###
+DELETE http://localhost:8004/api/v0/cars/1001/foo/321
+cookie: sessionId=abcdef
+###

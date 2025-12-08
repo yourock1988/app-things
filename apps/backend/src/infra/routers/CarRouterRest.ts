@@ -1,16 +1,24 @@
 import { Router } from 'express'
-// import mwAuthorize from '../middlewares/mwAuthorize.js'
 
 export default class CarRouterRest {
   public readonly router: Router
 
-  constructor(readonly carControllerRest: any, readonly mwCarRest: any) {
+  constructor(
+    readonly carControllerRest: any,
+    readonly mwCarRest: any,
+  ) {
+    const { carId, carAdd, carUpdate, authMW } = mwCarRest
     this.router = Router()
-    const { carId, authMW, carAdd, carUpdate } = mwCarRest
-    this.router.get('/', authMW, carControllerRest.getAll)
-    this.router.get('/:id', carId, authMW, carControllerRest.getById)
-    this.router.post('/', carAdd, carControllerRest.add)
-    this.router.patch('/:id', carId, carUpdate, carControllerRest.updateById)
-    this.router.delete('/:id', carId, carControllerRest.removeById)
+    this.router.get('', carControllerRest.getAll)
+    this.router.get('/:id', carId, carControllerRest.getById)
+    this.router.post('', carAdd, authMW, carControllerRest.add)
+    this.router.patch(
+      '/:id',
+      carId,
+      carUpdate,
+      authMW,
+      carControllerRest.updateById,
+    )
+    this.router.delete('/:id', carId, authMW, carControllerRest.removeById)
   }
 }
