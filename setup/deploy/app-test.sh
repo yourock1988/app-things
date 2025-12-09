@@ -17,7 +17,7 @@ systemctl daemon-reload
 
 chgrp -R $GROUP /srv/$APP
 
-source ./setup/database/migrate.sh
+# source ./setup/database/migrate.sh
 
 sudo -iu $USER npm --prefix /srv/$APP run deploy:test
 
