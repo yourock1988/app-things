@@ -16,12 +16,12 @@ const accountRepositoryDb = new AccountRepositoryDb(accountsOrm)
 const sessionRepositoryDb = new SessionRepositoryDb(sessionsOrm)
 const authService = new AuthService(accountRepositoryDb, sessionRepositoryDb)
 const authControllerRest = new AuthControllerRest(authService)
-const authMW = mwAuthorize(authService)
+const AUTH = mwAuthorize(authService)
 bindSelf(authControllerRest)
 
 const authRouterRest = new AuthRouterRest(authControllerRest, mwAuthRest).router
 
-export { authRouterRest, authMW }
+export { authRouterRest, AUTH }
 
 // import serv from './servDi.js'
 // import AccountControllerIo from '../controllers/AccountControllerIo.js'

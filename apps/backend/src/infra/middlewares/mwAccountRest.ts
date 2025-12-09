@@ -8,11 +8,9 @@ import {
 } from '../../core/dtos/TAccountDtos.js'
 import validateSchema from '../../utils/validateSchema.js'
 
-import { authMW as AUTH } from '../di/authDi.js'
-
 const ADD = validateSchema<TAccountAddDto>(zAccountAddDto)
 const UPD = validateSchema<TAccountUpdInfoDto>(zAccountUpdInfoDto)
 
-const mwAccountRest = { ADD, UPD, AUTH }
+const mwAccountRest = { ADD, UPD }
 
 export default mwAccountRest

@@ -82,6 +82,28 @@ content-type: application/json
 
 {"money":12345,"password":"xxxxx"}
 ###
+GET http://localhost:8004/api/v0/users/-666/
+###
+DELETE http://localhost:8004/api/v0/users/-666/
+cookie: sessionId=fedcba
+###
+PATCH http://localhost:8004/api/v0/users/-666/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"money":12345,"password":"xxxxx"}
+###
+GET http://localhost:8004/api/v0/users/xxx/
+###
+DELETE http://localhost:8004/api/v0/users/xxx/
+cookie: sessionId=fedcba
+###
+PATCH http://localhost:8004/api/v0/users/xxx/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"money":12345,"password":"xxxxx"}
+###
 ###
 
 ###

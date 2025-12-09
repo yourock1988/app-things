@@ -10,6 +10,7 @@ import AccountRouterRest from '../routers/AccountRouterRest.js'
 // import AccountRouterIo from '../routers/AccountRouterIo.js'
 import mwAccountRest from '../middlewares/mwAccountRest.js'
 import ID from '../middlewares/ID.js'
+import { AUTH } from './authDi.js'
 // import mwAccountIo from '../middlewares/mwAccountIo.js'
 
 const accountsOrm = new Orm(accountsTable)
@@ -21,6 +22,7 @@ bindSelf(accountControllerRest)
 const accountRouterRest = new AccountRouterRest(accountControllerRest, {
   ...mwAccountRest,
   ID,
+  AUTH,
 }).router
 
 // const accountControllerIo = new AccountControllerIo(

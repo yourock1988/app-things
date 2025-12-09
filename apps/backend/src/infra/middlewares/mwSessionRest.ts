@@ -8,11 +8,9 @@ import {
 } from '../../core/dtos/TSessionDtos.js'
 import validateSchema from '../../utils/validateSchema.js'
 
-import { authMW as AUTH } from '../di/authDi.js'
-
 const ADD = validateSchema<TSessionAddDto>(zSessionAddDto)
 const UPD = validateSchema<TSessionUpdateDto>(zSessionUpdateDto)
 
-const mwSessionRest = { ADD, UPD, AUTH }
+const mwSessionRest = { ADD, UPD }
 
 export default mwSessionRest

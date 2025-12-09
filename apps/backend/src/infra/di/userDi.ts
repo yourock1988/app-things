@@ -11,6 +11,7 @@ import UserRouterIo from '../routers/UserRouterIo.js'
 import mwUserRest from '../middlewares/mwUserRest.js'
 import mwUserIo from '../middlewares/mwUserIo.js'
 import ID from '../middlewares/ID.js'
+import { AUTH } from './authDi.js'
 
 const usersOrm = new Orm(usersTable)
 const userRepositoryDb = new UserRepositoryDb(usersOrm)
@@ -21,6 +22,7 @@ bindSelf(userControllerRest)
 const userRouterRest = new UserRouterRest(userControllerRest, {
   ...mwUserRest,
   ID,
+  AUTH,
 }).router
 
 const userControllerIo = new UserControllerIo(userService, serv.getIo())

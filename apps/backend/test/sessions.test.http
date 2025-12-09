@@ -97,6 +97,30 @@ content-type: application/json
 
 {"nickname":"admin"}
 ###
+GET http://localhost:8004/api/v0/sessions/-66/
+cookie: sessionId=abcdef
+###
+DELETE http://localhost:8004/api/v0/sessions/-66/
+cookie: sessionId=abcdef
+###
+PATCH http://localhost:8004/api/v0/sessions/-66/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"nickname":"admin"}
+###
+GET http://localhost:8004/api/v0/sessions/xx/
+cookie: sessionId=abcdef
+###
+DELETE http://localhost:8004/api/v0/sessions/xx/
+cookie: sessionId=abcdef
+###
+PATCH http://localhost:8004/api/v0/sessions/xx/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"nickname":"admin"}
+###
 ###
 
 ###

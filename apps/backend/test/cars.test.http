@@ -82,6 +82,28 @@ content-type: application/json
 
 {"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
 ###
+GET http://localhost:8004/api/v0/cars/-6666/
+###
+DELETE http://localhost:8004/api/v0/cars/-6666/
+cookie: sessionId=fedcba
+###
+PATCH http://localhost:8004/api/v0/cars/-6666/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
+###
+GET http://localhost:8004/api/v0/cars/xxxx/
+###
+DELETE http://localhost:8004/api/v0/cars/xxxx/
+cookie: sessionId=fedcba
+###
+PATCH http://localhost:8004/api/v0/cars/xxxx/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
+###
 ###
 
 ###
