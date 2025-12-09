@@ -17,7 +17,7 @@
     "static:prod": "cp -R ./static ../../dist/server/static",
     "ts:dev": "tsc --sourceMap --declaration --declarationMap",
     "ts:prod": "tsc",
-    "babel:prod": "babel -d ../../dist/server ../../build/server --delete-dir-on-start",
+    "babel:prod": "babel -d ../../dist/server ../../build/server --delete-dir-on-start --copy-files",
     "lint:js": "eslint ./src",
     "lint-staged": "lint-staged",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
