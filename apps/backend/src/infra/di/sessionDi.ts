@@ -9,6 +9,7 @@ import SessionControllerRest from '../controllers/SessionControllerRest.js'
 import SessionRouterRest from '../routers/SessionRouterRest.js'
 // import SessionRouterIo from '../routers/SessionRouterIo.js'
 import mwSessionRest from '../middlewares/mwSessionRest.js'
+import ID from '../middlewares/ID.js'
 // import mwSessionIo from '../middlewares/mwSessionIo.js'
 
 const sessionsOrm = new Orm(sessionsTable)
@@ -17,10 +18,10 @@ const sessionService = new SessionService(sessionRepositoryDb)
 
 const sessionControllerRest = new SessionControllerRest(sessionService)
 bindSelf(sessionControllerRest)
-const sessionRouterRest = new SessionRouterRest(
-  sessionControllerRest,
-  mwSessionRest
-).router
+const sessionRouterRest = new SessionRouterRest(sessionControllerRest, {
+  ...mwSessionRest,
+  ID,
+}).router
 
 // const sessionControllerIo = new SessionControllerIo(
 //   sessionService,

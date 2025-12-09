@@ -9,6 +9,7 @@ import AccountControllerRest from '../controllers/AccountControllerRest.js'
 import AccountRouterRest from '../routers/AccountRouterRest.js'
 // import AccountRouterIo from '../routers/AccountRouterIo.js'
 import mwAccountRest from '../middlewares/mwAccountRest.js'
+import ID from '../middlewares/ID.js'
 // import mwAccountIo from '../middlewares/mwAccountIo.js'
 
 const accountsOrm = new Orm(accountsTable)
@@ -17,10 +18,10 @@ const accountService = new AccountService(accountRepositoryDb)
 
 const accountControllerRest = new AccountControllerRest(accountService)
 bindSelf(accountControllerRest)
-const accountRouterRest = new AccountRouterRest(
-  accountControllerRest,
-  mwAccountRest
-).router
+const accountRouterRest = new AccountRouterRest(accountControllerRest, {
+  ...mwAccountRest,
+  ID,
+}).router
 
 // const accountControllerIo = new AccountControllerIo(
 //   accountService,
@@ -30,6 +31,6 @@ const accountRouterRest = new AccountRouterRest(
 // const accountRouterIo = new AccountRouterIo(accountControllerIo, mwAccountIo)
 // bindSelf(accountRouterIo)
 
-export default accountRouterRest
-
 // export { accountRouterIo, accountRouterRest }
+
+export default accountRouterRest
