@@ -1,15 +1,18 @@
 <script>
-// import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import FormField from '@/components/FormField.vue'
+// import signIn from '../api/rest/auth/signIn.js'
 
 export default {
   components: { FormField },
+
+  emits: ['success'],
 
   data() {
     return {
       loading: false,
       dto: this.initDto(),
-      err: null,
+      // err: null,
       // err: {
       //   _errors: ['very bad'],
       //   nickname: {
@@ -23,13 +26,25 @@ export default {
   },
 
   computed: {
-    // ...mapState('auth', ['err']),
+    ...mapState('auth', ['err', 'session']),
+  },
+
+  watch: {
+    session(newVal) {
+      if (newVal && !this.err) this.dto = this.initDto2()
+    },
   },
 
   methods: {
-    // ...mapActions('auth', ['signIn']),
+    ...mapActions('auth', ['signIn']),
 
     initDto() {
+      return {
+        nickname: 'xxx',
+        password: 'xX1!xxxx',
+      }
+    },
+    initDto2() {
       return {
         nickname: '',
         password: '',
@@ -38,8 +53,13 @@ export default {
 
     async handleSubmit() {
       this.loading = true
-      // await this.signIn({ ...this.dto })
-      this.dto = this.initDto()
+      await this.signIn({ ...this.dto })
+      // if (err) {
+      //   this.err = err
+      // } else {
+      //   this.dto = this.initDto2()
+      //   this.$emit('success', data.nickname)
+      // }
       this.loading = false
     },
   },

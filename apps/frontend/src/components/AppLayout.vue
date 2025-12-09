@@ -1,4 +1,6 @@
 <script>
+import { mapState } from 'vuex/dist/vuex.cjs.js'
+
 export default {
   props: ['tabs'],
 
@@ -7,6 +9,10 @@ export default {
       drawer: false,
       icons: ['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram'],
     }
+  },
+
+  computed: {
+    ...mapState('auth', ['session']),
   },
 }
 </script>
@@ -42,6 +48,12 @@ export default {
       </template>
 
       <template v-slot:append>
+        <b style="cursor: pointer"
+          ><i
+            ><u>{{ session?.nickname }}</u></i
+          ></b
+        >
+        <v-btn icon="mdi-account"></v-btn>
         <v-btn icon="mdi-heart"></v-btn>
         <v-btn icon="mdi-magnify"></v-btn>
         <v-btn icon="mdi-dots-vertical"></v-btn>

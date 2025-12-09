@@ -1,7 +1,7 @@
 <script>
 // import { mapActions, mapState } from 'vuex'
 import FormField from '@/components/FormField.vue'
-import signUp from '../api/rest/accounts.js'
+import signUp from '../api/rest/auth/signUp.js'
 
 export default {
   components: { FormField },
@@ -53,7 +53,7 @@ export default {
         this.err = err
       } else {
         this.dto = this.initDto()
-        this.$emit('success', data.id)
+        this.$emit('success', data.nickname)
       }
       this.loading = false
     },
