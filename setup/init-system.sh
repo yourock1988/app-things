@@ -21,8 +21,9 @@ systemctl restart systemd-journald
 
 groupadd $GROUP
 usermod -aG $GROUP $USER
-chgrp $GROUP /srv
-chmod -R 775 /srv
+chown -R $USER /srv
+chgrp -R $GROUP /srv
+chmod -R 775 /srv 
 
 
 apt update
@@ -43,14 +44,12 @@ sudo -iu $USER nvm alias default 22.14.0
 ln -s -f /snap/bin/certbot /usr/bin/certbot
 sudo -iu postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres1';"
 
-cd /srv
+# cd /srv
 
-git clone https://github.com/yourock1988/app-things.git
+# git clone https://github.com/yourock1988/app-things.git
 
-chown -R $USER /srv
-chgrp -R $GROUP /srv
-chmod -R 775 /srv 
 
-cd /srv/app-things
 
-bash deploy-app.sh
+# cd /srv/app-things
+
+# bash deploy-app.sh

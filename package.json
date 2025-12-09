@@ -11,11 +11,14 @@
   "scripts": {
     "dev": "run-p backend:dev frontend:dev",
     "start": "npm run start --workspace=@app-x/backend",
+    "start:test": "npm run start:test --workspace=@app-x/backend",
     "deploy": "npm run ci:dev && run-s test clean build:prod ci:prod start:tmp",
+    "d:test": "npm run ci:dev && run-s test clean build:test ci:prod start:tmp",
     "ci:dev": "npm ci --package-lock-=false",
     "ci:prod": "npm ci --package-lock-=false --omit=dev",
     "build:dev": "run-s backend:build:dev frontend:build:dev",
     "build:prod": "run-s backend:build:prod frontend:build:prod",
+    "build:test": "run-s backend:build:prod frontend:build:test",
     "clean:all": "rimraf build dist node_modules",
     "clean": "rimraf build dist",
     "look": "run-s frontend:build:dev backend:build:dev backend:look",
@@ -27,6 +30,7 @@
     "frontend:build:dev": "npm run build:dev --workspace=@app-x/frontend",
     "backend:build:prod": "npm run build:prod --workspace=@app-x/backend",
     "frontend:build:prod": "npm run build:prod --workspace=@app-x/frontend",
+    "frontend:build:test": "npm run build:test --workspace=@app-x/frontend",
     "test": "npm run test --workspace=@app-x/backend"
   },
   "devDependencies": {
