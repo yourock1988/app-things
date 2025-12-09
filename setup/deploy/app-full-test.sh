@@ -10,7 +10,7 @@ set -e
 USER=webmaster
 APP=app-things
 DOMAIN=$APP.web-app.test
-PORT=8804
+PORT=6604
 
 echo "Настройка nginx..."
 cat << EOF > /etc/nginx/sites-available/$DOMAIN
@@ -62,7 +62,7 @@ Group=$USER
 User=$USER
 ###
 Restart=always
-ExecStart=bash -c '. ~/.nvm/nvm.sh; npm start:test'
+ExecStart=bash -c '. ~/.nvm/nvm.sh; npm run start:test'
 Environment=NODE_ENV=test
 [Install]
 WantedBy=multi-user.target

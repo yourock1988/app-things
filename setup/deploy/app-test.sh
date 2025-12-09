@@ -19,7 +19,7 @@ chgrp -R $GROUP /srv/$APP
 
 source ./setup/database/migrate.sh
 
-sudo -iu $USER npm --prefix /srv/$APP run d:test
+sudo -iu $USER npm --prefix /srv/$APP run deploy:test
 
 echo "Развертывание завершено."
 echo "Запускаю сервис..."
