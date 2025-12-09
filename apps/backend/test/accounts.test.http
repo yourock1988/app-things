@@ -97,6 +97,19 @@ content-type: application/json
 
 {"favoriteNumbers": [111,222,333]}
 ###
+GET http://localhost:8004/api/v0/accounts/-6/
+cookie: sessionId=abcdef
+###
+DELETE http://localhost:8004/api/v0/accounts/-6/
+cookie: sessionId=abcdef
+###
+PATCH http://localhost:8004/api/v0/accounts/-6/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"favoriteNumbers": [111,222,333]}
+###
+
 GET http://localhost:8004/api/v0/accounts/xxx/
 cookie: sessionId=abcdef
 ###

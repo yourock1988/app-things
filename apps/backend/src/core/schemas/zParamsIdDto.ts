@@ -6,10 +6,12 @@ const msg = { ...messages, ...messages.id }
 export default z
   .object(
     {
-      id: z.coerce.number({
-        required_error: msg.require,
-        invalid_type_error: msg.mustNum,
-      }),
+      id: z.coerce
+        .number({
+          required_error: msg.require,
+          invalid_type_error: msg.mustNum,
+        })
+        .positive({ message: msg.mustNum }),
     },
     { required_error: msg.dto },
   )
