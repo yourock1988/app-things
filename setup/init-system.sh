@@ -32,6 +32,7 @@ apt install -y git
 apt install -y nginx
 apt install -y postgresql
 apt install -y snapd
+apt install -y curl
 snap install --classic certbot
 
 sudo -iu $USER bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash'
