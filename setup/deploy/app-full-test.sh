@@ -10,7 +10,9 @@ set -e
 USER=webmaster
 APP=app-things
 DOMAIN=$APP.web-app.test
+DOMAIN_IO=ws.$DOMAIN
 PORT=6604
+PORT_IO=5504
 
 echo "Настройка nginx..."
 cat << EOF > /etc/nginx/sites-available/$DOMAIN
@@ -29,6 +31,17 @@ server {
     }
     location / {
         proxy_pass http://127.0.0.1:$PORT;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host \$host;
+    }
+}
+server {
+    listen 2080;
+    server_name $DOMAIN_IO;
+    location / {
+        proxy_pass http://127.0.0.1:$PORT_IO;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection "Upgrade";
