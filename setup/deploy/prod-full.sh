@@ -9,10 +9,10 @@ set -e
 
 USER=webmaster
 APP=app-things
-DOMAIN=$APP.web-app.test
-DOMAIN_IO=ws.$DOMAIN
-PORT=6604
-PORT_IO=5504
+DOMAIN=$APP.web-app.click
+DOMAIN_IO=wss.$DOMAIN
+PORT=8804
+PORT_IO=7704
 
 echo "Настройка nginx..."
 cat << EOF > /etc/nginx/sites-available/$DOMAIN
@@ -54,10 +54,11 @@ nginx -s reload
 echo "Nginx успешно настроен."
 
 
-# echo "Настройка certbot..."
-# certbot --nginx -d $DOMAIN --non-interactive --redirect --agree-tos --email admin@$DOMAIN
-# nginx -s reload
-# echo "Certbot успешно настроен."
+echo "Настройка certbot..."
+certbot --nginx -d $DOMAIN --non-interactive --redirect --agree-tos --email admin@$DOMAIN
+certbot --nginx -d $DOMAIN_IO --non-interactive --redirect --agree-tos --email admin@$DOMAIN_IO
+nginx -s reload
+echo "Certbot успешно настроен."
 
 
 echo "Настройка сервиса..."
@@ -75,8 +76,8 @@ Group=$USER
 User=$USER
 ###
 Restart=always
-ExecStart=bash -c '. ~/.nvm/nvm.sh; npm run start:test'
-Environment=NODE_ENV=test
+ExecStart=bash -c '. ~/.nvm/nvm.sh; npm start'
+Environment=NODE_ENV=production
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -84,4 +85,4 @@ systemctl daemon-reload
 echo "Сервис успешно настроен."
 
 
-source ./setup/deploy/app-test.sh
+source ./setup/deploy/prod.sh

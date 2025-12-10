@@ -9,8 +9,10 @@ set -e
 
 USER=webmaster
 APP=app-things
-DOMAIN=$APP.web-app.click
-PORT=8804
+DOMAIN=$APP.web-app.test
+DOMAIN_IO=ws.$DOMAIN
+PORT=6604
+PORT_IO=5504
 
 echo "Настройка nginx..."
 cat << EOF > /etc/nginx/sites-available/$DOMAIN
@@ -35,16 +37,27 @@ server {
         proxy_set_header Host \$host;
     }
 }
+server {
+    listen 2080;
+    server_name $DOMAIN_IO;
+    location / {
+        proxy_pass http://127.0.0.1:$PORT_IO;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host \$host;
+    }
+}
 EOF
 ln -s -f /etc/nginx/sites-available/$DOMAIN /etc/nginx/sites-enabled/$DOMAIN
 nginx -s reload
 echo "Nginx успешно настроен."
 
 
-echo "Настройка certbot..."
-certbot --nginx -d $DOMAIN --non-interactive --redirect --agree-tos --email admin@$DOMAIN
-nginx -s reload
-echo "Certbot успешно настроен."
+# echo "Настройка certbot..."
+# certbot --nginx -d $DOMAIN --non-interactive --redirect --agree-tos --email admin@$DOMAIN
+# nginx -s reload
+# echo "Certbot успешно настроен."
 
 
 echo "Настройка сервиса..."
@@ -62,8 +75,8 @@ Group=$USER
 User=$USER
 ###
 Restart=always
-ExecStart=bash -c '. ~/.nvm/nvm.sh; npm start'
-Environment=NODE_ENV=production
+ExecStart=bash -c '. ~/.nvm/nvm.sh; npm run start:test'
+Environment=NODE_ENV=test
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -71,4 +84,4 @@ systemctl daemon-reload
 echo "Сервис успешно настроен."
 
 
-source ./setup/deploy/app.sh
+source ./setup/deploy/test.sh

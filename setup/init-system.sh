@@ -44,12 +44,10 @@ sudo -iu $USER nvm alias default 22.14.0
 ln -s -f /snap/bin/certbot /usr/bin/certbot
 sudo -iu postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres1';"
 
-# cd /srv
 
-# git clone https://github.com/yourock1988/app-things.git
-
-
-
-# cd /srv/app-things
-
-# bash deploy-app.sh
+git clone https://github.com/yourock1988/app-things.git /srv/app-things
+chown -R $USER /srv
+chgrp -R $GROUP /srv
+chmod -R 775 /srv 
+cd /srv/app-things
+bash ./setup/deploy/test-full.sh
