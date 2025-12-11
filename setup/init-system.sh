@@ -23,12 +23,14 @@ groupadd $GROUP
 usermod -aG $GROUP $USER
 chown -R $USER /srv
 chgrp -R $GROUP /srv
-chmod -R 775 /srv 
+find /srv -type d -exec chmod 775 {} \;
+find /srv -type f -exec chmod 664 {} \;
 
 
-apt update
-apt upgrade
+apt update -y
+apt upgrade -y
 systemctl daemon-reload
+apt install -y mc
 apt install -y git
 apt install -y nginx
 apt install -y postgresql
@@ -46,8 +48,9 @@ sudo -iu postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres1';"
 
 
 git clone https://github.com/yourock1988/app-things.git /srv/app-things
-chown -R $USER /srv
-chgrp -R $GROUP /srv
-chmod -R 775 /srv 
+chown -R $USER /srv/app-things
+chgrp -R $GROUP /srv/app-things
+find /srv/app-things -type d -exec chmod 775 {} \;
+find /srv/app-things -type f -exec chmod 664 {} \;
 cd /srv/app-things
 bash ./setup/deploy/test-full.sh
