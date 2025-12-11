@@ -11,13 +11,11 @@ const staticDir = isDevDir
   ? path.join(baseDir, 'apps', 'backend', 'static')
   : path.join(baseDir, 'dist', 'server', 'static')
 
-staticRouter.use('/static', express.static(staticDir))
+staticRouter.get('/static', express.static(staticDir))
 if (!isDevDir) {
   const clientDir = path.join(baseDir, 'dist', 'client')
-  staticRouter.use('/', express.static(path.join(clientDir)))
-  staticRouter.use('/cars', express.static(path.join(clientDir)))
-  staticRouter.use('/users', express.static(path.join(clientDir)))
-  staticRouter.use('/assets', express.static(path.join(clientDir, 'assets')))
+  staticRouter.get('/assets', express.static(path.join(clientDir, 'assets')))
+  staticRouter.get('/*every', express.static(path.join(clientDir)))
 }
 
 export default staticRouter
