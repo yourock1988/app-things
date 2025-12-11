@@ -2,11 +2,10 @@ import {
   zAccountGetDto,
   zAccountAddDto,
 } from '../../core/schemas/zAccountDtos.js'
-import { TAccountAddDto, TAccountGetDto } from '../../core/dtos/TAccountDtos.js'
-import validateSchema from '../../utils/validateSchema.js'
+import compileMiddlewareRest from '../../utils/compileMiddlewareRest.js'
 
-const SIGNUP = validateSchema<TAccountAddDto>(zAccountAddDto)
-const SIGNIN = validateSchema<TAccountGetDto>(zAccountGetDto)
+const SIGNUP = compileMiddlewareRest('body', zAccountAddDto)
+const SIGNIN = compileMiddlewareRest('body', zAccountGetDto)
 
 const mwAuthRest = { SIGNUP, SIGNIN }
 

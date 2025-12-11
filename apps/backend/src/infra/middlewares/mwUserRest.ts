@@ -1,9 +1,8 @@
 import { zUserAddDto, zUserUpdateDto } from '../../core/schemas/zUserDtos.js'
-import { TUserAddDto, TUserUpdateDto } from '../../core/dtos/TUserDtos.js'
-import validateSchema from '../../utils/validateSchema.js'
+import compileMiddlewareRest from '../../utils/compileMiddlewareRest.js'
 
-const ADD = validateSchema<TUserAddDto>(zUserAddDto)
-const UPD = validateSchema<TUserUpdateDto>(zUserUpdateDto)
+const ADD = compileMiddlewareRest('body', zUserAddDto)
+const UPD = compileMiddlewareRest('body', zUserUpdateDto)
 
 const mwUserRest = { ADD, UPD }
 

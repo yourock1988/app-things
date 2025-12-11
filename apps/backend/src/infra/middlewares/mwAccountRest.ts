@@ -2,14 +2,10 @@ import {
   zAccountAddDto,
   zAccountUpdInfoDto,
 } from '../../core/schemas/zAccountDtos.js'
-import {
-  TAccountAddDto,
-  TAccountUpdInfoDto,
-} from '../../core/dtos/TAccountDtos.js'
-import validateSchema from '../../utils/validateSchema.js'
+import compileMiddlewareRest from '../../utils/compileMiddlewareRest.js'
 
-const ADD = validateSchema<TAccountAddDto>(zAccountAddDto)
-const UPD = validateSchema<TAccountUpdInfoDto>(zAccountUpdInfoDto)
+const ADD = compileMiddlewareRest('body', zAccountAddDto)
+const UPD = compileMiddlewareRest('body', zAccountUpdInfoDto)
 
 const mwAccountRest = { ADD, UPD }
 

@@ -2,14 +2,10 @@ import {
   zSessionAddDto,
   zSessionUpdateDto,
 } from '../../core/schemas/zSessionDtos.js'
-import {
-  TSessionAddDto,
-  TSessionUpdateDto,
-} from '../../core/dtos/TSessionDtos.js'
-import validateSchema from '../../utils/validateSchema.js'
+import compileMiddlewareRest from '../../utils/compileMiddlewareRest.js'
 
-const ADD = validateSchema<TSessionAddDto>(zSessionAddDto)
-const UPD = validateSchema<TSessionUpdateDto>(zSessionUpdateDto)
+const ADD = compileMiddlewareRest('body', zSessionAddDto)
+const UPD = compileMiddlewareRest('body', zSessionUpdateDto)
 
 const mwSessionRest = { ADD, UPD }
 

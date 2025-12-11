@@ -1,6 +1,6 @@
-import validateSchemaRestParams from '../../utils/validateSchemaRestParams.js'
+import compileMiddlewareRest from '../../utils/compileMiddlewareRest.js'
 import zParamsIdDto from '../../core/schemas/zParamsIdDto.js'
 
-const ID = validateSchemaRestParams(zParamsIdDto)
+const ID = compileMiddlewareRest('params', zParamsIdDto)
 
 export default ID
