@@ -7,7 +7,7 @@ import SocketError from '../errors/SocketError.js'
  * необходимо реализовать проверку входящей функции ack
  * она должна быть обязательно TAckFn (по схеме)
  */
-export default function validateSchemaIo<T>(schema: z.ZodSchema) {
+export default function compileMiddlewareIo<T>(schema: z.ZodSchema) {
   return (args: any[], next: any) => {
     const data = args.find(a => typeof a === 'object')
     const ack: any = args.find(a => typeof a === 'function')
@@ -19,10 +19,10 @@ export default function validateSchemaIo<T>(schema: z.ZodSchema) {
       ack?.(
         new SocketError(
           400,
-          'validateSchemaIo',
+          'compileMiddlewareIo',
           'received data has invalid schema',
-          result.error.format()
-        )
+          result.error.format(),
+        ),
       )
     }
   }

@@ -1,9 +1,9 @@
 import { zCarAddDto, zCarUpdateDto } from '../../core/schemas/zCarDtos.js'
 import { TCarAddDto, TCarUpdateDto } from '../../core/dtos/TCarDtos.js'
-import compileMiddlewares from '../../utils/compileMiddlewares.js'
-import validateSchemaIo from '../../utils/validateSchemaIo.js'
+import compileMiddlewaresIo from '../../utils/compileMiddlewaresIo.js'
+import compileMiddlewareIo from '../../utils/compileMiddlewareIo.js'
 
-export default compileMiddlewares({
-  'car:add': validateSchemaIo<TCarAddDto>(zCarAddDto),
-  'car:updateById': validateSchemaIo<TCarUpdateDto>(zCarUpdateDto),
+export default compileMiddlewaresIo({
+  'car:add': compileMiddlewareIo<TCarAddDto>(zCarAddDto),
+  'car:updateById': compileMiddlewareIo<TCarUpdateDto>(zCarUpdateDto),
 })
