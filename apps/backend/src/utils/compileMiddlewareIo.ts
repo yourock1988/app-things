@@ -9,6 +9,11 @@ import SocketError from '../errors/SocketError.js'
  */
 export default function compileMiddlewareIo<T>(schema: z.ZodSchema) {
   return (args: any[], next: any) => {
+    /**
+     * if args.length === 1
+     * if args.length === 2
+     * if args.length === 3
+     */
     const data = args.find(a => typeof a === 'object')
     const ack: any = args.find(a => typeof a === 'function')
     const dto: T = data
