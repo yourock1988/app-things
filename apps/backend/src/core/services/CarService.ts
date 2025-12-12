@@ -31,7 +31,6 @@ export default class CarService extends EventEmitter {
     const car = this.carRepository.updateById(id, {
       ...dto,
       price: dto.price * 10,
-      engine: `${dto.engine}!`,
     })
     // car?.sayHello('upd')
     return car

@@ -16,6 +16,9 @@ export default {
   getters: {},
 
   mutations: {
+    SUBSCRIBE() {},
+    UNSUBSCRIBE() {},
+
     SET_ERR(state, err) {
       state.err = err
     },
@@ -25,17 +28,17 @@ export default {
     },
 
     ADD_CAR(state, car) {
-      console.log('ADD_CAR')
+      window.console.log('ADD_CAR')
       state.cars.push(car)
     },
 
     SET_CARS(state, cars) {
-      console.log('SET_CARS')
+      window.console.log('SET_CARS')
       state.cars = cars
     },
 
     RESET_CARS(state) {
-      console.log('RESET_CARS')
+      window.console.log('RESET_CARS')
       state.cars = []
     },
 
@@ -43,15 +46,14 @@ export default {
       state.car = car
     },
 
-    UPDATE_CAR_BY_ID(state, payload) {
-      console.log('UPDATE_CAR_BY_ID')
-      const { id, dto } = payload
-      const findedCar = state.cars.find(car => car.id === id)
-      if (findedCar) Object.assign(findedCar, dto)
+    UPDATE_CAR_BY_ID(state, { id, ...body }) {
+      window.console.log('UPDATE_CAR_BY_ID')
+      const findedCar = state.cars.find(c => c.id === id)
+      if (findedCar) Object.assign(findedCar, body)
     },
 
     REMOVE_CAR_BY_ID(state, id) {
-      console.log('REMOVE_CAR_BY_ID')
+      window.console.log('REMOVE_CAR_BY_ID')
       state.cars = state.cars.filter(car => car.id !== id)
     },
   },
@@ -70,6 +72,7 @@ export default {
     async readCars({ commit }) {
       const readedCars = await apiCars.getAll()
       commit('SET_CARS', readedCars)
+      commit('SUBSCRIBE')
     },
 
     async readCarById({ commit }, id) {
@@ -85,17 +88,14 @@ export default {
     async updateCarById({ commit }, { id, car }) {
       try {
         const dto = await apiCars.updateById(id, car)
-        commit('UPDATE_CAR_BY_ID', { id, dto })
+        commit('UPDATE_CAR_BY_ID', { id, ...dto })
       } catch (e) {
         if (e.code === 404) {
           setTimeout(() => commit('REMOVE_CAR_BY_ID', id), 1500)
         }
         if (e.code === 400) {
-          commit('UPDATE_CAR_BY_ID', { id, dto: { ...car, err: e.details } })
-          setTimeout(
-            () => commit('UPDATE_CAR_BY_ID', { id, dto: { err: null } }),
-            5000
-          )
+          commit('UPDATE_CAR_BY_ID', { id, ...car, err: e.details })
+          setTimeout(() => commit('UPDATE_CAR_BY_ID', { id, err: null }), 5000)
         }
       }
     },
