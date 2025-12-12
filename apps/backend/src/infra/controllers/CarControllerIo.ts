@@ -3,10 +3,13 @@ import { TCarAddDto, TCarUpdateDto } from '../../core/dtos/TCarDtos.js'
 import CarService from '../../core/services/CarService.js'
 import SocketError from '../../errors/SocketError.js'
 import Car from '../../core/models/Car.js'
-import { TAckFn } from '../../types/TAckFn.js'
+import { TAckFn } from '../../TAckFn.js'
 
 export default class CarControllerIo {
-  constructor(readonly carService: CarService, readonly io: Server) {
+  constructor(
+    readonly carService: CarService,
+    readonly io: Server,
+  ) {
     carService.on('bc-sv:car:added', (car: Car) => io.emit('car:added', car))
   }
 
@@ -32,7 +35,7 @@ export default class CarControllerIo {
     id: number,
     dto: TCarUpdateDto,
     ack: TAckFn<Car | null>,
-    socket: Socket
+    socket: Socket,
   ) {
     const car = this.carService.updateById(id, dto)
     if (car) {

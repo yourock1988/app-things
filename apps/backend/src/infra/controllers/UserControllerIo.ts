@@ -3,10 +3,13 @@ import { TUserAddDto, TUserUpdateDto } from '../../core/dtos/TUserDtos.js'
 import UserService from '../../core/services/UserService.js'
 import SocketError from '../../errors/SocketError.js'
 import User from '../../core/models/User.js'
-import { TAckFn } from '../../types/TAckFn.js'
+import { TAckFn } from '../../TAckFn.js'
 
 export default class UserControllerIo {
-  constructor(readonly userService: UserService, readonly io: Server) {
+  constructor(
+    readonly userService: UserService,
+    readonly io: Server,
+  ) {
     userService.on('bc-sv:user:added', (u: User) => io.emit('user:added', u))
   }
 
@@ -32,7 +35,7 @@ export default class UserControllerIo {
     id: number,
     dto: TUserUpdateDto,
     ack: TAckFn<User | null>,
-    socket: Socket
+    socket: Socket,
   ) {
     const user = this.userService.updateById(id, dto)
     if (user) {
