@@ -12,7 +12,7 @@ const store = createStore({
     cars,
     auth,
   },
-  plugins: [usersInit, compilePlugin('cars', carsInit)],
+  plugins: [compilePlugin('users', usersInit), compilePlugin('cars', carsInit)],
 })
 
 export default store

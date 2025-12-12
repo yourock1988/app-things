@@ -1,7 +1,6 @@
 import * as apiCars from '@/api/ws/cars.js'
 
 export default {
-  // plugins: [carsInit], ???
   namespaced: true,
   state() {
     return {

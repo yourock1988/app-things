@@ -21,9 +21,9 @@ export default {
 
     initUser() {
       return {
-        nickname: '',
-        password: '',
-        email: '',
+        nickname: 'Foobar',
+        password: 'qwerty123',
+        email: 'foobar@mail.xxx',
       }
     },
 

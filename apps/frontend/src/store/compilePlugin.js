@@ -4,7 +4,7 @@ export default function compilePlugin(pluginName, callback) {
       const [moduleName, mutatorName] = type.split('/')
       if (moduleName === pluginName) {
         // eslint-disable-next-line no-underscore-dangle
-        const { commit } = store._modules.root._children.cars.context
+        const { commit } = store._modules.root._children[moduleName].context
         callback(mutatorName, commit)
       }
     })

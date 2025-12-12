@@ -7,13 +7,13 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.SUBSCRIBE()
       vm.readCars()
+      vm.SUBSCRIBE()
     })
   },
   beforeRouteLeave(to, from, next) {
-    this.UNSUBSCRIBE()
     this.SET_CARS([])
+    this.UNSUBSCRIBE()
     next()
   },
 

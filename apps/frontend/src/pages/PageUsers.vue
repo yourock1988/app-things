@@ -6,10 +6,14 @@ export default {
   components: { UsersWidget },
 
   beforeRouteEnter(to, from, next) {
-    next(vm => vm.readUsers())
+    next(vm => {
+      vm.readUsers()
+      vm.SUBSCRIBE()
+    })
   },
   beforeRouteLeave(to, from, next) {
-    this.RESET_USERS()
+    this.SET_USERS([])
+    this.UNSUBSCRIBE()
     next()
   },
 
@@ -17,7 +21,8 @@ export default {
     // eslint-disable-next-line vue/no-unused-properties
     ...mapActions('users', ['readUsers']),
 
-    ...mapMutations('users', ['RESET_USERS']),
+    // eslint-disable-next-line vue/no-unused-properties
+    ...mapMutations('users', ['SET_USERS', 'UNSUBSCRIBE', 'SUBSCRIBE']),
   },
 }
 </script>
