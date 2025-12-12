@@ -6,10 +6,14 @@ export default {
   components: { CarsWidget },
 
   beforeRouteEnter(to, from, next) {
-    next(vm => vm.readCars())
+    next(vm => {
+      vm.SUBSCRIBE()
+      vm.readCars()
+    })
   },
   beforeRouteLeave(to, from, next) {
-    this.RESET_CARS()
+    this.UNSUBSCRIBE()
+    this.SET_CARS([])
     next()
   },
 
@@ -17,7 +21,8 @@ export default {
     // eslint-disable-next-line vue/no-unused-properties
     ...mapActions('cars', ['readCars']),
 
-    ...mapMutations('cars', ['RESET_CARS']),
+    // eslint-disable-next-line vue/no-unused-properties
+    ...mapMutations('cars', ['SET_CARS', 'UNSUBSCRIBE', 'SUBSCRIBE']),
   },
 }
 </script>

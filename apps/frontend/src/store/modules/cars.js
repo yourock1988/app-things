@@ -1,112 +1,58 @@
 import * as apiCars from '@/api/ws/cars.js'
 
 export default {
-  namespaced: true,
-
   // plugins: [carsInit], ???
-
+  namespaced: true,
   state() {
     return {
       cars: [],
-      car: null,
       err: null,
     }
   },
-
-  getters: {},
-
   mutations: {
     SUBSCRIBE() {},
     UNSUBSCRIBE() {},
-
     SET_ERR(state, err) {
       state.err = err
     },
-
-    UNSET_ERR(state) {
-      state.err = null
-    },
-
     ADD_CAR(state, car) {
-      window.console.log('ADD_CAR')
       state.cars.push(car)
     },
-
     SET_CARS(state, cars) {
-      window.console.log('SET_CARS')
       state.cars = cars
     },
-
-    RESET_CARS(state) {
-      window.console.log('RESET_CARS')
-      state.cars = []
-    },
-
-    SET_CAR_BY_ID(state, car) {
-      state.car = car
-    },
-
     UPDATE_CAR_BY_ID(state, { id, ...body }) {
-      window.console.log('UPDATE_CAR_BY_ID')
-      const findedCar = state.cars.find(c => c.id === id)
-      if (findedCar) Object.assign(findedCar, body)
+      state.cars = state.cars.map(c => (c.id === id ? { ...c, ...body } : c))
     },
-
     REMOVE_CAR_BY_ID(state, id) {
-      window.console.log('REMOVE_CAR_BY_ID')
       state.cars = state.cars.filter(car => car.id !== id)
     },
   },
-
   actions: {
     async createCar({ commit }, car) {
-      try {
-        const createdCar = await apiCars.add(car)
-        commit('ADD_CAR', createdCar)
-      } catch (e) {
-        commit('SET_ERR', e.details)
-        setTimeout(() => commit('UNSET_ERR'), 5000)
+      const [err, data] = await apiCars.add(car)
+      if (err) {
+        commit('SET_ERR', err.details)
+      } else {
+        commit('ADD_CAR', data)
+        commit('SET_ERR', null)
       }
     },
-
     async readCars({ commit }) {
-      const readedCars = await apiCars.getAll()
-      commit('SET_CARS', readedCars)
-      commit('SUBSCRIBE')
+      const [, data] = await apiCars.getAll()
+      commit('SET_CARS', data)
+      commit('SET_ERR', null)
     },
-
-    async readCarById({ commit }, id) {
-      try {
-        const readedCar = await apiCars.getById(id)
-        commit('SET_CAR_BY_ID', readedCar)
-      } catch (e) {
-        commit('SET_ERR', e)
-        setTimeout(() => commit('UNSET_ERR'), 5000)
-      }
-    },
-
     async updateCarById({ commit }, { id, car }) {
-      try {
-        const dto = await apiCars.updateById(id, car)
-        commit('UPDATE_CAR_BY_ID', { id, ...dto })
-      } catch (e) {
-        if (e.code === 404) {
-          setTimeout(() => commit('REMOVE_CAR_BY_ID', id), 1500)
-        }
-        if (e.code === 400) {
-          commit('UPDATE_CAR_BY_ID', { id, ...car, err: e.details })
-          setTimeout(() => commit('UPDATE_CAR_BY_ID', { id, err: null }), 5000)
-        }
-      }
+      const [err, data] = await apiCars.updateById(id, car)
+      if (err) commit('UPDATE_CAR_BY_ID', { id, err: err.details })
+      else commit('UPDATE_CAR_BY_ID', { id, ...data, err: null })
+      commit('SET_ERR', null)
     },
-
     async deleteCarById({ commit }, id) {
-      try {
-        await apiCars.removeById(id)
-        commit('REMOVE_CAR_BY_ID', id)
-      } catch (e) {
-        setTimeout(() => commit('REMOVE_CAR_BY_ID', id), 1500)
-      }
+      await apiCars.removeById(id)
+      commit('REMOVE_CAR_BY_ID', id)
+      commit('SET_ERR', null)
     },
   },
 }
