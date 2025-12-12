@@ -1,7 +1,7 @@
 import { Server, Socket } from 'socket.io'
 import { TCarAddDto, TCarUpdateDto } from '../../core/dtos/TCarDtos.js'
 import CarService from '../../core/services/CarService.js'
-import SocketError from '../../errors/SocketError.js'
+import SocketError from '../../SocketError.js'
 import Car from '../../core/models/Car.js'
 import { TAckFn } from '../../TAckFn.js'
 

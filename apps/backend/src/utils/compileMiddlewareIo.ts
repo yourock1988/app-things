@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import SocketError from '../errors/SocketError.js'
+import SocketError from '../SocketError.js'
 
 /**
  * TODO:
