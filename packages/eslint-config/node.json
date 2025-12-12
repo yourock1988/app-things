@@ -18,7 +18,15 @@
   "env": {
     "node": true
   },
-  "ignorePatterns": ["node_modules/", "lib/", "dist/", "build/", "spec/"],
+  "ignorePatterns": [
+    "node_modules/",
+    "lib/",
+    "dist/",
+    "build/",
+    "spec/",
+    "test/",
+    "types/"
+  ],
   "extends": [
     "airbnb-base",
     "plugin:@typescript-eslint/recommended",

@@ -1,4 +1,4 @@
-import validatePhoneStrict from '../../../utils/validatePhoneStrict'
+import validatePhoneStrict from '../../../src/utils/validatePhoneStrict'
 
 test('correct phone is valid', () => {
   let phone = '+380991122333'

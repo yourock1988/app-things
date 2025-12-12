@@ -6,7 +6,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "outDir": "../../build/server",
-    "rootDir": "./src",
+    "rootDir": ".",
     "strict": true,
     "esModuleInterop": true,
     "noEmitOnError": true,
@@ -16,8 +16,10 @@
     "declarationMap": false,
     "declaration": false,
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "src/spec"],
+
+  "include": ["src"],
   "exclude": ["node_modules", "build", "dist", "frontend/**/*"]
 }
