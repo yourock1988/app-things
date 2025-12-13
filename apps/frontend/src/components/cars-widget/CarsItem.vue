@@ -1,21 +1,31 @@
 <script>
 import { mapActions } from 'vuex'
+import TurboTd from './TurboTd.vue'
+import TurboBtn from './TurboBtn.vue'
 
 export default {
+  components: { TurboTd, TurboBtn },
+
   props: ['car'],
 
   data() {
     return {
       localCar: this.parseCar(this.car),
-      isEdit: false,
+      isEditing: false,
     }
+  },
+
+  computed: {
+    err() {
+      return this.car.err ?? null
+    },
   },
 
   watch: {
     car: {
       deep: true,
       handler(val) {
-        if (val.err || this.isEdit) return
+        if (val.err || this.isEditing) return
         this.localCar = this.parseCar(val)
       },
     },
@@ -29,18 +39,18 @@ export default {
       return { price, engine, hasTurbo, hp }
     },
     async save() {
-      this.isEdit = false
+      this.isEditing = false
       await this.updateCarById({
         id: this.car.id,
         car: { ...this.localCar },
       })
       if (this.car.err) {
-        this.isEdit = true
+        this.isEditing = true
       }
     },
     cancel() {
       this.localCar = this.parseCar(this.car)
-      this.isEdit = false
+      this.isEditing = false
     },
   },
 }
@@ -48,83 +58,23 @@ export default {
 
 <template>
   <tr>
-    <td>{{ car.id }}</td>
-    <td>{{ car.type }}</td>
-    <td>{{ car.brand }}</td>
-    <td>{{ car.model }}</td>
-    <td>
-      <v-text-field
-        v-if="isEdit"
-        v-model.number="localCar.price"
-        :error-messages="car.err?.price?._errors"
-        density="compact"
-      />
-      <span v-else>{{ localCar.price }}</span>
-    </td>
-    <td>
-      <v-text-field
-        v-if="isEdit"
-        v-model="localCar.engine"
-        :error-messages="car.err?.engine?._errors"
-        density="compact"
-      />
-      <span v-else>{{ localCar.engine }}</span>
-    </td>
-    <td>
-      <v-checkbox
-        v-if="isEdit"
-        v-model="localCar.hasTurbo"
-        :error-messages="car.err?.hasTurbo?._errors"
-        density="compact"
-      />
-      <span v-else>{{ localCar.hasTurbo }}</span>
-    </td>
-    <td>
-      <v-text-field
-        v-if="isEdit"
-        v-model.number="localCar.hp"
-        :error-messages="car.err?.hp?._errors"
-        density="compact"
-      />
-      <span v-else>{{ localCar.hp }}</span>
-    </td>
-    <td>{{ car.isRunning }}</td>
+    <TurboTd :model-value="car" field="id" />
+    <TurboTd :model-value="car" field="type" />
+    <TurboTd :model-value="car" field="brand" />
+    <TurboTd :model-value="car" field="model" />
+    <TurboTd v-model.number="localCar" field="price" :err :is-editing />
+    <TurboTd v-model="localCar" field="engine" :err :is-editing />
+    <TurboTd :model-value="car" field="hasTurbo" />
+    <TurboTd v-model.number="localCar" field="hp" :err :is-editing />
+    <TurboTd :model-value="car" field="isRunning" />
     <td class="d-flex align-center justify-space-around">
-      <template v-if="isEdit">
-        <v-btn
-          size="small"
-          color="warning"
-          prepend-icon="mdi-cancel"
-          @click="cancel"
-        >
-          Cancel
-        </v-btn>
-        <v-btn
-          size="small"
-          color="secondary"
-          prepend-icon="mdi-content-save-edit"
-          @click="save"
-        >
-          Save
-        </v-btn>
+      <template v-if="isEditing">
+        <TurboBtn kind="cancel" @click="cancel" />
+        <TurboBtn kind="save" @click="save" />
       </template>
       <template v-else>
-        <v-btn
-          size="small"
-          color="primary"
-          prepend-icon="mdi-pencil"
-          @click="isEdit = true"
-        >
-          Edit
-        </v-btn>
-        <v-btn
-          size="small"
-          color="error"
-          prepend-icon="mdi-delete-forever"
-          @click="deleteCarById(car.id)"
-        >
-          Delete
-        </v-btn>
+        <TurboBtn kind="edit" @click="isEditing = true" />
+        <TurboBtn kind="delete" @click="deleteCarById(car.id)" />
       </template>
     </td>
   </tr>

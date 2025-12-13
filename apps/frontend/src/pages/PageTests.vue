@@ -1,7 +1,10 @@
 <script>
 import { mapState, mapActions } from 'vuex'
+import TurboBtn from '../components/cars-widget/TurboBtn.vue'
 
 export default {
+  components: { TurboBtn },
+
   computed: {
     ...mapState('users', ['err']),
   },
@@ -20,6 +23,11 @@ export default {
 <template>
   <div>
     <h3>PAGE TESTS</h3>
+
+    <TurboBtn kind="cancel" />
+    <TurboBtn kind="save" />
+    <TurboBtn kind="edit" />
+    <TurboBtn kind="delete" />
 
     <div>{{ err }}</div>
 

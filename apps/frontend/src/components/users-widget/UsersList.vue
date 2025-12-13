@@ -9,7 +9,9 @@ export default {
     ...mapState('users', ['users']),
 
     keysNames() {
-      return Object.keys(this.users.at(0) ?? {}).map(u => u.toUpperCase())
+      return Object.keys(this.users.at(0) ?? {})
+        .map(u => u.toUpperCase())
+        .filter(u => u !== 'ERR')
     },
   },
 
@@ -42,6 +44,8 @@ export default {
 }
 .collapse-enter-active,
 .collapse-leave-active {
-  transition: opacity 0.15s ease-in, transform 0.15s ease-in;
+  transition:
+    opacity 0.15s ease-in,
+    transform 0.15s ease-in;
 }
 </style>
