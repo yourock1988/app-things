@@ -1,7 +1,7 @@
 <script>
 import { mapActions } from 'vuex'
-import TurboTd from './TurboTd.vue'
-import TurboBtn from './TurboBtn.vue'
+import TurboTd from '../../ui/TurboTd.vue'
+import TurboBtn from '../../ui/TurboBtn.vue'
 
 export default {
   components: { TurboTd, TurboBtn },
