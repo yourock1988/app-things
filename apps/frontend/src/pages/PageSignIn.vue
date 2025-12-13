@@ -1,6 +1,6 @@
 <script>
 import { mapState } from 'vuex/dist/vuex.cjs.js'
-import FormSheet from '../components/FormSheet.vue'
+import FormSheet from '../ui/FormSheet.vue'
 import SignInForm from '../components/SignInForm.vue'
 
 export default {

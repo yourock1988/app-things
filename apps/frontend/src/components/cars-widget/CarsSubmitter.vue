@@ -1,5 +1,5 @@
 <script>
-import FormSheet from '../FormSheet.vue'
+import FormSheet from '../../ui/FormSheet.vue'
 import CarsForm from '../CarsForm.vue'
 
 export default {

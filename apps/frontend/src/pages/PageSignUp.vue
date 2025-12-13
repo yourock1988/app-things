@@ -1,5 +1,5 @@
 <script>
-import FormSheet from '../components/FormSheet.vue'
+import FormSheet from '../ui/FormSheet.vue'
 import SignUpForm from '../components/SignUpForm.vue'
 
 export default {
