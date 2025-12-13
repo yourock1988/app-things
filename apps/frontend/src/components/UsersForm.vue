@@ -9,6 +9,7 @@ export default {
     return {
       dto: this.initUser(),
       loading: false,
+      cols: 3,
     }
   },
 
@@ -40,15 +41,9 @@ export default {
 <template>
   <v-form validate-on="submit lazy" @submit.prevent="handleSubmit">
     <v-row class="justify-center">
-      <v-col cols="3">
-        <FormField v-model="dto" :err field="nickname" />
-      </v-col>
-      <v-col cols="3">
-        <FormField v-model="dto" :err field="password" />
-      </v-col>
-      <v-col cols="3">
-        <FormField v-model="dto" :err field="email" />
-      </v-col>
+      <FormField v-model="dto" :err field="nickname" :cols />
+      <FormField v-model="dto" :err field="password" :cols />
+      <FormField v-model="dto" :err field="email" :cols />
 
       <v-col cols="3">
         <v-btn :loading type="submit">Submit</v-btn>

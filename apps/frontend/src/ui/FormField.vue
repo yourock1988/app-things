@@ -11,7 +11,8 @@ export default {
     'type',
     'modelModifiers',
     'comp',
-    'items',
+    'l',
+    'cols',
   ],
   emits: ['update:model-value'],
 }
@@ -19,17 +20,19 @@ export default {
 
 <!-- eslint-disable vue/attribute-hyphenation -->
 <template>
-  <component
-    :is="comp ?? 'VTextField'"
-    :type
-    :items
-    :label="field"
-    :error-messages="err?.[field]?._errors"
-    autocomplete="off"
-    :modelModifiers
-    :model-value="modelValue[field]"
-    @update:model-value="
-      $emit('update:model-value', { ...modelValue, [field]: $event })
-    "
-  />
+  <v-col :cols>
+    <component
+      :is="comp ?? 'VTextField'"
+      :type
+      :items="l"
+      :label="field"
+      :error-messages="err?.[field]?._errors"
+      autocomplete="off"
+      :modelModifiers
+      :model-value="modelValue[field]"
+      @update:model-value="
+        $emit('update:model-value', { ...modelValue, [field]: $event })
+      "
+    />
+  </v-col>
 </template>

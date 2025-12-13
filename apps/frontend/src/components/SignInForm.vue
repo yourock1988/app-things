@@ -12,6 +12,7 @@ export default {
     return {
       loading: false,
       dto: this.initDto(),
+      cols: 12,
       // err: null,
       // err: {
       //   _errors: ['very bad'],
@@ -69,12 +70,8 @@ export default {
 <template>
   <v-form @submit.prevent="handleSubmit">
     <v-row class="justify-center">
-      <v-col cols="12">
-        <FormField v-model="dto" :err field="nickname" />
-      </v-col>
-      <v-col cols="12">
-        <FormField v-model="dto" :err field="password" />
-      </v-col>
+      <FormField v-model="dto" :err field="nickname" :cols />
+      <FormField v-model="dto" :err field="password" :cols />
 
       <v-col cols="12">
         <v-btn :loading type="submit">Submit</v-btn>

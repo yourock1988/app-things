@@ -11,9 +11,10 @@ export default {
   data() {
     return {
       loading: false,
-      items: ['California', 'Florida', 'Texas'],
+      l: ['California', 'Florida', 'Texas'],
       dto: this.initDto(),
       err: null,
+      cols: 12,
       // err: {
       //   _errors: ['very bad'],
       //   isAgree: {
@@ -64,27 +65,13 @@ export default {
 <template>
   <v-form @submit.prevent="handleSubmit">
     <v-row class="justify-center">
-      <v-col cols="12">
-        <FormField v-model="dto" :err field="nickname" />
-      </v-col>
-      <v-col cols="12">
-        <FormField v-model="dto" :err field="password" />
-      </v-col>
-      <v-col cols="12">
-        <FormField v-model="dto" :err field="repasswd" />
-      </v-col>
-      <v-col cols="6">
-        <FormField v-model="dto" :err field="email" />
-      </v-col>
-      <v-col cols="6">
-        <FormField v-model="dto" :err field="phone" />
-      </v-col>
-      <v-col cols="12">
-        <FormField v-model="dto" :err field="country" comp="v-select" :items />
-      </v-col>
-      <v-col cols="12">
-        <FormField v-model="dto" :err field="isAgree" comp="v-checkbox" />
-      </v-col>
+      <FormField v-model="dto" :err field="nickname" :cols />
+      <FormField v-model="dto" :err field="password" :cols />
+      <FormField v-model="dto" :err field="repasswd" :cols />
+      <FormField v-model="dto" :err field="email" :cols />
+      <FormField v-model="dto" :err field="phone" :cols />
+      <FormField v-model="dto" :err field="country" comp="v-select" :l :cols />
+      <FormField v-model="dto" :err field="isAgree" comp="v-checkbox" :cols />
 
       <v-col cols="12">
         <v-btn :loading type="submit">Submit</v-btn>

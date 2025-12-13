@@ -9,6 +9,7 @@ export default {
     return {
       dto: this.initCar(),
       loading: false,
+      cols: 3,
     }
   },
 
@@ -44,32 +45,13 @@ export default {
 <template>
   <v-form validate-on="submit lazy" @submit.prevent="handleSubmit">
     <v-row class="justify-center">
-      <v-col cols="3">
-        <FormField v-model="dto" :err field="type" />
-      </v-col>
-      <v-col cols="3">
-        <FormField v-model="dto" :err field="brand" />
-      </v-col>
-      <v-col cols="3">
-        <FormField v-model="dto" :err field="model" />
-      </v-col>
-      <v-col cols="3">
-        <FormField v-model.number="dto" :err field="price" />
-      </v-col>
-      <v-col cols="3">
-        <FormField v-model="dto" :err field="engine" />
-      </v-col>
-      <v-col cols="3">
-        <FormField v-model.number="dto" :err field="hp" />
-      </v-col>
-      <v-col cols="3">
-        <FormField
-          v-model.number="dto"
-          :err
-          field="hasTurbo"
-          comp="v-checkbox"
-        />
-      </v-col>
+      <FormField v-model="dto" :err field="type" :cols />
+      <FormField v-model="dto" :err field="brand" :cols />
+      <FormField v-model="dto" :err field="model" :cols />
+      <FormField v-model.number="dto" :err field="price" :cols />
+      <FormField v-model="dto" :err field="engine" :cols />
+      <FormField v-model.number="dto" :err field="hp" :cols />
+      <FormField v-model="dto" :err field="hasTurbo" comp="v-checkbox" :cols />
 
       <v-col cols="3">
         <v-btn :loading type="submit">Submit</v-btn>
