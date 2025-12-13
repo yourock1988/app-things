@@ -1,6 +1,6 @@
 <script>
 // import { mapActions, mapState } from 'vuex'
-import FormField from '@/components/FormField.vue'
+import FormField from '@/ui/FormField.vue'
 import signUp from '../api/rest/auth/signUp.js'
 
 export default {

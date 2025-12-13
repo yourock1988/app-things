@@ -1,6 +1,6 @@
 <script>
 import { mapActions, mapState } from 'vuex'
-import FormField from './FormField.vue'
+import FormField from '../ui/FormField.vue'
 
 export default {
   components: { FormField },
