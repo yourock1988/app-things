@@ -1,7 +1,7 @@
 <script>
 import { mapState } from 'vuex'
 import UsersItem from './UsersItem.vue'
-import TableSheet from '../TableSheet.vue'
+import TableSheet from '../../ui/TableSheet.vue'
 
 export default {
   components: { UsersItem, TableSheet },

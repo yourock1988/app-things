@@ -1,7 +1,7 @@
 <script>
 import { mapState } from 'vuex'
 import CarsItem from './CarsItem.vue'
-import TableSheet from '../TableSheet.vue'
+import TableSheet from '../../ui/TableSheet.vue'
 
 export default {
   components: { CarsItem, TableSheet },
