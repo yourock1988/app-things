@@ -4,22 +4,27 @@ import FormField from '../ui/FormField.vue'
 
 export default {
   components: { FormField },
-
   data() {
     return {
       dto: this.initCar(),
       loading: false,
       cols: 3,
+      fields: {
+        type: null,
+        brand: null,
+        model: null,
+        price: { type: 'number', modify: 'number' },
+        engine: null,
+        hp: { type: 'number', modify: 'number' },
+        hasTurbo: 'v-checkbox',
+      },
     }
   },
-
   computed: {
     ...mapState('cars', ['err']),
   },
-
   methods: {
     ...mapActions('cars', ['createCar']),
-
     initCar() {
       return {
         type: 'Muscle',
@@ -31,7 +36,6 @@ export default {
         hp: 999,
       }
     },
-
     async handleSubmit() {
       this.loading = true
       await this.createCar({ ...this.dto })
@@ -45,13 +49,15 @@ export default {
 <template>
   <v-form validate-on="submit lazy" @submit.prevent="handleSubmit">
     <v-row class="justify-center">
-      <FormField v-model="dto" :err field="type" :cols />
-      <FormField v-model="dto" :err field="brand" :cols />
-      <FormField v-model="dto" :err field="model" :cols />
-      <FormField v-model.number="dto" :err field="price" :cols />
-      <FormField v-model="dto" :err field="engine" :cols />
-      <FormField v-model.number="dto" :err field="hp" :cols />
-      <FormField v-model="dto" :err field="hasTurbo" comp="v-checkbox" :cols />
+      <FormField
+        v-for="(comp, field) in fields"
+        :key="field"
+        v-model="dto"
+        :field
+        :comp
+        :cols
+        :err
+      />
 
       <v-col cols="3">
         <v-btn :loading type="submit">Submit</v-btn>

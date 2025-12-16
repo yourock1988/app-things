@@ -5,16 +5,25 @@ import signUp from '../api/rest/auth/signUp.js'
 
 export default {
   components: { FormField },
-
   emits: ['success'],
-
   data() {
     return {
       loading: false,
-      l: ['California', 'Florida', 'Texas'],
       dto: this.initDto(),
       err: null,
       cols: 12,
+      fields: {
+        nickname: null,
+        password: null,
+        repasswd: null,
+        email: null,
+        phone: null,
+        country: {
+          component: 'v-select',
+          list: ['California', 'Florida', 'Texas'],
+        },
+        isAgree: 'v-checkbox',
+      },
       // err: {
       //   _errors: ['very bad'],
       //   isAgree: {
@@ -26,14 +35,11 @@ export default {
       // },
     }
   },
-
   computed: {
     // ...mapState('auth', ['err']),
   },
-
   methods: {
     // ...mapActions('auth', ['signUp']),
-
     initDto() {
       return {
         nickname: 'xxx',
@@ -45,7 +51,6 @@ export default {
         isAgree: true,
       }
     },
-
     async handleSubmit() {
       this.loading = true
       this.err = null
@@ -65,13 +70,15 @@ export default {
 <template>
   <v-form @submit.prevent="handleSubmit">
     <v-row class="justify-center">
-      <FormField v-model="dto" :err field="nickname" :cols />
-      <FormField v-model="dto" :err field="password" :cols />
-      <FormField v-model="dto" :err field="repasswd" :cols />
-      <FormField v-model="dto" :err field="email" :cols />
-      <FormField v-model="dto" :err field="phone" :cols />
-      <FormField v-model="dto" :err field="country" comp="v-select" :l :cols />
-      <FormField v-model="dto" :err field="isAgree" comp="v-checkbox" :cols />
+      <FormField
+        v-for="(comp, field) in fields"
+        :key="field"
+        v-model="dto"
+        :field
+        :comp
+        :cols
+        :err
+      />
 
       <v-col cols="12">
         <v-btn :loading type="submit">Submit</v-btn>

@@ -12,6 +12,7 @@ export default {
     return {
       loading: false,
       dto: this.initDto(),
+      fields: { nickname: null, password: null },
       cols: 12,
       // err: null,
       // err: {
@@ -25,20 +26,16 @@ export default {
       // },
     }
   },
-
   computed: {
     ...mapState('auth', ['err', 'session']),
   },
-
   watch: {
     session(newVal) {
       if (newVal && !this.err) this.dto = this.initDto2()
     },
   },
-
   methods: {
     ...mapActions('auth', ['signIn']),
-
     initDto() {
       return {
         nickname: 'xxx',
@@ -51,7 +48,6 @@ export default {
         password: '',
       }
     },
-
     async handleSubmit() {
       this.loading = true
       await this.signIn({ ...this.dto })
@@ -70,8 +66,15 @@ export default {
 <template>
   <v-form @submit.prevent="handleSubmit">
     <v-row class="justify-center">
-      <FormField v-model="dto" :err field="nickname" :cols />
-      <FormField v-model="dto" :err field="password" :cols />
+      <FormField
+        v-for="(comp, field) in fields"
+        :key="field"
+        v-model="dto"
+        :field
+        :comp
+        :cols
+        :err
+      />
 
       <v-col cols="12">
         <v-btn :loading type="submit">Submit</v-btn>

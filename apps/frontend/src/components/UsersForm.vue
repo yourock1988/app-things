@@ -4,22 +4,23 @@ import FormField from '../ui/FormField.vue'
 
 export default {
   components: { FormField },
-
   data() {
     return {
       dto: this.initUser(),
       loading: false,
       cols: 3,
+      fields: {
+        nickname: null,
+        password: null,
+        email: null,
+      },
     }
   },
-
   computed: {
     ...mapState('users', ['err']),
   },
-
   methods: {
     ...mapActions('users', ['createUser']),
-
     initUser() {
       return {
         nickname: 'Foobar',
@@ -27,7 +28,6 @@ export default {
         email: 'foobar@mail.xxx',
       }
     },
-
     async handleSubmit() {
       this.loading = true
       await this.createUser({ ...this.dto })
@@ -41,9 +41,15 @@ export default {
 <template>
   <v-form validate-on="submit lazy" @submit.prevent="handleSubmit">
     <v-row class="justify-center">
-      <FormField v-model="dto" :err field="nickname" :cols />
-      <FormField v-model="dto" :err field="password" :cols />
-      <FormField v-model="dto" :err field="email" :cols />
+      <FormField
+        v-for="(comp, field) in fields"
+        :key="field"
+        v-model="dto"
+        :field
+        :comp
+        :cols
+        :err
+      />
 
       <v-col cols="3">
         <v-btn :loading type="submit">Submit</v-btn>

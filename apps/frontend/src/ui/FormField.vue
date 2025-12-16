@@ -1,20 +1,29 @@
 <script>
-import { VBtn, VCheckbox, VSelect, VTextField } from 'vuetify/components'
+import { VTextField, VCheckbox, VSelect } from 'vuetify/components'
 
 export default {
-  components: { VBtn, VTextField, VSelect, VCheckbox },
+  components: { VTextField, VCheckbox, VSelect },
   inheritAttrs: false,
-  props: [
-    'modelValue',
-    'err',
-    'field',
-    'type',
-    'modelModifiers',
-    'comp',
-    'l',
-    'cols',
-  ],
+  props: ['modelValue', 'field', 'comp', 'cols', 'err'],
   emits: ['update:model-value'],
+  computed: {
+    items() {
+      return this.comp?.list
+    },
+    component() {
+      const defaultComponent = 'VTextField'
+      if (this.comp === null) return defaultComponent
+      if (typeof this.comp === 'string') return this.comp
+      if (typeof this.comp?.component !== 'string') return defaultComponent
+      return this.comp?.component
+    },
+    type() {
+      return this.comp?.type
+    },
+    modelModifiers() {
+      return this.comp?.modify === 'number' ? { number: true } : undefined
+    },
+  },
 }
 </script>
 
@@ -22,9 +31,9 @@ export default {
 <template>
   <v-col :cols>
     <component
-      :is="comp ?? 'VTextField'"
+      :is="component"
       :type
-      :items="l"
+      :items
       :label="field"
       :error-messages="err?.[field]?._errors"
       autocomplete="off"
