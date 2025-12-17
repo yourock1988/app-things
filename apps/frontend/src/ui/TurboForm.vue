@@ -1,5 +1,5 @@
 <script>
-import FormField from '../ui/FormField.vue'
+import FormField from './FormField.vue'
 
 export default {
   components: { FormField },

@@ -1,10 +1,10 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import FormSheet from '../../ui/FormSheet.vue'
-import CarsForm from '../CarsForm.vue'
+import TurboForm from '../../ui/TurboForm.vue'
 
 export default {
-  components: { CarsForm, FormSheet },
+  components: { TurboForm, FormSheet },
 
   data() {
     return {
@@ -47,6 +47,6 @@ export default {
 
 <template>
   <FormSheet caption="Create car" :sizing>
-    <CarsForm :fields :err :cols :init-test @submit="submit" />
+    <TurboForm :fields :err :cols :init-test @submit="submit" />
   </FormSheet>
 </template>
