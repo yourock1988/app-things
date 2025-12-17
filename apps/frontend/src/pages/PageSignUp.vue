@@ -1,41 +1,60 @@
 <script>
-import FormSheet from '../ui/FormSheet.vue'
-import SignUpForm from '../components/SignUpForm.vue'
+import signUp from '@/api/rest/auth/signUp.js'
+import CardSuccess from '@/ui/CardSuccess.vue'
+import FormSheet from '@/ui/FormSheet.vue'
+import TurboForm from '@/ui/TurboForm.vue'
 
 export default {
-  components: { SignUpForm, FormSheet },
+  components: { TurboForm, FormSheet, CardSuccess },
 
   data() {
     return {
       sizing: { cols: 12, sm: 8, md: 6, xl: 4 },
-      isSubmitted: false,
+      isOk: false,
+      title: 'Вы зарегистрированы!',
+      text: 'Теперь можете войти, используя ваш логин и пароль',
+      err: null,
+      cols: 12,
+      fields: {
+        nickname: null,
+        password: null,
+        repasswd: null,
+        email: null,
+        phone: null,
+        country: {
+          component: 'v-select',
+          list: ['California', 'Florida', 'Texas'],
+        },
+        isAgree: 'v-checkbox',
+      },
     }
+  },
+  methods: {
+    initTest() {
+      return {
+        nickname: 'xxx',
+        password: 'xX1!xxxx',
+        repasswd: 'xX1!xxxx',
+        email: 'xxx@xx.xx',
+        phone: '+380334445566',
+        country: 'xxxxx',
+        isAgree: true,
+      }
+    },
+    async submit({ resolve, ...dto }) {
+      this.err = null
+      const [err] = await signUp(dto)
+      this.err = err
+      if (!err) this.isOk = true
+      resolve()
+    },
   },
 }
 </script>
 
 <template>
   <FormSheet caption="Sign-up" :sizing>
-    <v-card
-      v-if="isSubmitted"
-      color="indigo-darken-3"
-      variant="elevated"
-      class="my-5 mx-auto"
-      max-width="420"
-    >
-      <v-card-item>
-        <div>
-          <div class="text-overline mb-1">Успешно!</div>
-          <div class="text-h6 mb-1">Вы зарегистрированы!</div>
-          <div class="text-caption">
-            Теперь можете войти, используя ваш логин и пароль
-          </div>
-        </div>
-      </v-card-item>
-      <v-card-actions>
-        <v-btn color="white" @click="$router.push('/sign-in')">Войти</v-btn>
-      </v-card-actions>
-    </v-card>
-    <SignUpForm v-else @success="isSubmitted = true" />
+    <CardSuccess v-if="isOk" :title :text link="/sign-in" ankhor="Войти" />
+    <TurboForm v-else :fields :err :cols :init-test @submit="submit" />
   </FormSheet>
 </template>
