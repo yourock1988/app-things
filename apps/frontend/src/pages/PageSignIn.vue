@@ -1,14 +1,17 @@
 <script>
 import { mapState } from 'vuex/dist/vuex.cjs.js'
-import FormSheet from '../ui/FormSheet.vue'
-import SignInForm from '../components/SignInForm.vue'
+import SignInForm from '@/components/SignInForm.vue'
+import CardSuccess from '@/ui/CardSuccess.vue'
+import FormSheet from '@/ui/FormSheet.vue'
 
 export default {
-  components: { SignInForm, FormSheet },
+  components: { SignInForm, FormSheet, CardSuccess },
 
   data() {
     return {
       sizing: { cols: 12, sm: 8, md: 6, xl: 4 },
+      title: 'Вы вошли в систему!',
+      text: 'Теперь можете юзать приложение под ником',
     }
   },
 
@@ -20,31 +23,9 @@ export default {
 
 <template>
   <FormSheet caption="Sign-in" :sizing>
-    <v-card
-      v-if="session"
-      color="indigo-darken-3"
-      variant="elevated"
-      class="my-5 mx-auto"
-      max-width="420"
-    >
-      <v-card-item>
-        <div>
-          <div class="text-overline mb-1">Успешно!</div>
-          <div class="text-h6 mb-1">Вы вошли в систему!</div>
-          <div class="text-caption">
-            <span> Теперь можете юзать приложение под ником </span>
-            <b style="cursor: pointer">
-              <i>
-                <u>{{ session.nickname }}</u>
-              </i>
-            </b>
-          </div>
-        </div>
-      </v-card-item>
-      <v-card-actions>
-        <v-btn color="white" @click="$router.push('/cars')">Юзать</v-btn>
-      </v-card-actions>
-    </v-card>
+    <CardSuccess v-if="session" :title :text link="/cars" ankhor="Юзать">
+      <b>{{ session.nickname }}</b>
+    </CardSuccess>
     <SignInForm v-else />
   </FormSheet>
 </template>
