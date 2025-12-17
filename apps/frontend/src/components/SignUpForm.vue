@@ -80,7 +80,7 @@ export default {
         :err
       />
 
-      <v-col cols="12">
+      <v-col :cols>
         <v-btn :loading type="submit">Submit</v-btn>
       </v-col>
       <v-col v-if="err?._errors?.length > 0" cols="12">
