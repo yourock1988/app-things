@@ -24,6 +24,23 @@ export default {
       return this.comp?.modify === 'number' ? { number: true } : undefined
     },
   },
+  watch: {
+    // выключенная галочка должна быть false вместо undefined
+    modelValue: {
+      immediate: true,
+      handler() {
+        if (
+          this.component === 'v-checkbox' &&
+          this.modelValue[this.field] === undefined
+        ) {
+          this.$emit('update:model-value', {
+            ...this.modelValue,
+            [this.field]: false,
+          })
+        }
+      },
+    },
+  },
 }
 </script>
 

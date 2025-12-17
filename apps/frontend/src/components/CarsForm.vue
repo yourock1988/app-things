@@ -1,46 +1,33 @@
 <script>
-import { mapActions, mapState } from 'vuex'
 import FormField from '../ui/FormField.vue'
 
 export default {
   components: { FormField },
+  // initTest временно для тестирования. его можно легко снести нафиг
+  // и поставить абстрактный initDto()
+  props: ['fields', 'err', 'cols', 'initTest'],
+  emits: ['submit'],
   data() {
     return {
-      dto: this.initCar(),
       loading: false,
-      cols: 3,
-      fields: {
-        type: null,
-        brand: null,
-        model: null,
-        price: { type: 'number', modify: 'number' },
-        engine: null,
-        hp: { type: 'number', modify: 'number' },
-        hasTurbo: 'v-checkbox',
-      },
+      dto: this.initTest(),
+      // dto: this.initDto(),
     }
   },
-  computed: {
-    ...mapState('cars', ['err']),
-  },
   methods: {
-    ...mapActions('cars', ['createCar']),
-    initCar() {
-      return {
-        type: 'Muscle',
-        brand: 'Bugatti',
-        model: 'Veyron',
-        price: 111111,
-        engine: 'W16',
-        hasTurbo: true,
-        hp: 999,
-      }
-    },
+    // initDto() {
+    //   return Object.fromEntries(
+    //     Object.keys(this.fields).map(f => [f, undefined]),
+    //   )
+    // },
     async handleSubmit() {
+      const { promise, resolve } = Promise.withResolvers()
       this.loading = true
-      await this.createCar({ ...this.dto })
-      this.dto = this.initCar()
+      this.$emit('submit', { ...this.dto, resolve })
+      await promise
       this.loading = false
+      if (!this.err) this.dto = this.initTest()
+      // if (!this.err) this.dto = this.initDto()
     },
   },
 }
