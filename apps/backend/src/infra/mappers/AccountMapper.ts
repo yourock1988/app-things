@@ -1,5 +1,5 @@
 import { TAccountAddDto } from '../../core/dtos/TAccountDtos.js'
-import { TAccountRecord } from './TAccountRecord.js'
+import { TAccountRecord } from '../repositories/TAccountRecord.js'
 import Account from '../../core/models/Account.js'
 import randId from '../../utils/randId.js'
 
@@ -19,7 +19,7 @@ export default class AccountMapper {
       record.authorizationsCount,
       record.authenticationsCount,
       record.createdAt,
-      record.updatedAt
+      record.updatedAt,
     )
   }
 

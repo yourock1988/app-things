@@ -1,6 +1,6 @@
-import { TUserRecord } from './TUserRecord.js'
-import User from '../../core/models/User.js'
 import { TUserAddDto } from '../../core/dtos/TUserDtos.js'
+import { TUserRecord } from '../repositories/TUserRecord.js'
+import User from '../../core/models/User.js'
 import randId from '../../utils/randId.js'
 
 export default class UserMapper {
@@ -10,7 +10,7 @@ export default class UserMapper {
       record.nickname,
       record.password,
       record.email,
-      record.money
+      record.money,
     )
   }
 

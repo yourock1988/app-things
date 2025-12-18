@@ -1,5 +1,5 @@
 import { TSessionAddDto } from '../../core/dtos/TSessionDtos.js'
-import { TSessionRecord } from './TSessionRecord.js'
+import { TSessionRecord } from '../repositories/TSessionRecord.js'
 import Session from '../../core/models/Session.js'
 import randId from '../../utils/randId.js'
 
@@ -10,7 +10,7 @@ export default class SessionMapper {
       record.sessionId,
       record.nickname,
       record.createdAt,
-      record.updatedAt
+      record.updatedAt,
     )
   }
 

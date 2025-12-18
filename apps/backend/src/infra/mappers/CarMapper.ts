@@ -1,5 +1,5 @@
 import { TCarAddDto } from '../../core/dtos/TCarDtos.js'
-import { TCarRecord } from './TCarRecord.js'
+import { TCarRecord } from '../repositories/TCarRecord.js'
 import Car from '../../core/models/Car.js'
 import randId from '../../utils/randId.js'
 
@@ -13,7 +13,7 @@ export default class CarMapper {
       record.price,
       record.engine,
       record.hasTurbo,
-      record.hp
+      record.hp,
     )
   }
 
