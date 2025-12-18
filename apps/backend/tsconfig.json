@@ -7,11 +7,16 @@
     "moduleResolution": "node",
     "outDir": "../../build/server",
     "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "checkJs": false,
+    "allowJs": true,
     "strict": true,
     "esModuleInterop": true,
     "noEmitOnError": true,
     "noEmit": false,
-    "allowJs": false,
     "sourceMap": true,
     "declarationMap": false,
     "declaration": false,
