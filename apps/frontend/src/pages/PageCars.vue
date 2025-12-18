@@ -1,9 +1,10 @@
 <script>
 import { mapActions, mapMutations } from 'vuex'
-import CarsWidget from '@/components/cars-widget/CarsWidget.vue'
+import CarsSubmitter from '@/components/cars-widget/CarsSubmitter.vue'
+import CarsList from '@/components/cars-widget/CarsList.vue'
 
 export default {
-  components: { CarsWidget },
+  components: { CarsSubmitter, CarsList },
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -30,6 +31,9 @@ export default {
 <template>
   <div>
     <h3>PAGE CARS</h3>
-    <CarsWidget />
+    <div>
+      <CarsSubmitter />
+      <CarsList />
+    </div>
   </div>
 </template>
