@@ -1,9 +1,10 @@
 <script>
 import { mapActions, mapMutations } from 'vuex'
-import UsersWidget from '@/components/users-widget/UsersWidget.vue'
+import UsersSubmitter from '@/components/users-widget/UsersSubmitter.vue'
+import UsersList from '@/components/users-widget/UsersList.vue'
 
 export default {
-  components: { UsersWidget },
+  components: { UsersSubmitter, UsersList },
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -30,6 +31,9 @@ export default {
 <template>
   <div>
     <h3>PAGE USERS</h3>
-    <UsersWidget />
+    <div>
+      <UsersSubmitter />
+      <UsersList />
+    </div>
   </div>
 </template>
