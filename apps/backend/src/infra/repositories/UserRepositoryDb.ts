@@ -1,9 +1,9 @@
 import { IUserRepository } from '../../core/i-repositories/IUserRepository.js'
 import { TUserAddDto, TUserUpdateDto } from '../../core/dtos/TUserDtos.js'
-import { TUserRecord } from './TUserRecord.js'
+import { TUserRecord } from '../types/TUserRecord.js'
 import User from '../../core/models/User.js'
-import UserMapper from './UserMapper.js'
 import Orm from '../../utils/Orm.js'
+import UserMapper from '../mappers/UserMapper.js'
 
 export default class UserRepositoryDb implements IUserRepository {
   constructor(readonly orm: Orm) {}

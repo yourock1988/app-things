@@ -1,4 +1,4 @@
-import { TUserRecord } from '../../infra/repositories/TUserRecord.js'
+import { TUserRecord } from '../../infra/types/TUserRecord.js'
 
 const usersTable: TUserRecord[] = [
   {

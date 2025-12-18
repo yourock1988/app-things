@@ -3,10 +3,10 @@ import {
   TAccountAddDto,
   TAccountUpdInfoDto,
 } from '../../core/dtos/TAccountDtos.js'
-import { TAccountRecord } from './TAccountRecord.js'
+import { TAccountRecord } from '../types/TAccountRecord.js'
 import Account from '../../core/models/Account.js'
-import AccountMapper from './AccountMapper.js'
 import Orm from '../../utils/Orm.js'
+import AccountMapper from '../mappers/AccountMapper.js'
 
 export default class AccountRepositoryDb implements IAccountRepository {
   constructor(readonly orm: Orm) {}

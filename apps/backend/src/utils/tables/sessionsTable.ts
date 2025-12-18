@@ -1,4 +1,4 @@
-import { TSessionRecord } from '../../infra/repositories/TSessionRecord.js'
+import { TSessionRecord } from '../../infra/types/TSessionRecord.js'
 
 const sessionsTable: TSessionRecord[] = [
   {

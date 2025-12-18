@@ -1,4 +1,4 @@
-import { TCarRecord } from '../../infra/repositories/TCarRecord.js'
+import { TCarRecord } from '../../infra/types/TCarRecord.js'
 
 const carsTable: TCarRecord[] = [
   {

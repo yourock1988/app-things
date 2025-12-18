@@ -1,5 +1,5 @@
 import { TCarAddDto } from '../../core/dtos/TCarDtos.js'
-import { TCarRecord } from '../repositories/TCarRecord.js'
+import { TCarRecord } from '../types/TCarRecord.js'
 import Car from '../../core/models/Car.js'
 import randId from '../../utils/randId.js'
 

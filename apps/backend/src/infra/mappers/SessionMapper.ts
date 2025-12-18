@@ -1,5 +1,5 @@
 import { TSessionAddDto } from '../../core/dtos/TSessionDtos.js'
-import { TSessionRecord } from '../repositories/TSessionRecord.js'
+import { TSessionRecord } from '../types/TSessionRecord.js'
 import Session from '../../core/models/Session.js'
 import randId from '../../utils/randId.js'
 

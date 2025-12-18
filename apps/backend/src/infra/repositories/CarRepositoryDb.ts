@@ -1,11 +1,11 @@
 import { ICarRepository } from '../../core/i-repositories/ICarRepository.js'
 import { TCarAddDto, TCarUpdateDto } from '../../core/dtos/TCarDtos.js'
-import { TCarRecord } from './TCarRecord.js'
+import { TCarRecord } from '../types/TCarRecord.js'
 import Car from '../../core/models/Car.js'
 import Orm from '../../utils/Orm.js'
+import CarMapper from '../mappers/CarMapper.js'
 
 // TODO: в конструктор как mapper, потом в di
-import CarMapper from './CarMapper.js'
 
 export default class CarRepositoryDb implements ICarRepository {
   constructor(readonly orm: Orm) {}
