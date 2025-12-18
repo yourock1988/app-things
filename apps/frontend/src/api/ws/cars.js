@@ -1,13 +1,5 @@
 import socket from './index.js'
-
-function ack(res) {
-  return (err, data) => {
-    if (err) {
-      return res([err])
-    }
-    return res([null, data])
-  }
-}
+import ack from './ack.js'
 
 export function getAll() {
   return new Promise(res => socket.emit('car:getAll', '_', ack(res)))
