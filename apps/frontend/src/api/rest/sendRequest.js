@@ -9,7 +9,8 @@ export default async function sendRequest(url, method = 'GET', payload = null) {
   let resp
   let data
   let text
-  const options = { method, signal: AbortSignal.timeout(5000) }
+  const credentials = 'include'
+  const options = { credentials, method, signal: AbortSignal.timeout(5000) }
 
   if (payload) {
     options.headers = { 'Content-Type': 'application/json' }
