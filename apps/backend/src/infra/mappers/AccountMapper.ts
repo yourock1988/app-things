@@ -15,11 +15,11 @@ export default class AccountMapper {
       record.isAgree,
       record.role,
       record.isLoggedIn,
-      record.favoriteNumbers,
-      record.authorizationsCount,
-      record.authenticationsCount,
-      record.createdAt,
+      // record.favoriteNumbers,
+      // record.authorizationsCount,
+      // record.authenticationsCount,
       record.updatedAt,
+      record.createdAt,
     )
   }
 
@@ -34,11 +34,11 @@ export default class AccountMapper {
       isAgree: dto.isAgree,
       role: 'user',
       isLoggedIn: false,
-      favoriteNumbers: [],
-      authorizationsCount: 0,
-      authenticationsCount: 0,
-      createdAt: 1764644565353,
-      updatedAt: 1764644565353,
+      // favoriteNumbers: [],
+      // authorizationsCount: 0,
+      // authenticationsCount: 0,
+      updatedAt: Date.now(),
+      createdAt: Date.now(),
     }
     return accountRecord
   }

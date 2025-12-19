@@ -14,11 +14,11 @@ content-type: application/json
 {"nickname":"ooo","password":"oO1!oooo","repasswd":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true  }
 ###
 
-PATCH http://localhost:8004/api/v0/accounts/1/
+PATCH http://localhost:8004/api/v0/accounts/2/
 cookie: sessionId=abcdef
 content-type: application/json
 
-{"favoriteNumbers": [111,222,333]}
+{"nickname":"ooo","password":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true, "role": "user", "isLoggedIn": true, "updatedAt": 1234567  }
 ###
 ###
 

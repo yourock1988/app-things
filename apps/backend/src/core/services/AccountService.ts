@@ -1,6 +1,6 @@
 import EventEmitter from 'node:events'
 import { IAccountRepository } from '../i-repositories/IAccountRepository.js'
-import { TAccountAddDto, TAccountUpdInfoDto } from '../dtos/TAccountDtos.js'
+import { TAccountAddDto, TAccountUpdFullDto } from '../dtos/TAccountDtos.js'
 import Account from '../models/Account.js'
 
 export default class AccountService extends EventEmitter {
@@ -29,10 +29,10 @@ export default class AccountService extends EventEmitter {
     return account
   }
 
-  updateById(id: number, dto: TAccountUpdInfoDto): Account | null {
+  updateById(id: number, dto: TAccountUpdFullDto): Account | null {
     const account = this.accountRepository.updateInfoById(id, {
       ...dto,
-      favoriteNumbers: dto.favoriteNumbers.concat(42),
+      nickname: `${dto.nickname}!`,
     })
     // account?.sayHello('upd')
     return account

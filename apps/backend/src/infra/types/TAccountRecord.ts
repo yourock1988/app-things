@@ -8,9 +8,9 @@ export type TAccountRecord = {
   readonly isAgree: boolean
   readonly role: string
   readonly isLoggedIn: boolean
-  readonly favoriteNumbers: number[]
-  readonly authorizationsCount: number
-  readonly authenticationsCount: number
-  readonly createdAt: number
+  // readonly favoriteNumbers: number[]
+  // readonly authorizationsCount: number
+  // readonly authenticationsCount: number
   readonly updatedAt: number
+  readonly createdAt: number
 }

@@ -1,7 +1,7 @@
 import { IAccountRepository } from '../../core/i-repositories/IAccountRepository.js'
 import {
   TAccountAddDto,
-  TAccountUpdInfoDto,
+  TAccountUpdFullDto,
 } from '../../core/dtos/TAccountDtos.js'
 import { TAccountRecord } from '../types/TAccountRecord.js'
 import Account from '../../core/models/Account.js'
@@ -27,7 +27,7 @@ export default class AccountRepositoryDb implements IAccountRepository {
     return AccountMapper.toModel(appendedRecord)
   }
 
-  updateInfoById(id: number, dto: TAccountUpdInfoDto): Account | null {
+  updateInfoById(id: number, dto: TAccountUpdFullDto): Account | null {
     const record: TAccountRecord = this.orm.updateById(id, dto)
     return record ? AccountMapper.toModel(record) : null
   }

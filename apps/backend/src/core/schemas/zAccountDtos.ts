@@ -7,7 +7,7 @@ import msg from './messages.json' with { type: 'json' }
 
 const nicknameSchema = z.string({ required_error: msg.require }).min(2).max(15)
 const countrySchema = z.string({ required_error: msg.require }).min(3).max(21)
-const stringSchema = z.string({ required_error: msg.require })
+const stringSchema = z.string({ required_error: msg.require }).min(1).max(21)
 const favoriteNumbers = z.array(z.number().positive()).min(1).max(3)
 const role = z.string({ required_error: msg.require }).min(2).max(9)
 
@@ -62,4 +62,23 @@ export const zAccountUpdRoleDto = z.object({ role }, required).strict(strict)
 
 export const zAccountUpdInfoDto = z
   .object({ favoriteNumbers }, required)
+  .strict(strict)
+
+export const zAccountUpdFullDto = z
+  .object(
+    {
+      nickname: nicknameSchema,
+      password: passwordSchema,
+      email: emailSchema,
+      phone: phoneSchema,
+      country: countrySchema,
+      isAgree: isAgreeSchema,
+      role: stringSchema,
+      isLoggedIn: z.boolean({ message: msg.require }),
+      updatedAt: z
+        .number({ required_error: msg.require, message: 'надо чиселку' })
+        .positive({ message: 'чиселка муст би положительная' }),
+    },
+    required,
+  )
   .strict(strict)
