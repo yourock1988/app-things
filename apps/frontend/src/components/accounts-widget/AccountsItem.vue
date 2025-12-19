@@ -1,79 +1,97 @@
 <script>
 // import { mapActions } from 'vuex'
-import TurboTd from '../../ui/TurboTd.vue'
+import TurboTdNew from '../../ui/TurboTdNew.vue'
 import TurboBtn from '../../ui/TurboBtn.vue'
 
 export default {
-  components: { TurboTd, TurboBtn },
+  components: { TurboTdNew, TurboBtn },
   props: ['account'],
   emits: ['updated', 'deleted'],
   data() {
     return {
-      localAccount: this.parseAccount(this.account),
+      localAccount: { ...this.account },
       isEditing: false,
+      fields: {
+        id: null,
+        nickname$: null,
+        password$: null,
+        email$: null,
+        phone$: null,
+        country$: null,
+        isAgree$: 'v-checkbox',
+        role$: null,
+        isLoggedIn$: 'v-checkbox',
+        updatedAt$: { type: 'number' },
+        createdAt: { type: 'number' },
+      },
     }
-  },
-  computed: {
-    err() {
-      return this.account.err ?? null
-    },
   },
   watch: {
     account: {
       deep: true,
       handler(val) {
-        if (val.err || this.isEditing) return
-        this.localAccount = this.parseAccount(val)
+        if (!val.err && !this.isEditing) this.localAccount = { ...val }
       },
     },
   },
   methods: {
-    parseAccount(account) {
-      const { price, engine, hasTurbo, hp } = account
-      return { price, engine, hasTurbo, hp }
+    parsedAccount() {
+      const {
+        nickname,
+        password,
+        email,
+        phone,
+        country,
+        isAgree,
+        role,
+        isLoggedIn,
+        updatedAt,
+      } = this.localAccount
+      return {
+        nickname,
+        password,
+        email,
+        phone,
+        country,
+        isAgree,
+        role,
+        isLoggedIn,
+        updatedAt,
+      }
     },
     async save() {
       const { promise, resolve } = Promise.withResolvers()
       this.isEditing = false
       this.$emit('updated', {
-        id: this.account.id,
-        dto: { ...this.localAccount },
         resolve,
+        id: this.account.id,
+        ...this.parsedAccount(),
       })
       const [err] = await promise
       if (err) this.isEditing = true
       // if (this.account.err) this.isEditing = true
     },
     cancel() {
-      this.localAccount = this.parseAccount(this.account)
+      this.localAccount = { ...this.account }
       this.isEditing = false
     },
   },
 }
+// сделать автоматический парсинг редактируемых полей
+// попробовать сделать локальный err
 </script>
 
 <template>
   <tr>
-    <TurboTd :model-value="account" field="id" />
-    <TurboTd :model-value="account" field="nickname" />
-    <TurboTd :model-value="account" field="password" />
-    <TurboTd :model-value="account" field="email" />
-    <TurboTd :model-value="account" field="phone" />
-    <TurboTd :model-value="account" field="country" />
-    <TurboTd :model-value="account" field="isAgree" />
-    <TurboTd :model-value="account" field="role" />
-    <TurboTd :model-value="account" field="isLoggedIn" />
-    <TurboTd :model-value="account" field="favoriteNumbers" />
-    <TurboTd :model-value="account" field="authorizationsCount" />
-    <TurboTd :model-value="account" field="authenticationsCount" />
-    <TurboTd :model-value="account" field="createdAt" />
-    <TurboTd :model-value="account" field="updatedAt" />
-
-    <!-- <TurboTd v-model.number="localAccount" field="price" :err :is-editing />
-    <TurboTd v-model="localAccount" field="engine" :err :is-editing />
-    <TurboTd :model-value="account" field="hasTurbo" />
-    <TurboTd v-model.number="localAccount" field="hp" :err :is-editing />
-    <TurboTd :model-value="account" field="isRunning" /> -->
+    <TurboTdNew
+      v-for="(comp, field) in fields"
+      :key="field"
+      v-model="localAccount"
+      :field
+      :comp
+      :err="account.err"
+      :is-editing
+    />
 
     <td class="d-flex align-center justify-space-around">
       <template v-if="isEditing">

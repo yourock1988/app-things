@@ -72,7 +72,7 @@ export default {
       ></v-breadcrumbs>
       <v-divider></v-divider>
 
-      <v-container>
+      <v-container fluid>
         <slot></slot>
       </v-container>
     </v-main>

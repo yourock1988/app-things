@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-  <v-container>
+  <v-container fluid>
     <v-sheet class="elevation-5 overflow-hidden" border="thin" rounded="xl">
       <v-table height="350px" striped="even" fixed-header>
         <thead>

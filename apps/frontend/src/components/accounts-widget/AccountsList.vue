@@ -15,23 +15,23 @@ export default {
     withUpdated(id, dto) {
       return this.accounts.map(a => (a.id === id ? { ...a, ...dto } : a))
     },
-    async updated(resolve, id, dto) {
+    async updated({ resolve, id, ...dto }) {
       const [err, data] = await updateById(id, dto)
       if (err) {
-        this.$emits('updated', this.withUpdated(id, { err }))
+        this.$emit('updated', this.withUpdated(id, { err }))
         resolve([err])
       } else {
-        this.$emits('updated', this.withUpdated(id, data))
+        this.$emit('updated', this.withUpdated(id, data))
         resolve([null, data])
       }
     },
     async deleted(id) {
       const [err] = await removeById(id)
       if (err) {
-        this.$emits('updated', this.withUpdated(id, { err }))
+        this.$emit('updated', this.withUpdated(id, { err }))
         // resolve([err])
       } else {
-        this.$emits('updated', this.withoutDeleted(id))
+        this.$emit('updated', this.withoutDeleted(id))
         // resolve([null, data])
       }
     },

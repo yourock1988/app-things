@@ -34,7 +34,7 @@ export default {
       <div v-if="err">
         <h5>{{ err }}</h5>
       </div>
-      <AccountsList v-else :accounts />
+      <AccountsList v-else :accounts @updated="accounts = $event" />
     </div>
   </div>
 </template>
