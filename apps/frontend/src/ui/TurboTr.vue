@@ -2,32 +2,32 @@
 import TurboTdNew from './TurboTdNew.vue'
 import TurboBtn from './TurboBtn.vue'
 
-// по факту computed
-function extractEditableProps(fields, dto) {
-  const editableKeys = Object.keys(fields)
-    .filter(f => f.at(-1) === '$')
-    .map(f => f.replace('$', ''))
-  return Object.fromEntries(
-    Object.entries(dto).filter(([key]) => editableKeys.includes(key)),
-  )
-}
-
 export default {
   components: { TurboTdNew, TurboBtn },
-  props: ['dto', 'fields'],
+  props: ['entity', 'fields'],
   emits: ['updated', 'deleted'],
   data() {
     return {
-      localDto: { ...this.dto },
+      localEntity: { ...this.entity },
       isEditing: false,
       err: null,
     }
   },
+  computed: {
+    dto() {
+      const keys = Object.keys(this.fields)
+        .filter(f => f.at(-1) === '$')
+        .map(f => f.replace('$', ''))
+      return Object.fromEntries(
+        Object.entries(this.localEntity).filter(([key]) => keys.includes(key)),
+      )
+    },
+  },
   watch: {
-    dto: {
+    entity: {
       deep: true,
       handler(val) {
-        if (!this.err && !this.isEditing) this.localDto = { ...val }
+        if (!this.err && !this.isEditing) this.localEntity = { ...val }
       },
     },
   },
@@ -38,8 +38,8 @@ export default {
       this.err = null
       this.$emit('updated', {
         resolve,
-        id: this.dto.id,
-        ...extractEditableProps(this.fields, this.localDto),
+        id: this.entity.id,
+        ...this.dto,
       })
       const [err] = await promise
       if (err) {
@@ -48,13 +48,13 @@ export default {
       }
     },
     cancel() {
-      this.localDto = { ...this.dto }
+      this.localEntity = { ...this.entity }
       this.isEditing = false
       this.err = null
     },
     async deleted() {
       const { promise, resolve } = Promise.withResolvers()
-      this.$emit('deleted', { resolve, id: this.dto.id })
+      this.$emit('deleted', { resolve, id: this.entity.id })
       const [err] = await promise
       if (err) this.err = err
     },
@@ -67,7 +67,7 @@ export default {
     <TurboTdNew
       v-for="(comp, field) in fields"
       :key="field"
-      v-model="localDto"
+      v-model="localEntity"
       :field
       :comp
       :err

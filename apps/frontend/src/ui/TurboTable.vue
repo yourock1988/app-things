@@ -49,9 +49,9 @@ export default {
     </tr>
     <template v-else>
       <TurboTr
-        v-for="dto of modelValue"
-        :key="dto.id"
-        :dto
+        v-for="entity of modelValue"
+        :key="entity.id"
+        :entity
         :fields
         @deleted="deleted"
         @updated="updated"
