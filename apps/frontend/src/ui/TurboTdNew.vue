@@ -50,8 +50,8 @@ export default {
     <component
       :is="component"
       v-if="isEditable && isEditing"
-      :type="comp?.list"
-      :items="comp?.type"
+      :type="comp?.type"
+      :items="comp?.list"
       :error-messages="err?.[rdyField]?._errors"
       autocomplete="off"
       density="compact"
