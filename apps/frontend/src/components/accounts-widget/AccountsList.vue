@@ -18,7 +18,6 @@ export default {
     async updated({ resolve, id, ...dto }) {
       const [err, data] = await updateById(id, dto)
       if (err) {
-        this.$emit('updated', this.withUpdated(id, { err }))
         resolve([err])
       } else {
         this.$emit('updated', this.withUpdated(id, data))

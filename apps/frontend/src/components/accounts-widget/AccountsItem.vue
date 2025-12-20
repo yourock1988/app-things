@@ -1,7 +1,15 @@
 <script>
-// import { mapActions } from 'vuex'
 import TurboTdNew from '../../ui/TurboTdNew.vue'
 import TurboBtn from '../../ui/TurboBtn.vue'
+
+function extractEditableProps(fields, dto) {
+  const editableKeys = Object.keys(fields)
+    .filter(f => f.at(-1) === '$')
+    .map(f => f.replace('$', ''))
+  return Object.fromEntries(
+    Object.entries(dto).filter(([key]) => editableKeys.includes(key)),
+  )
+}
 
 export default {
   components: { TurboTdNew, TurboBtn },
@@ -11,6 +19,7 @@ export default {
     return {
       localAccount: { ...this.account },
       isEditing: false,
+      err: null,
       fields: {
         id: null,
         nickname$: null,
@@ -30,46 +39,24 @@ export default {
     account: {
       deep: true,
       handler(val) {
-        if (!val.err && !this.isEditing) this.localAccount = { ...val }
+        if (!this.err && !this.isEditing) this.localAccount = { ...val }
       },
     },
   },
   methods: {
-    parsedAccount() {
-      const {
-        nickname,
-        password,
-        email,
-        phone,
-        country,
-        isAgree,
-        role,
-        isLoggedIn,
-        updatedAt,
-      } = this.localAccount
-      return {
-        nickname,
-        password,
-        email,
-        phone,
-        country,
-        isAgree,
-        role,
-        isLoggedIn,
-        updatedAt,
-      }
-    },
     async save() {
       const { promise, resolve } = Promise.withResolvers()
       this.isEditing = false
       this.$emit('updated', {
         resolve,
         id: this.account.id,
-        ...this.parsedAccount(),
+        ...extractEditableProps(this.fields, this.localAccount),
       })
       const [err] = await promise
-      if (err) this.isEditing = true
-      // if (this.account.err) this.isEditing = true
+      if (err) {
+        this.err = err
+        this.isEditing = true
+      }
     },
     cancel() {
       this.localAccount = { ...this.account }
@@ -77,8 +64,6 @@ export default {
     },
   },
 }
-// сделать автоматический парсинг редактируемых полей
-// попробовать сделать локальный err
 </script>
 
 <template>
@@ -89,7 +74,7 @@ export default {
       v-model="localAccount"
       :field
       :comp
-      :err="account.err"
+      :err
       :is-editing
     />
 
