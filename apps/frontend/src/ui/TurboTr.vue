@@ -1,7 +1,8 @@
 <script>
-import TurboTdNew from '../../ui/TurboTdNew.vue'
-import TurboBtn from '../../ui/TurboBtn.vue'
+import TurboTdNew from './TurboTdNew.vue'
+import TurboBtn from './TurboBtn.vue'
 
+// по факту computed
 function extractEditableProps(fields, dto) {
   const editableKeys = Object.keys(fields)
     .filter(f => f.at(-1) === '$')

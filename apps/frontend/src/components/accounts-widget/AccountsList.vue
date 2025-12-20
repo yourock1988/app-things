@@ -1,11 +1,11 @@
 <script>
 // import { mapState } from 'vuex'
 import { removeById, updateById } from '@/api/rest/accounts.js'
-import AccountsItem from './AccountsItem.vue'
+import TurboTr from '../../ui/TurboTr.vue'
 import TableSheet from '../../ui/TableSheet.vue'
 
 export default {
-  components: { AccountsItem, TableSheet },
+  components: { TurboTr, TableSheet },
   props: ['accounts'],
   emits: ['updated'],
   data() {
@@ -57,7 +57,7 @@ export default {
 
 <template>
   <TableSheet :struct="accounts[0]">
-    <AccountsItem
+    <TurboTr
       v-for="dto of accounts"
       :key="dto.id"
       :dto
