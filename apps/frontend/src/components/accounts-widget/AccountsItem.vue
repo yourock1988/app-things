@@ -13,33 +13,20 @@ function extractEditableProps(fields, dto) {
 
 export default {
   components: { TurboTdNew, TurboBtn },
-  props: ['account'],
+  props: ['dto', 'fields'],
   emits: ['updated', 'deleted'],
   data() {
     return {
-      localAccount: { ...this.account },
+      localDto: { ...this.dto },
       isEditing: false,
       err: null,
-      fields: {
-        id: null,
-        nickname$: null,
-        password$: null,
-        email$: null,
-        phone$: null,
-        country$: null,
-        isAgree$: 'v-checkbox',
-        role$: null,
-        isLoggedIn$: 'v-checkbox',
-        updatedAt$: { type: 'number' },
-        createdAt: { type: 'number' },
-      },
     }
   },
   watch: {
-    account: {
+    dto: {
       deep: true,
       handler(val) {
-        if (!this.err && !this.isEditing) this.localAccount = { ...val }
+        if (!this.err && !this.isEditing) this.localDto = { ...val }
       },
     },
   },
@@ -49,8 +36,8 @@ export default {
       this.isEditing = false
       this.$emit('updated', {
         resolve,
-        id: this.account.id,
-        ...extractEditableProps(this.fields, this.localAccount),
+        id: this.dto.id,
+        ...extractEditableProps(this.fields, this.localDto),
       })
       const [err] = await promise
       if (err) {
@@ -59,7 +46,7 @@ export default {
       }
     },
     cancel() {
-      this.localAccount = { ...this.account }
+      this.localDto = { ...this.dto }
       this.isEditing = false
     },
   },
@@ -71,7 +58,7 @@ export default {
     <TurboTdNew
       v-for="(comp, field) in fields"
       :key="field"
-      v-model="localAccount"
+      v-model="localDto"
       :field
       :comp
       :err
@@ -85,7 +72,7 @@ export default {
       </template>
       <template v-else>
         <TurboBtn kind="edit" @click="isEditing = true" />
-        <TurboBtn kind="delete" @click="$emit('deleted', account.id)" />
+        <TurboBtn kind="delete" @click="$emit('deleted', dto.id)" />
       </template>
     </td>
   </tr>

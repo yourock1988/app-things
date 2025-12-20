@@ -8,6 +8,23 @@ export default {
   components: { AccountsItem, TableSheet },
   props: ['accounts'],
   emits: ['updated'],
+  data() {
+    return {
+      fields: {
+        id: null,
+        nickname$: null,
+        password$: null,
+        email$: null,
+        phone$: null,
+        country$: null,
+        isAgree$: 'v-checkbox',
+        role$: null,
+        isLoggedIn$: 'v-checkbox',
+        updatedAt$: { type: 'number' },
+        createdAt: { type: 'number' },
+      },
+    }
+  },
   methods: {
     withoutDeleted(id) {
       return this.accounts.filter(a => a.id !== id)
@@ -41,9 +58,10 @@ export default {
 <template>
   <TableSheet :struct="accounts[0]">
     <AccountsItem
-      v-for="account of accounts"
-      :key="account.id"
-      :account
+      v-for="dto of accounts"
+      :key="dto.id"
+      :dto
+      :fields
       @deleted="deleted"
       @updated="updated"
     />
