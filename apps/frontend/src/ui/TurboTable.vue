@@ -30,13 +30,13 @@ export default {
     },
     async updated({ resolve, id, ...dto }) {
       const [err, data] = await this.updateById(id, dto)
-      if (err) resolve([err])
-      else this.$emit('update:model-value', this.withUpdated(id, data))
+      resolve([err])
+      if (!err) this.$emit('update:model-value', this.withUpdated(id, data))
     },
     async deleted({ resolve, id }) {
       const [err] = await this.removeById(id)
-      if (err) resolve([err])
-      else this.$emit('update:model-value', this.withoutDeleted(id))
+      resolve([err])
+      if (!err) this.$emit('update:model-value', this.withoutDeleted(id))
     },
   },
 }
