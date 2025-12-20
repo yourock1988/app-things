@@ -35,6 +35,7 @@ export default {
     async save() {
       const { promise, resolve } = Promise.withResolvers()
       this.isEditing = false
+      this.err = null
       this.$emit('updated', {
         resolve,
         id: this.dto.id,
@@ -42,13 +43,20 @@ export default {
       })
       const [err] = await promise
       if (err) {
-        this.err = err
         this.isEditing = true
+        this.err = err
       }
     },
     cancel() {
       this.localDto = { ...this.dto }
       this.isEditing = false
+      this.err = null
+    },
+    async deleted() {
+      const { promise, resolve } = Promise.withResolvers()
+      this.$emit('deleted', { resolve, id: this.dto.id })
+      const [err] = await promise
+      if (err) this.err = err
     },
   },
 }
@@ -73,7 +81,7 @@ export default {
       </template>
       <template v-else>
         <TurboBtn kind="edit" @click="isEditing = true" />
-        <TurboBtn kind="delete" @click="$emit('deleted', dto.id)" />
+        <TurboBtn kind="delete" @click="deleted" />
       </template>
     </td>
   </tr>

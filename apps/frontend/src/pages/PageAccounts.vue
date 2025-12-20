@@ -8,7 +8,6 @@ export default {
   data() {
     return {
       accounts: [],
-      err: null,
       fields: {
         id: null,
         nickname$: null,
@@ -24,17 +23,10 @@ export default {
       },
     }
   },
-  async created() {
-    const [err, data] = await getAll()
-    if (err) {
-      this.err = err
-    } else {
-      this.accounts = data
-    }
-  },
   methods: {
-    removeById,
+    getAll,
     updateById,
+    removeById,
   },
 }
 </script>
@@ -45,16 +37,12 @@ export default {
     <h4>{{ accounts }}</h4>
     <div>
       <!-- <AccountsSubmitter /> -->
-      <div v-if="err">
-        <h5>{{ err }}</h5>
-      </div>
       <TurboTable
-        v-else
-        :dtos="accounts"
+        v-model="accounts"
         :fields
+        :get-all
         :update-by-id
         :remove-by-id
-        @updated="accounts = $event"
       />
     </div>
   </div>
