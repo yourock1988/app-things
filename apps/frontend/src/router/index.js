@@ -7,6 +7,7 @@ import PagePicsum from '../pages/PagePicsum.vue'
 import PageSignUp from '../pages/PageSignUp.vue'
 import PageSignIn from '../pages/PageSignIn.vue'
 import PageAccounts from '../pages/PageAccounts.vue'
+import PageSessions from '../pages/PageSessions.vue'
 
 const routes = [
   {
@@ -24,6 +25,10 @@ const routes = [
   {
     path: '/accounts',
     component: PageAccounts,
+  },
+  {
+    path: '/sessions',
+    component: PageSessions,
   },
   {
     path: '/users',
