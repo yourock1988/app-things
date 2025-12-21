@@ -1,14 +1,14 @@
 <script>
-import { mapActions, mapMutations } from 'vuex'
-import CarsSubmitter from '@/components/cars-widget/CarsSubmitter.vue'
-import CarsList from '@/components/cars-widget/CarsList.vue'
+import { add, getAll, removeById, updateById } from '@/api/ws/cars.js'
+import { mapMutations } from 'vuex'
+import TurboFormNew from '@/ui/TurboFormNew.vue'
+import TurboTable from '@/ui/TurboTable.vue'
+import FormSheet from '@/ui/FormSheet.vue'
 
 export default {
-  components: { CarsSubmitter, CarsList },
-
+  components: { TurboTable, FormSheet, TurboFormNew },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.readCars()
       vm.SUBSCRIBE()
     })
   },
@@ -17,13 +17,65 @@ export default {
     this.UNSUBSCRIBE()
     next()
   },
-
+  data() {
+    return {
+      cols: 3,
+      sizing: { cols: 12 },
+      fields: {
+        id: null,
+        type: null,
+        brand: null,
+        model: null,
+        price$: { type: 'number' },
+        engine$: null,
+        hasTurbo$: 'v-checkbox',
+        hp$: { type: 'number' },
+        isRunning: 'v-checkbox',
+      },
+      fieldsForm: {
+        type: null,
+        brand: null,
+        model: null,
+        price: { type: 'number' },
+        engine: null,
+        hp: { type: 'number' },
+        hasTurbo: 'v-checkbox',
+      },
+    }
+  },
+  computed: {
+    cars: {
+      get() {
+        return this.$store.state.cars.cars
+      },
+      set(val) {
+        this.SET_CARS(val)
+      },
+    },
+  },
   methods: {
-    // eslint-disable-next-line vue/no-unused-properties
-    ...mapActions('cars', ['readCars']),
-
-    // eslint-disable-next-line vue/no-unused-properties
-    ...mapMutations('cars', ['SET_CARS', 'UNSUBSCRIBE', 'SUBSCRIBE']),
+    ...mapMutations('cars', [
+      // eslint-disable-next-line vue/no-unused-properties
+      'SUBSCRIBE',
+      'UNSUBSCRIBE',
+      'SET_CARS',
+      'ADD_CAR',
+    ]),
+    add,
+    getAll,
+    removeById,
+    updateById,
+    initTest() {
+      return {
+        type: 'Muscle',
+        brand: 'Bugatti',
+        model: 'Veyron',
+        price: 111111,
+        engine: 'W16',
+        hasTurbo: true,
+        hp: 999,
+      }
+    },
   },
 }
 </script>
@@ -31,9 +83,15 @@ export default {
 <template>
   <div>
     <h3>PAGE CARS</h3>
-    <div>
-      <CarsSubmitter />
-      <CarsList />
-    </div>
+    <FormSheet caption="Create car" :sizing>
+      <TurboFormNew
+        :add
+        :cols
+        :fields="fieldsForm"
+        :init-test
+        @submitted="ADD_CAR($event)"
+      />
+    </FormSheet>
+    <TurboTable v-model="cars" :fields :get-all :update-by-id :remove-by-id />
   </div>
 </template>
