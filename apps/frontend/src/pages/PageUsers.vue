@@ -1,14 +1,14 @@
 <script>
-import { mapActions, mapMutations } from 'vuex'
-import UsersSubmitter from '@/components/users-widget/UsersSubmitter.vue'
-import UsersList from '@/components/users-widget/UsersList.vue'
+import { add, getAll, removeById, updateById } from '@/api/ws/users.js'
+import { mapMutations } from 'vuex'
+import TurboFormNew from '@/ui/TurboFormNew.vue'
+import TurboTable from '@/ui/TurboTable.vue'
+import FormSheet from '@/ui/FormSheet.vue'
 
 export default {
-  components: { UsersSubmitter, UsersList },
-
+  components: { TurboTable, FormSheet, TurboFormNew },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.readUsers()
       vm.SUBSCRIBE()
     })
   },
@@ -17,13 +17,54 @@ export default {
     this.UNSUBSCRIBE()
     next()
   },
-
+  data() {
+    return {
+      cols: 3,
+      sizing: { cols: 12 },
+      fields: {
+        id: null,
+        nickname: null,
+        password$: null,
+        email: null,
+        money$: { type: 'number' },
+        isOnline: 'v-checkbox',
+      },
+      fieldsForm: {
+        nickname: null,
+        password: null,
+        email: null,
+      },
+    }
+  },
+  computed: {
+    users: {
+      get() {
+        return this.$store.state.users.users
+      },
+      set(val) {
+        this.SET_USERS(val)
+      },
+    },
+  },
   methods: {
-    // eslint-disable-next-line vue/no-unused-properties
-    ...mapActions('users', ['readUsers']),
-
-    // eslint-disable-next-line vue/no-unused-properties
-    ...mapMutations('users', ['SET_USERS', 'UNSUBSCRIBE', 'SUBSCRIBE']),
+    ...mapMutations('users', [
+      // eslint-disable-next-line vue/no-unused-properties
+      'SUBSCRIBE',
+      'UNSUBSCRIBE',
+      'SET_USERS',
+      'ADD_USER',
+    ]),
+    add,
+    getAll,
+    removeById,
+    updateById,
+    initTest() {
+      return {
+        nickname: 'Foobar',
+        password: 'qwerty123',
+        email: 'foobar@mail.xxx',
+      }
+    },
   },
 }
 </script>
@@ -31,9 +72,15 @@ export default {
 <template>
   <div>
     <h3>PAGE USERS</h3>
-    <div>
-      <UsersSubmitter />
-      <UsersList />
-    </div>
+    <FormSheet caption="Create user" :sizing>
+      <TurboFormNew
+        :add
+        :cols
+        :fields="fieldsForm"
+        :init-test
+        @submitted="ADD_USER($event)"
+      />
+    </FormSheet>
+    <TurboTable v-model="users" :fields :get-all :update-by-id :remove-by-id />
   </div>
 </template>
