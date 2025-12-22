@@ -4,7 +4,7 @@ import TurboBtn from './TurboBtn.vue'
 
 export default {
   components: { TurboTdNew, TurboBtn },
-  props: ['entity', 'fields'],
+  props: ['entity', 'fields', 'updateById', 'removeById'],
   emits: ['updated', 'deleted'],
   data() {
     return {
@@ -33,18 +33,14 @@ export default {
   },
   methods: {
     async save() {
-      const { promise, resolve } = Promise.withResolvers()
       this.isEditing = false
       this.err = null
-      this.$emit('updated', {
-        resolve,
-        id: this.entity.id,
-        ...this.dto,
-      })
-      const [err] = await promise
+      const [err, data] = await this.updateById(this.entity.id, this.dto)
       if (err) {
         this.isEditing = true
         this.err = err
+      } else {
+        this.$emit('updated', data)
       }
     },
     cancel() {
@@ -53,10 +49,8 @@ export default {
       this.err = null
     },
     async deleted() {
-      const { promise, resolve } = Promise.withResolvers()
-      this.$emit('deleted', { resolve, id: this.entity.id })
-      const [err] = await promise
-      if (err) this.err = err
+      const [err] = await this.removeById(this.entity.id)
+      if (!err) this.$emit('deleted', this.entity.id)
     },
   },
 }

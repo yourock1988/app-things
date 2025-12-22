@@ -22,21 +22,11 @@ export default {
     else this.$emit('update:model-value', data)
   },
   methods: {
+    withUpdated({ id, ...data }) {
+      return this.modelValue.map(a => (a.id === id ? { ...a, ...data } : a))
+    },
     withoutDeleted(id) {
       return this.modelValue.filter(a => a.id !== id)
-    },
-    withUpdated(id, dto) {
-      return this.modelValue.map(a => (a.id === id ? { ...a, ...dto } : a))
-    },
-    async updated({ resolve, id, ...dto }) {
-      const [err, data] = await this.updateById(id, dto)
-      resolve([err])
-      if (!err) this.$emit('update:model-value', this.withUpdated(id, data))
-    },
-    async deleted({ resolve, id }) {
-      const [err] = await this.removeById(id)
-      resolve([err])
-      if (!err) this.$emit('update:model-value', this.withoutDeleted(id))
     },
   },
 }
@@ -53,8 +43,10 @@ export default {
         :key="entity.id"
         :entity
         :fields
-        @deleted="deleted"
-        @updated="updated"
+        :update-by-id
+        :remove-by-id
+        @updated="$emit('update:model-value', withUpdated($event))"
+        @deleted="$emit('update:model-value', withoutDeleted($event))"
       />
     </template>
   </TableSheet>
