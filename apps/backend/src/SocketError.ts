@@ -3,7 +3,7 @@ export default class SocketError extends Error {
     readonly code: number,
     readonly cause: string,
     readonly message: string,
-    readonly details?: object
+    readonly details?: object,
   ) {
     super(message, { cause })
   }
@@ -13,7 +13,7 @@ export default class SocketError extends Error {
       code: this.code,
       cause: this.cause,
       message: this.message,
-      details: this.details,
+      details: this.details ?? this.code, // дыбилизм
     }
   }
 }

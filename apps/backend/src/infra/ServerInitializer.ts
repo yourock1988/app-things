@@ -1,6 +1,8 @@
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
 
+const slowdown = (_: any, next: any) => setTimeout(next, 300)
+
 export default class ServerInitializer {
   io: Server
 
@@ -9,7 +11,7 @@ export default class ServerInitializer {
   middlewares: any[]
 
   constructor() {
-    this.middlewares = []
+    this.middlewares = [slowdown]
     this.app = createServer()
     this.io = new Server(this.app)
 
