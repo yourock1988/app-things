@@ -2,10 +2,10 @@
 import signUp from '@/api/rest/auth/signUp.js'
 import CardSuccess from '@/ui/CardSuccess.vue'
 import FormSheet from '@/ui/FormSheet.vue'
-import TurboFormNew from '@/ui/TurboFormNew.vue'
+import TurboForm from '@/ui/TurboForm.vue'
 
 export default {
-  components: { TurboFormNew, FormSheet, CardSuccess },
+  components: { TurboForm, FormSheet, CardSuccess },
 
   data() {
     return {
@@ -48,13 +48,6 @@ export default {
 <template>
   <FormSheet caption="Sign-up" :sizing>
     <CardSuccess v-if="isOk" :title :text link="/sign-in" ankhor="Войти" />
-    <TurboFormNew
-      v-else
-      :add
-      :cols
-      :fields
-      :init-test
-      @submitted="isOk = true"
-    />
+    <TurboForm v-else :add :cols :fields :init-test @submitted="isOk = true" />
   </FormSheet>
 </template>

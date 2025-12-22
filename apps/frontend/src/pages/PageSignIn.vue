@@ -2,11 +2,11 @@
 import { mapMutations, mapState } from 'vuex/dist/vuex.cjs.js'
 import CardSuccess from '@/ui/CardSuccess.vue'
 import FormSheet from '@/ui/FormSheet.vue'
-import TurboFormNew from '@/ui/TurboFormNew.vue'
+import TurboForm from '@/ui/TurboForm.vue'
 import signIn from '@/api/rest/auth/signIn.js'
 
 export default {
-  components: { TurboFormNew, FormSheet, CardSuccess },
+  components: { TurboForm, FormSheet, CardSuccess },
   data() {
     return {
       title: 'Вы вошли в систему!',
@@ -41,6 +41,6 @@ export default {
     <CardSuccess v-if="session" :title :text link="/cars" ankhor="Юзать">
       <b>{{ session.nickname }}</b>
     </CardSuccess>
-    <TurboFormNew v-else :add :cols :fields :init-test @submitted="submit" />
+    <TurboForm v-else :add :cols :fields :init-test @submitted="submit" />
   </FormSheet>
 </template>

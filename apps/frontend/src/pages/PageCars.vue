@@ -1,12 +1,12 @@
 <script>
 import { add, getAll, removeById, updateById } from '@/api/ws/cars.js'
 import { mapMutations } from 'vuex'
-import TurboFormNew from '@/ui/TurboFormNew.vue'
+import TurboForm from '@/ui/TurboForm.vue'
 import TurboTable from '@/ui/TurboTable.vue'
 import FormSheet from '@/ui/FormSheet.vue'
 
 export default {
-  components: { TurboTable, FormSheet, TurboFormNew },
+  components: { TurboTable, FormSheet, TurboForm },
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.SUBSCRIBE()
@@ -84,7 +84,7 @@ export default {
   <div>
     <h3>PAGE CARS</h3>
     <FormSheet caption="Create car" :sizing>
-      <TurboFormNew
+      <TurboForm
         :add
         :cols
         :fields="fieldsForm"

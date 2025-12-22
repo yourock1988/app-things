@@ -1,11 +1,11 @@
 <script>
 import { add, getAll, removeById, updateById } from '@/api/rest/sessions.js'
-import TurboFormNew from '@/ui/TurboFormNew.vue'
+import TurboForm from '@/ui/TurboForm.vue'
 import TurboTable from '@/ui/TurboTable.vue'
 import FormSheet from '@/ui/FormSheet.vue'
 
 export default {
-  components: { TurboTable, FormSheet, TurboFormNew },
+  components: { TurboTable, FormSheet, TurboForm },
   data() {
     return {
       cols: 3,
@@ -42,7 +42,7 @@ export default {
     <h3>PAGE SESSIONS</h3>
 
     <FormSheet caption="Create session" :sizing>
-      <TurboFormNew
+      <TurboForm
         :add
         :cols
         :fields="fieldsForm"
