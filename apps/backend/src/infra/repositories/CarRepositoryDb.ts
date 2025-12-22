@@ -1,9 +1,9 @@
 import { ICarRepository } from '../../core/i-repositories/ICarRepository.js'
 import { TCarAddDto, TCarUpdateDto } from '../../core/dtos/TCarDtos.js'
 import { TCarRecord } from '../types/TCarRecord.js'
+import CarMapper from '../mappers/CarMapper.js'
 import Car from '../../core/models/Car.js'
 import Orm from '../../utils/Orm.js'
-import CarMapper from '../mappers/CarMapper.js'
 
 // TODO: в конструктор как mapper, потом в di
 

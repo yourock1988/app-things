@@ -1,10 +1,10 @@
 import EventEmitter from 'node:events'
 import { IAccountRepository } from '../i-repositories/IAccountRepository.js'
-import Account from '../models/Account.js'
 import { ISessionRepository } from '../i-repositories/ISessionRepository.js'
-import Session from '../models/Session.js'
-import accesses from '../accesses.json' with { type: 'json' }
 import { TAccountAddDto, TAccountGetDto } from '../dtos/TAccountDtos.js'
+import accesses from '../accesses.json' with { type: 'json' }
+import Account from '../models/Account.js'
+import Session from '../models/Session.js'
 
 type TAccessesJSON = Record<string, Record<string, string[]>>
 

@@ -4,9 +4,9 @@ import {
   TSessionUpdateDto,
 } from '../../core/dtos/TSessionDtos.js'
 import { TSessionRecord } from '../types/TSessionRecord.js'
+import SessionMapper from '../mappers/SessionMapper.js'
 import Session from '../../core/models/Session.js'
 import Orm from '../../utils/Orm.js'
-import SessionMapper from '../mappers/SessionMapper.js'
 
 export default class SessionRepositoryDb implements ISessionRepository {
   constructor(readonly orm: Orm) {}

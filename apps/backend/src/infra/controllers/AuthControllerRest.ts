@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import AuthService from '../../core/services/AuthService.js'
 import { TAccountAddDto, TAccountGetDto } from '../../core/dtos/TAccountDtos.js'
+import AuthService from '../../core/services/AuthService.js'
 
 export default class AuthControllerRest {
   constructor(readonly authService: AuthService) {}

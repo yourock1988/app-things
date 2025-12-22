@@ -4,9 +4,9 @@ import {
   TAccountUpdFullDto,
 } from '../../core/dtos/TAccountDtos.js'
 import { TAccountRecord } from '../types/TAccountRecord.js'
+import AccountMapper from '../mappers/AccountMapper.js'
 import Account from '../../core/models/Account.js'
 import Orm from '../../utils/Orm.js'
-import AccountMapper from '../mappers/AccountMapper.js'
 
 export default class AccountRepositoryDb implements IAccountRepository {
   constructor(readonly orm: Orm) {}
