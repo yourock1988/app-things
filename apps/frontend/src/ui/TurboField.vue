@@ -1,10 +1,10 @@
 <script>
-import { VTextField, VCheckbox, VSelect } from 'vuetify/components'
+import { VTextField, VCheckbox, VSelect, VCol } from 'vuetify/components'
 
 export default {
-  components: { VTextField, VCheckbox, VSelect },
+  components: { VTextField, VCheckbox, VSelect, VCol },
   inheritAttrs: false,
-  props: ['modelValue', 'field', 'comp', 'err', 'cols'],
+  props: ['modelValue', 'field', 'comp', 'err', 'cols', 'isEditing', 'isForm'],
   emits: ['update:model-value'],
   computed: {
     component() {
@@ -15,10 +15,13 @@ export default {
       return this.comp?.component
     },
     modelModifiers() {
-      return this.comp?.modify === 'number' ? { number: true } : undefined
+      return this.comp?.type === 'number' ? { number: true } : undefined
     },
     rdyField() {
       return this.field.replaceAll('$', '')
+    },
+    isEditable() {
+      return this.isForm || this.field.at(-1) === '$'
     },
   },
   watch: {
@@ -43,19 +46,22 @@ export default {
 
 <!-- eslint-disable vue/attribute-hyphenation -->
 <template>
-  <v-col :cols>
+  <component :is="cols ? 'v-col' : 'td'" :cols>
     <component
       :is="component"
+      v-if="isForm || (isEditable && isEditing)"
       :type="comp?.type"
       :items="comp?.list"
       :label="rdyField"
       :error-messages="err?.[rdyField]?._errors"
       autocomplete="off"
+      :density="!isForm ? 'compact' : 'default'"
       :modelModifiers
       :model-value="modelValue[rdyField]"
       @update:model-value="
         $emit('update:model-value', { ...modelValue, [rdyField]: $event })
       "
     />
-  </v-col>
+    <span v-else>{{ modelValue[rdyField] }}</span>
+  </component>
 </template>

@@ -1,9 +1,9 @@
 <script>
-import TurboTd from './TurboTd.vue'
 import TurboBtn from './TurboBtn.vue'
+import TurboField from './TurboField.vue'
 
 export default {
-  components: { TurboTd, TurboBtn },
+  components: { TurboBtn, TurboField },
   props: ['entity', 'fields', 'updateById', 'removeById'],
   emits: ['updated', 'deleted'],
   data() {
@@ -58,7 +58,7 @@ export default {
 
 <template>
   <tr>
-    <TurboTd
+    <TurboField
       v-for="(comp, field) in fields"
       :key="field"
       v-model="localEntity"

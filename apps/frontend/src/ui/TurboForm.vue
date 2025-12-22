@@ -1,8 +1,8 @@
 <script>
-import FormField from './FormField.vue'
+import TurboField from './TurboField.vue'
 
 export default {
-  components: { FormField },
+  components: { TurboField },
   // initTest временно для тестирования. его можно легко снести нафиг
   // и поставить абстрактный initDto()
   props: ['fields', 'cols', 'add', 'initTest'],
@@ -40,7 +40,7 @@ export default {
 <template>
   <v-form validate-on="submit lazy" @submit.prevent="submit">
     <v-row class="justify-center">
-      <FormField
+      <TurboField
         v-for="(comp, field) in fields"
         :key="field"
         v-model="dto"
@@ -48,6 +48,7 @@ export default {
         :comp
         :cols
         :err
+        :is-form="true"
       />
 
       <v-col :cols>
