@@ -1,9 +1,9 @@
 import {
   FetchRequestError,
+  ParseJsonError,
   HttpEmptyError,
   HttpRespError,
-  ParseJsonError,
-} from '../../errors.js'
+} from '@/errors.js'
 
 export default function processError(err) {
   if (err instanceof FetchRequestError) return { _errors: ['сервер молчит'] }

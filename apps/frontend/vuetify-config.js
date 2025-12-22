@@ -1,8 +1,8 @@
-import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
 import colors from 'vuetify/util/colors'
 import { md2 } from 'vuetify/blueprints'
 import { createVuetify } from 'vuetify'
+import 'vuetify/styles'
 
 export default createVuetify({
   blueprint: md2,
@@ -25,13 +25,7 @@ export default createVuetify({
     },
   },
   defaults: {
-    global: {
-      elevation: 0,
-      density: 'default',
-    },
-    VBtn: {
-      // ripple: true,
-    },
+    global: {},
     VAppBar: {
       color: 'primary',
       elevation: 3,

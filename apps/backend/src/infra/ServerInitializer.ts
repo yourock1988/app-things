@@ -14,6 +14,7 @@ export default class ServerInitializer {
     this.io = new Server(this.app)
 
     this.io.use((socket, next) => {
+      global.console.log(socket.handshake.auth)
       this.middlewares.forEach(mw => socket.use(mw))
       next()
     })

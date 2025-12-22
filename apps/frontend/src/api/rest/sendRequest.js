@@ -1,9 +1,9 @@
 import {
   FetchRequestError,
+  ParseJsonError,
   HttpEmptyError,
   HttpRespError,
-  ParseJsonError,
-} from '../../errors.js'
+} from '@/errors.js'
 
 export default async function sendRequest(url, method = 'GET', payload = null) {
   let resp

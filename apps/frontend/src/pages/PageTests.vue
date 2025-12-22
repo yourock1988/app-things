@@ -1,6 +1,6 @@
 <script>
 import { mapState, mapActions } from 'vuex'
-import TurboBtn from '../ui/TurboBtn.vue'
+import TurboBtn from '@/ui/TurboBtn.vue'
 
 export default {
   components: { TurboBtn },

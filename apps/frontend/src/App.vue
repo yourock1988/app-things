@@ -1,8 +1,8 @@
 <script>
+import AppLayout from '@/components/AppLayout.vue'
+import PagePicsum from '@/pages/PagePicsum.vue'
+import PageUsers from '@/pages/PageUsers.vue'
 import socket from '@/api/ws/index.js'
-import AppLayout from './components/AppLayout.vue'
-import PagePicsum from './pages/PagePicsum.vue'
-import PageUsers from './pages/PageUsers.vue'
 
 export default {
   components: {

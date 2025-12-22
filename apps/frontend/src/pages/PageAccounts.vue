@@ -1,11 +1,11 @@
 <script>
 import { add, getAll, removeById, updateById } from '@/api/rest/accounts.js'
-import TurboForm from '@/ui/TurboForm.vue'
 import TurboTable from '@/ui/TurboTable.vue'
+import TurboForm from '@/ui/TurboForm.vue'
 import FormSheet from '@/ui/FormSheet.vue'
 
 export default {
-  components: { TurboTable, FormSheet, TurboForm },
+  components: { TurboTable, TurboForm, FormSheet },
   data() {
     return {
       cols: 3,

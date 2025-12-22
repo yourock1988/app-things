@@ -1,8 +1,8 @@
 <script>
 import signUp from '@/api/rest/auth/signUp.js'
 import CardSuccess from '@/ui/CardSuccess.vue'
-import FormSheet from '@/ui/FormSheet.vue'
 import TurboForm from '@/ui/TurboForm.vue'
+import FormSheet from '@/ui/FormSheet.vue'
 
 export default {
   components: { TurboForm, FormSheet, CardSuccess },

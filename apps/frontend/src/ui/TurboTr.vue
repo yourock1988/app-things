@@ -1,6 +1,6 @@
 <script>
-import TurboBtn from './TurboBtn.vue'
 import TurboField from './TurboField.vue'
+import TurboBtn from './TurboBtn.vue'
 
 export default {
   components: { TurboBtn, TurboField },
@@ -32,6 +32,11 @@ export default {
     },
   },
   methods: {
+    cancel() {
+      this.localEntity = { ...this.entity }
+      this.isEditing = false
+      this.err = null
+    },
     async save() {
       this.isEditing = false
       this.err = null
@@ -42,11 +47,6 @@ export default {
       } else {
         this.$emit('updated', data)
       }
-    },
-    cancel() {
-      this.localEntity = { ...this.entity }
-      this.isEditing = false
-      this.err = null
     },
     async deleted() {
       const [err] = await this.removeById(this.entity.id)

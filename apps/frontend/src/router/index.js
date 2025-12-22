@@ -1,13 +1,13 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import PageTests from '../pages/PageTests.vue'
-import PageUsers from '../pages/PageUsers.vue'
-import PageCars from '../pages/PageCars.vue'
-import PageMain from '../pages/PageMain.vue'
-import PagePicsum from '../pages/PagePicsum.vue'
-import PageSignUp from '../pages/PageSignUp.vue'
-import PageSignIn from '../pages/PageSignIn.vue'
-import PageAccounts from '../pages/PageAccounts.vue'
-import PageSessions from '../pages/PageSessions.vue'
+import PageAccounts from '@/pages/PageAccounts.vue'
+import PageSessions from '@/pages/PageSessions.vue'
+import PageSignUp from '@/pages/PageSignUp.vue'
+import PageSignIn from '@/pages/PageSignIn.vue'
+import PagePicsum from '@/pages/PagePicsum.vue'
+import PageTests from '@/pages/PageTests.vue'
+import PageUsers from '@/pages/PageUsers.vue'
+import PageCars from '@/pages/PageCars.vue'
+import PageMain from '@/pages/PageMain.vue'
 
 const routes = [
   {
