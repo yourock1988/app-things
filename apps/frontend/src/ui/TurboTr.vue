@@ -8,6 +8,8 @@ export default {
   emits: ['updated', 'deleted'],
   data() {
     return {
+      loading: false,
+      disabled: false,
       localEntity: { ...this.entity },
       isEditing: false,
       err: null,
@@ -38,18 +40,27 @@ export default {
       this.err = null
     },
     async save() {
-      this.isEditing = false
+      // this.isEditing = false
       this.err = null
+      this.loading = true
+      this.disabled = true
       const [err, data] = await this.updateById(this.entity.id, this.dto)
+      this.disabled = false
+      this.loading = false
       if (err) {
         this.isEditing = true
         this.err = err
       } else {
         this.$emit('updated', data)
+        this.isEditing = false
       }
     },
     async deleted() {
+      this.loading = true
+      this.disabled = true
       const [err] = await this.removeById(this.entity.id)
+      this.disabled = false
+      this.loading = false
       if (!err) this.$emit('deleted', this.entity.id)
     },
   },
@@ -70,12 +81,12 @@ export default {
 
     <td class="d-flex align-center justify-space-around">
       <template v-if="isEditing">
-        <TurboBtn kind="cancel" @click="cancel" />
-        <TurboBtn kind="save" @click="save" />
+        <TurboBtn :disabled kind="cancel" @click="cancel" />
+        <TurboBtn :loading kind="save" @click="save" />
       </template>
       <template v-else>
-        <TurboBtn kind="edit" @click="isEditing = true" />
-        <TurboBtn kind="delete" @click="deleted" />
+        <TurboBtn :disabled kind="edit" @click="isEditing = true" />
+        <TurboBtn :loading kind="delete" @click="deleted" />
       </template>
     </td>
   </tr>
