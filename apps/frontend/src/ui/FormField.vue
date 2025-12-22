@@ -4,12 +4,9 @@ import { VTextField, VCheckbox, VSelect } from 'vuetify/components'
 export default {
   components: { VTextField, VCheckbox, VSelect },
   inheritAttrs: false,
-  props: ['modelValue', 'field', 'comp', 'cols', 'err'],
+  props: ['modelValue', 'field', 'comp', 'err', 'cols'],
   emits: ['update:model-value'],
   computed: {
-    items() {
-      return this.comp?.list
-    },
     component() {
       const defaultComponent = 'VTextField'
       if (this.comp === null) return defaultComponent
@@ -17,11 +14,11 @@ export default {
       if (typeof this.comp?.component !== 'string') return defaultComponent
       return this.comp?.component
     },
-    type() {
-      return this.comp?.type
-    },
     modelModifiers() {
       return this.comp?.modify === 'number' ? { number: true } : undefined
+    },
+    rdyField() {
+      return this.field.replaceAll('$', '')
     },
   },
   watch: {
@@ -31,11 +28,11 @@ export default {
       handler() {
         if (
           this.component === 'v-checkbox' &&
-          this.modelValue[this.field] === undefined
+          this.modelValue[this.rdyField] === undefined
         ) {
           this.$emit('update:model-value', {
             ...this.modelValue,
-            [this.field]: false,
+            [this.rdyField]: false,
           })
         }
       },
@@ -49,15 +46,15 @@ export default {
   <v-col :cols>
     <component
       :is="component"
-      :type
-      :items
-      :label="field"
-      :error-messages="err?.[field]?._errors"
+      :type="comp?.type"
+      :items="comp?.list"
+      :label="rdyField"
+      :error-messages="err?.[rdyField]?._errors"
       autocomplete="off"
       :modelModifiers
-      :model-value="modelValue[field]"
+      :model-value="modelValue[rdyField]"
       @update:model-value="
-        $emit('update:model-value', { ...modelValue, [field]: $event })
+        $emit('update:model-value', { ...modelValue, [rdyField]: $event })
       "
     />
   </v-col>

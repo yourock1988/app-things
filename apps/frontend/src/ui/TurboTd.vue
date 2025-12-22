@@ -7,12 +7,6 @@ export default {
   props: ['modelValue', 'field', 'comp', 'err', 'isEditing'],
   emits: ['update:model-value'],
   computed: {
-    rdyField() {
-      return this.field.replaceAll('$', '')
-    },
-    isEditable() {
-      return this.field.at(-1) === '$'
-    },
     component() {
       const defaultComponent = 'VTextField'
       if (this.comp === null) return defaultComponent
@@ -22,6 +16,12 @@ export default {
     },
     modelModifiers() {
       return this.comp?.type === 'number' ? { number: true } : undefined
+    },
+    rdyField() {
+      return this.field.replaceAll('$', '')
+    },
+    isEditable() {
+      return this.field.at(-1) === '$'
     },
   },
   watch: {
