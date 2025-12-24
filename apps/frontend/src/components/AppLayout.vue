@@ -77,7 +77,7 @@ export default {
       </v-container>
     </v-main>
 
-    <v-footer class="text-center d-flex flex-column ga-2 py-4">
+    <!-- <v-footer class="text-center d-flex flex-column ga-2 py-4">
       <div class="d-flex ga-3">
         <v-btn
           v-for="icon of icons"
@@ -102,6 +102,6 @@ export default {
       <v-divider></v-divider>
 
       <div>{{ new Date().getFullYear() }} — <strong>web-app.click</strong></div>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
