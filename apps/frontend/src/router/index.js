@@ -8,6 +8,7 @@ import PageTests from '@/pages/PageTests.vue'
 import PageUsers from '@/pages/PageUsers.vue'
 import PageCars from '@/pages/PageCars.vue'
 import PageMain from '@/pages/PageMain.vue'
+import PageTeapot from '@/pages/PageTeapot.vue'
 
 const routes = [
   {
@@ -21,6 +22,10 @@ const routes = [
   {
     path: '/sign-in',
     component: PageSignIn,
+  },
+  {
+    path: '/teapot',
+    component: PageTeapot,
   },
   {
     path: '/accounts',

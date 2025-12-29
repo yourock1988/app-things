@@ -1,7 +1,8 @@
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
 
-const slowdown = (_: any, next: any) => setTimeout(next, 300)
+const rand = () => 42 // Math.trunc(Math.random() * 420)
+const slowdown = (_: any, next: any) => setTimeout(next, rand())
 
 export default class ServerInitializer {
   io: Server
