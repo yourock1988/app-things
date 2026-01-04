@@ -44,7 +44,7 @@ export default class TeapotControllerIo {
     const isOk = this.teapotService.doTurnDrain()
     const teapot = this.teapotService.show()
     setTimeout(() => {
-      if (isOk) socket.broadcast.emit('bc-cl:teapot-turned_drain', teapot)
+      if (isOk) socket.broadcast.emit('bc-cl:teapot-drained', teapot)
       ack?.(null, teapot)
     }, rand())
   }

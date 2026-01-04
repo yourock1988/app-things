@@ -12,7 +12,7 @@ export default class TeapotRouterIo {
     socket.on('cl:teapot-turn_off', (...args) =>
       this.teapotControllerIo.handleTurnOff(...args, socket),
     )
-    socket.on('cl:teapot-turn_drain', (...args) =>
+    socket.on('cl:teapot-drain', (...args) =>
       this.teapotControllerIo.handleDrain(...args, socket),
     )
   }
