@@ -1,9 +1,18 @@
+import EventEmitter from 'eventemitter3'
 import socket from './index.js'
 
+const emitter = new EventEmitter()
 let awaitingCounter = 0
-let commitServerState
 
-// const emitter =
+function commitServerState(serverState, isAck) {
+  if (isAck && awaitingCounter > 0) return
+  emitter.emit('update', serverState)
+}
+
+function makeEvent(eventName) {
+  awaitingCounter += 1
+  return new Promise(res => socket.emit(eventName, '_', makeAck(res)))
+}
 
 function makeAck(res) {
   return (err, data) => {
@@ -15,43 +24,12 @@ function makeAck(res) {
   }
 }
 
-function makeCommitter(self) {
-  return (serverState, isAck) => {
-    // console.log('isAsk :>> ', isAck, awaitingCounter)
-    if (isAck && awaitingCounter > 0) return
-    self.temperature = serverState.temperature
-    if (serverState.ongoing === 'idle') {
-      if (self.ongoing === 'idle') {
-        //
-      }
-      if (self.ongoing === 'boiling') {
-        self.turnOff()
-        globalThis.console.log('sync turnOff()')
-      }
-    }
-    if (serverState.ongoing === 'boiling') {
-      if (self.ongoing === 'boiling') {
-        //
-      }
-      if (self.ongoing === 'idle') {
-        self.turnOn()
-        globalThis.console.log('sync turnOn()')
-      }
-    }
-  }
-}
-
-export function subscribe(self) {
-  commitServerState = makeCommitter(self)
+export function subscribe() {
   socket.on('bc-sv:teapot-ready', commitServerState)
   socket.on('bc-cl:teapot-turned_on', commitServerState)
   socket.on('bc-cl:teapot-turned_off', commitServerState)
   socket.on('bc-cl:teapot-drained', commitServerState)
-}
-
-function makeEvent(eventName) {
-  awaitingCounter += 1
-  return new Promise(res => socket.emit(eventName, '_', makeAck(res)))
+  return emitter
 }
 
 export async function sendShow() {

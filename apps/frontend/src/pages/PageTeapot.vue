@@ -21,53 +21,63 @@ export default {
   },
   computed: {
     isBoiled() {
-      return this.temperature === 100
+      return this.temperature === 100 && this.ongoing === 'idle'
     },
     isBoiling() {
-      return !!this.intervalId && !this.isBoiled
+      return this.ongoing === 'boiling'
+    },
+  },
+  watch: {
+    ongoing(newVal) {
+      return {
+        idle: () => this.turnOff(),
+        boiling: () => this.turnOn(),
+      }[newVal]?.()
     },
   },
   async mounted() {
-    subscribe(this)
+    const emitter = subscribe()
+    emitter.on('update', serverState => {
+      this.temperature = serverState.temperature
+      this.ongoing = serverState.ongoing
+    })
     await sendShow()
   },
   methods: {
     async ready() {
-      this.turnOff()
+      this.ongoing = 'idle'
       await sendShow()
     },
     turnOn() {
-      this.ongoing = 'boiling'
       clearInterval(this.intervalId)
       this.intervalId = setInterval(this.boil.bind(this), 100)
     },
     turnOff() {
-      this.ongoing = 'idle'
       clearInterval(this.intervalId)
       this.intervalId = undefined
     },
     async handleTurnOn() {
-      this.turnOn()
+      this.ongoing = 'boiling'
       // this.loading = 'handleTurnOn'
       await sendTurnOn()
       // this.loading = ''
     },
     async handleTurnOff() {
-      this.turnOff()
+      this.ongoing = 'idle'
       // this.loading = 'handleTurnOff'
       await sendTurnOff()
       // this.loading = ''
     },
     async handleDrain() {
-      this.turnOff()
+      this.ongoing = 'idle'
       this.temperature = 0
-      // this.loading = 'handleTurnDrain'
+      // this.loading = 'handleDrain'
       await sendDrain()
       // this.loading = ''
     },
     boil() {
       this.temperature = range(this.temperature + 1)
-      if (this.temperature === 100) this.ready()
+      if (this.temperature === 100 && this.ongoing === 'boiling') this.ready()
     },
   },
 }
@@ -101,7 +111,7 @@ export default {
               <v-btn color="warning" @click="handleTurnOff">turnOff</v-btn>
             </v-col>
             <v-col cols="4">
-              <!-- :loading="loading === 'handleTurnDrain'"
+              <!-- :loading="loading === 'handleDrain'"
               :disabled="temperature === 0" -->
               <v-btn color="error" @click="handleDrain">turnDrain</v-btn>
             </v-col>
