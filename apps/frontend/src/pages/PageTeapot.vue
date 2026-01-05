@@ -1,11 +1,5 @@
 <script>
-import {
-  sendShow,
-  sendTurnOn,
-  sendTurnOff,
-  sendDrain,
-  subscribe,
-} from '@/api/ws/teapot.js'
+import teapotSynchronizer from '@/api/ws/teapotSynchronizer.js'
 
 const makeRange = (min, max) => val => Math.max(min, Math.min(val, max))
 const range = makeRange(0, 100)
@@ -36,17 +30,17 @@ export default {
     },
   },
   async mounted() {
-    const emitter = subscribe()
-    emitter.on('update', serverState => {
+    teapotSynchronizer.subscribe()
+    teapotSynchronizer.on('update', serverState => {
       this.temperature = serverState.temperature
       this.ongoing = serverState.ongoing
     })
-    await sendShow()
+    teapotSynchronizer.sendEvent('show')
   },
   methods: {
     async ready() {
       this.ongoing = 'idle'
-      await sendShow()
+      await teapotSynchronizer.sendEvent('show')
     },
     turnOn() {
       clearInterval(this.intervalId)
@@ -59,20 +53,20 @@ export default {
     async handleTurnOn() {
       this.ongoing = 'boiling'
       // this.loading = 'handleTurnOn'
-      await sendTurnOn()
+      await teapotSynchronizer.sendEvent('turnOn')
       // this.loading = ''
     },
     async handleTurnOff() {
       this.ongoing = 'idle'
       // this.loading = 'handleTurnOff'
-      await sendTurnOff()
+      await teapotSynchronizer.sendEvent('turnOff')
       // this.loading = ''
     },
     async handleDrain() {
       this.ongoing = 'idle'
       this.temperature = 0
       // this.loading = 'handleDrain'
-      await sendDrain()
+      await teapotSynchronizer.sendEvent('drain')
       // this.loading = ''
     },
     boil() {
