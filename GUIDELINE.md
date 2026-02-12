@@ -68,3 +68,6 @@ DELETE /auth/wipe-proof
 POST /auth/refresh
 POST /auth/forgot-password
 POST /auth/reset-password
+
+сигнатуры хендлера и мидлвари должны совпадать
+(сигнатура хендлера это подмножество сигнатуры мидлвари)
