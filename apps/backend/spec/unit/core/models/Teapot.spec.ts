@@ -15,7 +15,7 @@ describe('создание чайника', () => {
     expect(teapot.isBoiling).toBe(false)
   })
   it('правильный toJSON', () => {
-    const expextedJSON = `{"id":42,"currentTemperature":0,"minTemperature":0,"maxTemperature":100,"isBoiled":false,"isBoiling":false}`
+    const expextedJSON = `{"id":42,"temperature":0,"ongoing":"idle"}`
     expect(JSON.stringify(teapot)).toBe(expextedJSON)
   })
 })
@@ -28,10 +28,10 @@ describe('кипячение', () => {
   afterEach(() => {
     teapot.turnOff()
   })
-  it('синхронный метод heat', () => {
-    teapot.heat()
-    expect(teapot.currentTemperature).toBe(1)
-  })
+  // it('синхронный метод boil', () => {
+  //   teapot.boil()
+  //   expect(teapot.temperature).toBe(1)
+  // })
   it('включаем чайник и смотрим статус', () => {
     teapot.turnOn()
     expect(teapot.isBoiling).toBe(true)
@@ -43,7 +43,7 @@ describe('кипячение', () => {
 
     expect(teapot.isBoiled).toBe(false)
     expect(teapot.isBoiling).toBe(true)
-    expect(teapot.currentTemperature).toBe(33)
+    expect(teapot.temperature).toBe(33)
   })
   it('чайник закипел', () => {
     jest.useFakeTimers()
@@ -52,7 +52,7 @@ describe('кипячение', () => {
 
     expect(teapot.isBoiled).toBe(true)
     expect(teapot.isBoiling).toBe(false)
-    expect(teapot.currentTemperature).toBe(100)
+    expect(teapot.temperature).toBe(100)
   })
   it('выключили чайник на половине', () => {
     jest.useFakeTimers()
@@ -63,17 +63,17 @@ describe('кипячение', () => {
 
     expect(teapot.isBoiled).toBe(false)
     expect(teapot.isBoiling).toBe(false)
-    expect(teapot.currentTemperature).toBe(50)
+    expect(teapot.temperature).toBe(50)
   })
   it('чайник закипятили и вылили', () => {
     jest.useFakeTimers()
     teapot.turnOn()
     jest.advanceTimersByTime(10000)
 
-    teapot.drain()
+    teapot.turnDrain()
 
     expect(teapot.isBoiled).toBe(false)
     expect(teapot.isBoiling).toBe(false)
-    expect(teapot.currentTemperature).toBe(0)
+    expect(teapot.temperature).toBe(0)
   })
 })

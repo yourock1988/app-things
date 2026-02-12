@@ -1,5 +1,5 @@
 import EventEmitter from 'node:events'
-import RangeVo from '../vos/RangeVo.js'
+import RangeVo from '../vos/RangeVo'
 
 export default class Teapot extends EventEmitter {
   constructor(
@@ -13,7 +13,7 @@ export default class Teapot extends EventEmitter {
   }
 
   private ready() {
-    global.console.log('!!ready')
+    // global.console.log('!!ready')
     this.turnOff()
     this.emit('ready')
   }
@@ -21,29 +21,37 @@ export default class Teapot extends EventEmitter {
   private boil() {
     this.temperature = this.range.calc(this.temperature + 1)
     if (this.temperature === this.range.max) this.ready()
-    global.console.log(this.ongoing, this.temperature)
+    // global.console.log(this.ongoing, this.temperature)
   }
 
   public turnOn() {
-    global.console.log('!!turnOn')
+    // global.console.log('!!turnOn')
     this.ongoing = 'boiling'
     clearInterval(this.intervalId)
     this.intervalId = setInterval(this.boil.bind(this), 100)
   }
 
   public turnOff() {
-    global.console.log('!!turnOff')
+    // global.console.log('!!turnOff')
     this.ongoing = 'idle'
     clearInterval(this.intervalId)
     this.intervalId = undefined
-    global.console.log(this.ongoing, this.temperature)
+    // global.console.log(this.ongoing, this.temperature)
   }
 
   public turnDrain() {
-    global.console.log('!!turnDrain')
+    // global.console.log('!!turnDrain')
     this.turnOff()
     this.temperature = 0
-    global.console.log(this.ongoing, this.temperature)
+    // global.console.log(this.ongoing, this.temperature)
+  }
+
+  get isBoiled() {
+    return this.temperature === 100 && this.ongoing === 'idle'
+  }
+
+  get isBoiling() {
+    return this.ongoing === 'boiling'
   }
 
   public toJSON() {
