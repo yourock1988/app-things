@@ -5,8 +5,8 @@ import rest from './rest.js'
 
 const appHttp = express()
 
-appHttp.use('/', welcomeRouter)
-appHttp.use('/', staticRouter)
 appHttp.use('/api/v0', rest)
+appHttp.use('', welcomeRouter)
+appHttp.use('', staticRouter)
 
 export default appHttp
