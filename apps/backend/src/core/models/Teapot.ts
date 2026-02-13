@@ -1,5 +1,5 @@
 import EventEmitter from 'node:events'
-import RangeVo from '../vos/RangeVo'
+import RangeVo from '../vos/RangeVo.js'
 
 export default class Teapot extends EventEmitter {
   constructor(
