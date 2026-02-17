@@ -1,0 +1,45 @@
+import { Namespace, Server } from 'socket.io'
+import on from '../../utils/on.js'
+
+export default class CarRouterIo2 {
+  constructor(
+    readonly carControllerIo: any,
+    readonly mwCarIo: any,
+  ) {}
+
+  public init(carNamespace: Namespace, io: Server) {
+    this.carControllerIo.init(carNamespace, io)
+  }
+
+  authN(socket, next) {
+    global.console.log(this.mwCarIo)
+    next()
+  }
+
+  authZ(socket, next) {
+    global.console.log(this.mwCarIo)
+    next()
+  }
+
+  connector(socket: any) {
+    global.console.log('connector cars')
+
+    on(socket, 'car:getAll', this.carControllerIo.getAll)
+    on(socket, 'car:getById', this.carControllerIo.getById)
+    on(socket, 'car:add', this.carControllerIo.add)
+    on(socket, 'car:updateById', this.carControllerIo.updateById)
+    on(socket, 'car:removeById', this.carControllerIo.removeById)
+
+    // socket.on('car:getAll', this.carControllerIo.getAll)
+    // socket.on('car:getById', this.carControllerIo.getById)
+    // socket.on('car:add', (...args: any[]) =>
+    //   this.carControllerIo.add(...args, socket),
+    // )
+    // socket.on('car:updateById', (...args: any[]) =>
+    //   this.carControllerIo.updateById(...args, socket),
+    // )
+    // socket.on('car:removeById', (...args: any[]) =>
+    //   this.carControllerIo.removeById(...args, socket),
+    // )
+  }
+}

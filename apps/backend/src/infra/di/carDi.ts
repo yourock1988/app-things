@@ -1,17 +1,17 @@
 import bindSelf from '@yourock88/bind-self'
-import serv from './servDi.js'
+// import serv from './servDi.js'
 import Orm from '../../utils/Orm.js'
 import carsTable from '../../utils/tables/carsTable.js'
 import CarRepositoryDb from '../repositories/CarRepositoryDb.js'
 import CarService from '../../core/services/CarService.js'
 import CarControllerRest from '../controllers/CarControllerRest.js'
-import CarControllerIo from '../controllers/CarControllerIo.js'
+import CarControllerIo2 from '../controllers/CarControllerIo2.js'
 import CarRouterRest from '../routers/CarRouterRest.js'
-import CarRouterIo from '../routers/CarRouterIo.js'
+import CarRouterIo2 from '../routers/CarRouterIo2.js'
 import mwCarRest from '../middlewares/mwCarRest.js'
 import mwCarIo from '../middlewares/mwCarIo.js'
 import ID from '../middlewares/ID.js'
-import { AUTH } from './authDi.js'
+import { AUTH } from './authDi2.js'
 
 const carsOrm = new Orm(carsTable)
 const carRepositoryDb = new CarRepositoryDb(carsOrm)
@@ -25,9 +25,9 @@ const carRouterRest = new CarRouterRest(carControllerRest, {
   AUTH,
 }).router
 
-const carControllerIo = new CarControllerIo(carService, serv.getIo())
+const carControllerIo = new CarControllerIo2(carService)
 bindSelf(carControllerIo)
-const carRouterIo = new CarRouterIo(carControllerIo, mwCarIo)
+const carRouterIo = new CarRouterIo2(carControllerIo, mwCarIo)
 bindSelf(carRouterIo)
 
 export { carRouterIo, carRouterRest }
