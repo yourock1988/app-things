@@ -3,7 +3,7 @@ import { TAccountRecord } from '../../infra/types/TAccountRecord.js'
 const accountsTable: TAccountRecord[] = [
   {
     id: 1,
-    nickname: 'admin',
+    nickname: 'aaa',
     password: 'Qq1!ssss',
     email: 'admin@web-app.click',
     phone: '+380991234567',
@@ -19,7 +19,7 @@ const accountsTable: TAccountRecord[] = [
   },
   {
     id: 2,
-    nickname: 'user',
+    nickname: 'uuu',
     password: 'Qq1!ssss',
     email: 'user@web-app.click',
     phone: '+380997654321',

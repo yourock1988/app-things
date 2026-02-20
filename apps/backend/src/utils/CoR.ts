@@ -8,7 +8,12 @@ export default function CoR(...fns) {
     let i = 0
 
     const next = (err?: object) => {
-      if (err) return
+      if (err) {
+        const args = data[1]
+        const ack = args.at(2)
+        ack?.(err)
+        return
+      }
 
       if (i < middlewares.length) {
         middlewares[i++](...data, next)

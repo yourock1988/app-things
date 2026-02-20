@@ -1,10 +1,11 @@
 import AuthService from '../../core/services/AuthService.js'
+import SocketError from '../../SocketError.js'
 // import zSessIdField from '../../core/schemas/zSessIdField.js'
 
 /* eslint-disable no-param-reassign */
 
 export default function mwAuthorizeIo(authService: AuthService) {
-  return function (socket, next) {
+  return function (ctx, args: any[], next: any) {
     // const {
     //   cookies: { sessionId },
     //   route: { path },
@@ -19,19 +20,22 @@ export default function mwAuthorizeIo(authService: AuthService) {
     // // }
     // global.console.log('resource :>> ', resource)
 
-    const session = authService.authN(socket.auth.sessionId)
+    const session = authService.authN(ctx.socket.handshake.headers?.sessionid)
     if (!session) {
-      next(new Error('unauthorized'))
+      global.console.log('unauthorized')
+      next(new SocketError(401, 'mwAuthorizeIo', 'unauthorized'))
       return
     }
-    // socket.account = { nickname: session.nickname }
+    ctx.socket.account = { nickname: session.nickname }
     // next()
 
-    const { nickname } = session
-    const resource = socket.nsp.name
-    const isAccessGranted = authService.authZ(nickname, resource, 'connected')
+    const { nickname } = ctx.socket.account
+    const resource = ctx.socket.nsp.name
+    const method = ctx.eventName
+    const isAccessGranted = authService.authZ(nickname, resource, method)
     if (!isAccessGranted) {
-      next(new Error('forbidden'))
+      global.console.log('forbidden')
+      next(new SocketError(403, 'mwAuthorizeIo', 'forbidden'))
       return
     }
     next()

@@ -26,5 +26,16 @@
   "/api/v0/users/:id": {
     "admin": ["GET", "PATCH", "DELETE"],
     "user": ["GET"]
+  },
+  "/cars": {
+    "admin": [
+      "connect",
+      "car:getAll",
+      "car:getById",
+      "car:add",
+      "car:updateById",
+      "car:removeById"
+    ],
+    "user": ["connect", "car:getAll", "car:getById"]
   }
 }

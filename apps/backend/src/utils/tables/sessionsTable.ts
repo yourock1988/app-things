@@ -4,14 +4,14 @@ const sessionsTable: TSessionRecord[] = [
   {
     id: 11,
     sessionId: 'abcdef',
-    nickname: 'admin',
+    nickname: 'aaa',
     createdAt: 1234567890,
     updatedAt: 1234567890,
   },
   {
     id: 12,
     sessionId: 'fedcba',
-    nickname: 'ooo',
+    nickname: 'uuu',
     createdAt: 1234567890,
     updatedAt: 1234567890,
   },

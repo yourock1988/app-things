@@ -25,14 +25,14 @@ export default class CarRouterIo2 {
   connector(socket: any) {
     global.console.log('connector cars')
     const { carControllerIo, mwCarIo } = this
-    const { IDio, ADD, UPD } = mwCarIo
+    const { IDio, ADD, UPD, AUTHio } = mwCarIo
     const { getAll, getById, add, updateById, removeById } = carControllerIo
 
-    on(socket, 'car:getAll', getAll)
-    on(socket, 'car:getById', CoR(IDio, getById))
-    on(socket, 'car:add', CoR(ADD, add))
-    on(socket, 'car:updateById', CoR(IDio, UPD, updateById))
-    on(socket, 'car:removeById', CoR(IDio, removeById))
+    on(socket, 'car:getAll', CoR(AUTHio, getAll))
+    on(socket, 'car:getById', CoR(IDio, AUTHio, getById))
+    on(socket, 'car:add', CoR(ADD, AUTHio, add))
+    on(socket, 'car:updateById', CoR(IDio, UPD, AUTHio, updateById))
+    on(socket, 'car:removeById', CoR(IDio, AUTHio, removeById))
 
     // socket.on('car:getAll', this.carControllerIo.getAll)
     // socket.on('car:getById', this.carControllerIo.getById)
