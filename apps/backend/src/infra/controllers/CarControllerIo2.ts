@@ -1,9 +1,9 @@
 import { Server, Namespace } from 'socket.io'
-import { TCarAddDto, TCarUpdateDto } from '../../core/dtos/TCarDtos.js'
+// import { TCarAddDto, TCarUpdateDto } from '../../core/dtos/TCarDtos.js'
 import CarService from '../../core/services/CarService.js'
 import SocketError from '../../SocketError.js'
 import Car from '../../core/models/Car.js'
-import { TAckFn } from '../../TAckFn.js'
+// import { TAckFn } from '../../TAckFn.js'
 
 export default class CarControllerIo2 {
   constructor(
@@ -14,25 +14,30 @@ export default class CarControllerIo2 {
     carService.on('bc-sv:car:added', (car: Car) => io?.emit('car:added', car))
   }
 
-  public init(carNamespace: Namespace, io: Server) {
+  init(carNamespace: Namespace, io: Server) {
     this.carNamespace = carNamespace
     this.io = io
   }
 
-  getAll(ctx, _: string, ack: TAckFn<Car[]>) {
+  getAll(ctx, args) {
+    const ack = args.at(2)
     global.console.log('>>>+all', ctx.eventName)
     const cars = this.carService.getAll()
     ack?.(null, cars)
   }
 
-  getById(ctx, id: number, ack: TAckFn<Car | null>) {
+  getById(ctx, args) {
+    const { id } = args.at(0)
+    const ack = args.at(2)
     global.console.log('>>>+get', ctx.eventName)
     const car = this.carService.getById(+id)
     if (car) ack?.(null, car)
     else ack?.(new SocketError(404, 'getById', `car id ${id} not exists`))
   }
 
-  add(ctx, dto: TCarAddDto, ack: TAckFn<Car>) {
+  add(ctx, args) {
+    const ack = args.at(2)
+    const dto = args.at(1)
     global.console.log('>>>+add', ctx.eventName)
     const car = this.carService.add(dto)
     ack?.(null, car)
@@ -40,7 +45,10 @@ export default class CarControllerIo2 {
     // this.io.emit('bc-sv:car:added', car)
   }
 
-  updateById(ctx, id: number, dto: TCarUpdateDto, ack: TAckFn<Car | null>) {
+  updateById(ctx, args) {
+    const { id } = args.at(0)
+    const dto = args.at(1)
+    const ack = args.at(2)
     global.console.log('>>>+upd', ctx.eventName)
     const car = this.carService.updateById(id, dto)
     if (car) {
@@ -51,7 +59,9 @@ export default class CarControllerIo2 {
     }
   }
 
-  removeById(ctx, id: number, ack: TAckFn<never>) {
+  removeById(ctx, args) {
+    const { id } = args.at(0)
+    const ack = args.at(2)
     global.console.log('>>>+del', ctx.eventName)
     const hasBeenExists = this.carService.removeById(id)
     if (hasBeenExists) {
