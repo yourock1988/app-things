@@ -12,7 +12,7 @@ import mwCarRest from '../middlewares/mwCarRest.js'
 import mwCarIo from '../middlewares/mwCarIo2.js'
 import ID from '../middlewares/ID.js'
 import IDio from '../middlewares/IDio.js'
-import { AUTHio } from './authDi2.js'
+import { AUTHrest, AUTHio } from './authDi.js'
 
 const carsOrm = new Orm(carsTable)
 const carRepositoryDb = new CarRepositoryDb(carsOrm)
@@ -23,7 +23,7 @@ bindSelf(carControllerRest)
 const carRouterRest = new CarRouterRest(carControllerRest, {
   ...mwCarRest,
   ID,
-  AUTH: AUTHio,
+  AUTH: AUTHrest,
 }).router
 
 const carControllerIo = new CarControllerIo2(carService)
