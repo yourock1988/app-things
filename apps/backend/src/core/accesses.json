@@ -29,13 +29,14 @@
   },
   "/cars": {
     "admin": [
-      "connect",
+      "authentication",
+      "authorization",
       "car:getAll",
       "car:getById",
       "car:add",
       "car:updateById",
       "car:removeById"
     ],
-    "user": ["connect", "car:getAll", "car:getById"]
+    "user": ["authentication", "authorization", "car:getAll", "car:getById"]
   }
 }

@@ -14,12 +14,22 @@ export default class CarRouterIo2 {
 
   authN(socket, next) {
     global.console.log(this.mwCarIo)
-    next()
+    const ctx = {
+      socket,
+      eventName: 'authentication',
+    }
+    this.mwCarIo.AUTHio(ctx, null, next)
+    // next()
   }
 
   authZ(socket, next) {
     global.console.log(this.mwCarIo)
-    next()
+    const ctx = {
+      socket,
+      eventName: 'authorization',
+    }
+    this.mwCarIo.AUTHio(ctx, null, next)
+    // next()
   }
 
   connector(socket: any) {
