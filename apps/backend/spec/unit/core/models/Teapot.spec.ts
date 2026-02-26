@@ -37,27 +37,27 @@ describe('кипячение', () => {
     expect(teapot.isBoiling).toBe(true)
   })
   it('включаем чайник и смотрим нагрев', () => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
     teapot.turnOn()
-    jest.advanceTimersByTime(3300)
+    vi.advanceTimersByTime(3300)
 
     expect(teapot.isBoiled).toBe(false)
     expect(teapot.isBoiling).toBe(true)
     expect(teapot.temperature).toBe(33)
   })
   it('чайник закипел', () => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
     teapot.turnOn()
-    jest.advanceTimersByTime(10000)
+    vi.advanceTimersByTime(10000)
 
     expect(teapot.isBoiled).toBe(true)
     expect(teapot.isBoiling).toBe(false)
     expect(teapot.temperature).toBe(100)
   })
   it('выключили чайник на половине', () => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
     teapot.turnOn()
-    jest.advanceTimersByTime(5000)
+    vi.advanceTimersByTime(5000)
 
     teapot.turnOff()
 
@@ -66,9 +66,9 @@ describe('кипячение', () => {
     expect(teapot.temperature).toBe(50)
   })
   it('чайник закипятили и вылили', () => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
     teapot.turnOn()
-    jest.advanceTimersByTime(10000)
+    vi.advanceTimersByTime(10000)
 
     teapot.turnDrain()
 

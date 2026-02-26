@@ -25,7 +25,8 @@
     "build/",
     "spec/",
     "test/",
-    "types/"
+    "types/",
+    "vitest.config.ts"
   ],
   "extends": [
     "airbnb-base",

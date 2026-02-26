@@ -16,12 +16,12 @@
     "clean": "rimraf ../../build/server",
     "static:dev": "cp -R ./static ../../build/server/static",
     "static:prod": "cp -R ./static ../../dist/server/static",
-    "ts:dev": "tsc --rootDir ./src --sourceMap --declaration --declarationMap",
-    "ts:prod": "tsc --rootDir ./src --sourceMap false",
+    "ts:dev": "tsc -p ./tsconfig.build.json",
+    "ts:prod": "tsc -p ./tsconfig.build.json",
     "babel:prod": "babel -d ../../dist/server ../../build/server --delete-dir-on-start --copy-files",
     "lint:js": "eslint ./src",
     "lint-staged": "lint-staged",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "vitest"
   },
   "lint-staged": {
     "*.js": "eslint"
@@ -41,17 +41,15 @@
     "express": "^5.1.0",
     "libphonenumber-js": "^1.12.27",
     "socket.io": "^4.8.1",
-    "zod": "^3.25.76"
+    "zod": "^3.25.76",
+    "vitest": "^4.0.18"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.0",
-    "@types/jest": "^30.0.0",
     "@types/node": "^24.1.0",
     "@types/supertest": "^6.0.3",
-    "jest": "^30.1.1",
     "supertest": "^7.2.2",
-    "ts-jest": "^29.4.1",
     "typescript": "^5.8.0"
   }
 }
