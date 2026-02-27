@@ -21,7 +21,8 @@
     "babel:prod": "babel -d ../../dist/server ../../build/server --delete-dir-on-start --copy-files",
     "lint:js": "eslint ./src",
     "lint-staged": "lint-staged",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "lint-staged": {
     "*.js": "eslint"
@@ -41,15 +42,17 @@
     "express": "^5.1.0",
     "libphonenumber-js": "^1.12.27",
     "socket.io": "^4.8.1",
-    "zod": "^3.25.76",
-    "vitest": "^4.0.18"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.0",
     "@types/node": "^24.1.0",
     "@types/supertest": "^6.0.3",
+    "@vitest/coverage-v8": "^4.0.18",
+    "@vitest/ui": "^4.0.18",
     "supertest": "^7.2.2",
-    "typescript": "^5.8.0"
+    "typescript": "^5.8.0",
+    "vitest": "^4.0.18"
   }
 }
