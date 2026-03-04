@@ -13,7 +13,7 @@
     "esModuleInterop": true,
     "noEmitOnError": true,
     "noEmit": false,
-    "sourceMap": true,
+    "sourceMap": false,
     "declarationMap": false,
     "declaration": false,
     "skipLibCheck": true,
@@ -22,6 +22,6 @@
     "noImplicitAny": false,
     "removeComments": true
   },
-  "include": ["spec", "src"],
+  "include": ["src/**/*.ts", "spec/**/*.ts"],
   "exclude": ["node_modules", "build", "dist", "frontend/**/*"]
 }
