@@ -8,7 +8,7 @@ import { userRouterRest } from './infra/di/userDi.js'
 import { carRouterRest } from './infra/di/carDi.js'
 
 const rest = Router()
-const corsOptions = { origin: true, credentials: true }
+const corsOptions = { credentials: true }
 
 rest.use([cookieParser(), json(), cors(corsOptions)])
 
