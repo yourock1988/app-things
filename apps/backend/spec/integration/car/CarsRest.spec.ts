@@ -1,15 +1,15 @@
 import supertest from 'supertest'
 import appHttp from '../../../src/appHttp'
-import carFixture from '../../fixtures/carFixture.js'
-import carsFixture from '../../fixtures/carsFixture.js'
+import carFixture from '../../fixtures/cars/carFixture.js'
+import carsFixture from '../../fixtures/cars/carsFixture.js'
 import carsTable from '../../../src/utils/tables/carsTable.js'
 import carsSeed from '../../seeds/carsSeed.js'
-import carsWithUpdatedFixture from '../../fixtures/carsWithUpdatedFixture.js'
-import carsWithAddedFixture from '../../fixtures/carsWithAddedFixture.js'
-import carUpdatedFixture from '../../fixtures/carUpdatedFixture.js'
-import carAddedFixture from '../../fixtures/carAddedFixture.js'
-import carDtoUpdFixture from '../../fixtures/carDtoUpdFixture.js'
-import carDtoAddFixture from '../../fixtures/carDtoAddFixture.js'
+import carsWithUpdatedFixture from '../../fixtures/cars/carsWithUpdatedFixture.js'
+import carsWithAddedFixture from '../../fixtures/cars/carsWithAddedFixture.js'
+import carUpdatedFixture from '../../fixtures/cars/carUpdatedFixture.js'
+import carAddedFixture from '../../fixtures/cars/carAddedFixture.js'
+import carDtoUpdFixture from '../../fixtures/cars/carDtoUpdFixture.js'
+import carDtoAddFixture from '../../fixtures/cars/carDtoAddFixture.js'
 
 const resetTable = () => carsTable.splice(0, Infinity, ...carsSeed)
 const hasObjId = id => expect.arrayContaining([expect.objectContaining({ id })])
