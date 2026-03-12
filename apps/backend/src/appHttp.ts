@@ -1,4 +1,4 @@
-import helmet from 'helmet'
+// import helmet from 'helmet'
 import express from 'express'
 import welcomeRouter from './welcomeRouter.js'
 import staticRouter from './staticRouter.js'
@@ -6,7 +6,8 @@ import rest from './rest.js'
 
 const appHttp = express()
 
-appHttp.use(helmet())
+appHttp.disable('x-powered-by')
+// appHttp.use(helmet())
 
 appHttp.use('/api/v0', rest)
 appHttp.use('', welcomeRouter)

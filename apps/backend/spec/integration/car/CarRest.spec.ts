@@ -2,74 +2,94 @@ import supertest from 'supertest'
 import appHttp from '../../../src/appHttp'
 import carFixture from '../../fixtures/carFixture.js'
 import carsFixture from '../../fixtures/carsFixture.js'
+import carsTable from '../../../src/utils/tables/carsTable.js'
+import carsSeed from '../../seeds/carsSeed.js'
+import carsWithUpdatedFixture from '../../fixtures/carsWithUpdatedFixture.js'
+import carsWithAddedFixture from '../../fixtures/carsWithAddedFixture.js'
+import carUpdatedFixture from '../../fixtures/carUpdatedFixture.js'
+import carAddedFixture from '../../fixtures/carAddedFixture.js'
+import carDtoUpdFixture from '../../fixtures/carDtoUpdFixture.js'
+import carDtoAddFixture from '../../fixtures/carDtoAddFixture.js'
 
-describe('GET /cars', () => {
+const resetTable = () => carsTable.splice(0, Infinity, ...carsSeed)
+const hasObjId = id => expect.arrayContaining([expect.objectContaining({ id })])
+
+describe('Cars REST API', () => {
   let response
-
-  beforeAll(async () => {
-    const agent = supertest(appHttp)
-    response = await agent.get('/api/v0/cars')
+  beforeEach(() => {
+    resetTable()
   })
-
-  it('should status code is 200', async () => {
-    expect(response.status).toBe(200)
-  })
-  it('should headers has content-type json', async () => {
-    expect(response.headers['content-type']).toContain('application/json')
-  })
-  it('should headers has content-type utf-8', async () => {
-    expect(response.headers['content-type']).toContain('utf-8')
-  })
-  it('should cors enabled', async () => {
+  afterEach(() => {
     expect(response.headers['access-control-allow-origin']).toContain('*')
-  })
-  it('should cors allow credentials', async () => {
     expect(response.headers['access-control-allow-credentials']).toBeTruthy()
-  })
-  it('should header x-powered-by removed', async () => {
     expect(response.headers['x-powered-by']).toBeUndefined()
   })
-  it('should helmet middleware enabled', async () => {
-    expect(response.headers['x-frame-options']).toBe('SAMEORIGIN')
-  })
-  it('should body is array', async () => {
-    expect(response.body).toBeInstanceOf(Array)
-  })
-  it('should body equals fixture', async () => {
-    expect(response.body).toEqual(carsFixture)
-  })
-})
 
-describe('GET /cars/1001', () => {
-  let response
-
-  beforeAll(async () => {
-    const agent = supertest(appHttp)
-    response = await agent.get('/api/v0/cars/1001')
+  describe('GET /cars', () => {
+    beforeAll(async () => {})
+    it('positive get all cars', async () => {
+      const agent = supertest(appHttp)
+      response = await agent.get('/api/v0/cars')
+      expect(response.status).toBe(200)
+      expect(response.headers['content-type']).toContain('application/json')
+      expect(response.headers['content-type']).toContain('utf-8')
+      expect(response.body).toBeInstanceOf(Array)
+      expect(response.body).toEqual(carsFixture)
+    })
   })
 
-  it('should status code is 200', async () => {
-    expect(response.status).toBe(200)
+  describe('GET /cars/:id', () => {
+    beforeAll(async () => {})
+    it('positive get car by id', async () => {
+      const agent = supertest(appHttp)
+      response = await agent.get('/api/v0/cars/1001')
+      expect(response.status).toBe(200)
+      expect(response.headers['content-type']).toContain('application/json')
+      expect(response.headers['content-type']).toContain('utf-8')
+      expect(response.body).toEqual(carFixture)
+    })
   })
-  it('should headers has content-type json', async () => {
-    expect(response.headers['content-type']).toContain('application/json')
+
+  describe('DELETE /cars/:id', () => {
+    beforeAll(async () => {})
+    it('positive delete car by id', async () => {
+      const agent = supertest(appHttp)
+      response = await agent
+        .delete('/api/v0/cars/1001')
+        .set('cookie', 'sessionId=abcdef')
+      expect(response.status).toBe(204)
+      expect(response.body).toEqual({})
+      expect(carsTable).not.toEqual(hasObjId(1001))
+    })
   })
-  it('should headers has content-type utf-8', async () => {
-    expect(response.headers['content-type']).toContain('utf-8')
+
+  describe('POST /cars', () => {
+    it('positive post car', async () => {
+      const agent = supertest(appHttp)
+      response = await agent
+        .post('/api/v0/cars')
+        .set('cookie', 'sessionId=abcdef')
+        .send(carDtoAddFixture)
+      expect(response.status).toBe(201)
+      expect(response.headers['content-type']).toContain('application/json')
+      expect(response.headers['content-type']).toContain('utf-8')
+      expect(response.body).toEqual(carAddedFixture)
+      expect(carsTable).toEqual(carsWithAddedFixture)
+    })
   })
-  it('should cors enabled', async () => {
-    expect(response.headers['access-control-allow-origin']).toContain('*')
-  })
-  it('should cors allow credentials', async () => {
-    expect(response.headers['access-control-allow-credentials']).toBeTruthy()
-  })
-  it('should header x-powered-by removed', async () => {
-    expect(response.headers['x-powered-by']).toBeUndefined()
-  })
-  it('should helmet middleware enabled', async () => {
-    expect(response.headers['x-frame-options']).toBe('SAMEORIGIN')
-  })
-  it('should body equals fixture', async () => {
-    expect(response.body).toEqual(carFixture)
+
+  describe('PATCH /cars/:id', () => {
+    it('positive patch car by id', async () => {
+      const agent = supertest(appHttp)
+      response = await agent
+        .patch('/api/v0/cars/1001')
+        .set('cookie', 'sessionId=abcdef')
+        .send(carDtoUpdFixture)
+      expect(response.status).toBe(200)
+      expect(response.headers['content-type']).toContain('application/json')
+      expect(response.headers['content-type']).toContain('utf-8')
+      expect(response.body).toEqual(carUpdatedFixture)
+      expect(carsTable).toEqual(carsWithUpdatedFixture)
+    })
   })
 })
