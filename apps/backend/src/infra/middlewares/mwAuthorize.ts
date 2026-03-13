@@ -16,7 +16,7 @@ export default function mwAuthorize(authService: AuthService) {
     //   res.status(401).send()
     //   return
     // }
-    global.console.log('resource :>> ', resource)
+    // global.console.log('resource :>> ', resource)
     const session = authService.authN(sessionId)
     if (!session) {
       res.status(401).send()
