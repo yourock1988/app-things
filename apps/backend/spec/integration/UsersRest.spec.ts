@@ -1,21 +1,25 @@
 import supertest from 'supertest'
-import appHttp from '../../../src/appHttp'
-import carFixture from '../../fixtures/cars/carFixture.js'
-import carsFixture from '../../fixtures/cars/carsFixture.js'
-import carsTable from '../../../src/utils/tables/carsTable.js'
-import carsSeed from '../../seeds/carsSeed.js'
-import carsWithUpdatedFixture from '../../fixtures/cars/carsWithUpdatedFixture.js'
-import carsWithAddedFixture from '../../fixtures/cars/carsWithAddedFixture.js'
-import carUpdatedFixture from '../../fixtures/cars/carUpdatedFixture.js'
-import carAddedFixture from '../../fixtures/cars/carAddedFixture.js'
-import carDtoUpdFixture from '../../fixtures/cars/carDtoUpdFixture.js'
-import carDtoAddFixture from '../../fixtures/cars/carDtoAddFixture.js'
+import appHttp from '../../src/appHttp'
+import usersTable from '../../src/utils/tables/usersTable.js'
+import usersSeed from '../seeds/usersSeed.js'
+
+import dtoUserAddFixture from '../fixtures/users/dtoUserAddFixture.js'
+import dtoUserUpdFixture from '../fixtures/users/dtoUserUpdFixture.js'
+
+import respUserAddedFixture from '../fixtures/users/respUserAddedFixture.js'
+import respUserByIdFixture from '../fixtures/users/respUserByIdFixture.js'
+import respUserUpdatedFixture from '../fixtures/users/respUserUpdatedFixture.js'
+import respUsersAllFixture from '../fixtures/users/respUsersAllFixture'
+
+import tableUsersAllFixture from '../fixtures/users/tableUsersAllFixture.js'
+import tableUsersWithAddedFixture from '../fixtures/users/tableUsersWithAddedFixture.js'
+import tableUsersWithoutDeletedFixture from '../fixtures/users/tableUsersWithoutDeletedFixture'
+import tableUsersWithUpdatedFixture from '../fixtures/users/tableUsersWithUpdatedFixture.js'
 
 const resetTable = () =>
-  carsTable.splice(0, Infinity, ...structuredClone(carsSeed))
-const hasObjId = id => expect.arrayContaining([expect.objectContaining({ id })])
+  usersTable.splice(0, Infinity, ...structuredClone(usersSeed))
 
-describe('Cars REST API', () => {
+describe('Users REST API', () => {
   let response
   beforeEach(() => {
     resetTable()
@@ -26,291 +30,294 @@ describe('Cars REST API', () => {
     expect(response.headers['x-powered-by']).toBeUndefined()
   })
 
-  describe('GET /cars', () => {
+  describe('GET /users', () => {
     beforeAll(async () => {})
-    it('positive get all cars', async () => {
+    it('positive get all users', async () => {
       const agent = supertest(appHttp)
-      response = await agent.get('/api/v0/cars')
+      response = await agent.get('/api/v0/users')
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toBeInstanceOf(Array)
-      expect(response.body).toEqual(carsFixture)
+      expect(response.body).toEqual(respUsersAllFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
   })
 
-  describe('GET /cars/:id', () => {
+  describe('GET /users/:id', () => {
     beforeAll(async () => {})
-    it('positive get car by id', async () => {
+    it('positive get user by id', async () => {
       const agent = supertest(appHttp)
-      response = await agent.get('/api/v0/cars/1001')
+      response = await agent.get('/api/v0/users/101')
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
-      expect(response.body).toEqual(carFixture)
+      expect(response.body).toEqual(respUserByIdFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative get car by id that not exists', async () => {
+    it('negative get user by id that not exists', async () => {
       const agent = supertest(appHttp)
-      response = await agent.get('/api/v0/cars/1003')
+      response = await agent.get('/api/v0/users/103')
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
   })
 
-  describe('DELETE /cars/:id', () => {
+  describe('DELETE /users/:id', () => {
     beforeAll(async () => {})
-    it('positive delete car by id', async () => {
+    it('positive delete user by id', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/cars/1001')
+        .delete('/api/v0/users/101')
         .set('cookie', 'sessionId=abcdef')
       expect(response.status).toBe(204)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).not.toEqual(hasObjId(1001))
+      expect(usersTable).toEqual(tableUsersWithoutDeletedFixture)
     })
-    it('negative delete car by id that not exists', async () => {
+    it('negative delete user by id that not exists', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/cars/1003')
+        .delete('/api/v0/users/103')
         .set('cookie', 'sessionId=abcdef')
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).not.toEqual(hasObjId(1003))
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative delete car by id dont send cookie sessionId', async () => {
+    it('negative delete user by id dont send cookie sessionId', async () => {
       const agent = supertest(appHttp)
-      response = await agent.delete('/api/v0/cars/1001')
+      response = await agent.delete('/api/v0/users/101')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(hasObjId(1001))
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative delete car by id send cookie wrong sessionId', async () => {
+    it('negative delete user by id send cookie wrong sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/cars/1001')
+        .delete('/api/v0/users/101')
         .set('cookie', 'sessionId=xxx')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(hasObjId(1001))
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative delete car by id send cookie sessionId low perm', async () => {
+    it('negative delete user by id send cookie sessionId low perm', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/cars/1001')
+        .delete('/api/v0/users/101')
         .set('cookie', 'sessionId=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(hasObjId(1001))
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative delete car by id combine 404 and 401', async () => {
+    it('negative delete user by id combine 404 and 401', async () => {
       const agent = supertest(appHttp)
-      response = await agent.delete('/api/v0/cars/1003')
+      response = await agent.delete('/api/v0/users/103')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).not.toEqual(hasObjId(1003))
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative delete car by id combine 404 and 403', async () => {
+    it('negative delete user by id combine 404 and 403', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/cars/1003')
+        .delete('/api/v0/users/103')
         .set('cookie', 'sessionId=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).not.toEqual(hasObjId(1003))
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
   })
 
-  describe('POST /cars', () => {
-    it('positive post car', async () => {
+  describe('POST /users', () => {
+    it('positive post user', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/cars')
+        .post('/api/v0/users')
         .set('cookie', 'sessionId=abcdef')
-        .send(carDtoAddFixture)
+        .send(dtoUserAddFixture)
       expect(response.status).toBe(201)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
-      expect(response.body).toEqual(carAddedFixture)
-      expect(carsTable).toEqual(carsWithAddedFixture)
+      expect(response.body).toEqual(respUserAddedFixture)
+      expect(usersTable).toEqual(tableUsersWithAddedFixture)
     })
-    it('negative post car without necessary field', async () => {
-      const { brand, ...carDtoAddFixtureBad } = carDtoAddFixture
+    it('negative post user without necessary field', async () => {
+      const { email, ...userDtoAddFixtureBad } = dtoUserAddFixture
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/cars')
+        .post('/api/v0/users')
         .set('cookie', 'sessionId=abcdef')
-        .send(carDtoAddFixtureBad)
+        .send(userDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: [],
-        brand: {
+        email: {
           _errors: ['Required'],
         },
       })
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative post car with unnecessary field', async () => {
-      const carDtoAddFixtureBad = { ...carDtoAddFixture, foo: 'bar' }
+    it('negative post user with unnecessary field', async () => {
+      const userDtoAddFixtureBad = { ...dtoUserAddFixture, foo: 'bar' }
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/cars')
+        .post('/api/v0/users')
         .set('cookie', 'sessionId=abcdef')
-        .send(carDtoAddFixtureBad)
+        .send(userDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: ["Unrecognized key(s) in object: 'foo'"],
       })
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative post car without cookie sessionId', async () => {
+    it('negative post user without cookie sessionId', async () => {
       const agent = supertest(appHttp)
-      response = await agent.post('/api/v0/cars').send(carDtoAddFixture)
+      response = await agent.post('/api/v0/users').send(dtoUserAddFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative post car with invalid cookie sessionId', async () => {
+    it('negative post user with invalid cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/cars')
+        .post('/api/v0/users')
         .set('cookie', 'sessionId=xxx')
-        .send(carDtoAddFixture)
+        .send(dtoUserAddFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative post car with low perms cookie sessionId', async () => {
+    it('negative post user with low perms cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/cars')
+        .post('/api/v0/users')
         .set('cookie', 'sessionId=fedcba')
-        .send(carDtoAddFixture)
+        .send(dtoUserAddFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
   })
 
-  describe('PATCH /cars/:id', () => {
-    it('positive patch car by id', async () => {
+  describe('PATCH /users/:id', () => {
+    it('positive patch user by id', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/cars/1001')
+        .patch('/api/v0/users/101')
         .set('cookie', 'sessionId=abcdef')
-        .send(carDtoUpdFixture)
+        .send(dtoUserUpdFixture)
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
-      expect(response.body).toEqual(carUpdatedFixture)
-      expect(carsTable).toEqual(carsWithUpdatedFixture)
+      expect(response.body).toEqual(respUserUpdatedFixture)
+      expect(usersTable).toEqual(tableUsersWithUpdatedFixture)
     })
-    it('negative patch car by id that not exists', async () => {
+    it('negative patch user by id that not exists', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/cars/1003')
+        .patch('/api/v0/users/103')
         .set('cookie', 'sessionId=abcdef')
-        .send(carDtoUpdFixture)
+        .send(dtoUserUpdFixture)
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative patch car by id without necessary field', async () => {
-      const { price, ...carDtoUpdFixtureBad } = carDtoUpdFixture
+    it('negative patch user by id without necessary field', async () => {
+      const { money, ...userDtoUpdFixtureBad } = dtoUserUpdFixture
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/cars/1001')
+        .patch('/api/v0/users/101')
         .set('cookie', 'sessionId=abcdef')
-        .send(carDtoUpdFixtureBad)
+        .send(userDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: [],
-        price: {
+        money: {
           _errors: ['Required'],
         },
       })
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative patch car by id with unnecessary field', async () => {
-      const carDtoUpdFixtureBad = { ...carDtoUpdFixture, foo: 'bar' }
+    it('negative patch user by id with unnecessary field', async () => {
+      const userDtoUpdFixtureBad = { ...dtoUserUpdFixture, foo: 'bar' }
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/cars/1001')
+        .patch('/api/v0/users/101')
         .set('cookie', 'sessionId=abcdef')
-        .send(carDtoUpdFixtureBad)
+        .send(userDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: ["Unrecognized key(s) in object: 'foo'"],
       })
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative patch car by id without cookie sessionId', async () => {
+    it('negative patch user by id without cookie sessionId', async () => {
       const agent = supertest(appHttp)
-      response = await agent.patch('/api/v0/cars/1001').send(carDtoUpdFixture)
+      response = await agent.patch('/api/v0/users/101').send(dtoUserUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative patch car by id with invalid cookie sessionId', async () => {
+    it('negative patch user by id with invalid cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/cars/1001')
+        .patch('/api/v0/users/101')
         .set('cookie', 'sessionId=xxx')
-        .send(carDtoUpdFixture)
+        .send(dtoUserUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative patch car by id with low perms cookie sessionId', async () => {
+    it('negative patch user by id with low perms cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/cars/1001')
+        .patch('/api/v0/users/101')
         .set('cookie', 'sessionId=fedcba')
-        .send(carDtoUpdFixture)
+        .send(dtoUserUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative patch car by id combine 404 and 401', async () => {
+    it('negative patch user by id combine 404 and 401', async () => {
       const agent = supertest(appHttp)
-      response = await agent.patch('/api/v0/cars/1003').send(carDtoUpdFixture)
+      response = await agent.patch('/api/v0/users/103').send(dtoUserUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
-    it('negative patch car by id combine 404 and 403', async () => {
+    it('negative patch user by id combine 404 and 403', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/cars/1003')
+        .patch('/api/v0/users/103')
         .set('cookie', 'sessionId=fedcba')
-        .send(carDtoUpdFixture)
+        .send(dtoUserUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(carsTable).toEqual(carsFixture)
+      expect(usersTable).toEqual(tableUsersAllFixture)
     })
   })
 })
