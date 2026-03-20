@@ -19,11 +19,12 @@ import tableCarsWithUpdatedFixture from '../fixtures/cars/tableCarsWithUpdatedFi
 const resetTable = () =>
   carsTable.splice(0, Infinity, ...structuredClone(carsSeed))
 
+beforeEach(() => {
+  resetTable()
+})
+
 describe('Cars REST API', () => {
   let response
-  beforeEach(() => {
-    resetTable()
-  })
   afterEach(() => {
     expect(response.headers['access-control-allow-origin']).toContain('*')
     expect(response.headers['access-control-allow-credentials']).toBeTruthy()
@@ -320,4 +321,66 @@ describe('Cars REST API', () => {
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
   })
+})
+
+let response
+
+it('negative post car with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .post('/api/v0/cars')
+    .set('cookie', 'sessionId=abcdef')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    _errors: ['Required'],
+  })
+  expect(carsTable).toEqual(tableCarsAllFixture)
+})
+it('negative post car with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .post('/api/v0/cars')
+    .set('cookie', 'sessionId=abcdef')
+    .set('content-type', 'application/json')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    message: 'Невалидный JSON: {,}',
+  })
+  expect(carsTable).toEqual(tableCarsAllFixture)
+})
+
+it('negative patch car by id with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .patch('/api/v0/cars/1001')
+    .set('cookie', 'sessionId=abcdef')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    _errors: ['Required'],
+  })
+  expect(carsTable).toEqual(tableCarsAllFixture)
+})
+it('negative patch car by id with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .patch('/api/v0/cars/1001')
+    .set('cookie', 'sessionId=abcdef')
+    .set('content-type', 'application/json')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    message: 'Невалидный JSON: {,}',
+  })
+  expect(carsTable).toEqual(tableCarsAllFixture)
 })
