@@ -19,11 +19,12 @@ import tableUsersWithUpdatedFixture from '../fixtures/users/tableUsersWithUpdate
 const resetTable = () =>
   usersTable.splice(0, Infinity, ...structuredClone(usersSeed))
 
+beforeEach(() => {
+  resetTable()
+})
+
 describe('Users REST API', () => {
   let response
-  beforeEach(() => {
-    resetTable()
-  })
   afterEach(() => {
     expect(response.headers['access-control-allow-origin']).toContain('*')
     expect(response.headers['access-control-allow-credentials']).toBeTruthy()
@@ -320,4 +321,66 @@ describe('Users REST API', () => {
       expect(usersTable).toEqual(tableUsersAllFixture)
     })
   })
+})
+
+let response
+
+it('negative post user with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .post('/api/v0/users')
+    .set('cookie', 'sessionId=abcdef')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    _errors: ['Required'],
+  })
+  expect(usersTable).toEqual(tableUsersAllFixture)
+})
+it('negative post user with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .post('/api/v0/users')
+    .set('cookie', 'sessionId=abcdef')
+    .set('content-type', 'application/json')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    message: 'Невалидный JSON: {,}',
+  })
+  expect(usersTable).toEqual(tableUsersAllFixture)
+})
+
+it('negative patch user by id with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .patch('/api/v0/users/101')
+    .set('cookie', 'sessionId=abcdef')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    _errors: ['Required'],
+  })
+  expect(usersTable).toEqual(tableUsersAllFixture)
+})
+it('negative patch user by id with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .patch('/api/v0/users/101')
+    .set('cookie', 'sessionId=abcdef')
+    .set('content-type', 'application/json')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    message: 'Невалидный JSON: {,}',
+  })
+  expect(usersTable).toEqual(tableUsersAllFixture)
 })
