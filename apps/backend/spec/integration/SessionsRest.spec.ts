@@ -1,29 +1,29 @@
 import supertest from 'supertest'
 import appHttp from '../../src/appHttp'
-import accountsTable from '../../src/utils/tables/accountsTable.js'
-import accountsSeed from '../seeds/accountsSeed.js'
+import sessionsTable from '../../src/utils/tables/sessionsTable.js'
+import sessionsSeed from '../seeds/sessionsSeed.js'
 
-import dtoAccountAddFixture from '../fixtures/accounts/dtoAccountAddFixture.js'
-import dtoAccountUpdFixture from '../fixtures/accounts/dtoAccountUpdFixture.js'
+import dtoSessionAddFixture from '../fixtures/sessions/dtoSessionAddFixture.js'
+import dtoSessionUpdFixture from '../fixtures/sessions/dtoSessionUpdFixture.js'
 
-import respAccountAddedFixture from '../fixtures/accounts/respAccountAddedFixture.js'
-import respAccountByIdFixture from '../fixtures/accounts/respAccountByIdFixture.js'
-import respAccountUpdatedFixture from '../fixtures/accounts/respAccountUpdatedFixture.js'
-import respAccountsAllFixture from '../fixtures/accounts/respAccountsAllFixture'
+import respSessionAddedFixture from '../fixtures/sessions/respSessionAddedFixture.js'
+import respSessionByIdFixture from '../fixtures/sessions/respSessionByIdFixture.js'
+import respSessionUpdatedFixture from '../fixtures/sessions/respSessionUpdatedFixture.js'
+import respSessionsAllFixture from '../fixtures/sessions/respSessionsAllFixture'
 
-import tableAccountsAllFixture from '../fixtures/accounts/tableAccountsAllFixture.js'
-import tableAccountsWithAddedFixture from '../fixtures/accounts/tableAccountsWithAddedFixture.js'
-import tableAccountsWithoutDeletedFixture from '../fixtures/accounts/tableAccountsWithoutDeletedFixture.js'
-import tableAccountsWithUpdatedFixture from '../fixtures/accounts/tableAccountsWithUpdatedFixture.js'
+import tableSessionsAllFixture from '../fixtures/sessions/tableSessionsAllFixture.js'
+import tableSessionsWithAddedFixture from '../fixtures/sessions/tableSessionsWithAddedFixture.js'
+import tableSessionsWithoutDeletedFixture from '../fixtures/sessions/tableSessionsWithoutDeletedFixture.js'
+import tableSessionsWithUpdatedFixture from '../fixtures/sessions/tableSessionsWithUpdatedFixture.js'
 
 const resetTable = () =>
-  accountsTable.splice(0, Infinity, ...structuredClone(accountsSeed))
+  sessionsTable.splice(0, Infinity, ...structuredClone(sessionsSeed))
 
 beforeEach(() => {
   resetTable()
 })
 
-describe('Accounts REST API', () => {
+describe('Sessions REST API', () => {
   let response
   afterEach(() => {
     expect(response.headers['access-control-allow-origin']).toContain('*')
@@ -31,388 +31,388 @@ describe('Accounts REST API', () => {
     expect(response.headers['x-powered-by']).toBeUndefined()
   })
 
-  describe('GET /accounts', () => {
+  describe('GET /sessions', () => {
     beforeAll(async () => {})
-    it('positive get all accounts', async () => {
+    it('positive get all sessions', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .get('/api/v0/accounts')
+        .get('/api/v0/sessions')
         .set('cookie', 'sessionId=abcdef')
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toBeInstanceOf(Array)
-      expect(response.body).toEqual(respAccountsAllFixture)
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(response.body).toEqual(respSessionsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get all accounts without cookie sessionId', async () => {
+    it('negative get all sessions without cookie sessionId', async () => {
       const agent = supertest(appHttp)
-      response = await agent.get('/api/v0/accounts')
+      response = await agent.get('/api/v0/sessions')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get all accounts with invalid cookie sessionId', async () => {
+    it('negative get all sessions with invalid cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .get('/api/v0/accounts')
+        .get('/api/v0/sessions')
         .set('cookie', 'sessionId=xxx')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get all accounts with low perms cookie sessionId', async () => {
+    it('negative get all sessions with low perms cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .get('/api/v0/accounts')
+        .get('/api/v0/sessions')
         .set('cookie', 'sessionId=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
   })
 
-  describe('GET /accounts/:id', () => {
+  describe('GET /sessions/:id', () => {
     beforeAll(async () => {})
-    it('positive get account by id', async () => {
+    it('positive get session by id', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .get('/api/v0/accounts/1')
+        .get('/api/v0/sessions/11')
         .set('cookie', 'sessionId=abcdef')
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
-      expect(response.body).toEqual(respAccountByIdFixture)
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(response.body).toEqual(respSessionByIdFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get account by id that not exists', async () => {
+    it('negative get session by id that not exists', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .get('/api/v0/accounts/3')
+        .get('/api/v0/sessions/13')
         .set('cookie', 'sessionId=abcdef')
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get account by id without cookie sessionId', async () => {
+    it('negative get session by id without cookie sessionId', async () => {
       const agent = supertest(appHttp)
-      response = await agent.get('/api/v0/accounts/1')
+      response = await agent.get('/api/v0/sessions/11')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get account by id with invalid cookie sessionId', async () => {
+    it('negative get session by id with invalid cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .get('/api/v0/accounts/1')
+        .get('/api/v0/sessions/11')
         .set('cookie', 'sessionId=xxx')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get account by id with low perms cookie sessionId', async () => {
+    it('negative get session by id with low perms cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .get('/api/v0/accounts/1')
+        .get('/api/v0/sessions/11')
         .set('cookie', 'sessionId=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get account by id combine 404 and 401', async () => {
+    it('negative get session by id combine 404 and 401', async () => {
       const agent = supertest(appHttp)
-      response = await agent.get('/api/v0/accounts/3')
+      response = await agent.get('/api/v0/sessions/13')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get account by id combine 404 and 403', async () => {
+    it('negative get session by id combine 404 and 403', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .get('/api/v0/accounts/3')
+        .get('/api/v0/sessions/13')
         .set('cookie', 'sessionId=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
   })
 
-  describe('DELETE /accounts/:id', () => {
+  describe('DELETE /sessions/:id', () => {
     beforeAll(async () => {})
-    it('positive delete account by id', async () => {
+    it('positive delete session by id', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/accounts/1')
+        .delete('/api/v0/sessions/11')
         .set('cookie', 'sessionId=abcdef')
       expect(response.status).toBe(204)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsWithoutDeletedFixture)
+      expect(sessionsTable).toEqual(tableSessionsWithoutDeletedFixture)
     })
-    it('negative delete account by id that not exists', async () => {
+    it('negative delete session by id that not exists', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/accounts/3')
+        .delete('/api/v0/sessions/13')
         .set('cookie', 'sessionId=abcdef')
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative delete account by id dont send cookie sessionId', async () => {
+    it('negative delete session by id dont send cookie sessionId', async () => {
       const agent = supertest(appHttp)
-      response = await agent.delete('/api/v0/accounts/1')
+      response = await agent.delete('/api/v0/sessions/11')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative delete account by id send cookie wrong sessionId', async () => {
+    it('negative delete session by id send cookie wrong sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/accounts/1')
+        .delete('/api/v0/sessions/11')
         .set('cookie', 'sessionId=xxx')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative delete account by id send cookie sessionId low perm', async () => {
+    it('negative delete session by id send cookie sessionId low perm', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/accounts/1')
+        .delete('/api/v0/sessions/11')
         .set('cookie', 'sessionId=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative delete account by id combine 404 and 401', async () => {
+    it('negative delete session by id combine 404 and 401', async () => {
       const agent = supertest(appHttp)
-      response = await agent.delete('/api/v0/accounts/3')
+      response = await agent.delete('/api/v0/sessions/13')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative delete account by id combine 404 and 403', async () => {
+    it('negative delete session by id combine 404 and 403', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/accounts/3')
+        .delete('/api/v0/sessions/13')
         .set('cookie', 'sessionId=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
   })
 
-  describe('POST /accounts', () => {
-    it('positive post account', async () => {
+  describe('POST /sessions', () => {
+    it('positive post session', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/accounts')
+        .post('/api/v0/sessions')
         .set('cookie', 'sessionId=abcdef')
-        .send(dtoAccountAddFixture)
+        .send(dtoSessionAddFixture)
       expect(response.status).toBe(201)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
-      expect(response.body).toEqual(respAccountAddedFixture)
-      expect(accountsTable).toEqual(tableAccountsWithAddedFixture)
+      expect(response.body).toEqual(respSessionAddedFixture)
+      expect(sessionsTable).toEqual(tableSessionsWithAddedFixture)
     })
-    it('negative post account without necessary field', async () => {
-      const { phone, ...accountDtoAddFixtureBad } = dtoAccountAddFixture
+    it('negative post session without necessary field', async () => {
+      const { nickname, ...sessionDtoAddFixtureBad } = dtoSessionAddFixture
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/accounts')
+        .post('/api/v0/sessions')
         .set('cookie', 'sessionId=abcdef')
-        .send(accountDtoAddFixtureBad)
+        .send(sessionDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: [],
-        phone: {
+        nickname: {
           _errors: ['Пришлите это поле'],
         },
       })
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative post account with unnecessary field', async () => {
-      const accountDtoAddFixtureBad = { ...dtoAccountAddFixture, foo: 'bar' }
+    it('negative post session with unnecessary field', async () => {
+      const sessionDtoAddFixtureBad = { ...dtoSessionAddFixture, foo: 'bar' }
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/accounts')
+        .post('/api/v0/sessions')
         .set('cookie', 'sessionId=abcdef')
-        .send(accountDtoAddFixtureBad)
+        .send(sessionDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: ['Уберите лишние поля из запроса'],
       })
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative post account without cookie sessionId', async () => {
+    it('negative post session without cookie sessionId', async () => {
       const agent = supertest(appHttp)
-      response = await agent.post('/api/v0/accounts').send(dtoAccountAddFixture)
+      response = await agent.post('/api/v0/sessions').send(dtoSessionAddFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative post account with invalid cookie sessionId', async () => {
+    it('negative post session with invalid cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/accounts')
+        .post('/api/v0/sessions')
         .set('cookie', 'sessionId=xxx')
-        .send(dtoAccountAddFixture)
+        .send(dtoSessionAddFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative post account with low perms cookie sessionId', async () => {
+    it('negative post session with low perms cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/accounts')
+        .post('/api/v0/sessions')
         .set('cookie', 'sessionId=fedcba')
-        .send(dtoAccountAddFixture)
+        .send(dtoSessionAddFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
   })
 
-  describe('PATCH /accounts/:id', () => {
-    it('positive patch account by id', async () => {
+  describe('PATCH /sessions/:id', () => {
+    it('positive patch session by id', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/accounts/1')
+        .patch('/api/v0/sessions/11')
         .set('cookie', 'sessionId=abcdef')
-        .send(dtoAccountUpdFixture)
+        .send(dtoSessionUpdFixture)
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
-      expect(response.body).toEqual(respAccountUpdatedFixture)
-      expect(accountsTable).toEqual(tableAccountsWithUpdatedFixture)
+      expect(response.body).toEqual(respSessionUpdatedFixture)
+      expect(sessionsTable).toEqual(tableSessionsWithUpdatedFixture)
     })
-    it('negative patch account by id that not exists', async () => {
+    it('negative patch session by id that not exists', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/accounts/3')
+        .patch('/api/v0/sessions/13')
         .set('cookie', 'sessionId=abcdef')
-        .send(dtoAccountUpdFixture)
+        .send(dtoSessionUpdFixture)
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative patch account by id without necessary field', async () => {
-      const { password, ...accountDtoUpdFixtureBad } = dtoAccountUpdFixture
+    it('negative patch session by id without necessary field', async () => {
+      const { nickname, ...sessionDtoUpdFixtureBad } = dtoSessionUpdFixture
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/accounts/1')
+        .patch('/api/v0/sessions/11')
         .set('cookie', 'sessionId=abcdef')
-        .send(accountDtoUpdFixtureBad)
+        .send(sessionDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: [],
-        password: {
+        nickname: {
           _errors: ['Пришлите это поле'],
         },
       })
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative patch account by id with unnecessary field', async () => {
-      const accountDtoUpdFixtureBad = { ...dtoAccountUpdFixture, foo: 'bar' }
+    it('negative patch session by id with unnecessary field', async () => {
+      const sessionDtoUpdFixtureBad = { ...dtoSessionUpdFixture, foo: 'bar' }
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/accounts/1')
+        .patch('/api/v0/sessions/11')
         .set('cookie', 'sessionId=abcdef')
-        .send(accountDtoUpdFixtureBad)
+        .send(sessionDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: ['Уберите лишние поля из запроса'],
       })
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative patch account by id without cookie sessionId', async () => {
+    it('negative patch session by id without cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/accounts/1')
-        .send(dtoAccountUpdFixture)
+        .patch('/api/v0/sessions/11')
+        .send(dtoSessionUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative patch account by id with invalid cookie sessionId', async () => {
+    it('negative patch session by id with invalid cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/accounts/1')
+        .patch('/api/v0/sessions/11')
         .set('cookie', 'sessionId=xxx')
-        .send(dtoAccountUpdFixture)
+        .send(dtoSessionUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative patch account by id with low perms cookie sessionId', async () => {
+    it('negative patch session by id with low perms cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/accounts/1')
+        .patch('/api/v0/sessions/11')
         .set('cookie', 'sessionId=fedcba')
-        .send(dtoAccountUpdFixture)
+        .send(dtoSessionUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative patch account by id combine 404 and 401', async () => {
+    it('negative patch session by id combine 404 and 401', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/accounts/3')
-        .send(dtoAccountUpdFixture)
+        .patch('/api/v0/sessions/13')
+        .send(dtoSessionUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative patch account by id combine 404 and 403', async () => {
+    it('negative patch session by id combine 404 and 403', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/accounts/3')
+        .patch('/api/v0/sessions/13')
         .set('cookie', 'sessionId=fedcba')
-        .send(dtoAccountUpdFixture)
+        .send(dtoSessionUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(accountsTable).toEqual(tableAccountsAllFixture)
+      expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
   })
 })
 
 let response
 
-it('negative post account with invalid json', async () => {
+it('negative post session with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
-    .post('/api/v0/accounts')
+    .post('/api/v0/sessions')
     .set('cookie', 'sessionId=abcdef')
     .send('{,}')
   expect(response.status).toBe(400)
@@ -421,12 +421,12 @@ it('negative post account with invalid json', async () => {
   expect(response.body).toEqual({
     _errors: ['Пришлите объект в формате JSON'],
   })
-  expect(accountsTable).toEqual(tableAccountsAllFixture)
+  expect(sessionsTable).toEqual(tableSessionsAllFixture)
 })
-it('negative post account with invalid json', async () => {
+it('negative post session with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
-    .post('/api/v0/accounts')
+    .post('/api/v0/sessions')
     .set('cookie', 'sessionId=abcdef')
     .set('content-type', 'application/json')
     .send('{,}')
@@ -436,13 +436,13 @@ it('negative post account with invalid json', async () => {
   expect(response.body).toEqual({
     message: 'Невалидный JSON: {,}',
   })
-  expect(accountsTable).toEqual(tableAccountsAllFixture)
+  expect(sessionsTable).toEqual(tableSessionsAllFixture)
 })
 
-it('negative patch account by id with invalid json', async () => {
+it('negative patch session by id with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
-    .patch('/api/v0/accounts/1')
+    .patch('/api/v0/sessions/11')
     .set('cookie', 'sessionId=abcdef')
     .send('{,}')
   expect(response.status).toBe(400)
@@ -451,12 +451,12 @@ it('negative patch account by id with invalid json', async () => {
   expect(response.body).toEqual({
     _errors: ['Пришлите объект в формате JSON'],
   })
-  expect(accountsTable).toEqual(tableAccountsAllFixture)
+  expect(sessionsTable).toEqual(tableSessionsAllFixture)
 })
-it('negative patch account by id with invalid json', async () => {
+it('negative patch session by id with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
-    .patch('/api/v0/accounts/1')
+    .patch('/api/v0/sessions/11')
     .set('cookie', 'sessionId=abcdef')
     .set('content-type', 'application/json')
     .send('{,}')
@@ -466,5 +466,5 @@ it('negative patch account by id with invalid json', async () => {
   expect(response.body).toEqual({
     message: 'Невалидный JSON: {,}',
   })
-  expect(accountsTable).toEqual(tableAccountsAllFixture)
+  expect(sessionsTable).toEqual(tableSessionsAllFixture)
 })
