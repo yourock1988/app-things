@@ -19,11 +19,12 @@ import tableAccountsWithUpdatedFixture from '../fixtures/accounts/tableAccountsW
 const resetTable = () =>
   accountsTable.splice(0, Infinity, ...structuredClone(accountsSeed))
 
+beforeEach(() => {
+  resetTable()
+})
+
 describe('Accounts REST API', () => {
   let response
-  beforeEach(() => {
-    resetTable()
-  })
   afterEach(() => {
     expect(response.headers['access-control-allow-origin']).toContain('*')
     expect(response.headers['access-control-allow-credentials']).toBeTruthy()
@@ -404,4 +405,66 @@ describe('Accounts REST API', () => {
       expect(accountsTable).toEqual(tableAccountsAllFixture)
     })
   })
+})
+
+let response
+
+it('negative post account with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .post('/api/v0/accounts')
+    .set('cookie', 'sessionId=abcdef')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    _errors: ['Пришлите объект в формате JSON'],
+  })
+  expect(accountsTable).toEqual(tableAccountsAllFixture)
+})
+it('negative post account with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .post('/api/v0/accounts')
+    .set('cookie', 'sessionId=abcdef')
+    .set('content-type', 'application/json')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    message: 'Невалидный JSON: {,}',
+  })
+  expect(accountsTable).toEqual(tableAccountsAllFixture)
+})
+
+it('negative patch account by id with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .patch('/api/v0/accounts/1')
+    .set('cookie', 'sessionId=abcdef')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    _errors: ['Пришлите объект в формате JSON'],
+  })
+  expect(accountsTable).toEqual(tableAccountsAllFixture)
+})
+it('negative patch account by id with invalid json', async () => {
+  const agent = supertest(appHttp)
+  response = await agent
+    .patch('/api/v0/accounts/1')
+    .set('cookie', 'sessionId=abcdef')
+    .set('content-type', 'application/json')
+    .send('{,}')
+  expect(response.status).toBe(400)
+  expect(response.headers['content-type']).toContain('application/json')
+  expect(response.headers['content-type']).toContain('utf-8')
+  expect(response.body).toEqual({
+    message: 'Невалидный JSON: {,}',
+  })
+  expect(accountsTable).toEqual(tableAccountsAllFixture)
 })

@@ -140,6 +140,14 @@ content-type: application/json
 {"nickname":"o","password":"oO1oooo","repasswd":"oO1!oooo","email":"oooooo.oo", "phone": "380667654321", "country":"э", "isAgree": false  }
 ### BAD
 PATCH http://localhost:8004/api/v0/accounts/1/
+
+{,}
+### BAD
+POST http://localhost:8004/api/v0/accounts/
+
+{,}
+### BAD
+PATCH http://localhost:8004/api/v0/accounts/1/
 content-type: application/json
 
 {,}
