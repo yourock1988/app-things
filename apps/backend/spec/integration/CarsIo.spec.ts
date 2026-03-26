@@ -50,7 +50,7 @@ beforeEach(() => {
   resetTable()
 })
 
-describe('client:admin', () => {
+describe('client-role:admin', () => {
   beforeEach(() => {
     return new Promise(resolve => {
       cl = ioc(url, { extraHeaders: { sessionid: 'abcdef' } })
@@ -194,6 +194,232 @@ describe('client:admin', () => {
       e = err
     }
     expect(e.code).toBe(404)
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative patch car by id with invalid id', async () => {
+    let r, e
+    try {
+      r = await clSend(cl, 'car:updateById', '', dtoCarUpdFixture)
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(400)
+    expect(e.details).toEqual({
+      _errors: [],
+      id: { _errors: ['Пришлите корректный ID'] },
+    })
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative patch car by id without necessary field', async () => {
+    const { price, ...carDtoUpdFixtureBad } = dtoCarUpdFixture
+    let r, e
+    try {
+      r = await clSend(cl, 'car:updateById', 1001, carDtoUpdFixtureBad)
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(400)
+    expect(e.details).toEqual({ _errors: [], price: { _errors: ['Required'] } })
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative patch car by id with unnecessary field', async () => {
+    const carDtoUpdFixtureBad = { ...dtoCarUpdFixture, foo: 'bar' }
+    let r, e
+    try {
+      r = await clSend(cl, 'car:updateById', 1001, carDtoUpdFixtureBad)
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(400)
+    expect(e.details).toEqual({
+      _errors: ["Unrecognized key(s) in object: 'foo'"],
+    })
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative patch car by id with invalid json', async () => {
+    let r, e
+    try {
+      r = await clSend(cl, 'car:updateById', 1001, '{,}')
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(400)
+    expect(e.details).toEqual({
+      _errors: ['Expected object, received string'],
+    })
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+})
+
+////////////////////////////////////////////////////////////////////////////////
+
+describe('client-role:user', () => {
+  beforeEach(() => {
+    return new Promise(resolve => {
+      cl = ioc(url, { extraHeaders: { sessionid: 'fedcba' } })
+      cl.on('connect', resolve)
+      io.on('connection', socket => (sv = socket))
+    })
+  })
+  afterEach(() => {
+    cl.disconnect()
+    io.removeAllListeners()
+  })
+
+  it('positive get all cars', async () => {
+    const r = await clSend(cl, 'car:getAll', '', '')
+    expect(r).toEqual(respCarsAllFixture)
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+
+  it('positive get car by id', async () => {
+    const r = await clSend(cl, 'car:getById', 1001, '')
+    expect(r).toEqual(respCarByIdFixture)
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative get car by id that not exists', async () => {
+    let r, e
+    try {
+      r = await clSend(cl, 'car:getById', 1003, '')
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(404)
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative get car by id with invalid id', async () => {
+    let r, e
+    try {
+      r = await clSend(cl, 'car:getById', '', '')
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(400)
+    expect(e.details).toEqual({
+      _errors: [],
+      id: { _errors: ['Пришлите корректный ID'] },
+    })
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+
+  it('negative delete car by id with low perm', async () => {
+    let r, e
+    try {
+      r = await clSend(cl, 'car:removeById', 1001, '')
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(403)
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative delete car by id that not exists with low perm', async () => {
+    let r, e
+    try {
+      r = await clSend(cl, 'car:removeById', 1003, '')
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(403)
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative delete car by id with invalid id', async () => {
+    let r, e
+    try {
+      r = await clSend(cl, 'car:removeById', '', '')
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(400)
+    expect(e.details).toEqual({
+      _errors: [],
+      id: { _errors: ['Пришлите корректный ID'] },
+    })
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+
+  it('negative post car with low perm', async () => {
+    let r, e
+    try {
+      r = await clSend(cl, 'car:add', '', dtoCarAddFixture)
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(403)
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative post car without necessary field', async () => {
+    const { brand, ...carDtoAddFixtureBad } = dtoCarAddFixture
+    let r, e
+    try {
+      r = await clSend(cl, 'car:add', '', carDtoAddFixtureBad)
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(400)
+    expect(e.details).toEqual({ _errors: [], brand: { _errors: ['Required'] } })
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative post car with unnecessary field', async () => {
+    const carDtoAddFixtureBad = { ...dtoCarAddFixture, foo: 'bar' }
+    let r, e
+    try {
+      r = await clSend(cl, 'car:add', '', carDtoAddFixtureBad)
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(400)
+    expect(e.details).toEqual({
+      _errors: ["Unrecognized key(s) in object: 'foo'"],
+    })
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative post car with invalid json', async () => {
+    let r, e
+    try {
+      r = await clSend(cl, 'car:add', '', '{,}')
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(400)
+    expect(e.details).toEqual({
+      _errors: ['Expected object, received string'],
+    })
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+
+  it('negative patch car by id with low perm', async () => {
+    let r, e
+    try {
+      r = await clSend(cl, 'car:updateById', 1001, dtoCarUpdFixture)
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(403)
+    expect(r).toBeUndefined()
+    expect(carsTable).toEqual(tableCarsAllFixture)
+  })
+  it('negative patch car by id that not exists with low perm', async () => {
+    let r, e
+    try {
+      r = await clSend(cl, 'car:updateById', 1003, dtoCarUpdFixture)
+    } catch (err: any) {
+      e = err
+    }
+    expect(e.code).toBe(403)
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
