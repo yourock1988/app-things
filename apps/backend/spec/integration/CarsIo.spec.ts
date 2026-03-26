@@ -481,3 +481,34 @@ describe('client-role:user', () => {
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
 })
+
+////////////////////////////////////////////////////////////////////////////////
+
+describe('negative connect client-role:anon', () => {
+  beforeEach(() => {})
+  afterEach(() => {})
+
+  it('without session cookie', async () => {
+    const r = await new Promise<any>(resolve => {
+      cl = ioc(url)
+      cl.on('connect_error', resolve)
+      io.on('connection', socket => (sv = socket))
+    })
+    expect(r.data.code).toBe(401)
+    expect(r.message).toBe('unauthorized')
+    cl.disconnect()
+    io.removeAllListeners()
+  })
+
+  it('with bad session cookie', async () => {
+    const r = await new Promise<any>(resolve => {
+      cl = ioc(url, { extraHeaders: { sessionid: 'bad' } })
+      cl.on('connect_error', resolve)
+      io.on('connection', socket => (sv = socket))
+    })
+    expect(r.data.code).toBe(401)
+    expect(r.message).toBe('unauthorized')
+    cl.disconnect()
+    io.removeAllListeners()
+  })
+})

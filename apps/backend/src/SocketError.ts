@@ -1,4 +1,6 @@
 export default class SocketError extends Error {
+  public data: object
+
   constructor(
     readonly code: number,
     readonly cause: string,
@@ -6,6 +8,10 @@ export default class SocketError extends Error {
     readonly details?: object,
   ) {
     super(message, { cause })
+    this.data = {
+      code,
+      cause,
+    }
   }
 
   toJSON() {
