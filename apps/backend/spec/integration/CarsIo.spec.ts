@@ -1,17 +1,20 @@
 import { io as ioc } from 'socket.io-client'
 import io from '../../src/appIo'
-import respCarsAllFixture from '../fixtures/cars/respCarsAllFixture'
-import respCarByIdFixture from '../fixtures/cars/respCarByIdFixture'
-import tableCarsAllFixture from '../fixtures/cars/tableCarsAllFixture'
 import carsTable from '../../src/utils/tables/carsTable'
-import tableCarsWithoutDeletedFixture from '../fixtures/cars/tableCarsWithoutDeletedFixture'
-import respCarAddedFixture from '../fixtures/cars/respCarAddedFixture'
-import tableCarsWithAddedFixture from '../fixtures/cars/tableCarsWithAddedFixture'
-import dtoCarAddFixture from '../fixtures/cars/dtoCarAddFixture'
 import carsSeed from '../seeds/carsSeed'
-import tableCarsWithUpdatedFixture from '../fixtures/cars/tableCarsWithUpdatedFixture'
-import respCarUpdatedFixture from '../fixtures/cars/respCarUpdatedFixture'
+
+import dtoCarAddFixture from '../fixtures/cars/dtoCarAddFixture'
 import dtoCarUpdFixture from '../fixtures/cars/dtoCarUpdFixture'
+
+import respCarAddedFixture from '../fixtures/cars/respCarAddedFixture'
+import respCarByIdFixture from '../fixtures/cars/respCarByIdFixture'
+import respCarUpdatedFixture from '../fixtures/cars/respCarUpdatedFixture'
+import respCarsAllFixture from '../fixtures/cars/respCarsAllFixture'
+
+import tableCarsAllFixture from '../fixtures/cars/tableCarsAllFixture'
+import tableCarsWithAddedFixture from '../fixtures/cars/tableCarsWithAddedFixture'
+import tableCarsWithoutDeletedFixture from '../fixtures/cars/tableCarsWithoutDeletedFixture'
+import tableCarsWithUpdatedFixture from '../fixtures/cars/tableCarsWithUpdatedFixture'
 
 const resetTable = () =>
   carsTable.splice(0, Infinity, ...structuredClone(carsSeed))
