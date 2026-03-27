@@ -38,5 +38,17 @@
       "car:removeById"
     ],
     "user": ["authentication", "authorization", "car:getAll", "car:getById"]
+  },
+  "/users": {
+    "admin": [
+      "authentication",
+      "authorization",
+      "user:getAll",
+      "user:getById",
+      "user:add",
+      "user:updateById",
+      "user:removeById"
+    ],
+    "user": ["authentication", "authorization", "user:getAll", "user:getById"]
   }
 }
