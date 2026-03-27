@@ -10,7 +10,7 @@ import CarRouterRest from '../routers/CarRouterRest.js'
 import CarRouterIo from '../routers/CarRouterIo.js'
 import mwCarRest from '../middlewares/mwCarRest.js'
 import mwCarIo from '../middlewares/mwCarIo.js'
-import ID from '../middlewares/ID.js'
+import IDrest from '../middlewares/IDrest.js'
 import IDio from '../middlewares/IDio.js'
 import { AUTHrest, AUTHio } from './authDi.js'
 
@@ -22,7 +22,7 @@ const carControllerRest = new CarControllerRest(carService)
 bindSelf(carControllerRest)
 const carRouterRest = new CarRouterRest(carControllerRest, {
   ...mwCarRest,
-  ID,
+  ID: IDrest,
   AUTH: AUTHrest,
 }).router
 
@@ -30,8 +30,8 @@ const carControllerIo = new CarControllerIo(carService)
 bindSelf(carControllerIo)
 const carRouterIo = new CarRouterIo(carControllerIo, {
   ...mwCarIo,
-  IDio,
-  AUTHio,
+  ID: IDio,
+  AUTH: AUTHio,
 })
 bindSelf(carRouterIo)
 

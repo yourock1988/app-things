@@ -13,36 +13,36 @@ export default class CarRouterIo {
   }
 
   authN(socket, next) {
-    global.console.log(this.mwCarIo)
+    // global.console.log(this.mwCarIo)
     const ctx = {
       socket,
       eventName: 'authentication',
     }
-    this.mwCarIo.AUTHio(ctx, null, next)
+    this.mwCarIo.AUTH(ctx, null, next)
     // next()
   }
 
   authZ(socket, next) {
-    global.console.log(this.mwCarIo)
+    // global.console.log(this.mwCarIo)
     const ctx = {
       socket,
       eventName: 'authorization',
     }
-    this.mwCarIo.AUTHio(ctx, null, next)
+    this.mwCarIo.AUTH(ctx, null, next)
     // next()
   }
 
   connector(socket: any) {
     global.console.log('connector cars')
     const { carControllerIo, mwCarIo } = this
-    const { IDio, ADD, UPD, AUTHio } = mwCarIo
+    const { ID, ADD, UPD, AUTH } = mwCarIo
     const { getAll, getById, add, updateById, removeById } = carControllerIo
 
-    on(socket, 'car:getAll', CoR(AUTHio, getAll))
-    on(socket, 'car:getById', CoR(IDio, AUTHio, getById))
-    on(socket, 'car:add', CoR(ADD, AUTHio, add))
-    on(socket, 'car:updateById', CoR(IDio, UPD, AUTHio, updateById))
-    on(socket, 'car:removeById', CoR(IDio, AUTHio, removeById))
+    on(socket, 'car:getAll', CoR(AUTH, getAll))
+    on(socket, 'car:getById', CoR(ID, AUTH, getById))
+    on(socket, 'car:add', CoR(ADD, AUTH, add))
+    on(socket, 'car:updateById', CoR(ID, UPD, AUTH, updateById))
+    on(socket, 'car:removeById', CoR(ID, AUTH, removeById))
 
     // socket.on('car:getAll', this.carControllerIo.getAll)
     // socket.on('car:getById', this.carControllerIo.getById)

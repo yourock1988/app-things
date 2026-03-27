@@ -8,7 +8,7 @@ import AuthRouterRest from '../routers/AuthRouterRest.js'
 import mwAuthRest from '../middlewares/mwAuthRest.js'
 import SessionRepositoryDb from '../repositories/SessionRepositoryDb.js'
 import sessionsTable from '../../utils/tables/sessionsTable.js'
-import mwAuthorize from '../middlewares/mwAuthorize.js'
+import mwAuthorizeRest from '../middlewares/mwAuthorizeRest.js'
 import mwAuthorizeIo from '../middlewares/mwAuthorizeIo.js'
 
 const accountsOrm = new Orm(accountsTable)
@@ -17,7 +17,7 @@ const accountRepositoryDb = new AccountRepositoryDb(accountsOrm)
 const sessionRepositoryDb = new SessionRepositoryDb(sessionsOrm)
 const authService = new AuthService(accountRepositoryDb, sessionRepositoryDb)
 const authControllerRest = new AuthControllerRest(authService)
-const AUTHrest = mwAuthorize(authService)
+const AUTHrest = mwAuthorizeRest(authService)
 const AUTHio = mwAuthorizeIo(authService)
 
 bindSelf(authControllerRest)

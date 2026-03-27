@@ -10,7 +10,7 @@ import UserRouterRest from '../routers/UserRouterRest.js'
 import UserRouterIo from '../routers/UserRouterIo.js'
 import mwUserRest from '../middlewares/mwUserRest.js'
 import mwUserIo from '../middlewares/mwUserIo.js'
-import ID from '../middlewares/ID.js'
+import IDrest from '../middlewares/IDrest.js'
 import IDio from '../middlewares/IDio.js'
 import { AUTHrest, AUTHio } from './authDi.js'
 
@@ -22,7 +22,7 @@ const userControllerRest = new UserControllerRest(userService)
 bindSelf(userControllerRest)
 const userRouterRest = new UserRouterRest(userControllerRest, {
   ...mwUserRest,
-  ID,
+  ID: IDrest,
   AUTH: AUTHrest,
 }).router
 
@@ -30,8 +30,8 @@ const userControllerIo = new UserControllerIo(userService)
 bindSelf(userControllerIo)
 const userRouterIo = new UserRouterIo(userControllerIo, {
   ...mwUserIo,
-  IDio,
-  AUTHio,
+  ID: IDio,
+  AUTH: AUTHio,
 })
 bindSelf(userRouterIo)
 

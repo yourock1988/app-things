@@ -9,7 +9,7 @@ import SessionControllerRest from '../controllers/SessionControllerRest.js'
 import SessionRouterRest from '../routers/SessionRouterRest.js'
 // import SessionRouterIo from '../routers/SessionRouterIo.js'
 import mwSessionRest from '../middlewares/mwSessionRest.js'
-import ID from '../middlewares/ID.js'
+import IDrest from '../middlewares/IDrest.js'
 import { AUTHrest } from './authDi.js'
 // import mwSessionIo from '../middlewares/mwSessionIo.js'
 
@@ -21,7 +21,7 @@ const sessionControllerRest = new SessionControllerRest(sessionService)
 bindSelf(sessionControllerRest)
 const sessionRouterRest = new SessionRouterRest(sessionControllerRest, {
   ...mwSessionRest,
-  ID,
+  ID: IDrest,
   AUTH: AUTHrest,
 }).router
 

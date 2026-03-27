@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import AuthService from '../../core/services/AuthService.js'
 // import zSessIdField from '../../core/schemas/zSessIdField.js'
 
-export default function mwAuthorize(authService: AuthService) {
+export default function mwAuthorizeRest(authService: AuthService) {
   return function (req: Request, res: Response, next: NextFunction) {
     const {
       cookies: { sessionId },
