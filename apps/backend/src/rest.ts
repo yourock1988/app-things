@@ -22,12 +22,10 @@ rest.use('/*unknown', (req, res) => res.status(404).json(req.params))
 rest.use((err: any, req: Request, res: Response, next: NextFunction) => {
   if (err && 'body' in err && err.status === 400) {
     const message = `Невалидный JSON: ${err.body}`
-    global.console.error(message)
     return res.status(400).send({ message })
   }
   if (err) {
     const message = `Какая-то ошибка сервера: ${err?.message}`
-    global.console.error(message)
     return res.status(500).send({ message })
   }
   return next(err)

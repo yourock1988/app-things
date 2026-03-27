@@ -6,7 +6,6 @@ export default function mwAuthorizeIo(authService: AuthService) {
   return function (ctx, args: any[], next: any) {
     const session = authService.authN(ctx.socket.handshake.headers?.sessionid)
     if (!session) {
-      global.console.log('unauthorized')
       next(new SocketError(401, 'mwAuthorizeIo', 'unauthorized'))
       return
     }
@@ -18,7 +17,6 @@ export default function mwAuthorizeIo(authService: AuthService) {
     const method = ctx.eventName
     const isAccessGranted = authService.authZ(nickname, resource, method)
     if (!isAccessGranted) {
-      global.console.log('forbidden')
       next(new SocketError(403, 'mwAuthorizeIo', 'forbidden'))
       return
     }

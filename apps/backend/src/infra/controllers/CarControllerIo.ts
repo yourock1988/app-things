@@ -20,7 +20,6 @@ export default class CarControllerIo {
 
   getAll(ctx, args) {
     const ack = args.at(2)
-    global.console.log('>>>+all', ctx.eventName)
     const cars = this.carService.getAll()
     ack?.(null, cars)
   }
@@ -28,7 +27,6 @@ export default class CarControllerIo {
   getById(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    global.console.log('>>>+get', ctx.eventName)
     const car = this.carService.getById(+id)
     if (car) ack?.(null, car)
     else ack?.(new SocketError(404, 'getById', `car id ${id} not exists`))
@@ -37,7 +35,6 @@ export default class CarControllerIo {
   add(ctx, args) {
     const ack = args.at(2)
     const dto = args.at(1)
-    global.console.log('>>>+add', ctx.eventName)
     const car = this.carService.add(dto)
     ack?.(null, car)
     ctx.socket.broadcast.emit('bc-cl:car:added', car)
@@ -48,7 +45,6 @@ export default class CarControllerIo {
     const { id } = args.at(0)
     const dto = args.at(1)
     const ack = args.at(2)
-    global.console.log('>>>+upd', ctx.eventName)
     const car = this.carService.updateById(id, dto)
     if (car) {
       ack?.(null, car)
@@ -61,7 +57,6 @@ export default class CarControllerIo {
   removeById(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    global.console.log('>>>+del', ctx.eventName)
     const hasBeenExists = this.carService.removeById(id)
     if (hasBeenExists) {
       ack?.(null)

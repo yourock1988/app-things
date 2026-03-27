@@ -10,13 +10,11 @@ export default class AccountService extends EventEmitter {
 
   getAll(): Account[] {
     const accounts = this.accountRepository.getAll()
-    // accounts.forEach(account => account.sayHello('all'))
     return accounts
   }
 
   getById(id: number): Account | null {
     const account = this.accountRepository.getById(id)
-    // account?.sayHello('only')
     return account
   }
 
@@ -24,7 +22,6 @@ export default class AccountService extends EventEmitter {
     const existedAccount = this.accountRepository.getByNickname(dto.nickname)
     if (existedAccount) return null
     const account = this.accountRepository.add(dto)
-    // account.sayHello('new')
     this.emit('account:added', account)
     return account
   }
@@ -34,7 +31,6 @@ export default class AccountService extends EventEmitter {
       ...dto,
       nickname: `${dto.nickname}!`,
     })
-    // account?.sayHello('upd')
     return account
   }
 

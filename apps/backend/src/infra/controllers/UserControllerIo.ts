@@ -22,7 +22,6 @@ export default class UserControllerIo {
 
   getAll(ctx, args) {
     const ack = args.at(2)
-    global.console.log('>>>+all', ctx.eventName)
     const users = this.userService.getAll()
     ack?.(null, users)
   }
@@ -30,7 +29,6 @@ export default class UserControllerIo {
   getById(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    global.console.log('>>>+get', ctx.eventName)
     const user = this.userService.getById(+id)
     if (user) ack?.(null, user)
     else ack?.(new SocketError(404, 'getById', `user id ${id} not exists`))
@@ -39,7 +37,6 @@ export default class UserControllerIo {
   add(ctx, args) {
     const ack = args.at(2)
     const dto = args.at(1)
-    global.console.log('>>>+add', ctx.eventName)
     const user = this.userService.add(dto)
     ack?.(null, user)
     ctx.socket.broadcast.emit('bc-cl:user:added', user)
@@ -50,7 +47,6 @@ export default class UserControllerIo {
     const { id } = args.at(0)
     const dto = args.at(1)
     const ack = args.at(2)
-    global.console.log('>>>+upd', ctx.eventName)
     const user = this.userService.updateById(id, dto)
     if (user) {
       ack?.(null, user)
@@ -63,7 +59,6 @@ export default class UserControllerIo {
   removeById(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    global.console.log('>>>+del', ctx.eventName)
     const hasBeenExists = this.userService.removeById(id)
     if (hasBeenExists) {
       ack?.(null)

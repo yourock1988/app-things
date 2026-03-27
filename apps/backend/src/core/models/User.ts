@@ -4,11 +4,12 @@ export default class User {
     readonly nickname: string,
     readonly password: string,
     readonly email: string,
-    readonly money: number
+    readonly money: number,
   ) {}
 
+  // eslint-disable-next-line
   sayHello(info: string) {
-    global.console.log(`${info} : hello! i am ${this.nickname}`)
+    // global.console.log(`${info} : hello! i am ${this.nickname}`)
   }
 
   // eslint-disable-next-line class-methods-use-this

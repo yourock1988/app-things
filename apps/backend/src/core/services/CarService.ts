@@ -10,19 +10,16 @@ export default class CarService extends EventEmitter {
 
   getAll(): Car[] {
     const cars = this.carRepository.getAll()
-    // cars.forEach(car => car.sayHello('all'))
     return cars
   }
 
   getById(id: number): Car | null {
     const car = this.carRepository.getById(id)
-    // car?.sayHello('only')
     return car
   }
 
   add(dto: TCarAddDto): Car {
     const car = this.carRepository.add(dto)
-    // car.sayHello('new')
     this.emit('car:added', car)
     return car
   }
@@ -32,7 +29,6 @@ export default class CarService extends EventEmitter {
       ...dto,
       price: dto.price * 10,
     })
-    // car?.sayHello('upd')
     return car
   }
 
