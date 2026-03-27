@@ -1,5 +1,4 @@
 import bindSelf from '@yourock88/bind-self'
-import serv from './servDi.js'
 // import Orm from '../../utils/Orm.js'
 // import teapotsTable from '../../utils/tables/teapotsTable.js'
 // import TeapotRepositoryDb from '../repositories/TeapotRepositoryDb.js'
@@ -9,7 +8,7 @@ import TeapotControllerIo from '../controllers/TeapotControllerIo.js'
 // import TeapotRouterRest from '../routers/TeapotRouterRest.js'
 import TeapotRouterIo from '../routers/TeapotRouterIo.js'
 // import mwTeapotRest from '../middlewares/mwTeapotRest.js'
-import mwTeapotIo from '../middlewares/mwTeapotIo.js'
+// import mwTeapotIo from '../middlewares/mwTeapotIo.js'
 // import ID from '../middlewares/ID.js'
 // import { AUTH } from './authDi.js'
 import Teapot from '../../core/models/Teapot.js'
@@ -28,10 +27,10 @@ const teapotService = new TeapotService(teapot)
 //   AUTH,
 // }).router
 
-const teapotControllerIo = new TeapotControllerIo(teapotService, serv.getIo())
-bindSelf(teapotControllerIo)
-const teapotRouterIo = new TeapotRouterIo(teapotControllerIo, mwTeapotIo)
-bindSelf(teapotRouterIo)
+// const teapotControllerIo = new TeapotControllerIo(teapotService, serv.getIo())
+// bindSelf(teapotControllerIo)
+// const teapotRouterIo = new TeapotRouterIo(teapotControllerIo, mwTeapotIo)
+// bindSelf(teapotRouterIo)
 
-export default teapotRouterIo
+// export default teapotRouterIo
 // export { teapotRouterIo, teapotRouterRest }
