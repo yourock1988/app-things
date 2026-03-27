@@ -5,7 +5,7 @@ import SocketError from '../../SocketError.js'
 import User from '../../core/models/User.js'
 // import { TAckFn } from '../../TAckFn.js'
 
-export default class UserControllerIo2 {
+export default class UserControllerIo {
   constructor(
     readonly userService: UserService,
     private userNamespace: Namespace | null = null,

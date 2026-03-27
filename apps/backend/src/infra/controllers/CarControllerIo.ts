@@ -5,7 +5,7 @@ import SocketError from '../../SocketError.js'
 import Car from '../../core/models/Car.js'
 // import { TAckFn } from '../../TAckFn.js'
 
-export default class CarControllerIo2 {
+export default class CarControllerIo {
   constructor(
     readonly carService: CarService,
     private carNamespace: Namespace | null = null,

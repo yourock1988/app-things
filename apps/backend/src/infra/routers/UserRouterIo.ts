@@ -2,7 +2,7 @@ import { Namespace, Server } from 'socket.io'
 import on from '../../utils/on.js'
 import CoR from '../../utils/CoR.js'
 
-export default class UserRouterIo2 {
+export default class UserRouterIo {
   constructor(
     readonly userControllerIo: any,
     readonly mwUserIo: any,

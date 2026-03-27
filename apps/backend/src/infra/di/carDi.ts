@@ -5,11 +5,11 @@ import carsTable from '../../utils/tables/carsTable.js'
 import CarRepositoryDb from '../repositories/CarRepositoryDb.js'
 import CarService from '../../core/services/CarService.js'
 import CarControllerRest from '../controllers/CarControllerRest.js'
-import CarControllerIo2 from '../controllers/CarControllerIo2.js'
+import CarControllerIo from '../controllers/CarControllerIo.js'
 import CarRouterRest from '../routers/CarRouterRest.js'
-import CarRouterIo2 from '../routers/CarRouterIo2.js'
+import CarRouterIo from '../routers/CarRouterIo.js'
 import mwCarRest from '../middlewares/mwCarRest.js'
-import mwCarIo from '../middlewares/mwCarIo2.js'
+import mwCarIo from '../middlewares/mwCarIo.js'
 import ID from '../middlewares/ID.js'
 import IDio from '../middlewares/IDio.js'
 import { AUTHrest, AUTHio } from './authDi.js'
@@ -26,9 +26,9 @@ const carRouterRest = new CarRouterRest(carControllerRest, {
   AUTH: AUTHrest,
 }).router
 
-const carControllerIo = new CarControllerIo2(carService)
+const carControllerIo = new CarControllerIo(carService)
 bindSelf(carControllerIo)
-const carRouterIo = new CarRouterIo2(carControllerIo, {
+const carRouterIo = new CarRouterIo(carControllerIo, {
   ...mwCarIo,
   IDio,
   AUTHio,
