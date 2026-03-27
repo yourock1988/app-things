@@ -3,7 +3,6 @@ import { Server, Namespace } from 'socket.io'
 import CarService from '../../core/services/CarService.js'
 import SocketError from '../../SocketError.js'
 import Car from '../../core/models/Car.js'
-// import { TAckFn } from '../../TAckFn.js'
 
 export default class CarControllerIo {
   constructor(

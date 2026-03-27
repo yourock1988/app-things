@@ -9,6 +9,4 @@ const bus = new Bus(io)
 bus.use('/cars', carRouterIo)
 bus.use('/users', userRouterIo)
 
-// io.of('/cars').use(car.middlware).on('connection', car.connect)
-
 export default io

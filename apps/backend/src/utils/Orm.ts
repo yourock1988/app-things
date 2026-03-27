@@ -12,7 +12,6 @@ export default class Orm {
   }
 
   insert(record: any) {
-    // TODO: убрать randId в mapper
     const appendedRecord = { ...record, id: randId() }
     this.table.push(appendedRecord)
     return appendedRecord

@@ -5,8 +5,6 @@ import CarMapper from '../mappers/CarMapper.js'
 import Car from '../../core/models/Car.js'
 import Orm from '../../utils/Orm.js'
 
-// TODO: в конструктор как mapper, потом в di
-
 export default class CarRepositoryDb implements ICarRepository {
   constructor(readonly orm: Orm) {}
 

@@ -1,5 +1,4 @@
 import bindSelf from '@yourock88/bind-self'
-// import serv from './servDi.js'
 import Orm from '../../utils/Orm.js'
 import carsTable from '../../utils/tables/carsTable.js'
 import CarRepositoryDb from '../repositories/CarRepositoryDb.js'

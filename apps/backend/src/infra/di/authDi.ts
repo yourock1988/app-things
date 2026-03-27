@@ -25,16 +25,3 @@ bindSelf(authControllerRest)
 const authRouterRest = new AuthRouterRest(authControllerRest, mwAuthRest).router
 
 export { authRouterRest, AUTHrest, AUTHio }
-
-// import serv from './servDi.js'
-// import AccountControllerIo from '../controllers/AccountControllerIo.js'
-// import AccountRouterIo from '../routers/AccountRouterIo.js'
-// import mwAccountIo from '../middlewares/mwAccountIo.js'
-// const accountControllerIo = new AccountControllerIo(
-//   accountService,
-//   serv.getIo()
-// )
-// bindSelf(accountControllerIo)
-// const accountRouterIo = new AccountRouterIo(accountControllerIo, mwAccountIo)
-// bindSelf(accountRouterIo)
-// export { accountRouterIo, accountRouterRest }

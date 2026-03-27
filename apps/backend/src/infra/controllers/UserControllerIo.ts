@@ -3,7 +3,6 @@ import { Server, Namespace } from 'socket.io'
 import UserService from '../../core/services/UserService.js'
 import SocketError from '../../SocketError.js'
 import User from '../../core/models/User.js'
-// import { TAckFn } from '../../TAckFn.js'
 
 export default class UserControllerIo {
   constructor(

@@ -1,5 +1,4 @@
 import bindSelf from '@yourock88/bind-self'
-// import serv from './servDi.js'
 import Orm from '../../utils/Orm.js'
 import usersTable from '../../utils/tables/usersTable.js'
 import UserRepositoryDb from '../repositories/UserRepositoryDb.js'

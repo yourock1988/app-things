@@ -1,9 +1,7 @@
 import { Server, Socket } from 'socket.io'
-import TeapotService from '../../core/services/TeapotService.js'
-// import Teapot from '../../core/models/Teapot.js'
-// import SocketError from '../../SocketError.js'
 import { TAckFn } from '../../TAckFn.js'
 import { TTeapotDto } from '../../core/dtos/TTeapotDtos.js'
+import TeapotService from '../../core/services/TeapotService.js'
 
 const rand = () => 42 // Math.trunc(Math.random() * 420)
 
