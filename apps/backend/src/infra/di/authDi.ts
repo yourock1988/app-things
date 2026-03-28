@@ -9,6 +9,7 @@ import mwAuthRest from '../middlewares/mwAuthRest.js'
 import SessionRepositoryDb from '../repositories/SessionRepositoryDb.js'
 import sessionsTable from '../../utils/tables/sessionsTable.js'
 import mwAuthorizeRest from '../middlewares/mwAuthorizeRest.js'
+import mwAuthenticateIo from '../middlewares/mwAuthenticateIo.js'
 import mwAuthorizeIo from '../middlewares/mwAuthorizeIo.js'
 
 const accountsOrm = new Orm(accountsTable)
@@ -18,10 +19,11 @@ const sessionRepositoryDb = new SessionRepositoryDb(sessionsOrm)
 const authService = new AuthService(accountRepositoryDb, sessionRepositoryDb)
 const authControllerRest = new AuthControllerRest(authService)
 const AUTHrest = mwAuthorizeRest(authService)
-const AUTHio = mwAuthorizeIo(authService)
+const AUTHNio = mwAuthenticateIo(authService)
+const AUTHZio = mwAuthorizeIo(authService)
 
 bindSelf(authControllerRest)
 
 const authRouterRest = new AuthRouterRest(authControllerRest, mwAuthRest).router
 
-export { authRouterRest, AUTHrest, AUTHio }
+export { authRouterRest, AUTHrest, AUTHZio, AUTHNio }

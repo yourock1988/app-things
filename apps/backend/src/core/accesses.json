@@ -29,7 +29,6 @@
   },
   "/cars": {
     "admin": [
-      "authentication",
       "authorization",
       "car:getAll",
       "car:getById",
@@ -37,11 +36,10 @@
       "car:updateById",
       "car:removeById"
     ],
-    "user": ["authentication", "authorization", "car:getAll", "car:getById"]
+    "user": ["authorization", "car:getAll", "car:getById"]
   },
   "/users": {
     "admin": [
-      "authentication",
       "authorization",
       "user:getAll",
       "user:getById",
@@ -49,6 +47,6 @@
       "user:updateById",
       "user:removeById"
     ],
-    "user": ["authentication", "authorization", "user:getAll", "user:getById"]
+    "user": ["authorization", "user:getAll", "user:getById"]
   }
 }

@@ -13,30 +13,24 @@ export default class UserRouterIo {
   }
 
   authN(socket, next) {
-    const ctx = {
-      socket,
-      eventName: 'authentication',
-    }
-    this.mwUserIo.AUTH(ctx, null, next)
+    const ctx = { socket, eventName: 'authentication' }
+    this.mwUserIo.AUTHN(ctx, null, next)
   }
 
   authZ(socket, next) {
-    const ctx = {
-      socket,
-      eventName: 'authorization',
-    }
-    this.mwUserIo.AUTH(ctx, null, next)
+    const ctx = { socket, eventName: 'authorization' }
+    this.mwUserIo.AUTHZ(ctx, null, next)
   }
 
   connector(socket: any) {
     const { userControllerIo, mwUserIo } = this
-    const { ID, ADD, UPD, AUTH } = mwUserIo
+    const { ID, ADD, UPD, AUTHZ } = mwUserIo
     const { getAll, getById, add, updateById, removeById } = userControllerIo
 
-    on(socket, 'user:getAll', CoR(AUTH, getAll))
-    on(socket, 'user:getById', CoR(ID, AUTH, getById))
-    on(socket, 'user:add', CoR(ADD, AUTH, add))
-    on(socket, 'user:updateById', CoR(ID, UPD, AUTH, updateById))
-    on(socket, 'user:removeById', CoR(ID, AUTH, removeById))
+    on(socket, 'user:getAll', CoR(AUTHZ, getAll))
+    on(socket, 'user:getById', CoR(ID, AUTHZ, getById))
+    on(socket, 'user:add', CoR(ADD, AUTHZ, add))
+    on(socket, 'user:updateById', CoR(ID, UPD, AUTHZ, updateById))
+    on(socket, 'user:removeById', CoR(ID, AUTHZ, removeById))
   }
 }

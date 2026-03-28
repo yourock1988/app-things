@@ -11,7 +11,7 @@ import mwUserRest from '../middlewares/mwUserRest.js'
 import mwUserIo from '../middlewares/mwUserIo.js'
 import IDrest from '../middlewares/IDrest.js'
 import IDio from '../middlewares/IDio.js'
-import { AUTHrest, AUTHio } from './authDi.js'
+import { AUTHrest, AUTHNio, AUTHZio } from './authDi.js'
 
 const usersOrm = new Orm(usersTable)
 const userRepositoryDb = new UserRepositoryDb(usersOrm)
@@ -30,7 +30,8 @@ bindSelf(userControllerIo)
 const userRouterIo = new UserRouterIo(userControllerIo, {
   ...mwUserIo,
   ID: IDio,
-  AUTH: AUTHio,
+  AUTHN: AUTHNio,
+  AUTHZ: AUTHZio,
 })
 bindSelf(userRouterIo)
 
