@@ -33,6 +33,22 @@ const accountsTable: TAccountRecord[] = [
     updatedAt: 1764588532222,
     createdAt: 1764588532222,
   },
+  {
+    id: 3,
+    nickname: 'ggg',
+    password: 'Qq1!ssss',
+    email: 'user@web-app.click',
+    phone: '+380661112233',
+    country: 'Italy',
+    isAgree: true,
+    role: 'guest',
+    isLoggedIn: false,
+    // favoriteNumbers: [33, 303],
+    // authorizationsCount: 0,
+    // authenticationsCount: 0,
+    updatedAt: 1764588532222,
+    createdAt: 1764588532222,
+  },
 ]
 
 export default accountsTable

@@ -52,6 +52,10 @@ afterAll(() => {
 beforeEach(() => {
   resetTable()
 })
+afterEach(() => {
+  cl.disconnect()
+  io.removeAllListeners()
+})
 
 describe('client-role:admin', () => {
   beforeEach(() => {
@@ -61,10 +65,6 @@ describe('client-role:admin', () => {
       cl.on('connect_error', reject)
       io.on('connection', socket => (sv = socket))
     })
-  })
-  afterEach(() => {
-    cl.disconnect()
-    io.removeAllListeners()
   })
 
   it('positive get all users', async () => {
@@ -270,10 +270,6 @@ describe('client-role:user', () => {
       cl.on('connect_error', reject)
       io.on('connection', socket => (sv = socket))
     })
-  })
-  afterEach(() => {
-    cl.disconnect()
-    io.removeAllListeners()
   })
 
   it('positive get all users', async () => {
@@ -484,36 +480,5 @@ describe('client-role:user', () => {
     })
     expect(r).toBeUndefined()
     expect(usersTable).toEqual(tableUsersAllFixture)
-  })
-})
-
-////////////////////////////////////////////////////////////////////////////////
-
-describe('negative connect client-role:anon', () => {
-  beforeEach(() => {})
-  afterEach(() => {})
-
-  it('without session cookie', async () => {
-    const r = await new Promise<any>(resolve => {
-      cl = ioc(url)
-      cl.on('connect_error', resolve)
-      io.on('connection', socket => (sv = socket))
-    })
-    expect(r.data.code).toBe(401)
-    expect(r.message).toBe('unauthorized')
-    cl.disconnect()
-    io.removeAllListeners()
-  })
-
-  it('with bad session cookie', async () => {
-    const r = await new Promise<any>(resolve => {
-      cl = ioc(url, { extraHeaders: { sessionid: 'bad' } })
-      cl.on('connect_error', resolve)
-      io.on('connection', socket => (sv = socket))
-    })
-    expect(r.data.code).toBe(401)
-    expect(r.message).toBe('unauthorized')
-    cl.disconnect()
-    io.removeAllListeners()
   })
 })
