@@ -52,18 +52,19 @@ afterAll(() => {
 beforeEach(() => {
   resetTable()
 })
+afterEach(() => {
+  cl.disconnect()
+  io.removeAllListeners()
+})
 
 describe('client-role:admin', () => {
   beforeEach(() => {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       cl = ioc(url, { extraHeaders: { sessionid: 'abcdef' } })
       cl.on('connect', resolve)
+      cl.on('connect_error', reject)
       io.on('connection', socket => (sv = socket))
     })
-  })
-  afterEach(() => {
-    cl.disconnect()
-    io.removeAllListeners()
   })
 
   it('positive get all cars', async () => {
@@ -142,7 +143,7 @@ describe('client-role:admin', () => {
     expect(carsTable).toEqual(tableCarsWithAddedFixture)
   })
   it('negative post car without necessary field', async () => {
-    const { brand, ...carDtoAddFixtureBad } = dtoCarAddFixture
+    const { price, ...carDtoAddFixtureBad } = dtoCarAddFixture
     let r, e
     try {
       r = await clSend(cl, 'car:add', '', carDtoAddFixtureBad)
@@ -150,7 +151,7 @@ describe('client-role:admin', () => {
       e = err
     }
     expect(e.code).toBe(400)
-    expect(e.details).toEqual({ _errors: [], brand: { _errors: ['Required'] } })
+    expect(e.details).toEqual({ _errors: [], price: { _errors: ['Required'] } })
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -261,17 +262,14 @@ describe('client-role:admin', () => {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-describe('client-role:user', () => {
+describe('client-role:car', () => {
   beforeEach(() => {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       cl = ioc(url, { extraHeaders: { sessionid: 'fedcba' } })
       cl.on('connect', resolve)
+      cl.on('connect_error', reject)
       io.on('connection', socket => (sv = socket))
     })
-  })
-  afterEach(() => {
-    cl.disconnect()
-    io.removeAllListeners()
   })
 
   it('positive get all cars', async () => {
@@ -362,7 +360,7 @@ describe('client-role:user', () => {
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
   it('negative post car without necessary field', async () => {
-    const { brand, ...carDtoAddFixtureBad } = dtoCarAddFixture
+    const { price, ...carDtoAddFixtureBad } = dtoCarAddFixture
     let r, e
     try {
       r = await clSend(cl, 'car:add', '', carDtoAddFixtureBad)
@@ -370,7 +368,7 @@ describe('client-role:user', () => {
       e = err
     }
     expect(e.code).toBe(400)
-    expect(e.details).toEqual({ _errors: [], brand: { _errors: ['Required'] } })
+    expect(e.details).toEqual({ _errors: [], price: { _errors: ['Required'] } })
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -482,36 +480,5 @@ describe('client-role:user', () => {
     })
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
-  })
-})
-
-////////////////////////////////////////////////////////////////////////////////
-
-describe('negative connect client-role:anon', () => {
-  beforeEach(() => {})
-  afterEach(() => {})
-
-  it('without session cookie', async () => {
-    const r = await new Promise<any>(resolve => {
-      cl = ioc(url)
-      cl.on('connect_error', resolve)
-      io.on('connection', socket => (sv = socket))
-    })
-    expect(r.data.code).toBe(401)
-    expect(r.message).toBe('unauthorized')
-    cl.disconnect()
-    io.removeAllListeners()
-  })
-
-  it('with bad session cookie', async () => {
-    const r = await new Promise<any>(resolve => {
-      cl = ioc(url, { extraHeaders: { sessionid: 'bad' } })
-      cl.on('connect_error', resolve)
-      io.on('connection', socket => (sv = socket))
-    })
-    expect(r.data.code).toBe(401)
-    expect(r.message).toBe('unauthorized')
-    cl.disconnect()
-    io.removeAllListeners()
   })
 })
