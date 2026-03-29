@@ -37,7 +37,7 @@ export default class UserControllerIo {
   add(ctx, args) {
     const ack = args.at(2)
     const dto = args.at(1)
-    const user = this.userService.add(dto)
+    const user = this.userService.add(dto).toJSON()
     ack?.(null, user)
     ctx.socket.broadcast.emit('bc-cl:user:added', user)
     // this.io.emit('bc-sv:user:added', user)
@@ -49,8 +49,9 @@ export default class UserControllerIo {
     const ack = args.at(2)
     const user = this.userService.updateById(id, dto)
     if (user) {
-      ack?.(null, user)
-      ctx.socket.broadcast.emit('bc-cl:user:updated', user)
+      const userJson = user.toJSON()
+      ack?.(null, userJson)
+      ctx.socket.broadcast.emit('bc-cl:user:updated', userJson)
     } else {
       ack?.(new SocketError(404, 'updateById', `user id ${id} not exists`))
     }
@@ -62,7 +63,7 @@ export default class UserControllerIo {
     const hasBeenExists = this.userService.removeById(id)
     if (hasBeenExists) {
       ack?.(null)
-      ctx.socket.broadcast.emit('bc-cl:user:deleted', id)
+      ctx.socket.broadcast.emit('bc-cl:user:deleted')
     } else {
       ack?.(new SocketError(404, 'removeById', `user id ${id} not exists`))
     }
