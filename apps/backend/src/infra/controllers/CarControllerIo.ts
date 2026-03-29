@@ -35,7 +35,7 @@ export default class CarControllerIo {
   add(ctx, args) {
     const ack = args.at(2)
     const dto = args.at(1)
-    const car = this.carService.add(dto)
+    const car = this.carService.add(dto).toJSON()
     ack?.(null, car)
     ctx.socket.broadcast.emit('bc-cl:car:added', car)
     // this.io.emit('bc-sv:car:added', car)
@@ -47,8 +47,9 @@ export default class CarControllerIo {
     const ack = args.at(2)
     const car = this.carService.updateById(id, dto)
     if (car) {
-      ack?.(null, car)
-      ctx.socket.broadcast.emit('bc-cl:car:updated', car)
+      const carJson = car.toJSON()
+      ack?.(null, carJson)
+      ctx.socket.broadcast.emit('bc-cl:car:updated', carJson)
     } else {
       ack?.(new SocketError(404, 'updateById', `car id ${id} not exists`))
     }
@@ -60,7 +61,7 @@ export default class CarControllerIo {
     const hasBeenExists = this.carService.removeById(id)
     if (hasBeenExists) {
       ack?.(null)
-      ctx.socket.broadcast.emit('bc-cl:car:deleted', id)
+      ctx.socket.broadcast.emit('bc-cl:car:deleted')
     } else {
       ack?.(new SocketError(404, 'removeById', `car id ${id} not exists`))
     }

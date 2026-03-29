@@ -1,7 +1,7 @@
 import { io as ioc } from 'socket.io-client'
 import io from '../../src/appIo'
 
-const port = 3335
+const port = 20020
 const ns = '/users'
 const url = `http://localhost:${port}${ns}`
 let sv, cl

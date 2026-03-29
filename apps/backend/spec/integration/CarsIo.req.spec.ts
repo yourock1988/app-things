@@ -38,7 +38,7 @@ function clientListen(socket, eventName) {
   })
 }
 
-const port = 3333
+const port = 20011
 const ns = '/cars'
 const url = `http://localhost:${port}${ns}`
 let sv, cl
@@ -262,7 +262,7 @@ describe('client-role:admin', () => {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-describe('client-role:car', () => {
+describe('client-role:user', () => {
   beforeEach(() => {
     return new Promise((resolve, reject) => {
       cl = ioc(url, { extraHeaders: { sessionid: 'fedcba' } })

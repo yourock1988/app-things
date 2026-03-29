@@ -38,7 +38,7 @@ function clientListen(socket, eventName) {
   })
 }
 
-const port = 3334
+const port = 20021
 const ns = '/users'
 const url = `http://localhost:${port}${ns}`
 let sv, cl

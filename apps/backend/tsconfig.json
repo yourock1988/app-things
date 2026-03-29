@@ -2,7 +2,7 @@
   "compilerOptions": {
     "typeRoots": ["../../node_modules/@types", "../../node_modules", "./types"],
     "types": ["vitest/globals", "node"],
-    "target": "es2022",
+    "target": "es2024",
     "module": "ESNext",
     "moduleResolution": "node",
     "outDir": "../../build/server",
