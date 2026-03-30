@@ -15,9 +15,9 @@ import tableAccountsAllFixture from '../fixtures/accounts/tableAccountsAllFixtur
 import tableAccountsWithAddedFixture from '../fixtures/accounts/tableAccountsWithAddedFixture.js'
 import tableAccountsWithoutDeletedFixture from '../fixtures/accounts/tableAccountsWithoutDeletedFixture.js'
 import tableAccountsWithUpdatedFixture from '../fixtures/accounts/tableAccountsWithUpdatedFixture.js'
+import { makeResetTable } from './helpers'
 
-const resetTable = () =>
-  accountsTable.splice(0, Infinity, ...structuredClone(accountsSeed))
+const resetTable = makeResetTable(accountsTable, accountsSeed)
 
 beforeEach(() => {
   resetTable()

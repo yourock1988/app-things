@@ -4,7 +4,7 @@ import io from '../../src/appIo'
 const port = 20010
 const ns = '/cars'
 const url = `http://localhost:${port}${ns}`
-let sv, cl
+let cl
 
 beforeAll(() => {
   io.listen(port)
@@ -14,7 +14,6 @@ afterAll(() => {
 })
 afterEach(() => {
   cl.disconnect()
-  io.removeAllListeners()
 })
 
 it('connected with admin session cookie', async () => {
@@ -22,7 +21,6 @@ it('connected with admin session cookie', async () => {
     cl = ioc(url, { extraHeaders: { sessionid: 'abcdef' } })
     cl.on('connect', resolve)
     cl.on('connect_error', reject)
-    io.on('connection', socket => (sv = socket))
   })
   expect(r).toBeUndefined()
   expect(cl.connected).toBeTruthy()
@@ -33,7 +31,6 @@ it('connected with car session cookie', async () => {
     cl = ioc(url, { extraHeaders: { sessionid: 'fedcba' } })
     cl.on('connect', resolve)
     cl.on('connect_error', reject)
-    io.on('connection', socket => (sv = socket))
   })
   expect(r).toBeUndefined()
   expect(cl.connected).toBeTruthy()
@@ -44,7 +41,6 @@ it('unauthorized without session cookie', async () => {
     cl = ioc(url)
     cl.on('connect', reject)
     cl.on('connect_error', resolve)
-    io.on('connection', socket => (sv = socket))
   })
   expect(r.data.code).toBe(401)
   expect(r.message).toBe('unauthorized')
@@ -54,7 +50,6 @@ it('unauthorized with bad session cookie', async () => {
     cl = ioc(url, { extraHeaders: { sessionid: 'bad' } })
     cl.on('connect', reject)
     cl.on('connect_error', resolve)
-    io.on('connection', socket => (sv = socket))
   })
   expect(r.data.code).toBe(401)
   expect(r.message).toBe('unauthorized')
@@ -64,7 +59,6 @@ it('forbidden with low perm session cookie', async () => {
     cl = ioc(url, { extraHeaders: { sessionid: 'ffffff' } })
     cl.on('connect', reject)
     cl.on('connect_error', resolve)
-    io.on('connection', socket => (sv = socket))
   })
   expect(r.data.code).toBe(403)
   expect(r.message).toBe('forbidden')

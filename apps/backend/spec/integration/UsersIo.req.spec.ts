@@ -15,33 +15,13 @@ import tableUsersAllFixture from '../fixtures/users/tableUsersAllFixture'
 import tableUsersWithAddedFixture from '../fixtures/users/tableUsersWithAddedFixture'
 import tableUsersWithoutDeletedFixture from '../fixtures/users/tableUsersWithoutDeletedFixture'
 import tableUsersWithUpdatedFixture from '../fixtures/users/tableUsersWithUpdatedFixture'
+import { makeResetTable, clSend } from './helpers'
 
-const resetTable = () =>
-  usersTable.splice(0, Infinity, ...structuredClone(usersSeed))
-
-function waitFor(socket, event) {
-  return new Promise(resolve => {
-    socket.once(event, resolve)
-  })
-}
-function clSend(socket, ...args) {
-  return new Promise((resolve, reject) => {
-    socket.emit(...args, (err, data) => {
-      if (err) reject(err)
-      else resolve(data)
-    })
-  })
-}
-function clientListen(socket, eventName) {
-  return new Promise(resolve => {
-    socket.once(eventName, resolve)
-  })
-}
-
+const resetTable = makeResetTable(usersTable, usersSeed)
 const port = 20021
 const ns = '/users'
 const url = `http://localhost:${port}${ns}`
-let sv, cl
+let cl
 
 beforeAll(() => {
   io.listen(port)
@@ -54,7 +34,6 @@ beforeEach(() => {
 })
 afterEach(() => {
   cl.disconnect()
-  io.removeAllListeners()
 })
 
 describe('client-role:admin', () => {
@@ -63,7 +42,6 @@ describe('client-role:admin', () => {
       cl = ioc(url, { extraHeaders: { sessionid: 'abcdef' } })
       cl.on('connect', resolve)
       cl.on('connect_error', reject)
-      io.on('connection', socket => (sv = socket))
     })
   })
 
@@ -268,7 +246,6 @@ describe('client-role:user', () => {
       cl = ioc(url, { extraHeaders: { sessionid: 'fedcba' } })
       cl.on('connect', resolve)
       cl.on('connect_error', reject)
-      io.on('connection', socket => (sv = socket))
     })
   })
 

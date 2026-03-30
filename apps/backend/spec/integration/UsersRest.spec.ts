@@ -15,9 +15,9 @@ import tableUsersAllFixture from '../fixtures/users/tableUsersAllFixture.js'
 import tableUsersWithAddedFixture from '../fixtures/users/tableUsersWithAddedFixture.js'
 import tableUsersWithoutDeletedFixture from '../fixtures/users/tableUsersWithoutDeletedFixture'
 import tableUsersWithUpdatedFixture from '../fixtures/users/tableUsersWithUpdatedFixture.js'
+import { makeResetTable } from './helpers'
 
-const resetTable = () =>
-  usersTable.splice(0, Infinity, ...structuredClone(usersSeed))
+const resetTable = makeResetTable(usersTable, usersSeed)
 
 beforeEach(() => {
   resetTable()

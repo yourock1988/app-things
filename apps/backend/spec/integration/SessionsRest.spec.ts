@@ -15,9 +15,9 @@ import tableSessionsAllFixture from '../fixtures/sessions/tableSessionsAllFixtur
 import tableSessionsWithAddedFixture from '../fixtures/sessions/tableSessionsWithAddedFixture.js'
 import tableSessionsWithoutDeletedFixture from '../fixtures/sessions/tableSessionsWithoutDeletedFixture.js'
 import tableSessionsWithUpdatedFixture from '../fixtures/sessions/tableSessionsWithUpdatedFixture.js'
+import { makeResetTable } from './helpers'
 
-const resetTable = () =>
-  sessionsTable.splice(0, Infinity, ...structuredClone(sessionsSeed))
+const resetTable = makeResetTable(sessionsTable, sessionsSeed)
 
 beforeEach(() => {
   resetTable()

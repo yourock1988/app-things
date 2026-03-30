@@ -15,9 +15,9 @@ import tableCarsAllFixture from '../fixtures/cars/tableCarsAllFixture.js'
 import tableCarsWithAddedFixture from '../fixtures/cars/tableCarsWithAddedFixture.js'
 import tableCarsWithoutDeletedFixture from '../fixtures/cars/tableCarsWithoutDeletedFixture.js'
 import tableCarsWithUpdatedFixture from '../fixtures/cars/tableCarsWithUpdatedFixture.js'
+import { makeResetTable } from './helpers'
 
-const resetTable = () =>
-  carsTable.splice(0, Infinity, ...structuredClone(carsSeed))
+const resetTable = makeResetTable(carsTable, carsSeed)
 
 beforeEach(() => {
   resetTable()
