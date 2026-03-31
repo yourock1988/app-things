@@ -50,6 +50,7 @@ export default {
       if (err) {
         this.isEditing = true
         this.err = err
+        console.log(err)
       } else {
         this.$emit('updated', data)
         this.isEditing = false
@@ -61,7 +62,8 @@ export default {
       const [err] = await this.removeById(this.entity.id)
       this.disabled = false
       this.loading = false
-      if (!err) this.$emit('deleted', this.entity.id)
+      if (err) console.log(err)
+      else this.$emit('deleted', this.entity.id)
     },
   },
 }

@@ -1,5 +1,9 @@
-import socket from '@/api/ws/index.js'
+import { init } from '@/api/ws/cars.js'
 import compilePlugin from '../compilePlugin.js'
+
+const socket = init()
+socket.open()
+// socket.close()
 
 export default compilePlugin('cars', (mutatorName, commit) => {
   window.console.log('PLUGIN CARS:', mutatorName)

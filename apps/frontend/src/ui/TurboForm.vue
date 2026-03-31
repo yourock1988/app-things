@@ -26,7 +26,13 @@ export default {
       const [err, data] = await this.add({ ...this.dto })
       this.loading = false
       if (err) {
-        this.err = err
+        // FIXME: ай донт хэв но тайм фо зе манкью пиздец
+        if (typeof err === 'number') {
+          this.err = { _errors: [err] }
+        } else {
+          this.err = err
+        }
+        console.log(err)
       } else {
         this.$emit('submitted', { ...data })
         this.dto = this.initTest()
