@@ -67,7 +67,7 @@ it('positive delete car by id', async () => {
   const promise1 = clListen(cl1, 'bc-cl:car:deleted')
   const r = await clSend(cl0, 'car:removeById', 1001, '')
   const r1 = await promise1
-  expect(r1).toEqual(r)
-  expect(r1).toBeUndefined()
+  expect(r).toBeUndefined()
+  expect(r1).toBe(1001)
   expect(mockHandler).not.toHaveBeenCalled()
 })
