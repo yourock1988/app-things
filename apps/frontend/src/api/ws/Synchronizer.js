@@ -19,7 +19,7 @@ export default class Synchronizer extends EventEmitter {
   #emitWithAck(eventName) {
     this.#awaitingCounter += 1
     return new Promise(resolve => {
-      this.#socket.emit(eventName, undefined, (err, data) => {
+      this.#socket.emit(eventName, '', '', (err, data) => {
         this.#awaitingCounter -= 1
         if (err) resolve([err.details ?? err])
         else resolve([null, data])
