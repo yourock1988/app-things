@@ -1,14 +1,9 @@
 <script>
 import AppLayout from '@/components/AppLayout.vue'
-import PagePicsum from '@/pages/PagePicsum.vue'
-import PageUsers from '@/pages/PageUsers.vue'
-// import socket from '@/api/ws/index.js'
 
 export default {
   components: {
     AppLayout,
-    PagePicsum,
-    PageUsers,
   },
 
   computed: {
@@ -18,10 +13,6 @@ export default {
         .filter(r => r.path)
         .map(r => r.path)
     },
-  },
-
-  created() {
-    // socket.connect()
   },
 }
 </script>

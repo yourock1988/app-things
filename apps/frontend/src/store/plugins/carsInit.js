@@ -1,20 +1,16 @@
-import { init } from '@/api/ws/cars.js'
+import { carsNs } from '@/api/ws/cars.js'
 import compilePlugin from '../compilePlugin.js'
-
-const socket = init()
-socket.open()
-// socket.close()
 
 export default compilePlugin('cars', (mutatorName, commit) => {
   window.console.log('PLUGIN CARS:', mutatorName)
   if (mutatorName === 'SUBSCRIBE') {
-    socket.on('bc-cl:car:added', data => commit('ADD_CAR', data))
-    socket.on('bc-cl:car:updated', data => commit('UPDATE_CAR_BY_ID', data))
-    socket.on('bc-cl:car:deleted', data => commit('REMOVE_CAR_BY_ID', data))
+    carsNs.on('bc-cl:car:added', data => commit('ADD_CAR', data))
+    carsNs.on('bc-cl:car:updated', data => commit('UPDATE_CAR_BY_ID', data))
+    carsNs.on('bc-cl:car:deleted', data => commit('REMOVE_CAR_BY_ID', data))
   }
   if (mutatorName === 'UNSUBSCRIBE') {
-    socket.removeAllListeners('bc-cl:car:added')
-    socket.removeAllListeners('bc-cl:car:updated')
-    socket.removeAllListeners('bc-cl:car:deleted')
+    carsNs.removeAllListeners('bc-cl:car:added')
+    carsNs.removeAllListeners('bc-cl:car:updated')
+    carsNs.removeAllListeners('bc-cl:car:deleted')
   }
 })
