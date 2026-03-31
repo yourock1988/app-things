@@ -63,7 +63,7 @@ export default class UserControllerIo {
     const hasBeenExists = this.userService.removeById(id)
     if (hasBeenExists) {
       ack?.(null)
-      ctx.socket.broadcast.emit('bc-cl:user:deleted')
+      ctx.socket.broadcast.emit('bc-cl:user:deleted', id)
     } else {
       ack?.(new SocketError(404, 'removeById', `user id ${id} not exists`))
     }

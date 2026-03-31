@@ -61,7 +61,7 @@ export default class CarControllerIo {
     const hasBeenExists = this.carService.removeById(id)
     if (hasBeenExists) {
       ack?.(null)
-      ctx.socket.broadcast.emit('bc-cl:car:deleted')
+      ctx.socket.broadcast.emit('bc-cl:car:deleted', id)
     } else {
       ack?.(new SocketError(404, 'removeById', `car id ${id} not exists`))
     }

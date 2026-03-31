@@ -7,8 +7,13 @@ import { authRouterRest } from './infra/di/authDi.js'
 import { userRouterRest } from './infra/di/userDi.js'
 import { carRouterRest } from './infra/di/carDi.js'
 
+const APP_ORIGIN = String(process.env.APP_ORIGIN)
+const WEB_DEV_SERV_PORT = 9000
 const rest = Router()
-const corsOptions = { credentials: true }
+const corsOptions = {
+  origin: [APP_ORIGIN, `http://localhost:${WEB_DEV_SERV_PORT}`],
+  credentials: true,
+}
 
 rest.use([cookieParser(), json(), cors(corsOptions)])
 
