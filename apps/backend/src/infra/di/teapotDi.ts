@@ -12,6 +12,7 @@ import TeapotRouterIo from '../routers/TeapotRouterIo.js'
 // import ID from '../middlewares/ID.js'
 // import { AUTH } from './authDi.js'
 import Teapot from '../../core/models/Teapot.js'
+import { AUTHNio, AUTHZio } from './authDi.js'
 
 const teapot = new Teapot(42, 0)
 // const teapotsOrm = new Orm(teapotsTable)
@@ -27,10 +28,14 @@ const teapotService = new TeapotService(teapot)
 //   AUTH,
 // }).router
 
-// const teapotControllerIo = new TeapotControllerIo(teapotService, serv.getIo())
-// bindSelf(teapotControllerIo)
-// const teapotRouterIo = new TeapotRouterIo(teapotControllerIo, mwTeapotIo)
-// bindSelf(teapotRouterIo)
+const teapotControllerIo = new TeapotControllerIo(teapotService)
+bindSelf(teapotControllerIo)
+const teapotRouterIo = new TeapotRouterIo(teapotControllerIo, {
+  // ...mwTeapotIo,
+  AUTHN: AUTHNio,
+  AUTHZ: AUTHZio,
+})
+bindSelf(teapotRouterIo)
 
-// export default teapotRouterIo
+export default teapotRouterIo
 // export { teapotRouterIo, teapotRouterRest }

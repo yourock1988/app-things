@@ -48,5 +48,20 @@
       "user:removeById"
     ],
     "user": ["authorization", "user:getAll", "user:getById"]
+  },
+  "/teapot": {
+    "admin": [
+      "authorization",
+      "cl:teapot-show",
+      "cl:teapot-turn_on",
+      "cl:teapot-turn_off",
+      "cl:teapot-drain",
+      "teapot:getAll",
+      "teapot:getById",
+      "teapot:add",
+      "teapot:updateById",
+      "teapot:removeById"
+    ],
+    "user": ["authorization", "user:getAll", "user:getById"]
   }
 }

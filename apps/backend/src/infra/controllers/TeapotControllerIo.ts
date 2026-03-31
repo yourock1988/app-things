@@ -1,5 +1,4 @@
-import { Server, Socket } from 'socket.io'
-import { TAckFn } from '../../TAckFn.js'
+import { Server, Namespace } from 'socket.io'
 import { TTeapotDto } from '../../core/dtos/TTeapotDtos.js'
 import TeapotService from '../../core/services/TeapotService.js'
 
@@ -8,41 +7,51 @@ const rand = () => 42 // Math.trunc(Math.random() * 420)
 export default class TeapotControllerIo {
   constructor(
     readonly teapotService: TeapotService,
-    readonly io: Server,
+    private teapotNamespace: Namespace | null = null,
+    private io: Server | null = null,
   ) {
     teapotService.on('teapot-ready', (t: TTeapotDto) =>
-      io.emit('bc-sv:teapot-ready', t),
+      io?.emit('bc-sv:teapot-ready', t),
     )
   }
 
-  show(_, ack: TAckFn<TTeapotDto>) {
+  init(teapotNamespace: Namespace, io: Server) {
+    this.teapotNamespace = teapotNamespace
+    this.io = io
+  }
+
+  show(ctx, args) {
+    const ack = args.at(2)
     const teapot = this.teapotService.show()
     setTimeout(() => ack?.(null, teapot), rand())
   }
 
-  handleTurnOn(_, ack: TAckFn<TTeapotDto>, socket: Socket) {
+  handleTurnOn(ctx, args) {
+    const ack = args.at(2)
     const isOk = this.teapotService.doTurnOn()
     const teapot = this.teapotService.show()
     setTimeout(() => {
-      if (isOk) socket.broadcast.emit('bc-cl:teapot-turned_on', teapot)
+      if (isOk) ctx.socket.broadcast.emit('bc-cl:teapot-turned_on', teapot)
       ack?.(null, teapot)
     }, rand())
   }
 
-  handleTurnOff(_, ack: TAckFn<TTeapotDto>, socket: Socket) {
+  handleTurnOff(ctx, args) {
+    const ack = args.at(2)
     const isOk = this.teapotService.doTurnOff()
     const teapot = this.teapotService.show()
     setTimeout(() => {
-      if (isOk) socket.broadcast.emit('bc-cl:teapot-turned_off', teapot)
+      if (isOk) ctx.socket.broadcast.emit('bc-cl:teapot-turned_off', teapot)
       ack?.(null, teapot)
     }, rand())
   }
 
-  handleDrain(_, ack: TAckFn<TTeapotDto>, socket: Socket) {
+  handleDrain(ctx, args) {
+    const ack = args.at(2)
     const isOk = this.teapotService.doTurnDrain()
     const teapot = this.teapotService.show()
     setTimeout(() => {
-      if (isOk) socket.broadcast.emit('bc-cl:teapot-drained', teapot)
+      if (isOk) ctx.socket.broadcast.emit('bc-cl:teapot-drained', teapot)
       ack?.(null, teapot)
     }, rand())
   }
