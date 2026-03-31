@@ -1,4 +1,4 @@
-import { usersNs } from '@/api/ws/users.js'
+import { usersNs } from '@/api/io/users.js'
 import compilePlugin from '../compilePlugin.js'
 
 export default compilePlugin('users', (mutatorName, commit) => {

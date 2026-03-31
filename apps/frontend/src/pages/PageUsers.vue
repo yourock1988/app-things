@@ -1,5 +1,5 @@
 <script>
-import { add, getAll, removeById, updateById } from '@/api/ws/users.js'
+import { add, getAll, removeById, updateById } from '@/api/io/users.js'
 import TurboTable from '@/ui/TurboTable.vue'
 import TurboForm from '@/ui/TurboForm.vue'
 import FormSheet from '@/ui/FormSheet.vue'
