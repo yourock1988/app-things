@@ -1,5 +1,5 @@
-import initNamespace from './initNamespace.js'
-import ack from './ack.js'
+import initNamespace from '@/utils/initNamespace.js'
+import ack from '@/utils/ack.js'
 
 export const carsNs = initNamespace('/cars')
 

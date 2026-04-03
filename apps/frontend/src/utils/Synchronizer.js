@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3'
 
-export default class Synchronizer extends EventEmitter {
+export default class IoSynchronizer extends EventEmitter {
   #awaitingCounter = 0
 
   #eventsDict

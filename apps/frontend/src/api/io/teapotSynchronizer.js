@@ -1,5 +1,5 @@
-import initNamespace from './initNamespace.js'
-import Synchronizer from './Synchronizer.js'
+import initNamespace from '@/utils/initNamespace.js'
+import Synchronizer from '@/utils/Synchronizer.js'
 
 export const socket = initNamespace('/teapot')
 
