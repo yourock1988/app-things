@@ -1,4 +1,5 @@
 import { z } from 'zod'
-import zTeapotDto from '../schemas/zTeapotDtos'
+import { zTeapotAddDto, zTeapotUpdateDto } from '../schemas/zTeapotDtos'
 
-export type TTeapotDto = z.infer<typeof zTeapotDto>
+export type TTeapotAddDto = z.infer<typeof zTeapotAddDto>
+export type TTeapotUpdateDto = z.infer<typeof zTeapotUpdateDto>

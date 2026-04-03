@@ -1,0 +1,138 @@
+GET http://localhost:8004/api/v0/teapots/
+###
+GET http://localhost:8004/api/v0/teapots/4201/
+###
+DELETE http://localhost:8004/api/v0/teapots/4202/
+cookie: sessionId=abcdef
+###
+POST http://localhost:8004/api/v0/teapots/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"temperature": 42, "ongoing": "idle"}
+###
+
+PATCH http://localhost:8004/api/v0/teapots/4201/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"temperature": 33, "ongoing": "idle"}
+###
+###
+
+###
+###
+###
+### AuthN PROBLEMS
+
+DELETE http://localhost:8004/api/v0/teapots/4201/
+cookie: sessionId=xxx
+###
+POST http://localhost:8004/api/v0/teapots/
+cookie: sessionId=xxx
+content-type: application/json
+
+{"temperature": 42, "ongoing": "idle"}
+###
+
+PATCH http://localhost:8004/api/v0/teapots/4201/
+cookie: sessionId=xxx
+content-type: application/json
+
+{"temperature": 42, "ongoing": "idle"}
+###
+###
+
+###
+###
+###
+### AuthZ PROBLEMS
+
+DELETE http://localhost:8004/api/v0/teapots/4201/
+cookie: sessionId=fedcba
+###
+POST http://localhost:8004/api/v0/teapots/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"temperature": 42, "ongoing": "idle"}
+###
+
+PATCH http://localhost:8004/api/v0/teapots/4201/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"temperature": 42, "ongoing": "idle"}
+###
+###
+
+###
+###
+###
+### Path WRONG
+
+GET http://localhost:8004/api/v0/teapots/6666/
+###
+DELETE http://localhost:8004/api/v0/teapots/6666/
+cookie: sessionId=fedcba
+###
+PATCH http://localhost:8004/api/v0/teapots/6666/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"temperature": 42, "ongoing": "idle"}
+###
+GET http://localhost:8004/api/v0/teapots/-6666/
+###
+DELETE http://localhost:8004/api/v0/teapots/-6666/
+cookie: sessionId=fedcba
+###
+PATCH http://localhost:8004/api/v0/teapots/-6666/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"foo": "bar"}
+###
+GET http://localhost:8004/api/v0/teapots/xxxx/
+###
+DELETE http://localhost:8004/api/v0/teapots/xxxx/
+cookie: sessionId=fedcba
+###
+PATCH http://localhost:8004/api/v0/teapots/xxxx/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"foo": "bar"}
+###
+###
+
+###
+###
+###
+### Payload WRONG
+
+PATCH http://localhost:8004/api/v0/teapots/4201/
+content-type: application/json
+
+{"price":-666,"engine":"V666", "hasTurbo": "true", "hp": 1000}
+### BAD
+POST http://localhost:8004/api/v0/teapots/
+content-type: application/json
+
+{"type":"SU","brand":"Te","model":6,"price":-6,"engine":"f","hasTurbo": 0, "hp": 42}
+### BAD
+PATCH http://localhost:8004/api/v0/teapots/4201/
+content-type: application/json
+
+{,}
+### BAD
+POST http://localhost:8004/api/v0/teapots/
+content-type: application/json
+
+{,}
+### BAD
+
+GET http://localhost:8004/api/v0/teapots/4201/foo/321/
+###
+DELETE http://localhost:8004/api/v0/teapots/4201/foo/321/
+###

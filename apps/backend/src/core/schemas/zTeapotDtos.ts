@@ -1,12 +1,17 @@
 import { z } from 'zod'
 
-const id = z.number().min(1)
 const temperature = z.number().min(0).max(100)
 const ongoing = z.enum(['idle', 'boiling'])
 
-export default z
+export const zTeapotAddDto = z
   .object({
-    id,
+    temperature,
+    ongoing,
+  })
+  .strict()
+
+export const zTeapotUpdateDto = z
+  .object({
     temperature,
     ongoing,
   })

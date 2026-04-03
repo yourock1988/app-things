@@ -1,5 +1,5 @@
 import { Server, Namespace } from 'socket.io'
-import { TTeapotDto } from '../../core/dtos/TTeapotDtos.js'
+import { TTeapotUpdateDto } from '../../core/dtos/TTeapotDtos.js'
 import TeapotService from '../../core/services/TeapotService.js'
 
 const rand = () => 42 // Math.trunc(Math.random() * 420)
@@ -10,7 +10,7 @@ export default class TeapotControllerIo {
     private teapotNamespace: Namespace | null = null,
     private io: Server | null = null,
   ) {
-    teapotService.on('teapot-ready', (t: TTeapotDto) =>
+    teapotService.on('teapot-ready', (t: TTeapotUpdateDto) =>
       io?.emit('bc-sv:teapot-ready', t),
     )
   }

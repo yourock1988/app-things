@@ -27,6 +27,14 @@
     "admin": ["GET", "PATCH", "DELETE"],
     "user": ["GET"]
   },
+  "/api/v0/teapots": {
+    "admin": ["GET", "POST"],
+    "user": ["GET"]
+  },
+  "/api/v0/teapots/:id": {
+    "admin": ["GET", "PATCH", "DELETE"],
+    "user": ["GET"]
+  },
   "/cars": {
     "admin": [
       "authorization",

@@ -18,7 +18,7 @@ export default class CarMapper {
   }
 
   static toRecord(dto: TCarAddDto): TCarRecord {
-    const userRecord: TCarRecord = {
+    const carRecord: TCarRecord = {
       id: randId(),
       type: dto.type,
       brand: dto.brand,
@@ -29,6 +29,6 @@ export default class CarMapper {
       hp: dto.hp,
       isRunning: Math.random() > 0.5,
     }
-    return userRecord
+    return carRecord
   }
 }
