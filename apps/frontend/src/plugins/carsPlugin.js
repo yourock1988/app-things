@@ -1,4 +1,4 @@
-import { carsNs } from '@/api/io/cars.js'
+import { carsNs } from '@/api/io/carsApiIo.js'
 import compilePlugin from '@/utils/compilePlugin.js'
 
 export default compilePlugin('cars', (mutatorName, commit) => {

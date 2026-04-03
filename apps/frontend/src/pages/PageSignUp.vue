@@ -1,5 +1,5 @@
 <script>
-import signUp from '@/api/rest/auth/signUp.js'
+import signUp from '@/api/rest/auth/signUpApiRest.js'
 import CardSuccess from '@/ui/CardSuccess.vue'
 import TurboForm from '@/ui/TurboForm.vue'
 import FormSheet from '@/ui/FormSheet.vue'

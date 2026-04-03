@@ -1,6 +1,6 @@
 <script>
 import { mapMutations, mapState } from 'vuex/dist/vuex.cjs.js'
-import signIn from '@/api/rest/auth/signIn.js'
+import signIn from '@/api/rest/auth/signInApiRest.js'
 import CardSuccess from '@/ui/CardSuccess.vue'
 import TurboForm from '@/ui/TurboForm.vue'
 import FormSheet from '@/ui/FormSheet.vue'

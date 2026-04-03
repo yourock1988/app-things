@@ -1,5 +1,10 @@
 <script>
-import { add, getAll, removeById, updateById } from '@/api/rest/accounts.js'
+import {
+  add,
+  getAll,
+  removeById,
+  updateById,
+} from '@/api/rest/accountsApiRest.js'
 import TurboTable from '@/ui/TurboTable.vue'
 import TurboForm from '@/ui/TurboForm.vue'
 import FormSheet from '@/ui/FormSheet.vue'
