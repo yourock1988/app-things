@@ -12,7 +12,7 @@ export default {
   },
 
   computed: {
-    ...mapState('auth', ['session']),
+    ...mapState('authStore', ['session']),
   },
 }
 </script>

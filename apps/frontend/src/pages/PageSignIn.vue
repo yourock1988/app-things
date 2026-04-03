@@ -17,11 +17,11 @@ export default {
     }
   },
   computed: {
-    ...mapState('auth', ['session']),
+    ...mapState('authStore', ['session']),
   },
   methods: {
     // ...mapActions('auth', ['signIn']),
-    ...mapMutations('auth', ['SET_SESSION']),
+    ...mapMutations('authStore', ['SET_SESSION']),
     add: signIn,
     submit(session) {
       this.SET_SESSION(session)

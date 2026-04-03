@@ -39,7 +39,7 @@ export default {
   computed: {
     users: {
       get() {
-        return this.$store.state.users.users
+        return this.$store.state.usersStore.users
       },
       set(val) {
         this.SET_USERS(val)
@@ -47,7 +47,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('users', [
+    ...mapMutations('usersStore', [
       // eslint-disable-next-line vue/no-unused-properties
       'SUBSCRIBE',
       'UNSUBSCRIBE',

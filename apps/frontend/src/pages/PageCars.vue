@@ -46,7 +46,7 @@ export default {
   computed: {
     cars: {
       get() {
-        return this.$store.state.cars.cars
+        return this.$store.state.carsStore.cars
       },
       set(val) {
         this.SET_CARS(val)
@@ -54,7 +54,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('cars', [
+    ...mapMutations('carsStore', [
       // eslint-disable-next-line vue/no-unused-properties
       'SUBSCRIBE',
       'UNSUBSCRIBE',

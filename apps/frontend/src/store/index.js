@@ -7,9 +7,9 @@ import authStore from './stores/authStore.js'
 
 export default createStore({
   modules: {
-    users: usersStore,
-    cars: carsStore,
-    auth: authStore,
+    usersStore,
+    carsStore,
+    authStore,
   },
   plugins: [usersPlugin, carsPlugin],
 })

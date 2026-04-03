@@ -6,7 +6,7 @@ export default {
   components: { TurboBtn },
 
   computed: {
-    ...mapState('users', ['err']),
+    ...mapState('usersStore', ['err']),
   },
 
   methods: {
