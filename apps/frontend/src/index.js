@@ -1,7 +1,7 @@
 import '@fortawesome/fontawesome-free/css/all.css'
 import vuetifyConfig from '@/../vuetify-config.js'
 import router from '@/router.js'
-import store from '@/store'
+import store from '@/store.js'
 import App from '@/App.vue'
 import * as Vue from 'vue'
 
