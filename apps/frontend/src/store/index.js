@@ -1,17 +1,15 @@
 import { createStore } from 'vuex'
-import usersInit from './plugins/usersInit.js'
-import carsInit from './plugins/carsInit.js'
-import users from './modules/users.js'
-import cars from './modules/cars.js'
-import auth from './modules/auth.js'
+import usersPlugin from './plugins/usersPlugin.js'
+import carsPlugin from './plugins/carsPlugin.js'
+import usersStore from './stores/usersStore.js'
+import carsStore from './stores/carsStore.js'
+import authStore from './stores/authStore.js'
 
-const store = createStore({
+export default createStore({
   modules: {
-    users,
-    cars,
-    auth,
+    users: usersStore,
+    cars: carsStore,
+    auth: authStore,
   },
-  plugins: [usersInit, carsInit],
+  plugins: [usersPlugin, carsPlugin],
 })
-
-export default store

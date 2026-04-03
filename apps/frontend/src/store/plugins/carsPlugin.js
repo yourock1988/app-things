@@ -1,5 +1,5 @@
 import { carsNs } from '@/api/io/cars.js'
-import compilePlugin from '../compilePlugin.js'
+import compilePlugin from '@/utils/compilePlugin.js'
 
 export default compilePlugin('cars', (mutatorName, commit) => {
   window.console.log('PLUGIN CARS:', mutatorName)

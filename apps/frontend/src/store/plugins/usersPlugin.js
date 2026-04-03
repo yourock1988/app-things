@@ -1,5 +1,5 @@
 import { usersNs } from '@/api/io/users.js'
-import compilePlugin from '../compilePlugin.js'
+import compilePlugin from '@/utils/compilePlugin.js'
 
 export default compilePlugin('users', (mutatorName, commit) => {
   window.console.log('PLUGIN USERS:', mutatorName)
