@@ -2,7 +2,7 @@ import { Server, Namespace } from 'socket.io'
 import { TTeapotUpdateDto } from '../../core/dtos/TTeapotDtos.js'
 import TeapotService from '../../core/services/TeapotService.js'
 
-const rand = () => 42 // Math.trunc(Math.random() * 420)
+// const rand = () => 42 // Math.trunc(Math.random() * 420)
 
 export default class TeapotControllerIo {
   constructor(
@@ -13,6 +13,12 @@ export default class TeapotControllerIo {
     teapotService.on('teapot-ready', (t: TTeapotUpdateDto) =>
       io?.emit('bc-sv:teapot-ready', t),
     )
+    teapotService.on('teapot-turned_on', (t: TTeapotUpdateDto) =>
+      io?.emit('bc-sv:teapot-turned_on', t),
+    )
+    teapotService.on('teapot-already_turned_on', (t: TTeapotUpdateDto) =>
+      io?.emit('bc-sv:teapot-already_turned_on', t),
+    )
   }
 
   init(teapotNamespace: Namespace, io: Server) {
@@ -21,38 +27,49 @@ export default class TeapotControllerIo {
   }
 
   show(ctx, args) {
+    const { id } = args.at(0)
     const ack = args.at(2)
-    const teapot = this.teapotService.show()
-    setTimeout(() => ack?.(null, teapot), rand())
+    const teapot = this.teapotService.show(id)
+    if (teapot) ack?.(null, teapot)
+    else ack({ err: '404' })
   }
 
   handleTurnOn(ctx, args) {
+    const { id } = args.at(0)
     const ack = args.at(2)
-    const isOk = this.teapotService.doTurnOn()
-    const teapot = this.teapotService.show()
-    setTimeout(() => {
+    const teapot = this.teapotService.show(id)
+    if (!teapot) {
+      ack({ err: '404' })
+    } else {
+      const isOk = this.teapotService.doTurnOn(id)
       if (isOk) ctx.socket.broadcast.emit('bc-cl:teapot-turned_on', teapot)
       ack?.(null, teapot)
-    }, rand())
+    }
   }
 
   handleTurnOff(ctx, args) {
+    const { id } = args.at(0)
     const ack = args.at(2)
-    const isOk = this.teapotService.doTurnOff()
-    const teapot = this.teapotService.show()
-    setTimeout(() => {
+    const teapot = this.teapotService.show(id)
+    if (!teapot) {
+      ack({ err: '404' })
+    } else {
+      const isOk = this.teapotService.doTurnOff(id)
       if (isOk) ctx.socket.broadcast.emit('bc-cl:teapot-turned_off', teapot)
       ack?.(null, teapot)
-    }, rand())
+    }
   }
 
   handleDrain(ctx, args) {
+    const { id } = args.at(0)
     const ack = args.at(2)
-    const isOk = this.teapotService.doTurnDrain()
-    const teapot = this.teapotService.show()
-    setTimeout(() => {
+    const teapot = this.teapotService.show(id)
+    if (!teapot) {
+      ack({ err: '404' })
+    } else {
+      const isOk = this.teapotService.doTurnDrain(id)
       if (isOk) ctx.socket.broadcast.emit('bc-cl:teapot-drained', teapot)
       ack?.(null, teapot)
-    }, rand())
+    }
   }
 }

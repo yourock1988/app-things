@@ -1,7 +1,7 @@
 import initNamespace from '@/utils/initNamespace.js'
 import Synchronizer from '@/utils/Synchronizer.js'
 
-export const socket = initNamespace('/teapot')
+export const socket = initNamespace('/teapots')
 
 socket.open()
 // socket.close()

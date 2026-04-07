@@ -6,6 +6,7 @@ export default class TeapotRouterIo {
   constructor(
     readonly teapotControllerIo: any,
     readonly mwTeapotIo: any,
+    readonly teapotControllerIo2: any,
   ) {}
 
   public init(teapotNamespace: Namespace, io: Server) {
@@ -23,18 +24,17 @@ export default class TeapotRouterIo {
   }
 
   connector(socket: any) {
-    const { teapotControllerIo, mwTeapotIo } = this
-    // const { ID, ADD, UPD, AUTHZ } = mwTeapotIo
-    // const { getAll, getById, add, updateById, removeById } = teapotControllerIo
-    const { AUTHZ } = mwTeapotIo
+    const { teapotControllerIo, teapotControllerIo2, mwTeapotIo } = this
+    const { getAll, getById, add, updateById, removeById } = teapotControllerIo2
     const { show, handleTurnOn, handleTurnOff, handleDrain } =
       teapotControllerIo
+    const { ID, ADD, UPD, AUTHZ } = mwTeapotIo
 
-    // on(socket, 'teapot:getAll', CoR(AUTHZ, getAll))
-    // on(socket, 'teapot:getById', CoR(ID, AUTHZ, getById))
-    // on(socket, 'teapot:add', CoR(ADD, AUTHZ, add))
-    // on(socket, 'teapot:updateById', CoR(ID, UPD, AUTHZ, updateById))
-    // on(socket, 'teapot:removeById', CoR(ID, AUTHZ, removeById))
+    on(socket, 'teapot:getAll', CoR(AUTHZ, getAll))
+    on(socket, 'teapot:getById', CoR(ID, AUTHZ, getById))
+    on(socket, 'teapot:add', CoR(ADD, AUTHZ, add))
+    on(socket, 'teapot:updateById', CoR(ID, UPD, AUTHZ, updateById))
+    on(socket, 'teapot:removeById', CoR(ID, AUTHZ, removeById))
 
     on(socket, 'cl:teapot-show', CoR(AUTHZ, show))
     on(socket, 'cl:teapot-turn_on', CoR(AUTHZ, handleTurnOn))

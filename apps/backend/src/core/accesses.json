@@ -57,7 +57,7 @@
     ],
     "user": ["authorization", "user:getAll", "user:getById"]
   },
-  "/teapot": {
+  "/teapots": {
     "admin": [
       "authorization",
       "cl:teapot-show",

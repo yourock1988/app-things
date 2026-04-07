@@ -1,43 +1,46 @@
 import EventEmitter from 'node:events'
 import Teapot from '../models/Teapot.js'
+import { ITeapotRepository } from '../i-repositories/ITeapotRepository.js'
+
+const teapotsOnline: Teapot[] = []
 
 export default class TeapotService extends EventEmitter {
-  constructor(readonly teapot: Teapot) {
+  constructor(readonly teapotRepository: ITeapotRepository) {
     super()
-    teapot.on('ready', () => this.emit('teapot-ready', teapot))
   }
 
-  show() {
-    return this.teapot
-  }
-
-  doTurnOn() {
-    if (this.teapot.ongoing === 'boiling' || this.teapot.temperature === 100) {
-      return false
-      // this.emit('teapot-already_turned_on', this.teapot)
+  show(id: number): Teapot | null {
+    let teapot = teapotsOnline.find(to => to.id === id) ?? null
+    if (!teapot) {
+      teapot = this.teapotRepository.getById(id)
+      if (!teapot) return null
+      teapotsOnline.push(teapot)
+      teapot.on('ready', () => this.emit('teapot-ready', teapot))
     }
-    this.teapot.turnOn()
-    return true
-    // this.emit('teapot-turned_on', this.teapot)
+    return teapot
   }
 
-  doTurnOff() {
-    if (this.teapot.ongoing === 'idle') {
-      return false
-      // this.emit('teapot-already_turned_off', this.teapot)
-    }
-    this.teapot.turnOff()
-    return true
-    // this.emit('teapot-turned_off', this.teapot)
+  doTurnOn(id: number): boolean | null {
+    const teapot = this.show(id)
+    if (!teapot) return null
+    return teapot.turnOn()
+    // if (teapot.turnOn()) this.emit('teapot-turned_on', teapot)
+    // else this.emit('teapot-already_turned_on', teapot)
   }
 
-  doTurnDrain() {
-    if (this.teapot.temperature === 0 && this.teapot.ongoing === 'idle') {
-      return false
-      // this.emit('teapot-already_turned_drain', this.teapot)
-    }
-    this.teapot.turnDrain()
-    return true
-    // this.emit('teapot-turned_drain', this.teapot)
+  doTurnOff(id: number): boolean | null {
+    const teapot = this.show(id)
+    if (!teapot) return null
+    return teapot.turnOff()
+    // if (teapot.turnOff()) this.emit('teapot-turned_off', teapot)
+    // else this.emit('teapot-already_turned_off', teapot)
+  }
+
+  doTurnDrain(id: number): boolean | null {
+    const teapot = this.show(id)
+    if (!teapot) return null
+    return teapot.turnDrain()
+    // if (teapot.turnDrain()) this.emit('teapot-turned_drain', teapot)
+    // else this.emit('teapot-already_turned_drain', teapot)
   }
 }

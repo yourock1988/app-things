@@ -1,41 +1,41 @@
-import bindSelf from '@yourock88/bind-self'
-// import Orm from '../../utils/Orm.js'
-// import teapotsTable from '../../utils/tables/teapotsTable.js'
-// import TeapotRepositoryDb from '../repositories/TeapotRepositoryDb.js'
-import TeapotService from '../../core/services/TeapotService.js'
-// import TeapotControllerRest from '../controllers/TeapotControllerRest.js'
-import TeapotControllerIo from '../controllers/TeapotControllerIo.js'
-// import TeapotRouterRest from '../routers/TeapotRouterRest.js'
-import TeapotRouterIo from '../routers/TeapotRouterIo.js'
-// import mwTeapotRest from '../middlewares/mwTeapotRest.js'
-// import mwTeapotIo from '../middlewares/mwTeapotIo.js'
-// import ID from '../middlewares/ID.js'
-// import { AUTH } from './authDi.js'
-import Teapot from '../../core/models/Teapot.js'
-import { AUTHNio, AUTHZio } from './authDi.js'
+// import bindSelf from '@yourock88/bind-self'
+// // import Orm from '../../utils/Orm.js'
+// // import teapotsTable from '../../utils/tables/teapotsTable.js'
+// // import TeapotRepositoryDb from '../repositories/TeapotRepositoryDb.js'
+// import TeapotService from '../../core/services/TeapotService.js'
+// // import TeapotControllerRest from '../controllers/TeapotControllerRest.js'
+// import TeapotControllerIo from '../controllers/TeapotControllerIo.js'
+// // import TeapotRouterRest from '../routers/TeapotRouterRest.js'
+// import TeapotRouterIo from '../routers/TeapotRouterIo.js'
+// // import mwTeapotRest from '../middlewares/mwTeapotRest.js'
+// // import mwTeapotIo from '../middlewares/mwTeapotIo.js'
+// // import ID from '../middlewares/ID.js'
+// // import { AUTH } from './authDi.js'
+// import Teapot from '../../core/models/Teapot.js'
+// import { AUTHNio, AUTHZio } from './authDi.js'
 
-const teapot = new Teapot(42, 0)
-// const teapotsOrm = new Orm(teapotsTable)
-// const teapotRepositoryDb = new TeapotRepositoryDb(teapotsOrm)
-// const teapotService = new TeapotService(teapotRepositoryDb)
-const teapotService = new TeapotService(teapot)
+// const teapot = new Teapot(42, 0)
+// // const teapotsOrm = new Orm(teapotsTable)
+// // const teapotRepositoryDb = new TeapotRepositoryDb(teapotsOrm)
+// // const teapotService = new TeapotService(teapotRepositoryDb)
+// const teapotService = new TeapotService(teapot)
 
-// const teapotControllerRest = new TeapotControllerRest(teapotService)
-// bindSelf(teapotControllerRest)
-// const teapotRouterRest = new TeapotRouterRest(teapotControllerRest, {
-//   ...mwTeapotRest,
-//   ID,
-//   AUTH,
-// }).router
+// // const teapotControllerRest = new TeapotControllerRest(teapotService)
+// // bindSelf(teapotControllerRest)
+// // const teapotRouterRest = new TeapotRouterRest(teapotControllerRest, {
+// //   ...mwTeapotRest,
+// //   ID,
+// //   AUTH,
+// // }).router
 
-const teapotControllerIo = new TeapotControllerIo(teapotService)
-bindSelf(teapotControllerIo)
-const teapotRouterIo = new TeapotRouterIo(teapotControllerIo, {
-  // ...mwTeapotIo,
-  AUTHN: AUTHNio,
-  AUTHZ: AUTHZio,
-})
-bindSelf(teapotRouterIo)
+// const teapotControllerIo = new TeapotControllerIo(teapotService)
+// bindSelf(teapotControllerIo)
+// const teapotRouterIo = new TeapotRouterIo(teapotControllerIo, {
+//   // ...mwTeapotIo,
+//   AUTHN: AUTHNio,
+//   AUTHZ: AUTHZio,
+// })
+// bindSelf(teapotRouterIo)
 
-export default teapotRouterIo
-// export { teapotRouterIo, teapotRouterRest }
+// export default teapotRouterIo
+// // export { teapotRouterIo, teapotRouterRest }

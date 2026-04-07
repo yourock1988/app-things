@@ -19,7 +19,7 @@ export default class IoSynchronizer extends EventEmitter {
   #emitWithAck(eventName) {
     this.#awaitingCounter += 1
     return new Promise(resolve => {
-      this.#socket.emit(eventName, '', '', (err, data) => {
+      this.#socket.emit(eventName, 4201, '', (err, data) => {
         this.#awaitingCounter -= 1
         if (err) resolve([err.details ?? err])
         else resolve([null, data])
