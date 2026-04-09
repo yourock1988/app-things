@@ -9,6 +9,7 @@ import PageUsers from '@/pages/PageUsers.vue'
 import PageCars from '@/pages/PageCars.vue'
 import PageMain from '@/pages/PageMain.vue'
 import PageTeapot from '@/pages/PageTeapot.vue'
+import PageTeapots from './pages/PageTeapots.vue'
 
 const routes = [
   {
@@ -26,6 +27,10 @@ const routes = [
   {
     path: '/teapot',
     component: PageTeapot,
+  },
+  {
+    path: '/teapots',
+    component: PageTeapots,
   },
   {
     path: '/accounts',

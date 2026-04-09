@@ -4,12 +4,14 @@ import carsPlugin from './plugins/carsPlugin.js'
 import usersStore from './stores/usersStore.js'
 import carsStore from './stores/carsStore.js'
 import authStore from './stores/authStore.js'
+import teapotsStore from './stores/teapotsStore.js'
 
 export default createStore({
   modules: {
     usersStore,
     carsStore,
     authStore,
+    teapotsStore,
   },
   plugins: [usersPlugin, carsPlugin],
 })
