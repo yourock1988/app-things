@@ -15,8 +15,8 @@ describe('создание чайника', () => {
     expect(teapot.isBoiling).toBe(false)
   })
   it('правильный toJSON', () => {
-    const expextedJSON = `{"id":42,"temperature":0,"ongoing":"idle"}`
-    expect(JSON.stringify(teapot)).toBe(expextedJSON)
+    const expectedJSON = `{"id":42,"temperature":0,"ongoing":"idle"}`
+    expect(JSON.stringify(teapot)).toBe(expectedJSON)
   })
 })
 
@@ -65,7 +65,7 @@ describe('кипячение', () => {
     expect(teapot.isBoiling).toBe(false)
     expect(teapot.temperature).toBe(50)
   })
-  it('чайник закипятили и вылили', () => {
+  it('чайник вскипятили и вылили', () => {
     vi.useFakeTimers()
     teapot.turnOn()
     vi.advanceTimersByTime(10000)
