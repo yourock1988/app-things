@@ -13,7 +13,7 @@ export default class Teapot extends EventEmitter {
   }
 
   private ready() {
-    // global.console.log('!!ready')
+    // global.console.log(this.id, 'ready!!')
     this.turnOff()
     this.emit('ready')
   }
@@ -21,11 +21,11 @@ export default class Teapot extends EventEmitter {
   private boil() {
     this.temperature = this.range.calc(this.temperature + 1)
     if (this.temperature === this.range.max) this.ready()
-    // global.console.log(this.ongoing, this.temperature)
+    // global.console.log(this.id, this.ongoing, this.temperature)
   }
 
   public turnOn() {
-    // global.console.log('!!turnOn')
+    // global.console.log(this.id, 'turnOn!!')
     if (this.ongoing === 'boiling' || this.temperature === 100) return false
     this.ongoing = 'boiling'
     clearInterval(this.intervalId)
@@ -34,21 +34,21 @@ export default class Teapot extends EventEmitter {
   }
 
   public turnOff() {
-    // global.console.log('!!turnOff')
+    // global.console.log(this.id, 'turnOff!!')
     if (this.ongoing === 'idle') return false
     this.ongoing = 'idle'
     clearInterval(this.intervalId)
     this.intervalId = undefined
-    // global.console.log(this.ongoing, this.temperature)
+    // global.console.log(this.id, this.ongoing, this.temperature)
     return true
   }
 
   public turnDrain() {
-    // global.console.log('!!turnDrain')
+    // global.console.log(this.id, 'turnDrain!!')
     if (this.temperature === 0 && this.ongoing === 'idle') return false
     this.turnOff()
     this.temperature = 0
-    // global.console.log(this.ongoing, this.temperature)
+    // global.console.log(this.id, this.ongoing, this.temperature)
     return true
   }
 

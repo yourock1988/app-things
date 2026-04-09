@@ -1,4 +1,4 @@
-import { TTeapotAddDto } from '../../core/dtos/TTeapotDtos.js'
+import { TTeapotAddDto, TTeapotUpdateDto } from '../../core/dtos/TTeapotDtos.js'
 import { TTeapotRecord } from '../types/TTeapotRecord.js'
 import Teapot from '../../core/models/Teapot.js'
 import randId from '../../utils/randId.js'
@@ -9,11 +9,17 @@ export default class TeapotMapper {
   }
 
   static toRecord(dto: TTeapotAddDto): TTeapotRecord {
-    const teapotRecord: TTeapotRecord = {
+    return {
       id: randId(),
       temperature: dto.temperature,
       ongoing: dto.ongoing,
     }
-    return teapotRecord
+  }
+
+  static toRecord2(teapot: Teapot): TTeapotUpdateDto {
+    return {
+      temperature: teapot.temperature,
+      ongoing: teapot.ongoing,
+    }
   }
 }
