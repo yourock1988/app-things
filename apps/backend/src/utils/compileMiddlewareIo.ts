@@ -22,7 +22,7 @@ export default function (variant: TVariant, schema: z.ZodSchema) {
       ack?.(
         new SocketError(
           400,
-          'compileMiddlewareIo2',
+          'compileMiddlewareIo',
           'received data has invalid schema',
           result.error.format(),
         ),

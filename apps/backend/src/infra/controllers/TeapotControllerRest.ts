@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import { TTeapotAddDto, TTeapotUpdateDto } from '../../core/dtos/TTeapotDtos.js'
-import TeapotService2 from '../../core/services/TeapotService2.js'
+import TeapotService from '../../core/services/TeapotService.js'
 
 export default class TeapotControllerRest {
-  constructor(readonly teapotService: TeapotService2) {}
+  constructor(readonly teapotService: TeapotService) {}
 
   getAll(_: Request, res: Response): void {
     const teapots = this.teapotService.getAll()
