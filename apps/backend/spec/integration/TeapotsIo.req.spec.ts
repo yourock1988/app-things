@@ -49,20 +49,20 @@ describe('client-role:admin', () => {
   })
 
   it('positive get all teapots', async () => {
-    const r = await clSend(cl, 'teapot:getAll', '', '')
+    const r = await clSend(cl, CL.GET_ALL, '', '')
     expect(r).toEqual(respTeapotsAllFixture)
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
 
   it('positive get teapot by id', async () => {
-    const r = await clSend(cl, 'teapot:getById', 4201, '')
+    const r = await clSend(cl, CL.GET_BY_ID, 4201, '')
     expect(r).toEqual(respTeapotByIdFixture)
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
   it('negative get teapot by id that not exists', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:getById', 4203, '')
+      r = await clSend(cl, CL.GET_BY_ID, 4203, '')
     } catch (err: any) {
       e = err
     }
@@ -73,7 +73,7 @@ describe('client-role:admin', () => {
   it('negative get teapot by id with invalid id', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:getById', '', '')
+      r = await clSend(cl, CL.GET_BY_ID, '', '')
     } catch (err: any) {
       e = err
     }
@@ -87,14 +87,14 @@ describe('client-role:admin', () => {
   })
 
   it('positive delete teapot by id', async () => {
-    const r = await clSend(cl, 'teapot:removeById', 4201, '')
+    const r = await clSend(cl, CL.DEL_BY_ID, 4201, '')
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsWithoutDeletedFixture)
   })
   it('negative delete teapot by id that not exists', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:removeById', 4203, '')
+      r = await clSend(cl, CL.DEL_BY_ID, 4203, '')
     } catch (err: any) {
       e = err
     }
@@ -105,7 +105,7 @@ describe('client-role:admin', () => {
   it('negative delete teapot by id with invalid id', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:removeById', '', '')
+      r = await clSend(cl, CL.DEL_BY_ID, '', '')
     } catch (err: any) {
       e = err
     }
@@ -119,7 +119,7 @@ describe('client-role:admin', () => {
   })
 
   it('positive post teapot', async () => {
-    const r = await clSend(cl, 'teapot:add', '', dtoTeapotAddFixture)
+    const r = await clSend(cl, CL.ADD, '', dtoTeapotAddFixture)
     expect(r).toEqual(respTeapotAddedFixture)
     expect(teapotsTable).toEqual(tableTeapotsWithAddedFixture)
   })
@@ -127,7 +127,7 @@ describe('client-role:admin', () => {
     const { temperature, ...teapotDtoAddFixtureBad } = dtoTeapotAddFixture
     let r, e
     try {
-      r = await clSend(cl, 'teapot:add', '', teapotDtoAddFixtureBad)
+      r = await clSend(cl, CL.ADD, '', teapotDtoAddFixtureBad)
     } catch (err: any) {
       e = err
     }
@@ -143,7 +143,7 @@ describe('client-role:admin', () => {
     const teapotDtoAddFixtureBad = { ...dtoTeapotAddFixture, foo: 'bar' }
     let r, e
     try {
-      r = await clSend(cl, 'teapot:add', '', teapotDtoAddFixtureBad)
+      r = await clSend(cl, CL.ADD, '', teapotDtoAddFixtureBad)
     } catch (err: any) {
       e = err
     }
@@ -157,7 +157,7 @@ describe('client-role:admin', () => {
   it('negative post teapot with invalid json', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:add', '', '{,}')
+      r = await clSend(cl, CL.ADD, '', '{,}')
     } catch (err: any) {
       e = err
     }
@@ -170,14 +170,14 @@ describe('client-role:admin', () => {
   })
 
   it('positive patch teapot by id', async () => {
-    const r = await clSend(cl, 'teapot:updateById', 4201, dtoTeapotUpdFixture)
+    const r = await clSend(cl, CL.UPD_BY_ID, 4201, dtoTeapotUpdFixture)
     expect(r).toEqual(respTeapotUpdatedFixture)
     expect(teapotsTable).toEqual(tableTeapotsWithUpdatedFixture)
   })
   it('negative patch teapot by id that not exists', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:updateById', 4203, dtoTeapotUpdFixture)
+      r = await clSend(cl, CL.UPD_BY_ID, 4203, dtoTeapotUpdFixture)
     } catch (err: any) {
       e = err
     }
@@ -188,7 +188,7 @@ describe('client-role:admin', () => {
   it('negative patch teapot by id with invalid id', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:updateById', '', dtoTeapotUpdFixture)
+      r = await clSend(cl, CL.UPD_BY_ID, '', dtoTeapotUpdFixture)
     } catch (err: any) {
       e = err
     }
@@ -204,7 +204,7 @@ describe('client-role:admin', () => {
     const { ongoing, ...teapotDtoUpdFixtureBad } = dtoTeapotUpdFixture
     let r, e
     try {
-      r = await clSend(cl, 'teapot:updateById', 4201, teapotDtoUpdFixtureBad)
+      r = await clSend(cl, CL.UPD_BY_ID, 4201, teapotDtoUpdFixtureBad)
     } catch (err: any) {
       e = err
     }
@@ -220,7 +220,7 @@ describe('client-role:admin', () => {
     const teapotDtoUpdFixtureBad = { ...dtoTeapotUpdFixture, foo: 'bar' }
     let r, e
     try {
-      r = await clSend(cl, 'teapot:updateById', 4201, teapotDtoUpdFixtureBad)
+      r = await clSend(cl, CL.UPD_BY_ID, 4201, teapotDtoUpdFixtureBad)
     } catch (err: any) {
       e = err
     }
@@ -234,7 +234,7 @@ describe('client-role:admin', () => {
   it('negative patch teapot by id with invalid json', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:updateById', 4201, '{,}')
+      r = await clSend(cl, CL.UPD_BY_ID, 4201, '{,}')
     } catch (err: any) {
       e = err
     }
@@ -261,7 +261,7 @@ describe('client-role:user', () => {
   it('negative get all teapots with low perm', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:getAll', '', '')
+      r = await clSend(cl, CL.GET_ALL, '', '')
     } catch (err: any) {
       e = err
     }
@@ -273,7 +273,7 @@ describe('client-role:user', () => {
   it('negative get teapot by id with low perm', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:getById', 4201, '')
+      r = await clSend(cl, CL.GET_BY_ID, 4201, '')
     } catch (err: any) {
       e = err
     }
@@ -284,7 +284,7 @@ describe('client-role:user', () => {
   it('negative get teapot by id that not exists with low perm', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:getById', 4203, '')
+      r = await clSend(cl, CL.GET_BY_ID, 4203, '')
     } catch (err: any) {
       e = err
     }
@@ -295,7 +295,7 @@ describe('client-role:user', () => {
   it('negative get teapot by id with invalid id', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:getById', '', '')
+      r = await clSend(cl, CL.GET_BY_ID, '', '')
     } catch (err: any) {
       e = err
     }
@@ -311,7 +311,7 @@ describe('client-role:user', () => {
   it('negative delete teapot by id with low perm', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:removeById', 4201, '')
+      r = await clSend(cl, CL.DEL_BY_ID, 4201, '')
     } catch (err: any) {
       e = err
     }
@@ -322,7 +322,7 @@ describe('client-role:user', () => {
   it('negative delete teapot by id that not exists with low perm', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:removeById', 4203, '')
+      r = await clSend(cl, CL.DEL_BY_ID, 4203, '')
     } catch (err: any) {
       e = err
     }
@@ -333,7 +333,7 @@ describe('client-role:user', () => {
   it('negative delete teapot by id with invalid id', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:removeById', '', '')
+      r = await clSend(cl, CL.DEL_BY_ID, '', '')
     } catch (err: any) {
       e = err
     }
@@ -349,7 +349,7 @@ describe('client-role:user', () => {
   it('negative post teapot with low perm', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:add', '', dtoTeapotAddFixture)
+      r = await clSend(cl, CL.ADD, '', dtoTeapotAddFixture)
     } catch (err: any) {
       e = err
     }
@@ -361,7 +361,7 @@ describe('client-role:user', () => {
     const { temperature, ...teapotDtoAddFixtureBad } = dtoTeapotAddFixture
     let r, e
     try {
-      r = await clSend(cl, 'teapot:add', '', teapotDtoAddFixtureBad)
+      r = await clSend(cl, CL.ADD, '', teapotDtoAddFixtureBad)
     } catch (err: any) {
       e = err
     }
@@ -377,7 +377,7 @@ describe('client-role:user', () => {
     const teapotDtoAddFixtureBad = { ...dtoTeapotAddFixture, foo: 'bar' }
     let r, e
     try {
-      r = await clSend(cl, 'teapot:add', '', teapotDtoAddFixtureBad)
+      r = await clSend(cl, CL.ADD, '', teapotDtoAddFixtureBad)
     } catch (err: any) {
       e = err
     }
@@ -391,7 +391,7 @@ describe('client-role:user', () => {
   it('negative post teapot with invalid json', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:add', '', '{,}')
+      r = await clSend(cl, CL.ADD, '', '{,}')
     } catch (err: any) {
       e = err
     }
@@ -406,7 +406,7 @@ describe('client-role:user', () => {
   it('negative patch teapot by id with low perm', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:updateById', 4201, dtoTeapotUpdFixture)
+      r = await clSend(cl, CL.UPD_BY_ID, 4201, dtoTeapotUpdFixture)
     } catch (err: any) {
       e = err
     }
@@ -417,7 +417,7 @@ describe('client-role:user', () => {
   it('negative patch teapot by id that not exists with low perm', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:updateById', 4203, dtoTeapotUpdFixture)
+      r = await clSend(cl, CL.UPD_BY_ID, 4203, dtoTeapotUpdFixture)
     } catch (err: any) {
       e = err
     }
@@ -428,7 +428,7 @@ describe('client-role:user', () => {
   it('negative patch teapot by id with invalid id', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:updateById', '', dtoTeapotUpdFixture)
+      r = await clSend(cl, CL.UPD_BY_ID, '', dtoTeapotUpdFixture)
     } catch (err: any) {
       e = err
     }
@@ -444,7 +444,7 @@ describe('client-role:user', () => {
     const { ongoing, ...teapotDtoUpdFixtureBad } = dtoTeapotUpdFixture
     let r, e
     try {
-      r = await clSend(cl, 'teapot:updateById', 4201, teapotDtoUpdFixtureBad)
+      r = await clSend(cl, CL.UPD_BY_ID, 4201, teapotDtoUpdFixtureBad)
     } catch (err: any) {
       e = err
     }
@@ -460,7 +460,7 @@ describe('client-role:user', () => {
     const teapotDtoUpdFixtureBad = { ...dtoTeapotUpdFixture, foo: 'bar' }
     let r, e
     try {
-      r = await clSend(cl, 'teapot:updateById', 4201, teapotDtoUpdFixtureBad)
+      r = await clSend(cl, CL.UPD_BY_ID, 4201, teapotDtoUpdFixtureBad)
     } catch (err: any) {
       e = err
     }
@@ -474,7 +474,7 @@ describe('client-role:user', () => {
   it('negative patch teapot by id with invalid json', async () => {
     let r, e
     try {
-      r = await clSend(cl, 'teapot:updateById', 4201, '{,}')
+      r = await clSend(cl, CL.UPD_BY_ID, 4201, '{,}')
     } catch (err: any) {
       e = err
     }

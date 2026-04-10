@@ -10,10 +10,10 @@ socket.open()
 // socket.close()
 
 const eventsDict = {
-  turnOff: 'cl:teapot-turn_off',
-  turnOn: 'cl:teapot-turn_on',
-  drain: 'cl:teapot-drain',
-  show: 'cl:teapot-show',
+  turnOff: CL.TURN_OFF,
+  turnOn: CL.TURN_ON,
+  drain: CL.TURN_DRAIN,
+  show: CL.SHOW,
 }
 
 const eventsList = [

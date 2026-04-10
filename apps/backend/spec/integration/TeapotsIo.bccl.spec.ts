@@ -48,7 +48,7 @@ it('positive post teapot', async () => {
   const mockHandler = vi.fn()
   cl0.once('bc-cl:teapot:added', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:teapot:added')
-  const r = await clSend(cl0, 'teapot:add', '', dtoTeapotAddFixture)
+  const r = await clSend(cl0, CL.ADD, '', dtoTeapotAddFixture)
   const r1 = await promise1
   expect(r1).toEqual(r)
   expect(r1).toEqual(respTeapotAddedFixture)
@@ -59,7 +59,7 @@ it('positive patch teapot by id', async () => {
   const mockHandler = vi.fn()
   cl0.once('bc-cl:teapot:updated', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:teapot:updated')
-  const r = await clSend(cl0, 'teapot:updateById', 4201, dtoTeapotUpdFixture)
+  const r = await clSend(cl0, CL.UPD_BY_ID, 4201, dtoTeapotUpdFixture)
   const r1 = await promise1
   expect(r1).toEqual(r)
   expect(r1).toEqual(respTeapotUpdatedFixture)
@@ -70,7 +70,7 @@ it('positive delete teapot by id', async () => {
   const mockHandler = vi.fn()
   cl0.once('bc-cl:teapot:deleted', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:teapot:deleted')
-  const r = await clSend(cl0, 'teapot:removeById', 4201, '')
+  const r = await clSend(cl0, CL.DEL_BY_ID, 4201, '')
   const r1 = await promise1
   expect(r).toBeUndefined()
   expect(r1).toBe(4201)
@@ -86,7 +86,7 @@ it('positive cl:teapot-turn_on', async () => {
   const mockHandler = vi.fn()
   cl0.once('bc-cl:teapot-turned_on', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:teapot-turned_on')
-  const r = await clSend(cl0, 'cl:teapot-turn_on', 4201, '')
+  const r = await clSend(cl0, CL.TURN_ON, 4201, '')
   const r1 = await promise1
   expect(r1).toEqual(r)
   expect(r1).toEqual(respTeapotTurnedOnFixture)
@@ -100,12 +100,12 @@ it('positive cl:teapot-turn_off', async () => {
     temperature: expect.toSatisfy((val: number) => val > 34),
   }
   // FIXME:
-  // await clSend(cl0, 'cl:teapot-turn_on', 4201, '')
+  // await clSend(cl0, CL.TURN_ON, 4201, '')
   await new Promise(res => setTimeout(res, 499))
   const mockHandler = vi.fn()
   cl0.once('bc-cl:teapot-turned_off', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:teapot-turned_off')
-  const r = await clSend(cl0, 'cl:teapot-turn_off', 4201, '')
+  const r = await clSend(cl0, CL.TURN_OFF, 4201, '')
   const r1 = await promise1
   expect(r1).toEqual(r)
   expect(r1).toEqual(respTeapotTurnedOnFixture)
@@ -119,12 +119,12 @@ it('positive cl:teapot-drain', async () => {
     temperature: 0,
   }
   // FIXME:
-  // await clSend(cl0, 'cl:teapot-turn_on', 4201, '')
+  // await clSend(cl0, CL.TURN_ON, 4201, '')
   // await new Promise(res => setTimeout(res, 499))
   const mockHandler = vi.fn()
   cl0.once('bc-cl:teapot-drained', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:teapot-drained')
-  const r = await clSend(cl0, 'cl:teapot-drain', 4201, '')
+  const r = await clSend(cl0, CL.TURN_DRAIN, 4201, '')
   const r1 = await promise1
   expect(r1).toEqual(r)
   expect(r1).toEqual(respTeapotTurnedOnFixture)

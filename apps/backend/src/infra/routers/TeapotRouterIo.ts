@@ -40,16 +40,16 @@ export default class TeapotRouterIo {
       handleDrain,
     } = teapotControllerIo
 
-    on(socket, 'teapot:getAll', CoR(AUTHZ, getAll))
-    on(socket, 'teapot:getById', CoR(ID, AUTHZ, getById))
-    on(socket, 'teapot:add', CoR(ADD, AUTHZ, add))
-    on(socket, 'teapot:updateById', CoR(ID, UPD, AUTHZ, updateById))
-    on(socket, 'teapot:removeById', CoR(ID, AUTHZ, removeById))
+    on(socket, CL.GET_ALL, CoR(AUTHZ, getAll))
+    on(socket, CL.GET_BY_ID, CoR(ID, AUTHZ, getById))
+    on(socket, CL.ADD, CoR(ADD, AUTHZ, add))
+    on(socket, CL.UPD_BY_ID, CoR(ID, UPD, AUTHZ, updateById))
+    on(socket, CL.DEL_BY_ID, CoR(ID, AUTHZ, removeById))
 
-    on(socket, 'cl:teapot-show', CoR(AUTHZ, show))
-    on(socket, 'cl:teapot-turn_on', CoR(AUTHZ, handleTurnOn))
-    on(socket, 'cl:teapot-turn_off', CoR(AUTHZ, handleTurnOff))
-    on(socket, 'cl:teapot-drain', CoR(AUTHZ, handleDrain))
+    on(socket, CL.SHOW, CoR(AUTHZ, show))
+    on(socket, CL.TURN_ON, CoR(AUTHZ, handleTurnOn))
+    on(socket, CL.TURN_OFF, CoR(AUTHZ, handleTurnOff))
+    on(socket, CL.TURN_DRAIN, CoR(AUTHZ, handleDrain))
   }
 
   getMiddleware() {
