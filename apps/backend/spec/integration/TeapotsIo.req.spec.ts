@@ -1,3 +1,4 @@
+import { TEAPOT } from '@app-x/cmd'
 import { io as ioc } from 'socket.io-client'
 import io from '../../src/appIo'
 import teapotsTable from '../../src/utils/tables/teapotsTable'
@@ -16,6 +17,8 @@ import tableTeapotsWithAddedFixture from '../fixtures/teapots/tableTeapotsWithAd
 import tableTeapotsWithoutDeletedFixture from '../fixtures/teapots/tableTeapotsWithoutDeletedFixture'
 import tableTeapotsWithUpdatedFixture from '../fixtures/teapots/tableTeapotsWithUpdatedFixture'
 import { makeResetTable, clSend } from './helpers'
+
+const { CL } = TEAPOT
 
 const resetTable = makeResetTable(teapotsTable, teapotsSeed)
 const port = 20031

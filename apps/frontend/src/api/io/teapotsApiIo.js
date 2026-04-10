@@ -1,5 +1,8 @@
+import { TEAPOT } from '@app-x/cmd'
 import initNamespace from '@/utils/initNamespace.js'
 import ack from '@/utils/ack.js'
+
+const { CL } = TEAPOT
 
 export const teapotsNs = initNamespace('/teapots')
 

@@ -5,7 +5,7 @@ import TeapotService from '../../core/services/TeapotService.js'
 import SocketError from '../../SocketError.js'
 import Teapot from '../../core/models/Teapot.js'
 
-console.log(TEAPOT.CL.GET_ALL)
+const { CL } = TEAPOT
 
 // const rand = () => 42 // Math.trunc(Math.random() * 420)
 
@@ -15,18 +15,19 @@ export default class TeapotControllerIo {
     private teapotNamespace: Namespace | null = null,
     private io: Server | null = null,
   ) {
-    teapotService.on('teapot-ready', (t: TTeapotUpdateDto) =>
+    teapotService.on('teapot!ready', (t: TTeapotUpdateDto) =>
       io?.emit('bc-sv:teapot-ready', t),
     )
-    teapotService.on('teapot-turned_on', (t: TTeapotUpdateDto) =>
-      io?.emit('bc-sv:teapot-turned_on', t),
+    // teapotService.on('teapot!turned_on', (t: TTeapotUpdateDto) =>
+    //   io?.emit('bc-sv:teapot-turned_on', t),
+    // )
+    // teapotService.on('teapot!already_turned_on', (t: TTeapotUpdateDto) =>
+    //   io?.emit('bc-sv:teapot-already_turned_on', t),
+    // )
+    teapotService.on('teapot!added', (teapot: Teapot) =>
+      io?.emit('bc-sv:teapot:added', teapot),
     )
-    teapotService.on('teapot-already_turned_on', (t: TTeapotUpdateDto) =>
-      io?.emit('bc-sv:teapot-already_turned_on', t),
-    )
-    teapotService.on('bc-sv:teapot:added', (teapot: Teapot) =>
-      io?.emit('teapot:added', teapot),
-    )
+    // в том случае если добавлено из http rest, то разослать всем
   }
 
   init(teapotNamespace: Namespace, io: Server) {

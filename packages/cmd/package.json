@@ -2,6 +2,7 @@
   "name": "@app-x/cmd",
   "version": "0.0.1",
   "main": "./index.js",
+  "type": "module",
   "author": "YouROCK",
   "license": "MIT",
   "description": "client-server application commands protocol"

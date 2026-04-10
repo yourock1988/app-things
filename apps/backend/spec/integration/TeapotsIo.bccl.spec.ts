@@ -1,5 +1,6 @@
 // FIXME:
 
+import { TEAPOT } from '@app-x/cmd'
 import { io as ioc } from 'socket.io-client'
 import io from '../../src/appIo'
 import teapotsSeed from '../seeds/teapotsSeed'
@@ -9,6 +10,8 @@ import dtoTeapotUpdFixture from '../fixtures/teapots/dtoTeapotUpdFixture'
 import respTeapotAddedFixture from '../fixtures/teapots/respTeapotAddedFixture'
 import respTeapotUpdatedFixture from '../fixtures/teapots/respTeapotUpdatedFixture'
 import { makeResetTable, clListen, clSend } from './helpers'
+
+const { CL } = TEAPOT
 
 const resetTable = makeResetTable(teapotsTable, teapotsSeed)
 const port = 20032

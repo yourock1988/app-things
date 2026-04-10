@@ -1,5 +1,8 @@
+import { TEAPOT } from '@app-x/cmd'
 import initNamespace from '@/utils/initNamespace.js'
 import Synchronizer from '@/utils/Synchronizer.js'
+
+const { CL } = TEAPOT
 
 export const socket = initNamespace('/teapots')
 

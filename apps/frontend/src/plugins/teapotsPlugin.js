@@ -1,5 +1,8 @@
+import { TEAPOT } from '@app-x/cmd'
 import { teapotsNs } from '@/api/io/teapotsApiIo.js'
 import compilePlugin from '@/utils/compilePlugin.js'
+
+const { CL } = TEAPOT
 
 export default compilePlugin('teapots', (mutatorName, commit) => {
   window.console.log('PLUGIN TEAPOTS:', mutatorName)

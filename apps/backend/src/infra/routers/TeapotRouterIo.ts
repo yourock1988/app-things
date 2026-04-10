@@ -1,6 +1,9 @@
+import { TEAPOT } from '@app-x/cmd'
 import { Namespace, Server } from 'socket.io'
 import on from '../../utils/on.js'
 import CoR from '../../utils/CoR.js'
+
+const { CL } = TEAPOT
 
 export default class TeapotRouterIo {
   constructor(

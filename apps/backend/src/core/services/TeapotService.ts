@@ -23,7 +23,7 @@ export default class TeapotService extends EventEmitter {
 
   add(dto: TTeapotAddDto): Teapot {
     const teapot = this.teapotRepository.add(dto)
-    this.emit('teapot:added', teapot)
+    this.emit('teapot!added', teapot)
     return teapot
   }
 
@@ -49,7 +49,7 @@ export default class TeapotService extends EventEmitter {
         if (!teapot) return
         const dto = TeapotMapper.toRecord2(teapot)
         this.teapotRepository.updateById(id, dto)
-        this.emit('teapot-ready', teapot)
+        this.emit('teapot!ready', teapot)
       })
     }
     return teapot
@@ -62,8 +62,8 @@ export default class TeapotService extends EventEmitter {
     const dto = TeapotMapper.toRecord2(teapot)
     this.teapotRepository.updateById(id, dto)
     return result
-    // if (teapot.turnOn()) this.emit('teapot-turned_on', teapot)
-    // else this.emit('teapot-already_turned_on', teapot)
+    // if (teapot.turnOn()) this.emit('teapot!turned_on', teapot)
+    // else this.emit('teapot!already_turned_on', teapot)
   }
 
   doTurnOff(id: number): boolean | null {
@@ -73,8 +73,8 @@ export default class TeapotService extends EventEmitter {
     const dto = TeapotMapper.toRecord2(teapot)
     this.teapotRepository.updateById(id, dto)
     return result
-    // if (teapot.turnOff()) this.emit('teapot-turned_off', teapot)
-    // else this.emit('teapot-already_turned_off', teapot)
+    // if (teapot.turnOff()) this.emit('teapot!turned_off', teapot)
+    // else this.emit('teapot!already_turned_off', teapot)
   }
 
   doTurnDrain(id: number): boolean | null {
@@ -84,7 +84,7 @@ export default class TeapotService extends EventEmitter {
     const dto = TeapotMapper.toRecord2(teapot)
     this.teapotRepository.updateById(id, dto)
     return result
-    // if (teapot.turnDrain()) this.emit('teapot-turned_drain', teapot)
-    // else this.emit('teapot-already_turned_drain', teapot)
+    // if (teapot.turnDrain()) this.emit('teapot!turned_drain', teapot)
+    // else this.emit('teapot!already_turned_drain', teapot)
   }
 }
