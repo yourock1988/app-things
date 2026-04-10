@@ -5,7 +5,7 @@ import TeapotService from '../../core/services/TeapotService.js'
 import SocketError from '../../SocketError.js'
 import Teapot from '../../core/models/Teapot.js'
 
-const { CL } = TEAPOT
+const { BC_CL, BC_SV } = TEAPOT
 
 // const rand = () => 42 // Math.trunc(Math.random() * 420)
 
@@ -16,7 +16,7 @@ export default class TeapotControllerIo {
     private io: Server | null = null,
   ) {
     teapotService.on('teapot!ready', (t: TTeapotUpdateDto) =>
-      io?.emit('bc-sv:teapot-ready', t),
+      io?.emit(BC_SV.BOILED, t),
     )
     // teapotService.on('teapot!turned_on', (t: TTeapotUpdateDto) =>
     //   io?.emit('bc-sv:teapot-turned_on', t),
@@ -54,7 +54,7 @@ export default class TeapotControllerIo {
     const dto = args.at(1)
     const teapot = this.teapotService.add(dto).toJSON()
     ack?.(null, teapot)
-    ctx.socket.broadcast.emit('bc-cl:teapot:added', teapot)
+    ctx.socket.broadcast.emit(BC_CL.ADDED, teapot)
     // this.io.emit('bc-sv:teapot:added', teapot)
   }
 
@@ -66,7 +66,7 @@ export default class TeapotControllerIo {
     if (teapot) {
       const teapotJson = teapot.toJSON()
       ack?.(null, teapotJson)
-      ctx.socket.broadcast.emit('bc-cl:teapot:updated', teapotJson)
+      ctx.socket.broadcast.emit(BC_CL.UPDATED, teapotJson)
     } else {
       ack?.(new SocketError(404, 'updateById', `teapot id ${id} not exists`))
     }
@@ -78,7 +78,7 @@ export default class TeapotControllerIo {
     const hasBeenExists = this.teapotService.removeById(id)
     if (hasBeenExists) {
       ack?.(null)
-      ctx.socket.broadcast.emit('bc-cl:teapot:deleted', id)
+      ctx.socket.broadcast.emit(BC_CL.DELETED, id)
     } else {
       ack?.(new SocketError(404, 'removeById', `teapot id ${id} not exists`))
     }
@@ -100,7 +100,7 @@ export default class TeapotControllerIo {
       ack({ err: '404' })
     } else {
       const isOk = this.teapotService.doTurnOn(id)
-      if (isOk) ctx.socket.broadcast.emit('bc-cl:teapot-turned_on', teapot)
+      if (isOk) ctx.socket.broadcast.emit(BC_CL.TURNED_ON, teapot)
       ack?.(null, teapot)
     }
   }
@@ -113,7 +113,7 @@ export default class TeapotControllerIo {
       ack({ err: '404' })
     } else {
       const isOk = this.teapotService.doTurnOff(id)
-      if (isOk) ctx.socket.broadcast.emit('bc-cl:teapot-turned_off', teapot)
+      if (isOk) ctx.socket.broadcast.emit(BC_CL.TURNED_OFF, teapot)
       ack?.(null, teapot)
     }
   }
@@ -126,7 +126,7 @@ export default class TeapotControllerIo {
       ack({ err: '404' })
     } else {
       const isOk = this.teapotService.doTurnDrain(id)
-      if (isOk) ctx.socket.broadcast.emit('bc-cl:teapot-drained', teapot)
+      if (isOk) ctx.socket.broadcast.emit(BC_CL.TURNED_DRAIN, teapot)
       ack?.(null, teapot)
     }
   }

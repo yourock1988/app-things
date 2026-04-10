@@ -1,6 +1,6 @@
 import { TEAPOT } from '@app-x/cmd'
 
-const { CL } = TEAPOT
+// const { CL } = TEAPOT
 
 export default {
   '/api/v0/accounts': {
@@ -64,15 +64,15 @@ export default {
   '/teapots': {
     admin: [
       'authorization',
-      CL.SHOW,
-      CL.TURN_ON,
-      CL.TURN_OFF,
-      CL.TURN_DRAIN,
-      CL.GET_ALL,
-      CL.GET_BY_ID,
-      CL.ADD,
-      CL.UPD_BY_ID,
-      CL.DEL_BY_ID,
+      TEAPOT.CL.SHOW,
+      TEAPOT.CL.TURN_ON,
+      TEAPOT.CL.TURN_OFF,
+      TEAPOT.CL.TURN_DRAIN,
+      TEAPOT.CL.GET_ALL,
+      TEAPOT.CL.GET_BY_ID,
+      TEAPOT.CL.ADD,
+      TEAPOT.CL.UPD_BY_ID,
+      TEAPOT.CL.DEL_BY_ID,
     ],
     user: ['authorization', 'user:getAll', 'user:getById'],
   },
