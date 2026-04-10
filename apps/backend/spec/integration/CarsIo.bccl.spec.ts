@@ -52,7 +52,7 @@ it('positive post car', async () => {
 
 it('positive patch car by id', async () => {
   const mockHandler = vi.fn()
-  cl0.once('bc-cl:car:added', mockHandler)
+  cl0.once('bc-cl:car:updated', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:car:updated')
   const r = await clSend(cl0, 'car:updateById', 1001, dtoCarUpdFixture)
   const r1 = await promise1
@@ -63,7 +63,7 @@ it('positive patch car by id', async () => {
 
 it('positive delete car by id', async () => {
   const mockHandler = vi.fn()
-  cl0.once('bc-cl:car:added', mockHandler)
+  cl0.once('bc-cl:car:deleted', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:car:deleted')
   const r = await clSend(cl0, 'car:removeById', 1001, '')
   const r1 = await promise1

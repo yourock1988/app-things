@@ -52,7 +52,7 @@ it('positive post user', async () => {
 
 it('positive patch user by id', async () => {
   const mockHandler = vi.fn()
-  cl0.once('bc-cl:user:added', mockHandler)
+  cl0.once('bc-cl:user:updated', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:user:updated')
   const r = await clSend(cl0, 'user:updateById', 101, dtoUserUpdFixture)
   const r1 = await promise1
@@ -63,7 +63,7 @@ it('positive patch user by id', async () => {
 
 it('positive delete user by id', async () => {
   const mockHandler = vi.fn()
-  cl0.once('bc-cl:user:added', mockHandler)
+  cl0.once('bc-cl:user:deleted', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:user:deleted')
   const r = await clSend(cl0, 'user:removeById', 101, '')
   const r1 = await promise1

@@ -54,7 +54,7 @@ it('positive post teapot', async () => {
 
 it('positive patch teapot by id', async () => {
   const mockHandler = vi.fn()
-  cl0.once('bc-cl:teapot:added', mockHandler)
+  cl0.once('bc-cl:teapot:updated', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:teapot:updated')
   const r = await clSend(cl0, 'teapot:updateById', 4201, dtoTeapotUpdFixture)
   const r1 = await promise1
@@ -65,7 +65,7 @@ it('positive patch teapot by id', async () => {
 
 it('positive delete teapot by id', async () => {
   const mockHandler = vi.fn()
-  cl0.once('bc-cl:teapot:added', mockHandler)
+  cl0.once('bc-cl:teapot:deleted', mockHandler)
   const promise1 = clListen(cl1, 'bc-cl:teapot:deleted')
   const r = await clSend(cl0, 'teapot:removeById', 4201, '')
   const r1 = await promise1
