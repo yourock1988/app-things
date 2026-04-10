@@ -36,6 +36,7 @@
     "extends": "../../packages/babel-config/node.json"
   },
   "dependencies": {
+    "@app-x/cmd": "^0.0.1",
     "@yourock88/bind-self": "^0.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

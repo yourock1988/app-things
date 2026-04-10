@@ -1,8 +1,11 @@
+import { TEAPOT } from '@app-x/cmd'
 import { Server, Namespace } from 'socket.io'
 import { TTeapotUpdateDto } from '../../core/dtos/TTeapotDtos.js'
 import TeapotService from '../../core/services/TeapotService.js'
 import SocketError from '../../SocketError.js'
 import Teapot from '../../core/models/Teapot.js'
+
+console.log(TEAPOT.CL.GET_ALL)
 
 // const rand = () => 42 // Math.trunc(Math.random() * 420)
 

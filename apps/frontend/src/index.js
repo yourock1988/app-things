@@ -4,6 +4,9 @@ import router from '@/router.js'
 import store from '@/store.js'
 import App from '@/App.vue'
 import * as Vue from 'vue'
+import { TEAPOT } from '@app-x/cmd'
+
+console.log(TEAPOT.CL.GET_ALL)
 
 const app = Vue.createApp(App)
 const { APP_FE_COMMENT } = process.env
