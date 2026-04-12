@@ -1,5 +1,5 @@
 <script>
-import teapotSynchronizer from '@/api/io/teapotApiIoSync.js'
+import teapotSynchronizer from '@/api/io/teapotsApiIo.js'
 
 const makeRange = (min, max) => val => Math.max(min, Math.min(val, max))
 const range = makeRange(0, 100)

@@ -1,8 +1,9 @@
 import { TEAPOT } from '@app-x/cmd'
 import initNamespace from '@/utils/initNamespace.js'
 import ack from '@/utils/ack.js'
+import Synchronizer from '@/utils/Synchronizer.js'
 
-const { CL } = TEAPOT
+const { CL, BC_CL, BC_SV } = TEAPOT
 
 export const teapotsNs = initNamespace('/teapots')
 
@@ -28,3 +29,19 @@ export function updateById(id, dto) {
 export function removeById(id) {
   return new Promise(res => teapotsNs.emit(CL.DEL_BY_ID, id, '', ack(res)))
 }
+
+const eventsDict = {
+  turnOff: CL.TURN_OFF,
+  turnOn: CL.TURN_ON,
+  drain: CL.TURN_DRAIN,
+  show: CL.SHOW,
+}
+
+const eventsList = [
+  BC_CL.TURNED_OFF,
+  BC_CL.TURNED_ON,
+  BC_CL.TURNED_DRAIN,
+  BC_SV.BOILED,
+]
+
+export default new Synchronizer(teapotsNs, eventsDict, eventsList)
