@@ -44,5 +44,8 @@ export default class IoSynchronizer extends EventEmitter {
     const eventName = this.#eventsDict[methodName]
     const [err, state] = await this.#emitWithAck(eventName)
     if (!err) this.#applyServerState(state, true)
+    else this.#applyServerState({ ongoing: 'idle' }, true)
+    // в идеале бы запоминать последнее состояние перед ошибкой сервера,
+    // хотя нах надо...
   }
 }
