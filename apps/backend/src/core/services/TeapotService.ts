@@ -28,6 +28,7 @@ export default class TeapotService extends EventEmitter {
   }
 
   updateById(id: number, dto: TTeapotUpdateDto): Teapot | null {
+    if (teapotsOnline.find(to => to.id === id)) return null
     const teapot = this.teapotRepository.updateById(id, {
       ...dto,
       temperature: dto.temperature + 1,
@@ -36,6 +37,7 @@ export default class TeapotService extends EventEmitter {
   }
 
   removeById(id: number): boolean {
+    if (teapotsOnline.find(to => to.id === id)) return false
     return this.teapotRepository.removeById(id)
   }
 

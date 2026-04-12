@@ -69,7 +69,7 @@ export default class TeapotControllerIo {
       ack?.(null, teapotJson)
       ctx.socket.broadcast.emit(BC_CL.UPDATED, teapotJson)
     } else {
-      ack?.(new SocketError(404, 'updateById', `teapot id ${id} not exists`))
+      ack?.(new SocketError(404, 'updateById', `id ${id} not exists or online`))
     }
   }
 
@@ -81,7 +81,7 @@ export default class TeapotControllerIo {
       ack?.(null)
       ctx.socket.broadcast.emit(BC_CL.DELETED, id)
     } else {
-      ack?.(new SocketError(404, 'removeById', `teapot id ${id} not exists`))
+      ack?.(new SocketError(404, 'removeById', `id ${id} not exists or online`))
     }
   }
 
