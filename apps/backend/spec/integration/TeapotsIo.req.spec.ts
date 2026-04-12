@@ -249,10 +249,10 @@ describe('client-role:admin', () => {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-describe('client-role:user', () => {
+describe('client-role:guest', () => {
   beforeEach(() => {
     return new Promise((resolve, reject) => {
-      cl = ioc(url, { extraHeaders: { sessionid: 'fedcba' } })
+      cl = ioc(url, { extraHeaders: { sessionid: 'ffffff' } })
       cl.on('connect', resolve)
       cl.on('connect_error', reject)
     })

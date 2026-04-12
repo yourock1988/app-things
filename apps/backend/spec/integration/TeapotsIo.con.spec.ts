@@ -56,7 +56,7 @@ it('unauthorized with bad session cookie', async () => {
 })
 it('forbidden with low perm session cookie', async () => {
   const r = await new Promise<any>((resolve, reject) => {
-    cl = ioc(url, { extraHeaders: { sessionid: 'ffffff' } })
+    cl = ioc(url, { extraHeaders: { sessionid: 'bbbbbb' } })
     cl.on('connect', reject)
     cl.on('connect_error', resolve)
   })

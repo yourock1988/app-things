@@ -74,6 +74,7 @@ export default {
       TEAPOT.CL.UPD_BY_ID,
       TEAPOT.CL.DEL_BY_ID,
     ],
-    user: ['authorization', 'user:getAll', 'user:getById'],
+    user: ['authorization', TEAPOT.CL.GET_ALL, TEAPOT.CL.GET_BY_ID],
+    guest: ['authorization'],
   },
 } as const

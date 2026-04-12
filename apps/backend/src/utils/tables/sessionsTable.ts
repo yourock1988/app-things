@@ -22,6 +22,13 @@ const sessionsTable: TSessionRecord[] = [
     createdAt: 1234567890,
     updatedAt: 1234567890,
   },
+  {
+    id: 14,
+    sessionId: 'bbbbbb',
+    nickname: 'bbb',
+    createdAt: 1234567890,
+    updatedAt: 1234567890,
+  },
 ]
 
 export default sessionsTable
