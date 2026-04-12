@@ -1,6 +1,6 @@
 import { TEAPOT } from '@app-x/cmd'
 import { Server, Namespace } from 'socket.io'
-import { TTeapotUpdateDto } from '../../core/dtos/TTeapotDtos.js'
+// import { TTeapotUpdateDto } from '../../core/dtos/TTeapotDtos.js'
 import TeapotService from '../../core/services/TeapotService.js'
 import SocketError from '../../SocketError.js'
 import Teapot from '../../core/models/Teapot.js'
@@ -15,17 +15,18 @@ export default class TeapotControllerIo {
     private teapotNamespace: Namespace | null = null,
     private io: Server | null = null,
   ) {
-    teapotService.on('teapot!ready', (t: TTeapotUpdateDto) =>
-      io?.emit(BC_SV.BOILED, t),
-    )
-    // teapotService.on('teapot!turned_on', (t: TTeapotUpdateDto) =>
-    //   io?.emit('bc-sv:teapot-turned_on', t),
+    this.teapotService.on('teapot!ready', (t: Teapot) => {
+      this.teapotNamespace?.emit(BC_SV.BOILED, t)
+      this.teapotNamespace?.emit(BC_CL.UPDATED, t)
+    })
+    // teapotService.on('teapot!turned_on', (t: Teapot) =>
+    //   this.io?.emit('bc-sv:teapot-turned_on', t),
     // )
-    // teapotService.on('teapot!already_turned_on', (t: TTeapotUpdateDto) =>
-    //   io?.emit('bc-sv:teapot-already_turned_on', t),
+    // teapotService.on('teapot!already_turned_on', (t: Teapot) =>
+    //   this.io?.emit('bc-sv:teapot-already_turned_on', t),
     // )
-    teapotService.on('teapot!added', (teapot: Teapot) =>
-      io?.emit('bc-sv:teapot:added', teapot),
+    this.teapotService.on('teapot!added', (teapot: Teapot) =>
+      this.io?.emit('bc-sv:teapot:added', teapot),
     )
     // в том случае если добавлено из http rest, то разослать всем
   }
@@ -100,8 +101,12 @@ export default class TeapotControllerIo {
       ack({ err: '404' })
     } else {
       const isOk = this.teapotService.doTurnOn(id)
-      if (isOk) ctx.socket.broadcast.emit(BC_CL.TURNED_ON, teapot)
-      ack?.(null, teapot)
+      const teapotJson = teapot.toJSON()
+      if (isOk) {
+        ctx.socket.broadcast.emit(BC_CL.TURNED_ON, teapotJson)
+        this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
+      }
+      ack?.(null, teapotJson)
     }
   }
 
@@ -113,8 +118,12 @@ export default class TeapotControllerIo {
       ack({ err: '404' })
     } else {
       const isOk = this.teapotService.doTurnOff(id)
-      if (isOk) ctx.socket.broadcast.emit(BC_CL.TURNED_OFF, teapot)
-      ack?.(null, teapot)
+      const teapotJson = teapot.toJSON()
+      if (isOk) {
+        ctx.socket.broadcast.emit(BC_CL.TURNED_OFF, teapotJson)
+        this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
+      }
+      ack?.(null, teapotJson)
     }
   }
 
@@ -126,8 +135,13 @@ export default class TeapotControllerIo {
       ack({ err: '404' })
     } else {
       const isOk = this.teapotService.doTurnDrain(id)
-      if (isOk) ctx.socket.broadcast.emit(BC_CL.TURNED_DRAIN, teapot)
-      ack?.(null, teapot)
+      const teapotJson = teapot.toJSON()
+      if (isOk) {
+        ctx.socket.broadcast.emit(BC_CL.TURNED_DRAIN, teapotJson)
+        this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
+        // и вот тут можно воспользоваться socket io rooms чтоб рассылать апдейты только админам например
+      }
+      ack?.(null, teapotJson)
     }
   }
 }
