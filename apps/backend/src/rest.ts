@@ -6,7 +6,7 @@ import sessionRouterRest from './infra/di/sessionDi.js'
 import { authRouterRest } from './infra/di/authDi.js'
 import { userRouterRest } from './infra/di/userDi.js'
 import { carRouterRest } from './infra/di/carDi.js'
-import { teapotRouterRest } from './infra/di/teapotDi2.js'
+import { teapotRouterRest } from './infra/di/teapotDi.js'
 
 const APP_ORIGIN = String(process.env.APP_ORIGIN)
 const WEB_DEV_SERV_PORT = 9000
