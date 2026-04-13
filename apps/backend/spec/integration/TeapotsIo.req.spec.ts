@@ -201,7 +201,7 @@ describe('client-role:admin', () => {
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
   it('negative patch teapot by id without necessary field', async () => {
-    const { ongoing, ...teapotDtoUpdFixtureBad } = dtoTeapotUpdFixture
+    const { temperature, ...teapotDtoUpdFixtureBad } = dtoTeapotUpdFixture
     let r, e
     try {
       r = await clSend(cl, CL.UPD_BY_ID, 4201, teapotDtoUpdFixtureBad)
@@ -211,7 +211,7 @@ describe('client-role:admin', () => {
     expect(e.code).toBe(400)
     expect(e.details).toEqual({
       _errors: [],
-      ongoing: { _errors: ['Required'] },
+      temperature: { _errors: ['Required'] },
     })
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
@@ -441,7 +441,7 @@ describe('client-role:guest', () => {
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
   it('negative patch teapot by id without necessary field', async () => {
-    const { ongoing, ...teapotDtoUpdFixtureBad } = dtoTeapotUpdFixture
+    const { temperature, ...teapotDtoUpdFixtureBad } = dtoTeapotUpdFixture
     let r, e
     try {
       r = await clSend(cl, CL.UPD_BY_ID, 4201, teapotDtoUpdFixtureBad)
@@ -451,7 +451,7 @@ describe('client-role:guest', () => {
     expect(e.code).toBe(400)
     expect(e.details).toEqual({
       _errors: [],
-      ongoing: { _errors: ['Required'] },
+      temperature: { _errors: ['Required'] },
     })
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)

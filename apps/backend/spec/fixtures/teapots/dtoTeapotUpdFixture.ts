@@ -1,4 +1,4 @@
 export default {
   temperature: 88,
-  ongoing: 'boiling',
+  // ongoing: 'boiling',
 }

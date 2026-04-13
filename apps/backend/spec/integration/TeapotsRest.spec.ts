@@ -239,7 +239,7 @@ describe('Teapots REST API', () => {
       expect(teapotsTable).toEqual(tableTeapotsAllFixture)
     })
     it('negative patch teapot by id without necessary field', async () => {
-      const { ongoing, ...teapotDtoUpdFixtureBad } = dtoTeapotUpdFixture
+      const { temperature, ...teapotDtoUpdFixtureBad } = dtoTeapotUpdFixture
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/teapots/4201')
@@ -250,7 +250,7 @@ describe('Teapots REST API', () => {
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: [],
-        ongoing: {
+        temperature: {
           _errors: ['Required'],
         },
       })

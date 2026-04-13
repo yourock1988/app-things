@@ -1,7 +1,7 @@
 export type TTeapotRecord = {
   readonly id: number
   readonly temperature: number
-  readonly ongoing: 'idle' | 'boiling'
+  // readonly ongoing: 'idle' | 'boiling'
 }
 
 // export type TTeapotRecord = {

@@ -5,21 +5,21 @@ import randId from '../../utils/randId.js'
 
 export default class TeapotMapper {
   static toModel(record: TTeapotRecord): Teapot {
-    return new Teapot(record.id, record.temperature, record.ongoing)
+    return new Teapot(record.id, record.temperature)
   }
 
   static toRecord(dto: TTeapotAddDto): TTeapotRecord {
     return {
       id: randId(),
       temperature: dto.temperature,
-      ongoing: dto.ongoing,
+      // ongoing: dto.ongoing,
     }
   }
 
   static toRecord2(teapot: Teapot): TTeapotUpdateDto {
     return {
       temperature: teapot.temperature,
-      ongoing: teapot.ongoing,
+      // ongoing: teapot.ongoing,
     }
   }
 }

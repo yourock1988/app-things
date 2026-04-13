@@ -24,17 +24,14 @@ export default {
       fields: {
         id: null,
         temperature$: { type: 'number' },
-        ongoing$: {
-          component: 'v-select',
-          list: ['idle', 'boiling'],
-        },
+        ongoing: null,
       },
       fieldsForm: {
         temperature: { type: 'number' },
-        ongoing: {
-          component: 'v-select',
-          list: ['idle', 'boiling'],
-        },
+        // ongoing: {
+        //   component: 'v-select',
+        //   list: ['idle', 'boiling'],
+        // },
       },
     }
   },
@@ -63,7 +60,6 @@ export default {
     initTest() {
       return {
         temperature: 9,
-        ongoing: 'idle',
       }
     },
   },
