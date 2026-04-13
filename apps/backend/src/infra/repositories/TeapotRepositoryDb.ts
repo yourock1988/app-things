@@ -1,3 +1,4 @@
+import EventEmitter from 'node:events'
 import { ITeapotRepository } from '../../core/i-repositories/ITeapotRepository.js'
 import { TTeapotAddDto, TTeapotUpdateDto } from '../../core/dtos/TTeapotDtos.js'
 import { TTeapotRecord } from '../types/TTeapotRecord.js'
@@ -5,8 +6,13 @@ import TeapotMapper from '../mappers/TeapotMapper.js'
 import Teapot from '../../core/models/Teapot.js'
 import Orm from '../../utils/Orm.js'
 
-export default class TeapotRepositoryDb implements ITeapotRepository {
-  constructor(readonly orm: Orm) {}
+export default class TeapotRepositoryDb
+  extends EventEmitter
+  implements ITeapotRepository
+{
+  constructor(readonly orm: Orm) {
+    super()
+  }
 
   getAll(): Teapot[] {
     const records: TTeapotRecord[] = this.orm.selectAll()

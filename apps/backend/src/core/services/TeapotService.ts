@@ -3,11 +3,13 @@ import { ITeapotRepository } from '../i-repositories/ITeapotRepository.js'
 import { TTeapotAddDto, TTeapotUpdateDto } from '../dtos/TTeapotDtos.js'
 import Teapot from '../models/Teapot.js'
 import TeapotMapper from '../../infra/mappers/TeapotMapper.js'
-
-const teapotsOnline: Teapot[] = []
+import TeapotOnline from '../online/TeapotOnline.js'
 
 export default class TeapotService extends EventEmitter {
-  constructor(readonly teapotRepository: ITeapotRepository) {
+  constructor(
+    readonly teapotRepository: ITeapotRepository,
+    readonly teapotOnline: TeapotOnline,
+  ) {
     super()
   }
 
@@ -28,7 +30,7 @@ export default class TeapotService extends EventEmitter {
   }
 
   updateById(id: number, dto: TTeapotUpdateDto): Teapot | null {
-    if (teapotsOnline.find(to => to.id === id)) return null
+    if (this.teapotOnline.isOnlineById(id)) return null
     const teapot = this.teapotRepository.updateById(id, {
       ...dto,
       temperature: dto.temperature + 1,
@@ -37,28 +39,30 @@ export default class TeapotService extends EventEmitter {
   }
 
   removeById(id: number): boolean {
-    if (teapotsOnline.find(to => to.id === id)) return false
+    if (this.teapotOnline.isOnlineById(id)) return false
     return this.teapotRepository.removeById(id)
   }
 
-  show(id: number): Teapot | null {
-    let teapot = teapotsOnline.find(to => to.id === id) ?? null
-    if (!teapot) {
-      teapot = this.teapotRepository.getById(id)
-      if (!teapot) return null
-      teapotsOnline.push(teapot)
-      teapot.on('ready', () => {
-        if (!teapot) return
-        const dto = TeapotMapper.toRecord2(teapot)
-        this.teapotRepository.updateById(id, dto)
-        this.emit('teapot!ready', teapot)
-      })
-    }
+  joinById(id: number) {
+    const teapot = this.teapotRepository.getById(id)
+    if (!teapot) return null
+    if (!this.teapotOnline.join(teapot)) return null
+    teapot.on('ready', () => {
+      if (!teapot) return
+      const dto = TeapotMapper.toRecord2(teapot)
+      this.teapotRepository.updateById(id, dto)
+      this.emit('teapot!ready', teapot)
+    })
     return teapot
   }
 
+  show(id: number): Teapot | null {
+    this.joinById(id)
+    return this.teapotOnline.getById(id)
+  }
+
   doTurnOn(id: number): boolean | null {
-    const teapot = this.show(id)
+    const teapot = this.teapotOnline.getById(id)
     if (!teapot) return null
     const result = teapot.turnOn()
     const dto = TeapotMapper.toRecord2(teapot)
@@ -69,7 +73,7 @@ export default class TeapotService extends EventEmitter {
   }
 
   doTurnOff(id: number): boolean | null {
-    const teapot = this.show(id)
+    const teapot = this.teapotOnline.getById(id)
     if (!teapot) return null
     const result = teapot.turnOff()
     const dto = TeapotMapper.toRecord2(teapot)
@@ -80,7 +84,7 @@ export default class TeapotService extends EventEmitter {
   }
 
   doTurnDrain(id: number): boolean | null {
-    const teapot = this.show(id)
+    const teapot = this.teapotOnline.getById(id)
     if (!teapot) return null
     const result = teapot.turnDrain()
     const dto = TeapotMapper.toRecord2(teapot)

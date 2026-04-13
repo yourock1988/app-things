@@ -7,4 +7,5 @@ export interface ITeapotRepository {
   add(dto: TTeapotAddDto): Teapot
   updateById(id: number, dto: TTeapotUpdateDto): Teapot | null
   removeById(id: number): boolean
+  emit(eventName: string | symbol, ...args: any): boolean
 }

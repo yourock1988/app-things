@@ -12,10 +12,12 @@ import mwTeapotIo from '../middlewares/mwTeapotIo.js'
 import IDrest from '../middlewares/IDrest.js'
 import IDio from '../middlewares/IDio.js'
 import { AUTHrest, AUTHNio, AUTHZio } from './authDi.js'
+import TeapotOnline from '../../core/online/TeapotOnline.js'
 
+const teapotOnline = new TeapotOnline()
 const teapotsOrm = new Orm(teapotsTable)
 const teapotRepositoryDb = new TeapotRepositoryDb(teapotsOrm)
-const teapotService = new TeapotService(teapotRepositoryDb)
+const teapotService = new TeapotService(teapotRepositoryDb, teapotOnline)
 
 const teapotControllerRest = new TeapotControllerRest(teapotService)
 bindSelf(teapotControllerRest)

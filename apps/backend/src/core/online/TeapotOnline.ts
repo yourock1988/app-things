@@ -1,0 +1,31 @@
+import EventEmitter from 'node:events'
+import Teapot from '../models/Teapot'
+
+export default class TeapotOnline extends EventEmitter {
+  private map: Map<number, Teapot>
+
+  // походу нужно инжектировать репозиторий сюда, но я хз
+  constructor() {
+    super()
+    this.map = new Map()
+  }
+
+  isOnlineById(id: number) {
+    return this.map.has(id)
+  }
+
+  getById(id: number) {
+    return this.map.get(id) ?? null
+  }
+
+  join(teapot: Teapot) {
+    if (this.isOnlineById(teapot.id)) return false
+    this.map.set(teapot.id, teapot)
+    return true
+  }
+
+  leaveById(id: number) {
+    // при выходе нужно сохранить состояние в базу данных
+    return this.map.delete(id)
+  }
+}
