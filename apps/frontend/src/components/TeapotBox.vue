@@ -1,16 +1,20 @@
 <script>
-import teapotSynchronizer from '@/api/io/teapotsApiIo.js'
+import TeapotSynchronizer from '@/api/io/teapotsApiIo.js'
+// import teapotSynchronizer from '@/api/io/teapotsApiIo.js'
 
 const makeRange = (min, max) => val => Math.max(min, Math.min(val, max))
 const range = makeRange(0, 100)
 
 export default {
+  props: ['teapotId'],
+
   data() {
     return {
       temperature: 0,
       ongoing: 'idle',
       intervalId: undefined,
       // loading: '',
+      teapotSynchronizer: null,
     }
   },
   computed: {
@@ -30,17 +34,21 @@ export default {
     },
   },
   async mounted() {
-    teapotSynchronizer.subscribe()
-    teapotSynchronizer.on('update', serverState => {
+    this.teapotSynchronizer = new TeapotSynchronizer(this.teapotId)
+    this.teapotSynchronizer.subscribe()
+    this.teapotSynchronizer.on('update', serverState => {
       this.temperature = serverState.temperature
       this.ongoing = serverState.ongoing
     })
-    teapotSynchronizer.sendEvent('show')
+    this.teapotSynchronizer.sendEvent('show')
+  },
+  unmounted() {
+    this.teapotSynchronizer.unsubscribe()
   },
   methods: {
     async ready() {
       this.ongoing = 'idle'
-      await teapotSynchronizer.sendEvent('show')
+      await this.teapotSynchronizer.sendEvent('show')
     },
     turnOn() {
       clearInterval(this.intervalId)
@@ -53,20 +61,20 @@ export default {
     async handleTurnOn() {
       this.ongoing = 'boiling'
       // this.loading = 'handleTurnOn'
-      await teapotSynchronizer.sendEvent('turnOn')
+      await this.teapotSynchronizer.sendEvent('turnOn')
       // this.loading = ''
     },
     async handleTurnOff() {
       this.ongoing = 'idle'
       // this.loading = 'handleTurnOff'
-      await teapotSynchronizer.sendEvent('turnOff')
+      await this.teapotSynchronizer.sendEvent('turnOff')
       // this.loading = ''
     },
     async handleDrain() {
       this.ongoing = 'idle'
       this.temperature = 0
       // this.loading = 'handleDrain'
-      await teapotSynchronizer.sendEvent('drain')
+      await this.teapotSynchronizer.sendEvent('drain')
       // this.loading = ''
     },
     boil() {
@@ -109,11 +117,11 @@ export default {
               :disabled="temperature === 0" -->
               <v-btn color="error" @click="handleDrain">turnDrain</v-btn>
             </v-col>
-            <v-col v-if="isBoiling" cols="12">
-              <h2>boiling...</h2>
-            </v-col>
             <v-col v-if="isBoiled" cols="12">
               <h1>READY!</h1>
+            </v-col>
+            <v-col v-else cols="12">
+              <h1>{{ ongoing }}</h1>
             </v-col>
           </v-row>
         </v-container>

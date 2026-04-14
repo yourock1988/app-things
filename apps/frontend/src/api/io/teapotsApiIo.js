@@ -44,4 +44,8 @@ const eventsList = [
   BC_SV.BOILED,
 ]
 
-export default new Synchronizer(teapotsNs, eventsDict, eventsList)
+export default class TeapotSynchronizer extends Synchronizer {
+  constructor(teapotId) {
+    super(teapotsNs, eventsDict, eventsList, teapotId)
+  }
+}

@@ -11,6 +11,11 @@ const teapotsTable: TTeapotRecord[] = [
     temperature: 60,
     // ongoing: 'idle',
   },
+  {
+    id: 4203,
+    temperature: 90,
+    // ongoing: 'idle',
+  },
 ]
 
 export default teapotsTable
