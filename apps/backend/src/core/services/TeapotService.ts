@@ -15,12 +15,12 @@ export default class TeapotService extends EventEmitter {
 
   getAll(): Teapot[] {
     const teapots = this.teapotRepository.getAll()
-    return teapots
+    const offline = teapots.filter(t => !this.teapotOnline.isOnlineById(t.id))
+    return [...this.teapotOnline.getAll(), ...offline]
   }
 
   getById(id: number): Teapot | null {
-    const teapot = this.teapotRepository.getById(id)
-    return teapot
+    return this.teapotOnline.getById(id) ?? this.teapotRepository.getById(id)
   }
 
   add(dto: TTeapotAddDto): Teapot {

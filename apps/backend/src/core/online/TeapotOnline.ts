@@ -14,6 +14,10 @@ export default class TeapotOnline extends EventEmitter {
     return this.map.has(id)
   }
 
+  getAll() {
+    return this.map.values()
+  }
+
   getById(id: number) {
     return this.map.get(id) ?? null
   }
