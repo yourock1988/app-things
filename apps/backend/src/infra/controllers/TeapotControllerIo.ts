@@ -96,13 +96,13 @@ export default class TeapotControllerIo {
   handleTurnOn(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    const teapot = this.teapotService.show(id)
-    if (!teapot) {
+    const result = this.teapotService.doTurnOn(id)
+    if (result === null) {
       ack({ err: '404' })
     } else {
-      const isOk = this.teapotService.doTurnOn(id)
+      const { teapot, isTurned } = result
       const teapotJson = teapot.toJSON()
-      if (isOk) {
+      if (isTurned) {
         ctx.socket.broadcast.emit(BC_CL.TURNED_ON, teapotJson)
         this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
       }
@@ -113,13 +113,13 @@ export default class TeapotControllerIo {
   handleTurnOff(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    const teapot = this.teapotService.show(id)
-    if (!teapot) {
+    const result = this.teapotService.doTurnOff(id)
+    if (result === null) {
       ack({ err: '404' })
     } else {
-      const isOk = this.teapotService.doTurnOff(id)
+      const { teapot, isTurned } = result
       const teapotJson = teapot.toJSON()
-      if (isOk) {
+      if (isTurned) {
         ctx.socket.broadcast.emit(BC_CL.TURNED_OFF, teapotJson)
         this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
       }
@@ -130,13 +130,13 @@ export default class TeapotControllerIo {
   handleDrain(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    const teapot = this.teapotService.show(id)
-    if (!teapot) {
+    const result = this.teapotService.doTurnDrain(id)
+    if (result === null) {
       ack({ err: '404' })
     } else {
-      const isOk = this.teapotService.doTurnDrain(id)
+      const { teapot, isTurned } = result
       const teapotJson = teapot.toJSON()
-      if (isOk) {
+      if (isTurned) {
         ctx.socket.broadcast.emit(BC_CL.TURNED_DRAIN, teapotJson)
         this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
         // и вот тут можно воспользоваться socket io rooms чтоб рассылать апдейты только админам например

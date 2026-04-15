@@ -44,7 +44,6 @@ export default class TeapotService extends EventEmitter {
   }
 
   joinById(id: number) {
-    console.log('JOIN', id)
     const teapot = this.teapotRepository.getById(id)
     if (!teapot) return null
     if (!this.teapotOnline.join(teapot)) return null
@@ -58,41 +57,39 @@ export default class TeapotService extends EventEmitter {
   }
 
   show(id: number): Teapot | null {
-    console.log('show', id)
     this.joinById(id)
     return this.teapotOnline.getById(id)
   }
 
-  doTurnOn(id: number): boolean | null {
+  doTurnOn(id: number): { teapot: Teapot; isTurned: boolean } | null {
     const teapot = this.teapotOnline.getById(id)
     if (!teapot) return null
-    const result = teapot.turnOn()
+    const isTurned = teapot.turnOn()
     const dto = TeapotMapper.toRecord2(teapot)
     this.teapotRepository.updateById(id, dto)
-    return result
+    return { teapot, isTurned }
     // if (teapot.turnOn()) this.emit('teapot!turned_on', teapot)
     // else this.emit('teapot!already_turned_on', teapot)
   }
 
-  doTurnOff(id: number): boolean | null {
+  doTurnOff(id: number): { teapot: Teapot; isTurned: boolean } | null {
     const teapot = this.teapotOnline.getById(id)
-    console.log('>>!!', teapot)
     if (!teapot) return null
-    const result = teapot.turnOff()
+    const isTurned = teapot.turnOff()
     const dto = TeapotMapper.toRecord2(teapot)
     this.teapotRepository.updateById(id, dto)
-    return result
+    return { teapot, isTurned }
     // if (teapot.turnOff()) this.emit('teapot!turned_off', teapot)
     // else this.emit('teapot!already_turned_off', teapot)
   }
 
-  doTurnDrain(id: number): boolean | null {
+  doTurnDrain(id: number): { teapot: Teapot; isTurned: boolean } | null {
     const teapot = this.teapotOnline.getById(id)
     if (!teapot) return null
-    const result = teapot.turnDrain()
+    const isTurned = teapot.turnDrain()
     const dto = TeapotMapper.toRecord2(teapot)
     this.teapotRepository.updateById(id, dto)
-    return result
+    return { teapot, isTurned }
     // if (teapot.turnDrain()) this.emit('teapot!turned_drain', teapot)
     // else this.emit('teapot!already_turned_drain', teapot)
   }
