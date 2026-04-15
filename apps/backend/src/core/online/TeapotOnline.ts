@@ -24,12 +24,17 @@ export default class TeapotOnline extends EventEmitter {
 
   join(teapot: Teapot) {
     if (this.isOnlineById(teapot.id)) return false
+    // eslint-disable-next-line no-param-reassign
+    teapot.isOnline = true
     this.map.set(teapot.id, teapot)
     return true
   }
 
   leaveById(id: number) {
     // при выходе нужно сохранить состояние в базу данных
+    const teapot = this.getById(id)
+    if (!teapot) return false
+    teapot.isOnline = false
     return this.map.delete(id)
   }
 }

@@ -15,7 +15,7 @@ describe('создание чайника', () => {
     expect(teapot.isBoiling).toBe(false)
   })
   it('правильный toJSON', () => {
-    const expectedJSON = `{"id":42,"temperature":0,"ongoing":"idle"}`
+    const expectedJSON = `{"id":42,"temperature":0,"ongoing":"idle","isOnline":false}`
     expect(JSON.stringify(teapot)).toBe(expectedJSON)
   })
 })

@@ -44,6 +44,7 @@ export default class TeapotService extends EventEmitter {
   }
 
   joinById(id: number) {
+    console.log('JOIN', id)
     const teapot = this.teapotRepository.getById(id)
     if (!teapot) return null
     if (!this.teapotOnline.join(teapot)) return null
@@ -57,6 +58,7 @@ export default class TeapotService extends EventEmitter {
   }
 
   show(id: number): Teapot | null {
+    console.log('show', id)
     this.joinById(id)
     return this.teapotOnline.getById(id)
   }
@@ -74,6 +76,7 @@ export default class TeapotService extends EventEmitter {
 
   doTurnOff(id: number): boolean | null {
     const teapot = this.teapotOnline.getById(id)
+    console.log('>>!!', teapot)
     if (!teapot) return null
     const result = teapot.turnOff()
     const dto = TeapotMapper.toRecord2(teapot)

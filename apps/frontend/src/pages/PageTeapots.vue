@@ -25,6 +25,7 @@ export default {
         id: null,
         temperature$: { type: 'number' },
         ongoing: null,
+        isOnline: null,
       },
       fieldsForm: {
         temperature: { type: 'number' },

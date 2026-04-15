@@ -6,6 +6,7 @@ export default class Teapot extends EventEmitter {
     public readonly id: number,
     public temperature: number,
     public ongoing: 'idle' | 'boiling' = 'idle',
+    public isOnline: boolean = false,
     private intervalId: NodeJS.Timeout | undefined = undefined,
     private readonly range: RangeVo = new RangeVo(0, 100),
   ) {
@@ -61,7 +62,7 @@ export default class Teapot extends EventEmitter {
   }
 
   public toJSON() {
-    const { id, temperature, ongoing } = this
-    return { id, temperature, ongoing }
+    const { id, temperature, ongoing, isOnline } = this
+    return { id, temperature, ongoing, isOnline }
   }
 }

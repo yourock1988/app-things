@@ -82,6 +82,7 @@ it('positive cl:teapot-turn_on', async () => {
     id: 4201,
     ongoing: 'boiling',
     temperature: 30,
+    isOnline: true,
   }
   const mockHandler = vi.fn()
   cl0.once(BC_CL.TURNED_ON, mockHandler)
@@ -98,6 +99,7 @@ it('positive cl:teapot-turn_off', async () => {
     id: 4201,
     ongoing: 'idle',
     temperature: expect.toSatisfy((val: number) => val > 34),
+    isOnline: true,
   }
   // FIXME:
   // await clSend(cl0, CL.TURN_ON, 4201, '')
@@ -117,6 +119,7 @@ it('positive cl:teapot-drain', async () => {
     id: 4201,
     ongoing: 'idle',
     temperature: 0,
+    isOnline: true,
   }
   // FIXME:
   // await clSend(cl0, CL.TURN_ON, 4201, '')
