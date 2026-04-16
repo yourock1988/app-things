@@ -46,18 +46,32 @@ export default class TeapotService extends EventEmitter {
   joinById(id: number) {
     const teapot = this.teapotRepository.getById(id)
     if (!teapot) return null
-    if (!this.teapotOnline.join(teapot)) return null
-    teapot.on('ready', () => {
-      if (!teapot) return
+    const isJoined = this.teapotOnline.join(teapot)
+    if (isJoined) {
+      teapot.on('ready', () => {
+        if (!teapot.isOnline) return
+        const dto = TeapotMapper.toRecord2(teapot)
+        this.teapotRepository.updateById(id, dto)
+        this.emit('teapot!ready', teapot)
+      })
+    }
+    return { teapot, isJoined }
+  }
+
+  leaveById(id: number) {
+    // не зачем делать getById
+    const teapot = this.teapotOnline.getById(id)
+    if (!teapot) return null
+    // возвращаем result
+    const isLeaved = this.teapotOnline.leaveById(id)
+    if (isLeaved) {
       const dto = TeapotMapper.toRecord2(teapot)
       this.teapotRepository.updateById(id, dto)
-      this.emit('teapot!ready', teapot)
-    })
-    return teapot
+    }
+    return { teapot, isLeaved }
   }
 
   show(id: number): Teapot | null {
-    this.joinById(id)
     return this.teapotOnline.getById(id)
   }
 

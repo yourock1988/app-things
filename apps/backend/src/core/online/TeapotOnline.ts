@@ -36,5 +36,6 @@ export default class TeapotOnline extends EventEmitter {
     if (!teapot) return false
     teapot.isOnline = false
     return this.map.delete(id)
+    // {teapot, isLeaved}
   }
 }

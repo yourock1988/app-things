@@ -1,11 +1,13 @@
 <script>
 import TeapotSynchronizer from '@/api/io/teapotsApiIo.js'
-// import teapotSynchronizer from '@/api/io/teapotsApiIo.js'
+import TurboBtn from '@/ui/TurboBtn.vue'
 
 const makeRange = (min, max) => val => Math.max(min, Math.min(val, max))
 const range = makeRange(0, 100)
 
 export default {
+  components: { TurboBtn },
+
   props: ['teapotId'],
 
   data() {
@@ -34,21 +36,15 @@ export default {
     },
   },
   async mounted() {
-    this.teapotSynchronizer = new TeapotSynchronizer(this.teapotId)
-    this.teapotSynchronizer.subscribe()
-    this.teapotSynchronizer.on('update', serverState => {
-      this.temperature = serverState.temperature
-      this.ongoing = serverState.ongoing
-    })
-    this.teapotSynchronizer.sendEvent('show')
+    //
   },
   unmounted() {
-    this.teapotSynchronizer.unsubscribe()
+    //
   },
   methods: {
     async ready() {
       this.ongoing = 'idle'
-      await this.teapotSynchronizer.sendEvent('show')
+      await this.teapotSynchronizer?.sendEvent('show')
     },
     turnOn() {
       clearInterval(this.intervalId)
@@ -61,25 +57,41 @@ export default {
     async handleTurnOn() {
       this.ongoing = 'boiling'
       // this.loading = 'handleTurnOn'
-      await this.teapotSynchronizer.sendEvent('turnOn')
+      await this.teapotSynchronizer?.sendEvent('turnOn')
       // this.loading = ''
     },
     async handleTurnOff() {
       this.ongoing = 'idle'
       // this.loading = 'handleTurnOff'
-      await this.teapotSynchronizer.sendEvent('turnOff')
+      await this.teapotSynchronizer?.sendEvent('turnOff')
       // this.loading = ''
     },
     async handleDrain() {
       this.ongoing = 'idle'
       this.temperature = 0
       // this.loading = 'handleDrain'
-      await this.teapotSynchronizer.sendEvent('drain')
+      await this.teapotSynchronizer?.sendEvent('drain')
       // this.loading = ''
     },
     boil() {
       this.temperature = range(this.temperature + 1)
       if (this.temperature === 100 && this.ongoing === 'boiling') this.ready()
+    },
+    async handleJoin() {
+      this.teapotSynchronizer = new TeapotSynchronizer(this.teapotId)
+      this.teapotSynchronizer.subscribe()
+      this.teapotSynchronizer.on('update', serverState => {
+        this.temperature = serverState.temperature
+        this.ongoing = serverState.ongoing
+      })
+      await this.teapotSynchronizer.sendEvent('join')
+    },
+
+    async handleLeave() {
+      await this.teapotSynchronizer?.sendEvent('leave')
+      this.teapotSynchronizer?.unsubscribe()
+      this.teapotSynchronizer?.removeAllListeners('update')
+      this.teapotSynchronizer = null
     },
   },
 }
@@ -90,6 +102,14 @@ export default {
     <v-col cols="6">
       <v-sheet>
         <v-container class="text-center">
+          <v-row>
+            <v-col>
+              <TurboBtn kind="join" @click="handleJoin" />
+            </v-col>
+            <v-col>
+              <TurboBtn kind="leave" @click="handleLeave" />
+            </v-col>
+          </v-row>
           <h1 class="mb-3">Teapot</h1>
           <v-row>
             <v-col cols="12">

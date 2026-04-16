@@ -144,4 +144,43 @@ export default class TeapotControllerIo {
       ack?.(null, teapotJson)
     }
   }
+
+  join(ctx, args) {
+    const { id } = args.at(0)
+    const ack = args.at(2)
+    const result = this.teapotService.joinById(id)
+    if (result === null) {
+      ack({ err: '404' })
+    } else {
+      const { teapot, isJoined } = result
+      const teapotJson = teapot.toJSON()
+      if (isJoined) {
+        ctx.socket.broadcast.emit(BC_SV.JOINED, teapotJson)
+        this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
+        ack?.(null, teapotJson)
+      } else {
+        ack?.({ err: 'already online' })
+      }
+    }
+  }
+
+  leave(ctx, args) {
+    const { id } = args.at(0)
+    const ack = args.at(2)
+    const result = this.teapotService.leaveById(id)
+    if (result === null) {
+      ack({ err: '404' })
+    } else {
+      const { teapot, isLeaved } = result
+      const teapotJson = teapot.toJSON()
+      if (isLeaved) {
+        ctx.socket.broadcast.emit(BC_SV.LEAVED, teapotJson)
+        this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
+        ack?.(null, teapotJson)
+      } else {
+        ack?.({ err: 'already offline' })
+        // never reached...
+      }
+    }
+  }
 }

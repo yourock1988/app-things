@@ -35,6 +35,8 @@ const eventsDict = {
   turnOn: CL.TURN_ON,
   drain: CL.TURN_DRAIN,
   show: CL.SHOW,
+  join: CL.JOIN,
+  leave: CL.LEAVE,
 }
 
 const eventsList = [

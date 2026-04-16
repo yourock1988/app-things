@@ -87,6 +87,7 @@ it('positive cl:teapot-turn_on', async () => {
   const mockHandler = vi.fn()
   cl0.once(BC_CL.TURNED_ON, mockHandler)
   const promise1 = clListen(cl1, BC_CL.TURNED_ON)
+  await clSend(cl0, CL.JOIN, 4201, '')
   const r = await clSend(cl0, CL.TURN_ON, 4201, '')
   const r1 = await promise1
   expect(r1).toEqual(r)

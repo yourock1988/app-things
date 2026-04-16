@@ -65,6 +65,8 @@ export default {
     admin: [
       'authorization',
       TEAPOT.CL.SHOW,
+      TEAPOT.CL.JOIN,
+      TEAPOT.CL.LEAVE,
       TEAPOT.CL.TURN_ON,
       TEAPOT.CL.TURN_OFF,
       TEAPOT.CL.TURN_DRAIN,

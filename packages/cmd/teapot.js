@@ -9,6 +9,8 @@ export default {
     TURN_ON: 'teapot:cl:turn_on',
     TURN_OFF: 'teapot:cl:turn_off',
     TURN_DRAIN: 'teapot:cl:turn_drain',
+    JOIN: 'teapot:cl:join',
+    LEAVE: 'teapot:cl:leave',
   },
   SV: {
     SECRET_TEMPERATURE: 'teapot:sv:secret_temperature',
@@ -25,5 +27,7 @@ export default {
     BOILED: 'teapot:bc-sv:boiled',
     DRAINED: 'teapot:bc-sv:drained',
     NO_POWER: 'teapot:bc-sv:no_power',
+    JOINED: 'teapot:bc-sv:joined',
+    LEAVED: 'teapot:bc-sv:leaved',
   },
 }

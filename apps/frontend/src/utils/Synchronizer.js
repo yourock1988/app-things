@@ -38,9 +38,13 @@ export default class IoSynchronizer extends EventEmitter {
   async sendEvent(methodName) {
     const eventName = this.eventsDict[methodName]
     const [err, state] = await this.emitWithAck(eventName)
+    console.log(err)
     if (!err) this.applyServerState(state, true)
-    else this.applyServerState({ ongoing: 'idle' }, true)
+    else this.applyServerState({ id: this.id, ongoing: 'idle' }, true)
     // в идеале бы запоминать последнее состояние перед ошибкой сервера,
     // хотя нах надо...
+    // FIXME: при ошибке не нужно вызывать applyServerState
+    // FIXME: applyServerState только для позитивных сценариев
+    // для негативных сценариев метод sendEvent должен выбрасывать ошибку [err] наружу
   }
 }

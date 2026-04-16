@@ -25,6 +25,16 @@ export default {
           color: 'error',
           prependIcon: 'mdi-delete-forever',
         },
+        join: {
+          text: 'Join',
+          color: 'secondary',
+          prependIcon: 'mdi-login',
+        },
+        leave: {
+          text: 'Leave',
+          color: 'warning',
+          prependIcon: 'mdi-logout',
+        },
       },
     }
   },

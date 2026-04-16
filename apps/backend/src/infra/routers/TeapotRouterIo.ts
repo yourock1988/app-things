@@ -38,6 +38,8 @@ export default class TeapotRouterIo {
       handleTurnOn,
       handleTurnOff,
       handleDrain,
+      join,
+      leave,
     } = teapotControllerIo
 
     on(socket, CL.GET_ALL, CoR(AUTHZ, getAll))
@@ -50,6 +52,8 @@ export default class TeapotRouterIo {
     on(socket, CL.TURN_ON, CoR(AUTHZ, handleTurnOn))
     on(socket, CL.TURN_OFF, CoR(AUTHZ, handleTurnOff))
     on(socket, CL.TURN_DRAIN, CoR(AUTHZ, handleDrain))
+    on(socket, CL.JOIN, CoR(AUTHZ, join))
+    on(socket, CL.LEAVE, CoR(AUTHZ, leave))
   }
 
   getMiddleware() {
