@@ -27,12 +27,12 @@ export default {
         },
         join: {
           text: 'Join',
-          color: 'secondary',
+          color: 'green',
           prependIcon: 'mdi-login',
         },
         leave: {
           text: 'Leave',
-          color: 'warning',
+          color: 'red',
           prependIcon: 'mdi-logout',
         },
       },

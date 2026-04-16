@@ -100,7 +100,7 @@ export default {
 <template>
   <v-row justify="center">
     <v-col cols="6">
-      <v-sheet>
+      <v-sheet :class="{ 'bg-grey-darken-3': !isOnline }">
         <v-container class="text-center">
           <v-row>
             <v-col>
@@ -110,14 +110,16 @@ export default {
               <TurboBtn kind="leave" @click="handleLeave" />
             </v-col>
           </v-row>
-          <h1 class="mb-3">Teapot - {{ isOnline }}</h1>
+          <h1 class="mb-3" :class="isOnline ? 'text-green' : 'text-red'">
+            Teapot
+          </h1>
           <v-row>
             <v-col cols="12">
               <v-progress-linear
-                :model-value="temperature"
-                color="indigo"
                 height="23"
-                striped
+                :model-value="temperature"
+                :color="isOnline ? 'indigo' : 'indigo-lighten-1'"
+                :striped="isOnline"
               >
                 <strong>{{ Math.ceil(temperature) }}°C</strong>
               </v-progress-linear>
@@ -141,7 +143,7 @@ export default {
               <h1>READY!</h1>
             </v-col>
             <v-col v-else cols="12">
-              <h1>{{ ongoing }}</h1>
+              <h1>{{ ongoing }}...</h1>
             </v-col>
           </v-row>
         </v-container>
