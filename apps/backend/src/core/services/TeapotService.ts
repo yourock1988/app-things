@@ -65,6 +65,7 @@ export default class TeapotService extends EventEmitter {
     // возвращаем result
     const isLeaved = this.teapotOnline.leaveById(id)
     if (isLeaved) {
+      teapot.turnOff() // в бд нельзя сохранять крутящиеся сущности
       const dto = TeapotMapper.toRecord2(teapot)
       this.teapotRepository.updateById(id, dto)
     }
