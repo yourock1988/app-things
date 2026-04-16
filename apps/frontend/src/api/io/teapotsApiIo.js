@@ -37,6 +37,7 @@ const eventsDict = {
   show: CL.SHOW,
   join: CL.JOIN,
   leave: CL.LEAVE,
+  getById: CL.GET_BY_ID,
 }
 
 const eventsList = [

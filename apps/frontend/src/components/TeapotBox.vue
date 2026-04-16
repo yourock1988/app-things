@@ -14,6 +14,7 @@ export default {
     return {
       temperature: 0,
       ongoing: 'idle',
+      isOnline: false,
       intervalId: undefined,
       // loading: '',
       teapotSynchronizer: null,
@@ -36,10 +37,19 @@ export default {
     },
   },
   async mounted() {
-    //
+    this.teapotSynchronizer = new TeapotSynchronizer(this.teapotId)
+    this.teapotSynchronizer.subscribe()
+    this.teapotSynchronizer.on('update', serverState => {
+      this.temperature = serverState.temperature
+      this.ongoing = serverState.ongoing
+      this.isOnline = serverState.isOnline || false
+    })
+    await this.teapotSynchronizer?.sendEvent('getById')
   },
   unmounted() {
-    //
+    this.teapotSynchronizer?.unsubscribe()
+    this.teapotSynchronizer?.removeAllListeners('update')
+    this.teapotSynchronizer = null
   },
   methods: {
     async ready() {
@@ -78,20 +88,10 @@ export default {
       if (this.temperature === 100 && this.ongoing === 'boiling') this.ready()
     },
     async handleJoin() {
-      this.teapotSynchronizer = new TeapotSynchronizer(this.teapotId)
-      this.teapotSynchronizer.subscribe()
-      this.teapotSynchronizer.on('update', serverState => {
-        this.temperature = serverState.temperature
-        this.ongoing = serverState.ongoing
-      })
       await this.teapotSynchronizer.sendEvent('join')
     },
-
     async handleLeave() {
       await this.teapotSynchronizer?.sendEvent('leave')
-      this.teapotSynchronizer?.unsubscribe()
-      this.teapotSynchronizer?.removeAllListeners('update')
-      this.teapotSynchronizer = null
     },
   },
 }
@@ -110,7 +110,7 @@ export default {
               <TurboBtn kind="leave" @click="handleLeave" />
             </v-col>
           </v-row>
-          <h1 class="mb-3">Teapot</h1>
+          <h1 class="mb-3">Teapot - {{ isOnline }}</h1>
           <v-row>
             <v-col cols="12">
               <v-progress-linear

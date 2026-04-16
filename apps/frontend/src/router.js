@@ -1,6 +1,8 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import PageAccounts from '@/pages/PageAccounts.vue'
 import PageSessions from '@/pages/PageSessions.vue'
+import PageTeapots from '@/pages/PageTeapots.vue'
+import PageOnline from '@/pages/PageOnline.vue'
 import PageSignUp from '@/pages/PageSignUp.vue'
 import PageSignIn from '@/pages/PageSignIn.vue'
 import PagePicsum from '@/pages/PagePicsum.vue'
@@ -8,8 +10,6 @@ import PageTests from '@/pages/PageTests.vue'
 import PageUsers from '@/pages/PageUsers.vue'
 import PageCars from '@/pages/PageCars.vue'
 import PageMain from '@/pages/PageMain.vue'
-import PageTeapots from './pages/PageTeapots.vue'
-import PageOnline from './pages/PageOnline.vue'
 
 const routes = [
   {
