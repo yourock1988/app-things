@@ -27,143 +27,132 @@ export default class TeapotControllerIo {
   }
 
   getAll(ctx, args) {
-    const ack = args.at(2)
+    const [, , ack] = args
     const teapots = this.teapotService.getAll()
     ack?.(null, teapots)
   }
 
   getById(ctx, args) {
-    const { id } = args.at(0)
-    const ack = args.at(2)
+    const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(+id)
-    if (teapot) ack?.(null, teapot)
-    else ack?.(new SocketError(404, 'getById', `teapot id ${id} not exists`))
+    if (!teapot) ack?.(new SocketError(404, 'getById', `id ${id} not exists`))
+    else ack?.(null, teapot)
   }
 
   add(ctx, args) {
-    const dto = args.at(1)
-    const ack = args.at(2)
+    const [, dto, ack] = args
     const teapotJson = this.teapotService.add(dto).toJSON()
     ctx.socket.broadcast.emit(BC_CL.ADDED, teapotJson)
     ack?.(null, teapotJson)
   }
 
   updateById(ctx, args) {
-    const { id } = args.at(0)
-    const dto = args.at(1)
-    const ack = args.at(2)
+    const [{ id }, dto, ack] = args
     const teapotJson = this.teapotService.updateById(id, dto)?.toJSON()
-    if (teapotJson) {
-      ctx.socket.broadcast.emit(BC_CL.UPDATED, teapotJson)
-      ack?.(null, teapotJson)
-    } else {
+    if (!teapotJson) {
       ack?.(new SocketError(404, 'updateById', `id ${id} not exists or online`))
+      return
     }
+    ctx.socket.broadcast.emit(BC_CL.UPDATED, teapotJson)
+    ack?.(null, teapotJson)
   }
 
   removeById(ctx, args) {
-    const { id } = args.at(0)
-    const ack = args.at(2)
+    const [{ id }, , ack] = args
     const hasBeenExists = this.teapotService.removeById(id)
-    if (hasBeenExists) {
-      ctx.socket.broadcast.emit(BC_CL.DELETED, id)
-      ack?.(null)
-    } else {
+    if (!hasBeenExists) {
       ack?.(new SocketError(404, 'removeById', `id ${id} not exists or online`))
+      return
     }
+    ctx.socket.broadcast.emit(BC_CL.DELETED, id)
+    ack?.(null)
   }
 
   show(ctx, args) {
-    const { id } = args.at(0)
-    const ack = args.at(2)
+    const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
-    if (teapot) ack?.(null, teapot)
-    else ack({ err: '404' })
+    if (!teapot) ack({ err: '404' })
+    else ack?.(null, teapot)
   }
 
   join(ctx, args) {
-    const { id } = args.at(0)
-    const ack = args.at(2)
+    const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(id)
     if (!teapot) {
       ack({ err: '404' })
-    } else {
-      const isJoined = this.teapotService.join(teapot)
-      const teapotJson = teapot.toJSON()
-      if (isJoined) {
-        ctx.socket.broadcast.emit(BC_CL.JOINED, teapotJson)
-        this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
-      }
-      ack?.(null, teapotJson)
+      return
     }
+    const isJoined = this.teapotService.join(teapot)
+    const teapotJson = teapot.toJSON()
+    if (isJoined) {
+      ctx.socket.broadcast.emit(BC_CL.JOINED, teapotJson)
+      this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
+    }
+    ack?.(null, teapotJson)
   }
 
   leave(ctx, args) {
-    const { id } = args.at(0)
-    const ack = args.at(2)
+    const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(id)
     if (!teapot) {
       ack({ err: '404' })
-    } else {
-      const isLeaved = this.teapotService.leave(teapot)
-      const teapotJson = teapot.toJSON()
-      if (isLeaved) {
-        ctx.socket.broadcast.emit(BC_CL.LEAVED, teapotJson)
-        this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
-      }
-      ack?.(null, teapotJson)
+      return
     }
+    const isLeaved = this.teapotService.leave(teapot)
+    const teapotJson = teapot.toJSON()
+    if (isLeaved) {
+      ctx.socket.broadcast.emit(BC_CL.LEAVED, teapotJson)
+      this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
+    }
+    ack?.(null, teapotJson)
   }
 
   handleTurnOn(ctx, args) {
-    const { id } = args.at(0)
-    const ack = args.at(2)
+    const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
       ack({ err: '404' })
-    } else {
-      const isTurned = this.teapotService.doTurnOn(teapot)
-      const teapotJson = teapot.toJSON()
-      if (isTurned) {
-        ctx.socket.broadcast.emit(BC_CL.TURNED_ON, teapotJson)
-        this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
-      }
-      ack?.(null, teapotJson)
+      return
     }
+    const isTurned = this.teapotService.doTurnOn(teapot)
+    const teapotJson = teapot.toJSON()
+    if (isTurned) {
+      ctx.socket.broadcast.emit(BC_CL.TURNED_ON, teapotJson)
+      this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
+    }
+    ack?.(null, teapotJson)
   }
 
   handleTurnOff(ctx, args) {
-    const { id } = args.at(0)
-    const ack = args.at(2)
+    const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
       ack({ err: '404' })
-    } else {
-      const isTurned = this.teapotService.doTurnOff(teapot)
-      const teapotJson = teapot.toJSON()
-      if (isTurned) {
-        ctx.socket.broadcast.emit(BC_CL.TURNED_OFF, teapotJson)
-        this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
-      }
-      ack?.(null, teapotJson)
+      return
     }
+    const isTurned = this.teapotService.doTurnOff(teapot)
+    const teapotJson = teapot.toJSON()
+    if (isTurned) {
+      ctx.socket.broadcast.emit(BC_CL.TURNED_OFF, teapotJson)
+      this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
+    }
+    ack?.(null, teapotJson)
   }
 
   handleDrain(ctx, args) {
-    const { id } = args.at(0)
-    const ack = args.at(2)
+    const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
       ack({ err: '404' })
-    } else {
-      const isTurned = this.teapotService.doTurnDrain(teapot)
-      const teapotJson = teapot.toJSON()
-      if (isTurned) {
-        ctx.socket.broadcast.emit(BC_CL.TURNED_DRAIN, teapotJson)
-        this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
-        // и вот тут можно воспользоваться socket io rooms чтоб рассылать апдейты только админам например
-      }
-      ack?.(null, teapotJson)
+      return
     }
+    const isTurned = this.teapotService.doTurnDrain(teapot)
+    const teapotJson = teapot.toJSON()
+    if (isTurned) {
+      ctx.socket.broadcast.emit(BC_CL.TURNED_DRAIN, teapotJson)
+      this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
+      // и вот тут можно воспользоваться socket io rooms чтоб рассылать апдейты только админам например
+    }
+    ack?.(null, teapotJson)
   }
 }
