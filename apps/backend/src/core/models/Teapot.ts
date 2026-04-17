@@ -27,6 +27,7 @@ export default class Teapot extends EventEmitter {
 
   public turnOn() {
     // global.console.log(this.id, 'turnOn!!')
+    if (!this.isOnline) return false
     if (this.ongoing === 'boiling' || this.temperature === 100) return false
     this.ongoing = 'boiling'
     clearInterval(this.intervalId)
@@ -36,6 +37,7 @@ export default class Teapot extends EventEmitter {
 
   public turnOff() {
     // global.console.log(this.id, 'turnOff!!')
+    if (!this.isOnline) return false
     if (this.ongoing === 'idle') return false
     this.ongoing = 'idle'
     clearInterval(this.intervalId)
@@ -46,6 +48,7 @@ export default class Teapot extends EventEmitter {
 
   public turnDrain() {
     // global.console.log(this.id, 'turnDrain!!')
+    if (!this.isOnline) return false
     if (this.temperature === 0 && this.ongoing === 'idle') return false
     this.turnOff()
     this.temperature = 0

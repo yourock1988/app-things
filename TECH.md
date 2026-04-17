@@ -155,3 +155,19 @@ auth0/google
 прописать миграции базы данных
 
 рефакторинг di контейнера в inversify-js
+
+    // teapotService.on('teapot!turned_on', (t: Teapot) =>
+    //   this.io?.emit('bc-sv:teapot-turned_on', t),
+    // )
+    // teapotService.on('teapot!already_turned_on', (t: Teapot) =>
+    //   this.io?.emit('bc-sv:teapot-already_turned_on', t),
+    // )
+
+    // if (teapot.turnOn()) this.emit('teapot!turned_on', teapot)
+    // else this.emit('teapot!already_turned_on', teapot)
+
+    // if (teapot.turnOff()) this.emit('teapot!turned_off', teapot)
+    // else this.emit('teapot!already_turned_off', teapot)
+
+    // if (teapot.turnDrain()) this.emit('teapot!turned_drain', teapot)
+    // else this.emit('teapot!already_turned_drain', teapot)

@@ -19,16 +19,6 @@ export default class TeapotControllerIo {
       this.teapotNamespace?.emit(BC_SV.BOILED, t)
       this.teapotNamespace?.emit(BC_CL.UPDATED, t)
     })
-    // teapotService.on('teapot!turned_on', (t: Teapot) =>
-    //   this.io?.emit('bc-sv:teapot-turned_on', t),
-    // )
-    // teapotService.on('teapot!already_turned_on', (t: Teapot) =>
-    //   this.io?.emit('bc-sv:teapot-already_turned_on', t),
-    // )
-    this.teapotService.on('teapot!added', (teapot: Teapot) =>
-      this.io?.emit('bc-sv:teapot:added', teapot),
-    )
-    // в том случае если добавлено из http rest, то разослать всем
   }
 
   init(teapotNamespace: Namespace, io: Server) {
@@ -51,23 +41,21 @@ export default class TeapotControllerIo {
   }
 
   add(ctx, args) {
-    const ack = args.at(2)
     const dto = args.at(1)
-    const teapot = this.teapotService.add(dto).toJSON()
-    ack?.(null, teapot)
-    ctx.socket.broadcast.emit(BC_CL.ADDED, teapot)
-    // this.io.emit('bc-sv:teapot:added', teapot)
+    const ack = args.at(2)
+    const teapotJson = this.teapotService.add(dto).toJSON()
+    ctx.socket.broadcast.emit(BC_CL.ADDED, teapotJson)
+    ack?.(null, teapotJson)
   }
 
   updateById(ctx, args) {
     const { id } = args.at(0)
     const dto = args.at(1)
     const ack = args.at(2)
-    const teapot = this.teapotService.updateById(id, dto)
-    if (teapot) {
-      const teapotJson = teapot.toJSON()
-      ack?.(null, teapotJson)
+    const teapotJson = this.teapotService.updateById(id, dto)?.toJSON()
+    if (teapotJson) {
       ctx.socket.broadcast.emit(BC_CL.UPDATED, teapotJson)
+      ack?.(null, teapotJson)
     } else {
       ack?.(new SocketError(404, 'updateById', `id ${id} not exists or online`))
     }
@@ -78,8 +66,8 @@ export default class TeapotControllerIo {
     const ack = args.at(2)
     const hasBeenExists = this.teapotService.removeById(id)
     if (hasBeenExists) {
-      ack?.(null)
       ctx.socket.broadcast.emit(BC_CL.DELETED, id)
+      ack?.(null)
     } else {
       ack?.(new SocketError(404, 'removeById', `id ${id} not exists or online`))
     }
@@ -96,50 +84,45 @@ export default class TeapotControllerIo {
   join(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    const result = this.teapotService.joinById(id)
-    if (result === null) {
+    const teapot = this.teapotService.getById(id)
+    if (!teapot) {
       ack({ err: '404' })
     } else {
-      const { teapot, isJoined } = result
+      const isJoined = this.teapotService.join(teapot)
       const teapotJson = teapot.toJSON()
       if (isJoined) {
         ctx.socket.broadcast.emit(BC_CL.JOINED, teapotJson)
         this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
-        ack?.(null, teapotJson)
-      } else {
-        ack?.({ err: 'already online' })
       }
+      ack?.(null, teapotJson)
     }
   }
 
   leave(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    const result = this.teapotService.leaveById(id)
-    if (result === null) {
+    const teapot = this.teapotService.getById(id)
+    if (!teapot) {
       ack({ err: '404' })
     } else {
-      const { teapot, isLeaved } = result
+      const isLeaved = this.teapotService.leave(teapot)
       const teapotJson = teapot.toJSON()
       if (isLeaved) {
         ctx.socket.broadcast.emit(BC_CL.LEAVED, teapotJson)
         this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
-        ack?.(null, teapotJson)
-      } else {
-        ack?.({ err: 'already offline' })
-        // never reached...
       }
+      ack?.(null, teapotJson)
     }
   }
 
   handleTurnOn(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    const result = this.teapotService.doTurnOn(id)
-    if (result === null) {
+    const teapot = this.teapotService.show(id)
+    if (!teapot) {
       ack({ err: '404' })
     } else {
-      const { teapot, isTurned } = result
+      const isTurned = this.teapotService.doTurnOn(teapot)
       const teapotJson = teapot.toJSON()
       if (isTurned) {
         ctx.socket.broadcast.emit(BC_CL.TURNED_ON, teapotJson)
@@ -152,11 +135,11 @@ export default class TeapotControllerIo {
   handleTurnOff(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    const result = this.teapotService.doTurnOff(id)
-    if (result === null) {
+    const teapot = this.teapotService.show(id)
+    if (!teapot) {
       ack({ err: '404' })
     } else {
-      const { teapot, isTurned } = result
+      const isTurned = this.teapotService.doTurnOff(teapot)
       const teapotJson = teapot.toJSON()
       if (isTurned) {
         ctx.socket.broadcast.emit(BC_CL.TURNED_OFF, teapotJson)
@@ -169,11 +152,11 @@ export default class TeapotControllerIo {
   handleDrain(ctx, args) {
     const { id } = args.at(0)
     const ack = args.at(2)
-    const result = this.teapotService.doTurnDrain(id)
-    if (result === null) {
+    const teapot = this.teapotService.show(id)
+    if (!teapot) {
       ack({ err: '404' })
     } else {
-      const { teapot, isTurned } = result
+      const isTurned = this.teapotService.doTurnDrain(teapot)
       const teapotJson = teapot.toJSON()
       if (isTurned) {
         ctx.socket.broadcast.emit(BC_CL.TURNED_DRAIN, teapotJson)

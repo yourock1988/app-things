@@ -3,7 +3,7 @@ import Teapot from '../../../../src/core/models/Teapot'
 describe('создание чайника', () => {
   let teapot: Teapot
   beforeEach(() => {
-    teapot = new Teapot(42, 0)
+    teapot = new Teapot(42, 0, 'idle', true)
   })
   it('правильный id', () => {
     expect(teapot.id).toBe(42)
@@ -15,7 +15,7 @@ describe('создание чайника', () => {
     expect(teapot.isBoiling).toBe(false)
   })
   it('правильный toJSON', () => {
-    const expectedJSON = `{"id":42,"temperature":0,"ongoing":"idle","isOnline":false}`
+    const expectedJSON = `{"id":42,"temperature":0,"ongoing":"idle","isOnline":true}`
     expect(JSON.stringify(teapot)).toBe(expectedJSON)
   })
 })
@@ -23,7 +23,7 @@ describe('создание чайника', () => {
 describe('кипячение', () => {
   let teapot: Teapot
   beforeEach(() => {
-    teapot = new Teapot(42, 0)
+    teapot = new Teapot(42, 0, 'idle', true)
   })
   afterEach(() => {
     teapot.turnOff()

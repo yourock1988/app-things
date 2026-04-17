@@ -24,18 +24,12 @@ export default class TeapotService extends EventEmitter {
   }
 
   add(dto: TTeapotAddDto): Teapot {
-    const teapot = this.teapotRepository.add(dto)
-    this.emit('teapot!added', teapot)
-    return teapot
+    return this.teapotRepository.add(dto)
   }
 
   updateById(id: number, dto: TTeapotUpdateDto): Teapot | null {
     if (this.teapotOnline.isOnlineById(id)) return null
-    const teapot = this.teapotRepository.updateById(id, {
-      ...dto,
-      temperature: dto.temperature + 1,
-    })
-    return teapot
+    return this.teapotRepository.updateById(id, dto)
   }
 
   removeById(id: number): boolean {
@@ -47,65 +41,54 @@ export default class TeapotService extends EventEmitter {
     return this.teapotOnline.getById(id)
   }
 
-  joinById(id: number) {
-    const teapot = this.teapotRepository.getById(id)
-    if (!teapot) return null
+  join(teapot: Teapot) {
     const isJoined = this.teapotOnline.join(teapot)
     if (isJoined) {
       teapot.on('ready', () => {
         if (!teapot.isOnline) return
         const dto = TeapotMapper.toRecord2(teapot)
-        this.teapotRepository.updateById(id, dto)
+        this.teapotRepository.updateById(teapot.id, dto)
         this.emit('teapot!ready', teapot)
       })
     }
-    return { teapot, isJoined }
+    return isJoined
   }
 
-  leaveById(id: number) {
-    // не зачем делать getById
-    const teapot = this.teapotOnline.getById(id)
-    if (!teapot) return null
-    // возвращаем result
-    const isLeaved = this.teapotOnline.leaveById(id)
+  leave(teapot: Teapot) {
+    const isLeaved = this.teapotOnline.leaveById(teapot.id)
     if (isLeaved) {
+      teapot.removeAllListeners('ready')
       teapot.turnOff() // в бд нельзя сохранять крутящиеся сущности
       const dto = TeapotMapper.toRecord2(teapot)
-      this.teapotRepository.updateById(id, dto)
+      this.teapotRepository.updateById(teapot.id, dto)
     }
-    return { teapot, isLeaved }
+    return isLeaved
   }
 
-  doTurnOn(id: number): { teapot: Teapot; isTurned: boolean } | null {
-    const teapot = this.teapotOnline.getById(id)
-    if (!teapot) return null
+  doTurnOn(teapot: Teapot): boolean {
     const isTurned = teapot.turnOn()
-    const dto = TeapotMapper.toRecord2(teapot)
-    this.teapotRepository.updateById(id, dto)
-    return { teapot, isTurned }
-    // if (teapot.turnOn()) this.emit('teapot!turned_on', teapot)
-    // else this.emit('teapot!already_turned_on', teapot)
+    if (isTurned) {
+      const dto = TeapotMapper.toRecord2(teapot)
+      this.teapotRepository.updateById(teapot.id, dto)
+    }
+    return isTurned
   }
 
-  doTurnOff(id: number): { teapot: Teapot; isTurned: boolean } | null {
-    const teapot = this.teapotOnline.getById(id)
-    if (!teapot) return null
+  doTurnOff(teapot: Teapot): boolean {
     const isTurned = teapot.turnOff()
-    const dto = TeapotMapper.toRecord2(teapot)
-    this.teapotRepository.updateById(id, dto)
-    return { teapot, isTurned }
-    // if (teapot.turnOff()) this.emit('teapot!turned_off', teapot)
-    // else this.emit('teapot!already_turned_off', teapot)
+    if (isTurned) {
+      const dto = TeapotMapper.toRecord2(teapot)
+      this.teapotRepository.updateById(teapot.id, dto)
+    }
+    return isTurned
   }
 
-  doTurnDrain(id: number): { teapot: Teapot; isTurned: boolean } | null {
-    const teapot = this.teapotOnline.getById(id)
-    if (!teapot) return null
+  doTurnDrain(teapot: Teapot): boolean {
     const isTurned = teapot.turnDrain()
-    const dto = TeapotMapper.toRecord2(teapot)
-    this.teapotRepository.updateById(id, dto)
-    return { teapot, isTurned }
-    // if (teapot.turnDrain()) this.emit('teapot!turned_drain', teapot)
-    // else this.emit('teapot!already_turned_drain', teapot)
+    if (isTurned) {
+      const dto = TeapotMapper.toRecord2(teapot)
+      this.teapotRepository.updateById(teapot.id, dto)
+    }
+    return isTurned
   }
 }
