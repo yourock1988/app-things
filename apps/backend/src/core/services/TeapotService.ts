@@ -43,6 +43,10 @@ export default class TeapotService extends EventEmitter {
     return this.teapotRepository.removeById(id)
   }
 
+  show(id: number): Teapot | null {
+    return this.teapotOnline.getById(id)
+  }
+
   joinById(id: number) {
     const teapot = this.teapotRepository.getById(id)
     if (!teapot) return null
@@ -70,10 +74,6 @@ export default class TeapotService extends EventEmitter {
       this.teapotRepository.updateById(id, dto)
     }
     return { teapot, isLeaved }
-  }
-
-  show(id: number): Teapot | null {
-    return this.teapotOnline.getById(id)
   }
 
   doTurnOn(id: number): { teapot: Teapot; isTurned: boolean } | null {

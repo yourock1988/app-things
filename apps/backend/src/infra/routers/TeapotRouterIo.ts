@@ -35,11 +35,11 @@ export default class TeapotRouterIo {
       updateById,
       removeById,
       show,
+      join,
+      leave,
       handleTurnOn,
       handleTurnOff,
       handleDrain,
-      join,
-      leave,
     } = teapotControllerIo
 
     on(socket, CL.GET_ALL, CoR(AUTHZ, getAll))
@@ -49,11 +49,11 @@ export default class TeapotRouterIo {
     on(socket, CL.DEL_BY_ID, CoR(ID, AUTHZ, removeById))
 
     on(socket, CL.SHOW, CoR(AUTHZ, show))
+    on(socket, CL.JOIN, CoR(AUTHZ, join))
+    on(socket, CL.LEAVE, CoR(AUTHZ, leave))
     on(socket, CL.TURN_ON, CoR(AUTHZ, handleTurnOn))
     on(socket, CL.TURN_OFF, CoR(AUTHZ, handleTurnOff))
     on(socket, CL.TURN_DRAIN, CoR(AUTHZ, handleDrain))
-    on(socket, CL.JOIN, CoR(AUTHZ, join))
-    on(socket, CL.LEAVE, CoR(AUTHZ, leave))
   }
 
   getMiddleware() {

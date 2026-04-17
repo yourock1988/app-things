@@ -31,22 +31,22 @@ export function removeById(id) {
 }
 
 const eventsDict = {
-  turnOff: CL.TURN_OFF,
-  turnOn: CL.TURN_ON,
-  drain: CL.TURN_DRAIN,
+  getById: CL.GET_BY_ID,
   show: CL.SHOW,
   join: CL.JOIN,
   leave: CL.LEAVE,
-  getById: CL.GET_BY_ID,
+  turnOn: CL.TURN_ON,
+  turnOff: CL.TURN_OFF,
+  drain: CL.TURN_DRAIN,
 }
 
 const eventsList = [
-  BC_CL.TURNED_OFF,
-  BC_CL.TURNED_ON,
-  BC_CL.TURNED_DRAIN,
-  BC_SV.BOILED,
   BC_CL.JOINED,
   BC_CL.LEAVED,
+  BC_CL.TURNED_ON,
+  BC_CL.TURNED_OFF,
+  BC_CL.TURNED_DRAIN,
+  BC_SV.BOILED,
 ]
 
 export default class TeapotSynchronizer extends Synchronizer {
