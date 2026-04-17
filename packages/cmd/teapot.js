@@ -22,12 +22,12 @@ export default {
     TURNED_ON: 'teapot:bc-cl:turned_on',
     TURNED_OFF: 'teapot:bc-cl:turned_off',
     TURNED_DRAIN: 'teapot:bc-cl:turned_drain',
+    JOINED: 'teapot:bc-cl:joined',
+    LEAVED: 'teapot:bc-cl:leaved',
   },
   BC_SV: {
     BOILED: 'teapot:bc-sv:boiled',
     DRAINED: 'teapot:bc-sv:drained',
     NO_POWER: 'teapot:bc-sv:no_power',
-    JOINED: 'teapot:bc-sv:joined',
-    LEAVED: 'teapot:bc-sv:leaved',
   },
 }

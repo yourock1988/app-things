@@ -155,7 +155,7 @@ export default class TeapotControllerIo {
       const { teapot, isJoined } = result
       const teapotJson = teapot.toJSON()
       if (isJoined) {
-        ctx.socket.broadcast.emit(BC_SV.JOINED, teapotJson)
+        ctx.socket.broadcast.emit(BC_CL.JOINED, teapotJson)
         this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
         ack?.(null, teapotJson)
       } else {
@@ -174,7 +174,7 @@ export default class TeapotControllerIo {
       const { teapot, isLeaved } = result
       const teapotJson = teapot.toJSON()
       if (isLeaved) {
-        ctx.socket.broadcast.emit(BC_SV.LEAVED, teapotJson)
+        ctx.socket.broadcast.emit(BC_CL.LEAVED, teapotJson)
         this.teapotNamespace?.emit(BC_CL.UPDATED, teapotJson)
         ack?.(null, teapotJson)
       } else {

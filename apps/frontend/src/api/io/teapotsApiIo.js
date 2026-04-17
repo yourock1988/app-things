@@ -45,6 +45,8 @@ const eventsList = [
   BC_CL.TURNED_ON,
   BC_CL.TURNED_DRAIN,
   BC_SV.BOILED,
+  BC_CL.JOINED,
+  BC_CL.LEAVED,
 ]
 
 export default class TeapotSynchronizer extends Synchronizer {
