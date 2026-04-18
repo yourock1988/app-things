@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { zUserAddDto, zUserUpdateDto } from '../schemas/zUserDtos'
+import { zUserAddDto, zUserUpdateDto } from '../schemas/zUserDtos.js'
 
 export type TUserAddDto = z.infer<typeof zUserAddDto>
 export type TUserUpdateDto = z.infer<typeof zUserUpdateDto>

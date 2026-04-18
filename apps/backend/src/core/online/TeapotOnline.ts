@@ -1,5 +1,5 @@
 import EventEmitter from 'node:events'
-import Teapot from '../models/Teapot'
+import Teapot from '../models/Teapot.js'
 
 export default class TeapotOnline extends EventEmitter {
   private map: Map<number, Teapot>
