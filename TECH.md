@@ -171,3 +171,6 @@ auth0/google
 
     // if (teapot.turnDrain()) this.emit('teapot!turned_drain', teapot)
     // else this.emit('teapot!already_turned_drain', teapot)
+
+    "typeRoots": ["../../node_modules/@types", "../../node_modules", "./types"],
+    "types": ["vitest/globals", "node"],
