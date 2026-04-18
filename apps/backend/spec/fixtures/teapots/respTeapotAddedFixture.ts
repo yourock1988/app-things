@@ -3,4 +3,5 @@ export default {
   temperature: 77,
   ongoing: 'idle',
   isOnline: expect.any(Boolean),
+  accountId: expect.any(Number),
 }
