@@ -1,5 +1,5 @@
 import supertest from 'supertest'
-import appHttp from '../../src/appHttp'
+import appHttp from '../../src/appHttp.js'
 import carsTable from '../../src/utils/tables/carsTable.js'
 import carsSeed from '../seeds/carsSeed.js'
 
@@ -9,13 +9,13 @@ import dtoCarUpdFixture from '../fixtures/cars/dtoCarUpdFixture.js'
 import respCarAddedFixture from '../fixtures/cars/respCarAddedFixture.js'
 import respCarByIdFixture from '../fixtures/cars/respCarByIdFixture.js'
 import respCarUpdatedFixture from '../fixtures/cars/respCarUpdatedFixture.js'
-import respCarsAllFixture from '../fixtures/cars/respCarsAllFixture'
+import respCarsAllFixture from '../fixtures/cars/respCarsAllFixture.js'
 
 import tableCarsAllFixture from '../fixtures/cars/tableCarsAllFixture.js'
 import tableCarsWithAddedFixture from '../fixtures/cars/tableCarsWithAddedFixture.js'
 import tableCarsWithoutDeletedFixture from '../fixtures/cars/tableCarsWithoutDeletedFixture.js'
 import tableCarsWithUpdatedFixture from '../fixtures/cars/tableCarsWithUpdatedFixture.js'
-import { makeResetTable } from './helpers'
+import { makeResetTable } from './helpers.js'
 
 const resetTable = makeResetTable(carsTable, carsSeed)
 

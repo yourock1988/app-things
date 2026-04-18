@@ -1,12 +1,12 @@
 import { io as ioc } from 'socket.io-client'
-import io from '../../src/appIo'
-import carsSeed from '../seeds/carsSeed'
-import carsTable from '../../src/utils/tables/carsTable'
-import dtoCarAddFixture from '../fixtures/cars/dtoCarAddFixture'
-import dtoCarUpdFixture from '../fixtures/cars/dtoCarUpdFixture'
-import respCarAddedFixture from '../fixtures/cars/respCarAddedFixture'
-import respCarUpdatedFixture from '../fixtures/cars/respCarUpdatedFixture'
-import { makeResetTable, clListen, clSend } from './helpers'
+import io from '../../src/appIo.js'
+import carsSeed from '../seeds/carsSeed.js'
+import carsTable from '../../src/utils/tables/carsTable.js'
+import dtoCarAddFixture from '../fixtures/cars/dtoCarAddFixture.js'
+import dtoCarUpdFixture from '../fixtures/cars/dtoCarUpdFixture.js'
+import respCarAddedFixture from '../fixtures/cars/respCarAddedFixture.js'
+import respCarUpdatedFixture from '../fixtures/cars/respCarUpdatedFixture.js'
+import { makeResetTable, clListen, clSend } from './helpers.js'
 
 const resetTable = makeResetTable(carsTable, carsSeed)
 const port = 20012

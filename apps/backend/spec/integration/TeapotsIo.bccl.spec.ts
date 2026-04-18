@@ -2,14 +2,14 @@
 
 import { TEAPOT } from '@app-x/cmd'
 import { io as ioc } from 'socket.io-client'
-import io from '../../src/appIo'
-import teapotsSeed from '../seeds/teapotsSeed'
-import teapotsTable from '../../src/utils/tables/teapotsTable'
-import dtoTeapotAddFixture from '../fixtures/teapots/dtoTeapotAddFixture'
-import dtoTeapotUpdFixture from '../fixtures/teapots/dtoTeapotUpdFixture'
-import respTeapotAddedFixture from '../fixtures/teapots/respTeapotAddedFixture'
-import respTeapotUpdatedFixture from '../fixtures/teapots/respTeapotUpdatedFixture'
-import { makeResetTable, clListen, clSend } from './helpers'
+import io from '../../src/appIo.js'
+import teapotsSeed from '../seeds/teapotsSeed.js'
+import teapotsTable from '../../src/utils/tables/teapotsTable.js'
+import dtoTeapotAddFixture from '../fixtures/teapots/dtoTeapotAddFixture.js'
+import dtoTeapotUpdFixture from '../fixtures/teapots/dtoTeapotUpdFixture.js'
+import respTeapotAddedFixture from '../fixtures/teapots/respTeapotAddedFixture.js'
+import respTeapotUpdatedFixture from '../fixtures/teapots/respTeapotUpdatedFixture.js'
+import { makeResetTable, clListen, clSend } from './helpers.js'
 
 const { CL, BC_CL } = TEAPOT
 

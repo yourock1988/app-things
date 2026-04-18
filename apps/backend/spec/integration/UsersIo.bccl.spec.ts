@@ -1,12 +1,12 @@
 import { io as ioc } from 'socket.io-client'
-import io from '../../src/appIo'
-import usersSeed from '../seeds/usersSeed'
-import usersTable from '../../src/utils/tables/usersTable'
-import dtoUserAddFixture from '../fixtures/users/dtoUserAddFixture'
-import dtoUserUpdFixture from '../fixtures/users/dtoUserUpdFixture'
-import respUserAddedFixture from '../fixtures/users/respUserAddedFixture'
-import respUserUpdatedFixture from '../fixtures/users/respUserUpdatedFixture'
-import { makeResetTable, clListen, clSend } from './helpers'
+import io from '../../src/appIo.js'
+import usersSeed from '../seeds/usersSeed.js'
+import usersTable from '../../src/utils/tables/usersTable.js'
+import dtoUserAddFixture from '../fixtures/users/dtoUserAddFixture.js'
+import dtoUserUpdFixture from '../fixtures/users/dtoUserUpdFixture.js'
+import respUserAddedFixture from '../fixtures/users/respUserAddedFixture.js'
+import respUserUpdatedFixture from '../fixtures/users/respUserUpdatedFixture.js'
+import { makeResetTable, clListen, clSend } from './helpers.js'
 
 const resetTable = makeResetTable(usersTable, usersSeed)
 const port = 20022

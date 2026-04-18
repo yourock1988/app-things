@@ -1,5 +1,5 @@
 import { io as ioc } from 'socket.io-client'
-import io from '../../src/appIo'
+import io from '../../src/appIo.js'
 
 const port = 20020
 const ns = '/users'

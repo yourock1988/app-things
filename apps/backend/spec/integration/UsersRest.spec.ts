@@ -1,5 +1,5 @@
 import supertest from 'supertest'
-import appHttp from '../../src/appHttp'
+import appHttp from '../../src/appHttp.js'
 import usersTable from '../../src/utils/tables/usersTable.js'
 import usersSeed from '../seeds/usersSeed.js'
 
@@ -9,13 +9,13 @@ import dtoUserUpdFixture from '../fixtures/users/dtoUserUpdFixture.js'
 import respUserAddedFixture from '../fixtures/users/respUserAddedFixture.js'
 import respUserByIdFixture from '../fixtures/users/respUserByIdFixture.js'
 import respUserUpdatedFixture from '../fixtures/users/respUserUpdatedFixture.js'
-import respUsersAllFixture from '../fixtures/users/respUsersAllFixture'
+import respUsersAllFixture from '../fixtures/users/respUsersAllFixture.js'
 
 import tableUsersAllFixture from '../fixtures/users/tableUsersAllFixture.js'
 import tableUsersWithAddedFixture from '../fixtures/users/tableUsersWithAddedFixture.js'
-import tableUsersWithoutDeletedFixture from '../fixtures/users/tableUsersWithoutDeletedFixture'
+import tableUsersWithoutDeletedFixture from '../fixtures/users/tableUsersWithoutDeletedFixture.js'
 import tableUsersWithUpdatedFixture from '../fixtures/users/tableUsersWithUpdatedFixture.js'
-import { makeResetTable } from './helpers'
+import { makeResetTable } from './helpers.js'
 
 const resetTable = makeResetTable(usersTable, usersSeed)
 

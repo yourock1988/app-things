@@ -1,21 +1,21 @@
 import { io as ioc } from 'socket.io-client'
-import io from '../../src/appIo'
-import carsTable from '../../src/utils/tables/carsTable'
-import carsSeed from '../seeds/carsSeed'
+import io from '../../src/appIo.js'
+import carsTable from '../../src/utils/tables/carsTable.js'
+import carsSeed from '../seeds/carsSeed.js'
 
-import dtoCarAddFixture from '../fixtures/cars/dtoCarAddFixture'
-import dtoCarUpdFixture from '../fixtures/cars/dtoCarUpdFixture'
+import dtoCarAddFixture from '../fixtures/cars/dtoCarAddFixture.js'
+import dtoCarUpdFixture from '../fixtures/cars/dtoCarUpdFixture.js'
 
-import respCarAddedFixture from '../fixtures/cars/respCarAddedFixture'
-import respCarByIdFixture from '../fixtures/cars/respCarByIdFixture'
-import respCarUpdatedFixture from '../fixtures/cars/respCarUpdatedFixture'
-import respCarsAllFixture from '../fixtures/cars/respCarsAllFixture'
+import respCarAddedFixture from '../fixtures/cars/respCarAddedFixture.js'
+import respCarByIdFixture from '../fixtures/cars/respCarByIdFixture.js'
+import respCarUpdatedFixture from '../fixtures/cars/respCarUpdatedFixture.js'
+import respCarsAllFixture from '../fixtures/cars/respCarsAllFixture.js'
 
-import tableCarsAllFixture from '../fixtures/cars/tableCarsAllFixture'
-import tableCarsWithAddedFixture from '../fixtures/cars/tableCarsWithAddedFixture'
-import tableCarsWithoutDeletedFixture from '../fixtures/cars/tableCarsWithoutDeletedFixture'
-import tableCarsWithUpdatedFixture from '../fixtures/cars/tableCarsWithUpdatedFixture'
-import { makeResetTable, clSend } from './helpers'
+import tableCarsAllFixture from '../fixtures/cars/tableCarsAllFixture.js'
+import tableCarsWithAddedFixture from '../fixtures/cars/tableCarsWithAddedFixture.js'
+import tableCarsWithoutDeletedFixture from '../fixtures/cars/tableCarsWithoutDeletedFixture.js'
+import tableCarsWithUpdatedFixture from '../fixtures/cars/tableCarsWithUpdatedFixture.js'
+import { makeResetTable, clSend } from './helpers.js'
 
 const resetTable = makeResetTable(carsTable, carsSeed)
 const port = 20011

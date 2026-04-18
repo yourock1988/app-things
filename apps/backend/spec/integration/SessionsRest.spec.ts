@@ -1,5 +1,5 @@
 import supertest from 'supertest'
-import appHttp from '../../src/appHttp'
+import appHttp from '../../src/appHttp.js'
 import sessionsTable from '../../src/utils/tables/sessionsTable.js'
 import sessionsSeed from '../seeds/sessionsSeed.js'
 
@@ -9,13 +9,13 @@ import dtoSessionUpdFixture from '../fixtures/sessions/dtoSessionUpdFixture.js'
 import respSessionAddedFixture from '../fixtures/sessions/respSessionAddedFixture.js'
 import respSessionByIdFixture from '../fixtures/sessions/respSessionByIdFixture.js'
 import respSessionUpdatedFixture from '../fixtures/sessions/respSessionUpdatedFixture.js'
-import respSessionsAllFixture from '../fixtures/sessions/respSessionsAllFixture'
+import respSessionsAllFixture from '../fixtures/sessions/respSessionsAllFixture.js'
 
 import tableSessionsAllFixture from '../fixtures/sessions/tableSessionsAllFixture.js'
 import tableSessionsWithAddedFixture from '../fixtures/sessions/tableSessionsWithAddedFixture.js'
 import tableSessionsWithoutDeletedFixture from '../fixtures/sessions/tableSessionsWithoutDeletedFixture.js'
 import tableSessionsWithUpdatedFixture from '../fixtures/sessions/tableSessionsWithUpdatedFixture.js'
-import { makeResetTable } from './helpers'
+import { makeResetTable } from './helpers.js'
 
 const resetTable = makeResetTable(sessionsTable, sessionsSeed)
 

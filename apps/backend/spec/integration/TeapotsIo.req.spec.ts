@@ -1,22 +1,22 @@
 import { TEAPOT } from '@app-x/cmd'
 import { io as ioc } from 'socket.io-client'
-import io from '../../src/appIo'
-import teapotsTable from '../../src/utils/tables/teapotsTable'
-import teapotsSeed from '../seeds/teapotsSeed'
+import io from '../../src/appIo.js'
+import teapotsTable from '../../src/utils/tables/teapotsTable.js'
+import teapotsSeed from '../seeds/teapotsSeed.js'
 
-import dtoTeapotAddFixture from '../fixtures/teapots/dtoTeapotAddFixture'
-import dtoTeapotUpdFixture from '../fixtures/teapots/dtoTeapotUpdFixture'
+import dtoTeapotAddFixture from '../fixtures/teapots/dtoTeapotAddFixture.js'
+import dtoTeapotUpdFixture from '../fixtures/teapots/dtoTeapotUpdFixture.js'
 
-import respTeapotAddedFixture from '../fixtures/teapots/respTeapotAddedFixture'
-import respTeapotByIdFixture from '../fixtures/teapots/respTeapotByIdFixture'
-import respTeapotUpdatedFixture from '../fixtures/teapots/respTeapotUpdatedFixture'
-import respTeapotsAllFixture from '../fixtures/teapots/respTeapotsAllFixture'
+import respTeapotAddedFixture from '../fixtures/teapots/respTeapotAddedFixture.js'
+import respTeapotByIdFixture from '../fixtures/teapots/respTeapotByIdFixture.js'
+import respTeapotUpdatedFixture from '../fixtures/teapots/respTeapotUpdatedFixture.js'
+import respTeapotsAllFixture from '../fixtures/teapots/respTeapotsAllFixture.js'
 
-import tableTeapotsAllFixture from '../fixtures/teapots/tableTeapotsAllFixture'
-import tableTeapotsWithAddedFixture from '../fixtures/teapots/tableTeapotsWithAddedFixture'
-import tableTeapotsWithoutDeletedFixture from '../fixtures/teapots/tableTeapotsWithoutDeletedFixture'
-import tableTeapotsWithUpdatedFixture from '../fixtures/teapots/tableTeapotsWithUpdatedFixture'
-import { makeResetTable, clSend } from './helpers'
+import tableTeapotsAllFixture from '../fixtures/teapots/tableTeapotsAllFixture.js'
+import tableTeapotsWithAddedFixture from '../fixtures/teapots/tableTeapotsWithAddedFixture.js'
+import tableTeapotsWithoutDeletedFixture from '../fixtures/teapots/tableTeapotsWithoutDeletedFixture.js'
+import tableTeapotsWithUpdatedFixture from '../fixtures/teapots/tableTeapotsWithUpdatedFixture.js'
+import { makeResetTable, clSend } from './helpers.js'
 
 const { CL } = TEAPOT
 

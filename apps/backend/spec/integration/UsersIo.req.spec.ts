@@ -1,21 +1,21 @@
 import { io as ioc } from 'socket.io-client'
-import io from '../../src/appIo'
-import usersTable from '../../src/utils/tables/usersTable'
-import usersSeed from '../seeds/usersSeed'
+import io from '../../src/appIo.js'
+import usersTable from '../../src/utils/tables/usersTable.js'
+import usersSeed from '../seeds/usersSeed.js'
 
-import dtoUserAddFixture from '../fixtures/users/dtoUserAddFixture'
-import dtoUserUpdFixture from '../fixtures/users/dtoUserUpdFixture'
+import dtoUserAddFixture from '../fixtures/users/dtoUserAddFixture.js'
+import dtoUserUpdFixture from '../fixtures/users/dtoUserUpdFixture.js'
 
-import respUserAddedFixture from '../fixtures/users/respUserAddedFixture'
-import respUserByIdFixture from '../fixtures/users/respUserByIdFixture'
-import respUserUpdatedFixture from '../fixtures/users/respUserUpdatedFixture'
-import respUsersAllFixture from '../fixtures/users/respUsersAllFixture'
+import respUserAddedFixture from '../fixtures/users/respUserAddedFixture.js'
+import respUserByIdFixture from '../fixtures/users/respUserByIdFixture.js'
+import respUserUpdatedFixture from '../fixtures/users/respUserUpdatedFixture.js'
+import respUsersAllFixture from '../fixtures/users/respUsersAllFixture.js'
 
-import tableUsersAllFixture from '../fixtures/users/tableUsersAllFixture'
-import tableUsersWithAddedFixture from '../fixtures/users/tableUsersWithAddedFixture'
-import tableUsersWithoutDeletedFixture from '../fixtures/users/tableUsersWithoutDeletedFixture'
-import tableUsersWithUpdatedFixture from '../fixtures/users/tableUsersWithUpdatedFixture'
-import { makeResetTable, clSend } from './helpers'
+import tableUsersAllFixture from '../fixtures/users/tableUsersAllFixture.js'
+import tableUsersWithAddedFixture from '../fixtures/users/tableUsersWithAddedFixture.js'
+import tableUsersWithoutDeletedFixture from '../fixtures/users/tableUsersWithoutDeletedFixture.js'
+import tableUsersWithUpdatedFixture from '../fixtures/users/tableUsersWithUpdatedFixture.js'
+import { makeResetTable, clSend } from './helpers.js'
 
 const resetTable = makeResetTable(usersTable, usersSeed)
 const port = 20021

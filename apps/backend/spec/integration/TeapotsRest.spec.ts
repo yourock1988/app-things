@@ -1,5 +1,5 @@
 import supertest from 'supertest'
-import appHttp from '../../src/appHttp'
+import appHttp from '../../src/appHttp.js'
 import teapotsTable from '../../src/utils/tables/teapotsTable.js'
 import teapotsSeed from '../seeds/teapotsSeed.js'
 
@@ -9,13 +9,13 @@ import dtoTeapotUpdFixture from '../fixtures/teapots/dtoTeapotUpdFixture.js'
 import respTeapotAddedFixture from '../fixtures/teapots/respTeapotAddedFixture.js'
 import respTeapotByIdFixture from '../fixtures/teapots/respTeapotByIdFixture.js'
 import respTeapotUpdatedFixture from '../fixtures/teapots/respTeapotUpdatedFixture.js'
-import respTeapotsAllFixture from '../fixtures/teapots/respTeapotsAllFixture'
+import respTeapotsAllFixture from '../fixtures/teapots/respTeapotsAllFixture.js'
 
 import tableTeapotsAllFixture from '../fixtures/teapots/tableTeapotsAllFixture.js'
 import tableTeapotsWithAddedFixture from '../fixtures/teapots/tableTeapotsWithAddedFixture.js'
 import tableTeapotsWithoutDeletedFixture from '../fixtures/teapots/tableTeapotsWithoutDeletedFixture.js'
 import tableTeapotsWithUpdatedFixture from '../fixtures/teapots/tableTeapotsWithUpdatedFixture.js'
-import { makeResetTable } from './helpers'
+import { makeResetTable } from './helpers.js'
 
 const resetTable = makeResetTable(teapotsTable, teapotsSeed)
 

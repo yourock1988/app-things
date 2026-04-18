@@ -1,5 +1,5 @@
 import supertest from 'supertest'
-import appHttp from '../../src/appHttp'
+import appHttp from '../../src/appHttp.js'
 import accountsTable from '../../src/utils/tables/accountsTable.js'
 import accountsSeed from '../seeds/accountsSeed.js'
 
@@ -9,13 +9,13 @@ import dtoAccountUpdFixture from '../fixtures/accounts/dtoAccountUpdFixture.js'
 import respAccountAddedFixture from '../fixtures/accounts/respAccountAddedFixture.js'
 import respAccountByIdFixture from '../fixtures/accounts/respAccountByIdFixture.js'
 import respAccountUpdatedFixture from '../fixtures/accounts/respAccountUpdatedFixture.js'
-import respAccountsAllFixture from '../fixtures/accounts/respAccountsAllFixture'
+import respAccountsAllFixture from '../fixtures/accounts/respAccountsAllFixture.js'
 
 import tableAccountsAllFixture from '../fixtures/accounts/tableAccountsAllFixture.js'
 import tableAccountsWithAddedFixture from '../fixtures/accounts/tableAccountsWithAddedFixture.js'
 import tableAccountsWithoutDeletedFixture from '../fixtures/accounts/tableAccountsWithoutDeletedFixture.js'
 import tableAccountsWithUpdatedFixture from '../fixtures/accounts/tableAccountsWithUpdatedFixture.js'
-import { makeResetTable } from './helpers'
+import { makeResetTable } from './helpers.js'
 
 const resetTable = makeResetTable(accountsTable, accountsSeed)
 
@@ -168,7 +168,7 @@ describe('Accounts REST API', () => {
       expect(response.body).toEqual({})
       expect(accountsTable).toEqual(tableAccountsAllFixture)
     })
-    it('negative delete account by id dont send cookie sessionId', async () => {
+    it('negative delete account by id not send cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent.delete('/api/v0/accounts/1')
       expect(response.status).toBe(401)

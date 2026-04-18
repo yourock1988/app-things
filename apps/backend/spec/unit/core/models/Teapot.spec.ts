@@ -1,4 +1,4 @@
-import Teapot from '../../../../src/core/models/Teapot'
+import Teapot from '../../../../src/core/models/Teapot.js'
 
 describe('создание чайника', () => {
   let teapot: Teapot
