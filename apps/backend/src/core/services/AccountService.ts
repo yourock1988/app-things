@@ -18,6 +18,11 @@ export default class AccountService extends EventEmitter {
     return account
   }
 
+  getByNickname(nickname: string): Account | null {
+    const account = this.accountRepository.getByNickname(nickname)
+    return account
+  }
+
   add(dto: TAccountAddDto): Account | null {
     const existedAccount = this.accountRepository.getByNickname(dto.nickname)
     if (existedAccount) return null

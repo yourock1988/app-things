@@ -1,6 +1,7 @@
 export type TTeapotRecord = {
   readonly id: number
   readonly temperature: number
+  readonly accountId: number
   // readonly ongoing: 'idle' | 'boiling'
 }
 

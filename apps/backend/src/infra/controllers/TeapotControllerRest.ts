@@ -19,7 +19,8 @@ export default class TeapotControllerRest {
 
   add(req: Request, res: Response): void {
     const dto: TTeapotAddDto = req.body
-    const teapot = this.teapotService.add(dto)
+    const o = { ...dto, accountId: req.locals.account.id }
+    const teapot = this.teapotService.add(o)
     res.status(201).json(teapot)
   }
 

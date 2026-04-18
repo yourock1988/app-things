@@ -41,7 +41,8 @@ export default class TeapotControllerIo {
 
   add(ctx, args) {
     const [, dto, ack] = args
-    const teapotJson = this.teapotService.add(dto).toJSON()
+    const o = { ...dto, accountId: ctx.socket.account.id }
+    const teapotJson = this.teapotService.add(o).toJSON()
     ctx.socket.broadcast.emit(BC_CL.ADDED, teapotJson)
     ack?.(null, teapotJson)
   }

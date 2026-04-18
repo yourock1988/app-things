@@ -5,6 +5,7 @@ export default class Teapot extends EventEmitter {
   constructor(
     public readonly id: number,
     public temperature: number,
+    public accountId: number,
     public ongoing: 'idle' | 'boiling' = 'idle',
     public isOnline: boolean = false,
     private intervalId: NodeJS.Timeout | undefined = undefined,
@@ -64,8 +65,10 @@ export default class Teapot extends EventEmitter {
     return this.ongoing === 'boiling'
   }
 
+  // это вообще в json преобразовывает само по себе ?
   public toJSON() {
-    const { id, temperature, ongoing, isOnline } = this
-    return { id, temperature, ongoing, isOnline }
+    const { id, temperature, ongoing, isOnline, accountId } = this
+    return { id, temperature, ongoing, isOnline, accountId }
+    // TODO: accountId пока тут для тестов. потом нужно убрать
   }
 }
