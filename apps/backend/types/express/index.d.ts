@@ -1,10 +1,18 @@
-import 'express'
+// import 'express'
 
-declare global {
-  namespace Express {
-    interface Request {
-      locals?: any
-    }
+// declare global {
+//   namespace Express {
+//     interface Request {
+//       locals?: any
+//     }
+//   }
+// }
+
+import { Request } from 'express'
+
+declare module 'express-serve-static-core' {
+  interface Request {
+    locals: any
   }
 }
 
