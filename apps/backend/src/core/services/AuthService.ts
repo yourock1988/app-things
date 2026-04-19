@@ -6,6 +6,7 @@ import { TAccountAddDto, TAccountGetDto } from '../dtos/TAccountDtos.js'
 import accesses from '../accesses.js'
 import Account from '../models/Account.js'
 import Session from '../models/Session.js'
+import ACL from '../ACL.js'
 
 // type TAccessesJSON = Record<string, Record<string, string[]>>
 
@@ -22,13 +23,15 @@ export default class AuthService extends EventEmitter {
     return session
   }
 
-  authZ(nickname: string, resource: string, method: string): boolean {
+  authZ(nickname: string, resource: string, method: string, id?: any): boolean {
     const account = this.accountRepository.getByNickname(nickname)
     if (!account) return false
     // const permissions = (accesses as TAccessesJSON)[resource]
+    const isOwner = id && ACL[resource]?.[id] === nickname
     const permissions = accesses[resource]
     const hasAccess = permissions?.[account.role]?.includes(method)
-    if (hasAccess) {
+    const hasControl = isOwner && permissions?.owner?.includes(method)
+    if (hasAccess || hasControl) {
       return true
     }
     return false

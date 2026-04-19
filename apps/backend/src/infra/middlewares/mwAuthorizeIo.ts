@@ -8,10 +8,11 @@ export default function mwAuthorizeIo(
   accountService: AccountService,
 ) {
   return function (ctx, args: any[], next: any) {
+    const { id } = args?.at(0) ?? {}
     const { nickname } = ctx.socket.account
     const resource = ctx.socket.nsp.name
     const method = ctx.eventName
-    const isAccessGranted = authService.authZ(nickname, resource, method)
+    const isAccessGranted = authService.authZ(nickname, resource, method, id)
     if (!isAccessGranted) {
       next(new SocketError(403, 'mwAuthorizeIo', 'forbidden'))
       return
