@@ -32,4 +32,9 @@ export default class SessionService extends EventEmitter {
   removeById(id: number): boolean {
     return this.sessionRepository.removeById(id)
   }
+
+  getBySessionId(sessionId: string): Session | null {
+    const session = this.sessionRepository.getBySessionId(sessionId)
+    return session
+  }
 }

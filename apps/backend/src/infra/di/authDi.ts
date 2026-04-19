@@ -12,13 +12,15 @@ import mwAuthorizeRest from '../middlewares/mwAuthorizeRest.js'
 import mwAuthenticateIo from '../middlewares/mwAuthenticateIo.js'
 import mwAuthorizeIo from '../middlewares/mwAuthorizeIo.js'
 import AccountService from '../../core/services/AccountService.js'
+import SessionService from '../../core/services/SessionService.js'
 
 const accountsOrm = new Orm(accountsTable)
 const sessionsOrm = new Orm(sessionsTable)
 const accountRepositoryDb = new AccountRepositoryDb(accountsOrm)
 const sessionRepositoryDb = new SessionRepositoryDb(sessionsOrm)
 const accountService = new AccountService(accountRepositoryDb)
-const authService = new AuthService(accountRepositoryDb, sessionRepositoryDb)
+const sessionService = new SessionService(sessionRepositoryDb)
+const authService = new AuthService(accountService, sessionService)
 const authControllerRest = new AuthControllerRest(authService)
 const AUTHrest = mwAuthorizeRest(authService, accountService)
 const AUTHNio = mwAuthenticateIo(authService)
