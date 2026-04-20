@@ -1,5 +1,6 @@
 <script>
-import { mapState } from 'vuex/dist/vuex.cjs.js'
+import { getAll } from '@/api/rest/sessionsApiRest'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   props: ['tabs'],
@@ -7,12 +8,40 @@ export default {
   data() {
     return {
       drawer: false,
-      icons: ['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram'],
+      // icons: ['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram'],
+      selectedSessId: '',
+      sessions: [],
     }
   },
 
   computed: {
     ...mapState('authStore', ['session']),
+
+    sessIds() {
+      return this.sessions?.map(d => d.sessionId) ?? []
+    },
+  },
+
+  watch: {
+    sessIds(val) {
+      this.selectedSessId = val[0]
+      this.SET_SESSION(this.sessions[0])
+    },
+
+    selectedSessId(val) {
+      const session = this.sessions.find(s => s.sessionId === val)
+      this.SET_SESSION(session)
+    },
+  },
+
+  async created() {
+    const [err, data] = await getAll()
+    if (err) return
+    this.sessions = data
+  },
+
+  methods: {
+    ...mapMutations('authStore', ['SET_SESSION']),
   },
 }
 </script>
@@ -53,6 +82,16 @@ export default {
             ><u>{{ session?.nickname }}</u></i
           ></b
         >
+        <div>
+          <v-select
+            v-model="selectedSessId"
+            :items="sessIds"
+            density="compact"
+            label="Compact"
+            class="d-flex align-center"
+          ></v-select>
+        </div>
+
         <v-btn icon="mdi-account"></v-btn>
         <v-btn icon="mdi-heart"></v-btn>
         <v-btn icon="mdi-magnify"></v-btn>
