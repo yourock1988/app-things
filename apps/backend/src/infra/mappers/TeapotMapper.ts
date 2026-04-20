@@ -12,7 +12,7 @@ export default class TeapotMapper {
 
   static toRecord(dto: any): TTeapotRecord {
     return {
-      id: randId(),
+      id: -1,
       temperature: dto.temperature,
       accountId: dto.accountId,
       // ongoing: dto.ongoing,

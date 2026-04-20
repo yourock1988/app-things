@@ -16,7 +16,7 @@ export default class UserMapper {
 
   static toRecord(dto: TUserAddDto): TUserRecord {
     const userRecord: TUserRecord = {
-      id: randId(),
+      id: -1,
       nickname: dto.nickname,
       password: dto.password,
       email: dto.email,

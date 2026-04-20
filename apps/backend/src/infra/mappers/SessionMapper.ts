@@ -16,7 +16,7 @@ export default class SessionMapper {
 
   static toRecord(dto: TSessionAddDto): TSessionRecord {
     const sessionRecord: TSessionRecord = {
-      id: randId(),
+      id: -1,
       sessionId: crypto.randomUUID(),
       nickname: dto.nickname,
       createdAt: Date.now(),

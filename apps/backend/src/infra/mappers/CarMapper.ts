@@ -19,7 +19,7 @@ export default class CarMapper {
 
   static toRecord(dto: TCarAddDto): TCarRecord {
     const carRecord: TCarRecord = {
-      id: randId(),
+      id: -1,
       type: dto.type,
       brand: dto.brand,
       model: dto.model,

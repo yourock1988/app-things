@@ -25,7 +25,7 @@ export default class AccountMapper {
 
   static toRecord(dto: TAccountAddDto): TAccountRecord {
     const accountRecord: TAccountRecord = {
-      id: randId(),
+      id: -1,
       nickname: dto.nickname,
       password: dto.password,
       email: dto.email,
