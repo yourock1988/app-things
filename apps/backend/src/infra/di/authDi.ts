@@ -30,4 +30,11 @@ bindSelf(authControllerRest)
 
 const authRouterRest = new AuthRouterRest(authControllerRest, mwAuthRest).router
 
-export { authRouterRest, AUTHrest, AUTHZio, AUTHNio }
+export {
+  accountService,
+  sessionService,
+  authRouterRest,
+  AUTHrest,
+  AUTHZio,
+  AUTHNio,
+}
