@@ -1,10 +1,12 @@
+import EventEmitter from 'eventemitter3'
 import { io } from 'socket.io-client'
 
-export default class SocketNamespace {
-  constructor(namespace, sessionid) {
+export default class SocketNamespace extends EventEmitter {
+  constructor(namespace) {
+    super()
     const { APP_WEBSOCK } = process.env
     this.namespace = namespace
-    this.sessionid = sessionid
+    this.sessionid = ''
     this.url = `${APP_WEBSOCK}${namespace}`
     this.s = null
   }
@@ -23,9 +25,12 @@ export default class SocketNamespace {
     }
     this.stop()
     this.s = io(this.url, options)
-    this.s.on('connect_error', err =>
-      globalThis.console.log(`${this.namespace} ${err.message}`),
-    )
+    this.s.on('connect', () => {
+      this.emit('started')
+    })
+    this.s.on('connect_error', err => {
+      globalThis.console.log(`${this.namespace} ${err.message}`)
+    })
     this.s.on('disconnect', (reason, details) =>
       globalThis.console.log(reason, details),
     )
@@ -33,6 +38,7 @@ export default class SocketNamespace {
   }
 
   stop() {
+    this.emit('stopped')
     this.s?.removeAllListeners()
     this.s?.close()
     this.s = null

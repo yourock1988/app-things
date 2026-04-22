@@ -1,5 +1,6 @@
 <script>
 import { getAll } from '@/api/rest/sessionsApiRest'
+import { ioNamespaces } from '@/utils/IoNamespaces.js'
 import { mapMutations, mapState } from 'vuex'
 
 export default {
@@ -8,7 +9,6 @@ export default {
   data() {
     return {
       drawer: false,
-      // icons: ['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram'],
       selectedSessId: '',
       sessions: [],
     }
@@ -24,13 +24,14 @@ export default {
 
   watch: {
     sessIds(val) {
-      this.selectedSessId = val[0]
-      this.SET_SESSION(this.sessions[0])
+      ;[this.selectedSessId] = val
     },
 
     selectedSessId(val) {
       const session = this.sessions.find(s => s.sessionId === val)
       this.SET_SESSION(session)
+      ioNamespaces.switchSession(val)
+      ioNamespaces.restart()
     },
   },
 
@@ -45,6 +46,7 @@ export default {
   },
 }
 </script>
+
 <template>
   <v-app>
     <v-navigation-drawer v-model="drawer" temporary>
