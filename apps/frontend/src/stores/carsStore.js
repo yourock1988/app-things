@@ -8,8 +8,6 @@ export default {
     }
   },
   mutations: {
-    SUBSCRIBE() {},
-    UNSUBSCRIBE() {},
     SET_CARS(state, cars) {
       state.cars = cars
     },
@@ -25,15 +23,12 @@ export default {
   },
   actions: {
     async loadCars({ commit }) {
-      console.log('loadCars')
-      commit('UNSUBSCRIBE')
       const [err, data] = await getAll()
       if (err) {
         commit('SET_CARS', [])
         return
       }
       commit('SET_CARS', data)
-      commit('SUBSCRIBE')
     },
   },
 }

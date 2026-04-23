@@ -7,16 +7,6 @@ import { mapMutations } from 'vuex'
 
 export default {
   components: { TurboTable, TurboForm, FormSheet },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.SUBSCRIBE()
-    })
-  },
-  beforeRouteLeave(to, from, next) {
-    this.SET_CARS([])
-    this.UNSUBSCRIBE()
-    next()
-  },
   data() {
     return {
       cols: 3,
@@ -56,8 +46,6 @@ export default {
   methods: {
     ...mapMutations('carsStore', [
       // eslint-disable-next-line vue/no-unused-properties
-      'SUBSCRIBE',
-      'UNSUBSCRIBE',
       'SET_CARS',
       'ADD_CAR',
     ]),

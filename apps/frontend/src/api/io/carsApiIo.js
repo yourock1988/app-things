@@ -1,29 +1,24 @@
-import ack from '@/utils/ack.js'
 import { ioNamespaces } from '@/utils/IoNamespaces.js'
+import sendEvent from '@/utils/sendEvent.js'
 
 export const carsNs = ioNamespaces.add('/cars')
 
 export function getAll() {
-  if (!carsNs.s || !carsNs.s.connected) return [{ _errors: ['not-connected'] }]
-  return new Promise(res => carsNs.s?.emit('car:getAll', '', '', ack(res)))
+  return sendEvent(carsNs, 'car:getAll')
 }
 
 export function getById(id) {
-  if (!carsNs.s || !carsNs.s.connected) return [{ _errors: ['not-connected'] }]
-  return new Promise(res => carsNs.s?.emit('car:getById', id, '', ack(res)))
+  return sendEvent(carsNs, 'car:getById', id)
 }
 
 export function add(dto) {
-  if (!carsNs.s || !carsNs.s.connected) return [{ _errors: ['not-connected'] }]
-  return new Promise(res => carsNs.s?.emit('car:add', '', dto, ack(res)))
+  return sendEvent(carsNs, 'car:add', '', dto)
 }
 
 export function updateById(id, dto) {
-  if (!carsNs.s || !carsNs.s.connected) return [{ _errors: ['not-connected'] }]
-  return new Promise(res => carsNs.s?.emit('car:updateById', id, dto, ack(res)))
+  return sendEvent(carsNs, 'car:updateById', id, dto)
 }
 
 export function removeById(id) {
-  if (!carsNs.s || !carsNs.s.connected) return [{ _errors: ['not-connected'] }]
-  return new Promise(res => carsNs.s?.emit('car:removeById', id, '', ack(res)))
+  return sendEvent(carsNs, 'car:removeById', id)
 }
