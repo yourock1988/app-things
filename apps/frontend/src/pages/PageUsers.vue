@@ -7,16 +7,6 @@ import { mapMutations } from 'vuex'
 
 export default {
   components: { TurboTable, TurboForm, FormSheet },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.SUBSCRIBE()
-    })
-  },
-  beforeRouteLeave(to, from, next) {
-    this.SET_USERS([])
-    this.UNSUBSCRIBE()
-    next()
-  },
   data() {
     return {
       cols: 3,
@@ -49,8 +39,6 @@ export default {
   methods: {
     ...mapMutations('usersStore', [
       // eslint-disable-next-line vue/no-unused-properties
-      'SUBSCRIBE',
-      'UNSUBSCRIBE',
       'SET_USERS',
       'ADD_USER',
     ]),

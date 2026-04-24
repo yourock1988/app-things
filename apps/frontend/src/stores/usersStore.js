@@ -1,3 +1,5 @@
+import { getAll } from '@/api/io/usersApiIo.js'
+
 export default {
   namespaced: true,
   state() {
@@ -6,8 +8,6 @@ export default {
     }
   },
   mutations: {
-    SUBSCRIBE() {},
-    UNSUBSCRIBE() {},
     SET_USERS(state, users) {
       state.users = users
     },
@@ -19,6 +19,16 @@ export default {
     },
     REMOVE_USER_BY_ID(state, id) {
       state.users = state.users.filter(user => user.id !== id)
+    },
+  },
+  actions: {
+    async loadUsers({ commit }) {
+      const [err, data] = await getAll()
+      if (err) {
+        commit('SET_USERS', [])
+        return
+      }
+      commit('SET_USERS', data)
     },
   },
 }

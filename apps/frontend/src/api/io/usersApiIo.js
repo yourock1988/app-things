@@ -1,27 +1,24 @@
-import initNamespace from '@/utils/initNamespace.js'
-import ack from '@/utils/ack.js'
+import { ioNamespaces } from '@/utils/IoNamespaces.js'
+import sendEvent from '@/utils/sendEvent.js'
 
-export const usersNs = initNamespace('/users')
-
-usersNs.open()
-// usersNs.close()
+export const usersNs = ioNamespaces.add('/users')
 
 export function getAll() {
-  return new Promise(res => usersNs.emit('user:getAll', '', '', ack(res)))
+  return sendEvent(usersNs, 'user:getAll')
 }
 
 export function getById(id) {
-  return new Promise(res => usersNs.emit('user:getById', id, '', ack(res)))
+  return sendEvent(usersNs, 'user:getById', id)
 }
 
 export function add(dto) {
-  return new Promise(res => usersNs.emit('user:add', '', dto, ack(res)))
+  return sendEvent(usersNs, 'user:add', '', dto)
 }
 
 export function updateById(id, dto) {
-  return new Promise(res => usersNs.emit('user:updateById', id, dto, ack(res)))
+  return sendEvent(usersNs, 'user:updateById', id, dto)
 }
 
 export function removeById(id) {
-  return new Promise(res => usersNs.emit('user:removeById', id, '', ack(res)))
+  return sendEvent(usersNs, 'user:removeById', id)
 }
