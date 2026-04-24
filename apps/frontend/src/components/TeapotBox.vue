@@ -37,14 +37,16 @@ export default {
     },
   },
   async mounted() {
-    this.teapotSynchronizer = new TeapotSynchronizer(this.teapotId)
-    this.teapotSynchronizer.subscribe()
-    this.teapotSynchronizer.on('update', serverState => {
-      this.temperature = serverState.temperature
-      this.ongoing = serverState.ongoing
-      this.isOnline = serverState.isOnline || false
-    })
-    await this.teapotSynchronizer?.sendEvent('getById')
+    setTimeout(async () => {
+      this.teapotSynchronizer = new TeapotSynchronizer(this.teapotId)
+      this.teapotSynchronizer.subscribe()
+      this.teapotSynchronizer.on('update', serverState => {
+        this.temperature = serverState.temperature
+        this.ongoing = serverState.ongoing
+        this.isOnline = serverState.isOnline || false
+      })
+      await this.teapotSynchronizer?.sendEvent('getById')
+    }, 100)
   },
   unmounted() {
     this.teapotSynchronizer?.unsubscribe()

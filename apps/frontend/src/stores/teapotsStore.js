@@ -1,3 +1,5 @@
+import { getAll } from '@/api/io/teapotsApiIo.js'
+
 export default {
   namespaced: true,
   state() {
@@ -6,8 +8,6 @@ export default {
     }
   },
   mutations: {
-    SUBSCRIBE() {},
-    UNSUBSCRIBE() {},
     SET_TEAPOTS(state, teapots) {
       state.teapots = teapots
     },
@@ -21,6 +21,16 @@ export default {
     },
     REMOVE_TEAPOT_BY_ID(state, id) {
       state.teapots = state.teapots.filter(teapot => teapot.id !== id)
+    },
+  },
+  actions: {
+    async loadTeapots({ commit }) {
+      const [err, data] = await getAll()
+      if (err) {
+        commit('SET_TEAPOTS', [])
+        return
+      }
+      commit('SET_TEAPOTS', data)
     },
   },
 }

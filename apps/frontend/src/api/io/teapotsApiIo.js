@@ -1,33 +1,30 @@
 import { TEAPOT } from '@app-x/cmd'
-import initNamespace from '@/utils/initNamespace.js'
-import ack from '@/utils/ack.js'
 import Synchronizer from '@/utils/Synchronizer.js'
+import { ioNamespaces } from '@/utils/IoNamespaces.js'
+import sendEvent from '@/utils/sendEvent.js'
 
 const { CL, BC_CL, BC_SV } = TEAPOT
 
-export const teapotsNs = initNamespace('/teapots')
-
-teapotsNs.open()
-// teapotsNs.close()
+export const teapotsNs = ioNamespaces.add('/teapots')
 
 export function getAll() {
-  return new Promise(res => teapotsNs.emit(CL.GET_ALL, '', '', ack(res)))
+  return sendEvent(teapotsNs, CL.GET_ALL)
 }
 
 export function getById(id) {
-  return new Promise(res => teapotsNs.emit(CL.GET_BY_ID, id, '', ack(res)))
+  return sendEvent(teapotsNs, CL.GET_BY_ID, id)
 }
 
 export function add(dto) {
-  return new Promise(res => teapotsNs.emit(CL.ADD, '', dto, ack(res)))
+  return sendEvent(teapotsNs, CL.ADD, '', dto)
 }
 
 export function updateById(id, dto) {
-  return new Promise(res => teapotsNs.emit(CL.UPD_BY_ID, id, dto, ack(res)))
+  return sendEvent(teapotsNs, CL.UPD_BY_ID, id, dto)
 }
 
 export function removeById(id) {
-  return new Promise(res => teapotsNs.emit(CL.DEL_BY_ID, id, '', ack(res)))
+  return sendEvent(teapotsNs, CL.DEL_BY_ID, id)
 }
 
 const eventsDict = {

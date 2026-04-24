@@ -8,12 +8,19 @@ export default class IoSynchronizer extends EventEmitter {
     this.eventsList = eventsList
     this.namespace = namespace
     this.id = id
+    namespace.on('started', () => {
+      this.subscribe()
+      this.sendEvent('getById')
+    })
+    namespace.on('stopped', () => {
+      this.unsubscribe()
+    })
   }
 
   emitWithAck(eventName) {
     this.awaitingCounter += 1
     return new Promise(resolve => {
-      this.namespace.emit(eventName, this.id, '', (err, data) => {
+      this.namespace.s?.emit(eventName, this.id, '', (err, data) => {
         this.awaitingCounter -= 1
         if (err) resolve([err.details ?? err])
         else resolve([null, data])
@@ -28,17 +35,18 @@ export default class IoSynchronizer extends EventEmitter {
   }
 
   subscribe() {
-    this.eventsList.forEach(e => this.namespace.on(e, this.applyServerState))
+    this.eventsList.forEach(e => this.namespace.s?.on(e, this.applyServerState))
   }
 
   unsubscribe() {
-    this.eventsList.forEach(e => this.namespace.off(e, this.applyServerState))
+    this.eventsList.forEach(e =>
+      this.namespace.s?.off(e, this.applyServerState),
+    )
   }
 
   async sendEvent(methodName) {
     const eventName = this.eventsDict[methodName]
     const [err, state] = await this.emitWithAck(eventName)
-    console.log(err)
     if (!err) this.applyServerState(state, true)
     else this.applyServerState({ id: this.id, ongoing: 'idle' }, true)
     // в идеале бы запоминать последнее состояние перед ошибкой сервера,
