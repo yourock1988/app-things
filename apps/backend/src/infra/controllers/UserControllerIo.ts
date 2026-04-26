@@ -1,5 +1,4 @@
 import { Server, Namespace } from 'socket.io'
-// import { TUserAddDto, TUserUpdateDto } from '../../core/dtos/TUserDtos.js'
 import UserService from '../../core/services/UserService.js'
 import SocketError from '../../SocketError.js'
 import User from '../../core/models/User.js'

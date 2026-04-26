@@ -1,13 +1,10 @@
 import { TEAPOT } from '@app-x/cmd'
 import { Server, Namespace } from 'socket.io'
-// import { TTeapotUpdateDto } from '../../core/dtos/TTeapotDtos.js'
 import TeapotService from '../../core/services/TeapotService.js'
 import SocketError from '../../SocketError.js'
 import Teapot from '../../core/models/Teapot.js'
 
 const { BC_CL, BC_SV } = TEAPOT
-
-// const rand = () => 42 // Math.trunc(Math.random() * 420)
 
 export default class TeapotControllerIo {
   constructor(

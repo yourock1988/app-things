@@ -7,8 +7,8 @@ export default class SessionRouterRest {
     readonly sessionControllerRest: any,
     readonly mwSessionRest: any,
   ) {
-    this.router = Router()
     const { ID, ADD, UPD, AUTH } = mwSessionRest
+    this.router = Router()
     this.router.get('', AUTH, sessionControllerRest.getAll)
     this.router.get('/:id', ID, AUTH, sessionControllerRest.getById)
     this.router.post('', ADD, AUTH, sessionControllerRest.add)

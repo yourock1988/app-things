@@ -1,7 +1,5 @@
 import { TEAPOT } from '@app-x/cmd'
 
-// const { CL } = TEAPOT
-
 export default {
   '/api/v0/accounts': {
     admin: ['GET', 'POST'],

@@ -65,7 +65,6 @@ export default class Teapot extends EventEmitter {
     return this.ongoing === 'boiling'
   }
 
-  // это вообще в json преобразовывает само по себе ?
   public toJSON() {
     const { id, temperature, ongoing, isOnline, accountId } = this
     return { id, temperature, ongoing, isOnline, accountId }

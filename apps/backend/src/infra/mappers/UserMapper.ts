@@ -1,7 +1,6 @@
 import { TUserAddDto } from '../../core/dtos/TUserDtos.js'
 import { TUserRecord } from '../types/TUserRecord.js'
 import User from '../../core/models/User.js'
-import randId from '../../utils/randId.js'
 
 export default class UserMapper {
   static toModel(record: TUserRecord): User {

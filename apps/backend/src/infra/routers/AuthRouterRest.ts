@@ -7,11 +7,9 @@ export default class AuthRouterRest {
     readonly authControllerRest: any,
     readonly mwAuthRest: any,
   ) {
-    this.router = Router()
     const { SIGNUP, SIGNIN } = mwAuthRest
-
+    this.router = Router()
     this.router.post('/sign-up', SIGNUP, authControllerRest.signUp)
-
     this.router.post('/sign-in', SIGNIN, authControllerRest.signIn)
 
     // this.router.delete(

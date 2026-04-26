@@ -1,7 +1,6 @@
 import { TAccountAddDto } from '../../core/dtos/TAccountDtos.js'
 import { TAccountRecord } from '../types/TAccountRecord.js'
 import Account from '../../core/models/Account.js'
-import randId from '../../utils/randId.js'
 
 export default class AccountMapper {
   static toModel(record: TAccountRecord): Account {

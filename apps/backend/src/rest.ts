@@ -3,10 +3,10 @@ import cookieParser from 'cookie-parser'
 import { json, NextFunction, Request, Response, Router } from 'express'
 import accountRouterRest from './infra/di/accountDi.js'
 import sessionRouterRest from './infra/di/sessionDi.js'
-import { authRouterRest } from './infra/di/authDi.js'
-import { userRouterRest } from './infra/di/userDi.js'
-import { carRouterRest } from './infra/di/carDi.js'
 import { teapotRouterRest } from './infra/di/teapotDi.js'
+import { userRouterRest } from './infra/di/userDi.js'
+import { authRouterRest } from './infra/di/authDi.js'
+import { carRouterRest } from './infra/di/carDi.js'
 
 const APP_ORIGIN = String(process.env.APP_ORIGIN)
 const WEB_DEV_SERV_PORT = 9000
@@ -20,10 +20,10 @@ rest.use([cookieParser(), json(), cors(corsOptions)])
 
 rest.use('/accounts', accountRouterRest)
 rest.use('/sessions', sessionRouterRest)
-rest.use('/users', userRouterRest)
-rest.use('/cars', carRouterRest)
-rest.use('/auth', authRouterRest)
 rest.use('/teapots', teapotRouterRest)
+rest.use('/users', userRouterRest)
+rest.use('/auth', authRouterRest)
+rest.use('/cars', carRouterRest)
 
 rest.use('/*unknown', (req, res) => res.status(404).json(req.params))
 rest.use((err: any, req: Request, res: Response, next: NextFunction) => {

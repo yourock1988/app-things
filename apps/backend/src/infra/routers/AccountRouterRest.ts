@@ -7,8 +7,8 @@ export default class AccountRouterRest {
     readonly accountControllerRest: any,
     readonly mwAccountRest: any,
   ) {
-    this.router = Router()
     const { ID, ADD, UPD, AUTH } = mwAccountRest
+    this.router = Router()
     this.router.get('', AUTH, accountControllerRest.getAll)
     this.router.get('/:id', ID, AUTH, accountControllerRest.getById)
     this.router.post('', ADD, AUTH, accountControllerRest.add)

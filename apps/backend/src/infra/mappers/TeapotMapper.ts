@@ -1,7 +1,6 @@
 import { TTeapotUpdateDto } from '../../core/dtos/TTeapotDtos.js'
 import { TTeapotRecord } from '../types/TTeapotRecord.js'
 import Teapot from '../../core/models/Teapot.js'
-import randId from '../../utils/randId.js'
 
 // TTeapotAddDto
 

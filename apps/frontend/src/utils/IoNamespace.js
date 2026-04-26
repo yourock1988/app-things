@@ -1,7 +1,7 @@
 import EventEmitter from 'eventemitter3'
 import { io } from 'socket.io-client'
 
-export default class SocketNamespace extends EventEmitter {
+export default class IoNamespace extends EventEmitter {
   constructor(namespace) {
     super()
     const { APP_WEBSOCK } = process.env
