@@ -1,15 +1,9 @@
-import {
-  FetchRequestError,
-  ParseJsonError,
-  HttpEmptyError,
-  HttpRespError,
-} from '@/errors.js'
+import { IoEmptyError, IoRespError } from '@/errors.js'
 
-export default function processError(err) {
-  if (err instanceof FetchRequestError) return { _errors: ['сервер молчит'] }
-  if (err instanceof ParseJsonError) return { _errors: ['в ответе не json'] }
-  if (err instanceof HttpRespError) return err.cause
-  if (err instanceof HttpEmptyError) {
+export default function processErrorIo(err) {
+  // if (err instanceof LatencyError) return { _errors: ['очень долгий ответ'] }
+  if (err instanceof IoRespError) return err.cause
+  if (err instanceof IoEmptyError) {
     if (err.cause === 409) return { _errors: ['Такой никнейм уже зареган'] }
     if (err.cause === 401) return { _errors: ['Войдите в систему'] }
     if (err.cause === 403) return { _errors: ['Недостаточно прав'] }

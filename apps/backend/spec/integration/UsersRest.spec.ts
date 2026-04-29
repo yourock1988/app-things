@@ -350,7 +350,7 @@ it('negative post user with invalid json', async () => {
   expect(response.headers['content-type']).toContain('application/json')
   expect(response.headers['content-type']).toContain('utf-8')
   expect(response.body).toEqual({
-    message: 'Невалидный JSON: {,}',
+    _errors: ['Невалидный JSON: {,}'],
   })
   expect(usersTable).toEqual(tableUsersAllFixture)
 })
@@ -380,7 +380,7 @@ it('negative patch user by id with invalid json', async () => {
   expect(response.headers['content-type']).toContain('application/json')
   expect(response.headers['content-type']).toContain('utf-8')
   expect(response.body).toEqual({
-    message: 'Невалидный JSON: {,}',
+    _errors: ['Невалидный JSON: {,}'],
   })
   expect(usersTable).toEqual(tableUsersAllFixture)
 })

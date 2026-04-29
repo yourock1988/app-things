@@ -1,6 +1,5 @@
 import { Server, Namespace } from 'socket.io'
 import UserService from '../../core/services/UserService.js'
-import SocketError from '../../SocketError.js'
 import User from '../../core/models/User.js'
 
 export default class UserControllerIo {
@@ -30,7 +29,7 @@ export default class UserControllerIo {
     const ack = args.at(2)
     const user = this.userService.getById(+id)
     if (user) ack?.(null, user)
-    else ack?.(new SocketError(404, 'getById', `user id ${id} not exists`))
+    else ack?.(404)
   }
 
   add(ctx, args) {
@@ -52,7 +51,7 @@ export default class UserControllerIo {
       ack?.(null, userJson)
       ctx.socket.broadcast.emit('bc-cl:user:updated', userJson)
     } else {
-      ack?.(new SocketError(404, 'updateById', `user id ${id} not exists`))
+      ack?.(404)
     }
   }
 
@@ -64,7 +63,7 @@ export default class UserControllerIo {
       ack?.(null)
       ctx.socket.broadcast.emit('bc-cl:user:deleted', id)
     } else {
-      ack?.(new SocketError(404, 'removeById', `user id ${id} not exists`))
+      ack?.(404)
     }
   }
 }

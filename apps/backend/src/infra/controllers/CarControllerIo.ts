@@ -1,6 +1,5 @@
 import { Server, Namespace } from 'socket.io'
 import CarService from '../../core/services/CarService.js'
-import SocketError from '../../SocketError.js'
 import Car from '../../core/models/Car.js'
 
 export default class CarControllerIo {
@@ -28,7 +27,7 @@ export default class CarControllerIo {
     const ack = args.at(2)
     const car = this.carService.getById(+id)
     if (car) ack?.(null, car)
-    else ack?.(new SocketError(404, 'getById', `car id ${id} not exists`))
+    else ack?.(404)
   }
 
   add(ctx, args) {
@@ -50,7 +49,7 @@ export default class CarControllerIo {
       ack?.(null, carJson)
       ctx.socket.broadcast.emit('bc-cl:car:updated', carJson)
     } else {
-      ack?.(new SocketError(404, 'updateById', `car id ${id} not exists`))
+      ack?.(404)
     }
   }
 
@@ -62,7 +61,7 @@ export default class CarControllerIo {
       ack?.(null)
       ctx.socket.broadcast.emit('bc-cl:car:deleted', id)
     } else {
-      ack?.(new SocketError(404, 'removeById', `car id ${id} not exists`))
+      ack?.(404)
     }
   }
 }

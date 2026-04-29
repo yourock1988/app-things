@@ -354,7 +354,7 @@ it('negative post teapot with invalid json', async () => {
   expect(response.headers['content-type']).toContain('application/json')
   expect(response.headers['content-type']).toContain('utf-8')
   expect(response.body).toEqual({
-    message: 'Невалидный JSON: {,}',
+    _errors: ['Невалидный JSON: {,}'],
   })
   expect(teapotsTable).toEqual(tableTeapotsAllFixture)
 })
@@ -384,7 +384,7 @@ it('negative patch teapot by id with invalid json', async () => {
   expect(response.headers['content-type']).toContain('application/json')
   expect(response.headers['content-type']).toContain('utf-8')
   expect(response.body).toEqual({
-    message: 'Невалидный JSON: {,}',
+    _errors: ['Невалидный JSON: {,}'],
   })
   expect(teapotsTable).toEqual(tableTeapotsAllFixture)
 })

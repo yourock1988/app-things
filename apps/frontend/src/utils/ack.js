@@ -1,11 +1,23 @@
+import { IoEmptyError, IoRespError } from '@/errors.js'
+
 export default function ack(res) {
   return (err, data) => {
     if (err) {
-      // FIXME: проверка на err, но отдаёт err.detils - что очень тупо
-      // по сути обработка ошибок сломана тут
-      console.log(err)
-      return res([err.details ?? err])
+      if ([409, 401, 403, 404, 405, 500].includes(err)) {
+        return [new IoEmptyError('bad status', { cause: err })]
+      }
+      if (typeof err === 'object') {
+        return [new IoRespError('bad request', { cause: err })]
+      }
+      return res([new Error('unhandled error', { cause: err })])
     }
     return res([null, data])
+    // if (err) {
+    //   // FIXME: проверка на err, но отдаёт err.detils - что очень тупо
+    //   // по сути обработка ошибок сломана тут
+    //   console.log(err)
+    //   return res([err.details ?? err])
+    // }
+    // return res([null, data])
   }
 }

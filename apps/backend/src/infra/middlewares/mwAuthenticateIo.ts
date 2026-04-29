@@ -1,5 +1,4 @@
 import AuthService from '../../core/services/AuthService.js'
-import SocketError from '../../SocketError.js'
 
 /* eslint-disable no-param-reassign */
 export default function mwAuthenticateIo(authService: AuthService) {
@@ -9,7 +8,8 @@ export default function mwAuthenticateIo(authService: AuthService) {
       ctx.socket.handshake.headers?.sessionid
     const session = authService.authN(sessionId)
     if (!session) {
-      next(new SocketError(401, 'mwAuthorizeIo', 'unauthorized'))
+      const message = 'unauthorized'
+      next({ _errors: [message], message, data: 401 })
       return
     }
     ctx.socket.account = { nickname: session.nickname }

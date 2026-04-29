@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 
 import { z } from 'zod'
-import SocketError from '../SocketError.js'
 
 type TVariant = 'body' | 'params'
 
@@ -19,14 +18,7 @@ export default function (variant: TVariant, schema: z.ZodSchema) {
       args[dict[variant]] = result.data
       next()
     } else {
-      ack?.(
-        new SocketError(
-          400,
-          'compileMiddlewareIo',
-          'received data has invalid schema',
-          result.error.format(),
-        ),
-      )
+      ack?.(result.error.format()) // 400
     }
   }
 }

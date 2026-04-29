@@ -350,7 +350,7 @@ it('negative post car with invalid json', async () => {
   expect(response.headers['content-type']).toContain('application/json')
   expect(response.headers['content-type']).toContain('utf-8')
   expect(response.body).toEqual({
-    message: 'Невалидный JSON: {,}',
+    _errors: ['Невалидный JSON: {,}'],
   })
   expect(carsTable).toEqual(tableCarsAllFixture)
 })
@@ -380,7 +380,7 @@ it('negative patch car by id with invalid json', async () => {
   expect(response.headers['content-type']).toContain('application/json')
   expect(response.headers['content-type']).toContain('utf-8')
   expect(response.body).toEqual({
-    message: 'Невалидный JSON: {,}',
+    _errors: ['Невалидный JSON: {,}'],
   })
   expect(carsTable).toEqual(tableCarsAllFixture)
 })

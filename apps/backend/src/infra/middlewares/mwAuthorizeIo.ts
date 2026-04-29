@@ -1,6 +1,5 @@
 import AccountService from '../../core/services/AccountService.js'
 import AuthService from '../../core/services/AuthService.js'
-import SocketError from '../../SocketError.js'
 
 /* eslint-disable no-param-reassign */
 export default function mwAuthorizeIo(
@@ -14,7 +13,8 @@ export default function mwAuthorizeIo(
     const method = ctx.eventName
     const isAccessGranted = authService.authZ(nickname, resource, method, id)
     if (!isAccessGranted) {
-      next(new SocketError(403, 'mwAuthorizeIo', 'forbidden'))
+      const message = 'forbidden'
+      next({ _errors: [message], message, data: 403 })
       return
     }
     ctx.socket.account = accountService.getByNickname(nickname)

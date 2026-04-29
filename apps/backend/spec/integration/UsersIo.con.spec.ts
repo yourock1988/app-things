@@ -42,7 +42,7 @@ it('unauthorized without session cookie', async () => {
     cl.on('connect', reject)
     cl.on('connect_error', resolve)
   })
-  expect(r.data.code).toBe(401)
+  expect(r.data).toBe(401)
   expect(r.message).toBe('unauthorized')
 })
 it('unauthorized with bad session cookie', async () => {
@@ -51,7 +51,7 @@ it('unauthorized with bad session cookie', async () => {
     cl.on('connect', reject)
     cl.on('connect_error', resolve)
   })
-  expect(r.data.code).toBe(401)
+  expect(r.data).toBe(401)
   expect(r.message).toBe('unauthorized')
 })
 it('forbidden with low perm session cookie', async () => {
@@ -60,6 +60,6 @@ it('forbidden with low perm session cookie', async () => {
     cl.on('connect', reject)
     cl.on('connect_error', resolve)
   })
-  expect(r.data.code).toBe(403)
+  expect(r.data).toBe(403)
   expect(r.message).toBe('forbidden')
 })

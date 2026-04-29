@@ -66,7 +66,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(404)
+    expect(e).toBe(404)
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
@@ -77,8 +77,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -98,7 +97,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(404)
+    expect(e).toBe(404)
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
@@ -109,8 +108,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -131,8 +129,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       temperature: { _errors: ['Required'] },
     })
@@ -147,8 +144,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ["Unrecognized key(s) in object: 'foo'"],
     })
     expect(r).toBeUndefined()
@@ -161,8 +157,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ['Expected object, received string'],
     })
     expect(r).toBeUndefined()
@@ -181,7 +176,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(404)
+    expect(e).toBe(404)
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
@@ -192,8 +187,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -208,8 +202,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       temperature: { _errors: ['Required'] },
     })
@@ -224,8 +217,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ["Unrecognized key(s) in object: 'foo'"],
     })
     expect(r).toBeUndefined()
@@ -238,8 +230,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ['Expected object, received string'],
     })
     expect(r).toBeUndefined()
@@ -265,7 +256,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
@@ -277,7 +268,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
@@ -288,7 +279,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
@@ -299,8 +290,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -315,7 +305,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
@@ -326,7 +316,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
@@ -337,8 +327,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -353,7 +342,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
@@ -365,8 +354,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       temperature: { _errors: ['Required'] },
     })
@@ -381,8 +369,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ["Unrecognized key(s) in object: 'foo'"],
     })
     expect(r).toBeUndefined()
@@ -395,8 +382,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ['Expected object, received string'],
     })
     expect(r).toBeUndefined()
@@ -410,7 +396,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
@@ -421,7 +407,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(teapotsTable).toEqual(tableTeapotsAllFixture)
   })
@@ -432,8 +418,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -448,8 +433,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       temperature: { _errors: ['Required'] },
     })
@@ -464,8 +448,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ["Unrecognized key(s) in object: 'foo'"],
     })
     expect(r).toBeUndefined()
@@ -478,8 +461,7 @@ describe('client-role:guest', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ['Expected object, received string'],
     })
     expect(r).toBeUndefined()

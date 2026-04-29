@@ -63,7 +63,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(404)
+    expect(e).toBe(404)
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -74,8 +74,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -95,7 +94,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(404)
+    expect(e).toBe(404)
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -106,8 +105,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -128,8 +126,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({ _errors: [], price: { _errors: ['Required'] } })
+    expect(e).toEqual({ _errors: [], price: { _errors: ['Required'] } })
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -141,8 +138,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ["Unrecognized key(s) in object: 'foo'"],
     })
     expect(r).toBeUndefined()
@@ -155,8 +151,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ['Expected object, received string'],
     })
     expect(r).toBeUndefined()
@@ -175,7 +170,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(404)
+    expect(e).toBe(404)
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -186,8 +181,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -202,8 +196,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({ _errors: [], price: { _errors: ['Required'] } })
+    expect(e).toEqual({ _errors: [], price: { _errors: ['Required'] } })
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -215,8 +208,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ["Unrecognized key(s) in object: 'foo'"],
     })
     expect(r).toBeUndefined()
@@ -229,8 +221,7 @@ describe('client-role:admin', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ['Expected object, received string'],
     })
     expect(r).toBeUndefined()
@@ -267,7 +258,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(404)
+    expect(e).toBe(404)
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -278,8 +269,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -294,7 +284,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -305,7 +295,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -316,8 +306,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -332,7 +321,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -344,8 +333,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({ _errors: [], price: { _errors: ['Required'] } })
+    expect(e).toEqual({ _errors: [], price: { _errors: ['Required'] } })
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -357,8 +345,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ["Unrecognized key(s) in object: 'foo'"],
     })
     expect(r).toBeUndefined()
@@ -371,8 +358,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ['Expected object, received string'],
     })
     expect(r).toBeUndefined()
@@ -386,7 +372,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -397,7 +383,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(403)
+    expect(e.data).toBe(403)
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -408,8 +394,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: [],
       id: { _errors: ['Пришлите корректный ID'] },
     })
@@ -424,8 +409,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({ _errors: [], price: { _errors: ['Required'] } })
+    expect(e).toEqual({ _errors: [], price: { _errors: ['Required'] } })
     expect(r).toBeUndefined()
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
@@ -437,8 +421,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ["Unrecognized key(s) in object: 'foo'"],
     })
     expect(r).toBeUndefined()
@@ -451,8 +434,7 @@ describe('client-role:user', () => {
     } catch (err: any) {
       e = err
     }
-    expect(e.code).toBe(400)
-    expect(e.details).toEqual({
+    expect(e).toEqual({
       _errors: ['Expected object, received string'],
     })
     expect(r).toBeUndefined()

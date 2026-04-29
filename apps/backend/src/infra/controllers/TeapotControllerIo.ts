@@ -1,7 +1,6 @@
 import { TEAPOT } from '@app-x/cmd'
 import { Server, Namespace } from 'socket.io'
 import TeapotService from '../../core/services/TeapotService.js'
-import SocketError from '../../SocketError.js'
 import Teapot from '../../core/models/Teapot.js'
 
 const { BC_CL, BC_SV } = TEAPOT
@@ -32,7 +31,7 @@ export default class TeapotControllerIo {
   getById(ctx, args) {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(+id)
-    if (!teapot) ack?.(new SocketError(404, 'getById', `id ${id} not exists`))
+    if (!teapot) ack?.(404)
     else ack?.(null, teapot)
   }
 
@@ -48,7 +47,7 @@ export default class TeapotControllerIo {
     const [{ id }, dto, ack] = args
     const teapotJson = this.teapotService.updateById(id, dto)?.toJSON()
     if (!teapotJson) {
-      ack?.(new SocketError(404, 'updateById', `id ${id} not exists or online`))
+      ack?.(404) // or method not allowed if online
       return
     }
     ctx.socket.broadcast.emit(BC_CL.UPDATED, teapotJson)
@@ -59,7 +58,7 @@ export default class TeapotControllerIo {
     const [{ id }, , ack] = args
     const hasBeenExists = this.teapotService.removeById(id)
     if (!hasBeenExists) {
-      ack?.(new SocketError(404, 'removeById', `id ${id} not exists or online`))
+      ack?.(404) // or method not allowed if online
       return
     }
     ctx.socket.broadcast.emit(BC_CL.DELETED, id)
@@ -69,7 +68,7 @@ export default class TeapotControllerIo {
   show(ctx, args) {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
-    if (!teapot) ack({ err: '404' })
+    if (!teapot) ack(404)
     else ack?.(null, teapot)
   }
 
@@ -77,7 +76,7 @@ export default class TeapotControllerIo {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(id)
     if (!teapot) {
-      ack({ err: '404' })
+      ack(404)
       return
     }
     const isJoined = this.teapotService.join(teapot)
@@ -93,7 +92,7 @@ export default class TeapotControllerIo {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(id)
     if (!teapot) {
-      ack({ err: '404' })
+      ack(404)
       return
     }
     const isLeaved = this.teapotService.leave(teapot)
@@ -109,7 +108,7 @@ export default class TeapotControllerIo {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
-      ack({ err: '404' })
+      ack(404)
       return
     }
     const isTurned = this.teapotService.doTurnOn(teapot)
@@ -125,7 +124,7 @@ export default class TeapotControllerIo {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
-      ack({ err: '404' })
+      ack(404)
       return
     }
     const isTurned = this.teapotService.doTurnOff(teapot)
@@ -141,7 +140,7 @@ export default class TeapotControllerIo {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
-      ack({ err: '404' })
+      ack(404)
       return
     }
     const isTurned = this.teapotService.doTurnDrain(teapot)
