@@ -27,18 +27,15 @@ rest.use('/cars', carRouterRest)
 
 rest.use('/*unknown', (req: Request, res: Response) => {
   const message = `Неизвестный маршрут ${req.params.unknown}`
-  // const error = createTransportError(404, message)
   res.status(404).send(message)
 })
 rest.use((err: any, req: Request, res: Response, next: NextFunction) => {
   if (err && 'body' in err && err.status === 400) {
     const message = `Невалидный JSON: ${err.body}`
-    // const error = createTransportError(400, message)
     return res.status(400).send({ _errors: [message] })
   }
   if (err) {
     const message = `Какая-то ошибка сервера: ${err?.message}`
-    // const error = createTransportError(500, message)
     return res.status(500).send(message)
   }
   return next(err)
