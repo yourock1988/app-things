@@ -68,7 +68,7 @@ export default class TeapotControllerIo {
   show(ctx, args) {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
-    if (!teapot) ack(404)
+    if (!teapot) ack?.(404)
     else ack?.(null, teapot)
   }
 
@@ -76,7 +76,7 @@ export default class TeapotControllerIo {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(id)
     if (!teapot) {
-      ack(404)
+      ack?.(404)
       return
     }
     const isJoined = this.teapotService.join(teapot)
@@ -92,7 +92,7 @@ export default class TeapotControllerIo {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(id)
     if (!teapot) {
-      ack(404)
+      ack?.(404)
       return
     }
     const isLeaved = this.teapotService.leave(teapot)
@@ -108,7 +108,7 @@ export default class TeapotControllerIo {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
-      ack(404)
+      ack?.(404)
       return
     }
     const isTurned = this.teapotService.doTurnOn(teapot)
@@ -124,7 +124,7 @@ export default class TeapotControllerIo {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
-      ack(404)
+      ack?.(404)
       return
     }
     const isTurned = this.teapotService.doTurnOff(teapot)
@@ -140,7 +140,7 @@ export default class TeapotControllerIo {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
-      ack(404)
+      ack?.(404)
       return
     }
     const isTurned = this.teapotService.doTurnDrain(teapot)
