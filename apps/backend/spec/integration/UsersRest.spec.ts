@@ -1,6 +1,7 @@
 import supertest from 'supertest'
 import appHttp from '../../src/appHttp.js'
-import usersTable from '../../src/utils/tables/usersTable.js'
+// import usersTable from '../../src/utils/tables/usersTable.js'
+import usersTable from '../../src/user/infra/usersTable.js'
 import usersSeed from '../seeds/usersSeed.js'
 
 import dtoUserAddFixture from '../fixtures/users/dtoUserAddFixture.js'

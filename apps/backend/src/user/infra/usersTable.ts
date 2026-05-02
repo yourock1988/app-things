@@ -1,10 +1,12 @@
-export default [
+import { TUserRecord } from './TUserRecord.js'
+
+const usersTable: TUserRecord[] = [
   {
     id: 101,
     nickname: 'YouROCK',
-    password: 'lolzz',
+    password: 'qwerty123',
     email: 'yourock88@super-mail.com',
-    money: 210,
+    money: 42,
   },
   {
     id: 102,
@@ -14,3 +16,5 @@ export default [
     money: 33,
   },
 ]
+
+export default usersTable

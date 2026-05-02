@@ -1,6 +1,7 @@
 import { io as ioc } from 'socket.io-client'
 import io from '../../src/appIo.js'
-import usersTable from '../../src/utils/tables/usersTable.js'
+// import usersTable from '../../src/utils/tables/usersTable.js'
+import usersTable from '../../src/user/infra/usersTable.js'
 import usersSeed from '../seeds/usersSeed.js'
 
 import dtoUserAddFixture from '../fixtures/users/dtoUserAddFixture.js'
