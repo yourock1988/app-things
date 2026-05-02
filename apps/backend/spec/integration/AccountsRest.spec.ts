@@ -1,6 +1,7 @@
 import supertest from 'supertest'
 import appHttp from '../../src/appHttp.js'
-import accountsTable from '../../src/utils/tables/accountsTable.js'
+// import accountsTable from '../../src/utils/tables/accountsTable.js'
+import accountsTable from '../../src/account/infra/accountsTable.js'
 import accountsSeed from '../seeds/accountsSeed.js'
 
 import dtoAccountAddFixture from '../fixtures/accounts/dtoAccountAddFixture.js'
