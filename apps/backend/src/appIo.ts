@@ -1,7 +1,8 @@
 import { Server } from 'socket.io'
 import { teapotRouterIo } from './infra/di/teapotDi.js'
 import { userRouterIo } from './infra/di/userDi.js'
-import { carRouterIo } from './infra/di/carDi.js'
+// import { carRouterIo } from './infra/di/carDi.js'
+import { carRouterIo } from './car/infra/carDi.js'
 import Bus from './utils/Bus.js'
 
 const io = new Server()

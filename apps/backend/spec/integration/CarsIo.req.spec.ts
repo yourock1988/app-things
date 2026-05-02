@@ -1,6 +1,7 @@
 import { io as ioc } from 'socket.io-client'
 import io from '../../src/appIo.js'
-import carsTable from '../../src/utils/tables/carsTable.js'
+// import carsTable from '../../src/utils/tables/carsTable.js'
+import carsTable from '../../src/car/infra/carsTable.js'
 import carsSeed from '../seeds/carsSeed.js'
 
 import dtoCarAddFixture from '../fixtures/cars/dtoCarAddFixture.js'

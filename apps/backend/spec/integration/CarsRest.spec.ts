@@ -1,6 +1,7 @@
 import supertest from 'supertest'
 import appHttp from '../../src/appHttp.js'
-import carsTable from '../../src/utils/tables/carsTable.js'
+// import carsTable from '../../src/utils/tables/carsTable.js'
+import carsTable from '../../src/car/infra/carsTable.js'
 import carsSeed from '../seeds/carsSeed.js'
 
 import dtoCarAddFixture from '../fixtures/cars/dtoCarAddFixture.js'

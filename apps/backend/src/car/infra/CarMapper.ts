@@ -1,0 +1,33 @@
+import Car from '../domain/Car.js'
+import { TCarAddDto } from '../domain/TCarDtos.js'
+import { TCarRecord } from './TCarRecord.js'
+
+export default class CarMapper {
+  static toModel(record: TCarRecord): Car {
+    return new Car(
+      record.id,
+      record.type,
+      record.brand,
+      record.model,
+      record.price,
+      record.engine,
+      record.hasTurbo,
+      record.hp,
+    )
+  }
+
+  static toRecord(dto: TCarAddDto): TCarRecord {
+    const carRecord: TCarRecord = {
+      id: -1,
+      type: dto.type,
+      brand: dto.brand,
+      model: dto.model,
+      price: dto.price,
+      engine: dto.engine,
+      hasTurbo: dto.hasTurbo,
+      hp: dto.hp,
+      isRunning: Math.random() > 0.5,
+    }
+    return carRecord
+  }
+}
