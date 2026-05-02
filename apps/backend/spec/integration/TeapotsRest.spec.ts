@@ -1,6 +1,7 @@
 import supertest from 'supertest'
 import appHttp from '../../src/appHttp.js'
-import teapotsTable from '../../src/utils/tables/teapotsTable.js'
+// import teapotsTable from '../../src/utils/tables/teapotsTable.js'
+import teapotsTable from '../../src/teapot/infra/teapotsTable.js'
 import teapotsSeed from '../seeds/teapotsSeed.js'
 
 import dtoTeapotAddFixture from '../fixtures/teapots/dtoTeapotAddFixture.js'

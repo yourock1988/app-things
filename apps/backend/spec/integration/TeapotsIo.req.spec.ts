@@ -1,7 +1,8 @@
 import { TEAPOT } from '@app-x/cmd'
 import { io as ioc } from 'socket.io-client'
 import io from '../../src/appIo.js'
-import teapotsTable from '../../src/utils/tables/teapotsTable.js'
+// import teapotsTable from '../../src/utils/tables/teapotsTable.js'
+import teapotsTable from '../../src/teapot/infra/teapotsTable.js'
 import teapotsSeed from '../seeds/teapotsSeed.js'
 
 import dtoTeapotAddFixture from '../fixtures/teapots/dtoTeapotAddFixture.js'
