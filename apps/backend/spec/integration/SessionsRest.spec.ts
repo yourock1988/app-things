@@ -1,7 +1,7 @@
 import supertest from 'supertest'
 import appHttp from '../../src/appHttp.js'
 // import sessionsTable from '../../src/utils/tables/sessionsTable.js'
-import sessionsTable from '../../src/asession/infra/sessionsTable.js'
+import sessionsTable from '../../src/session/infra/sessionsTable.js'
 import sessionsSeed from '../seeds/sessionsSeed.js'
 
 import dtoSessionAddFixture from '../fixtures/sessions/dtoSessionAddFixture.js'
