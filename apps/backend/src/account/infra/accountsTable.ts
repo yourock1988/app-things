@@ -1,4 +1,4 @@
-import { TAccountRecord } from '../../infra/types/TAccountRecord.js'
+import { TAccountRecord } from './TAccountRecord.js'
 
 const accountsTable: TAccountRecord[] = [
   {
