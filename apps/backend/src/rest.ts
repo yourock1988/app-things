@@ -8,9 +8,9 @@ import { json, NextFunction, Request, Response, Router } from 'express'
 // import { authRouterRest } from './infra/di/authDi.js'
 // import { carRouterRest } from './infra/di/carDi.js'
 import { authRouterRest, accountRouterRest, sessionRouterRest } from './_di.js'
-import { teapotRouterRest } from './teapot/infra/teapotDi.js'
-import { userRouterRest } from './user/infra/userDi.js'
-import { carRouterRest } from './car/infra/carDi.js'
+import { teapotRouterRest } from './teapot/teapotDi.js'
+import { userRouterRest } from './user/userDi.js'
+import { carRouterRest } from './car/carDi.js'
 
 const APP_ORIGIN = String(process.env.APP_ORIGIN)
 const WEB_DEV_SERV_PORT = 9000

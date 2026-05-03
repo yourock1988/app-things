@@ -1,7 +1,7 @@
-import inject1 from './auth/infra/authDi.js'
+import inject1 from './auth/authDi.js'
 import inject2 from './_infra/authistDi.js'
-import inject3, { accountService } from './account/infra/accountDi.js'
-import inject4, { sessionService } from './session/infra/sessionDi.js'
+import inject3, { accountService } from './account/accountDi.js'
+import inject4, { sessionService } from './session/sessionDi.js'
 
 const { authService, authRouterRest } = inject1(accountService, sessionService)
 
