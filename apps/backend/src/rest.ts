@@ -11,6 +11,7 @@ import {
   authRouterRest,
   accountRouterRest,
   sessionRouterRest,
+  personRouterRest,
   carRouterRest,
 } from './_di.js'
 import { teapotRouterRest } from './teapot/teapotDi.js'
@@ -30,6 +31,7 @@ rest.use([cookieParser(), json(), cors(corsOptions)])
 rest.use('/accounts', accountRouterRest)
 rest.use('/sessions', sessionRouterRest)
 rest.use('/teapots', teapotRouterRest)
+rest.use('/persons', personRouterRest)
 rest.use('/users', userRouterRest)
 rest.use('/auth', authRouterRest)
 rest.use('/cars', carRouterRest)

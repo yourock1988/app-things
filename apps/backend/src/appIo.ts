@@ -6,12 +6,13 @@ import { teapotRouterIo } from './teapot/teapotDi.js'
 import { userRouterIo } from './user/userDi.js'
 // import { carRouterIo } from './car/carDi.js'
 import Bus from './_utils/Bus.js'
-import { carRouterIo } from './_di.js'
+import { carRouterIo, personRouterIo } from './_di.js'
 
 const io = new Server()
 const bus = new Bus(io)
 
 bus.use('/teapots', teapotRouterIo)
+bus.use('/persons', personRouterIo)
 bus.use('/users', userRouterIo)
 bus.use('/cars', carRouterIo)
 

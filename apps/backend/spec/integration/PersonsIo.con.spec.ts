@@ -2,7 +2,7 @@ import { io as ioc } from 'socket.io-client'
 import io from '../../src/appIo.js'
 
 const port = 20020
-const ns = '/users'
+const ns = '/persons'
 const url = `http://localhost:${port}${ns}`
 let cl
 

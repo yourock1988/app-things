@@ -29,6 +29,14 @@ export default {
     admin: ['GET', 'PATCH', 'DELETE'],
     user: ['GET'],
   },
+  '/api/v0/persons': {
+    admin: ['GET', 'POST'],
+    user: ['GET'],
+  },
+  '/api/v0/persons/:id': {
+    admin: ['GET', 'PATCH', 'DELETE'],
+    user: ['GET'],
+  },
   '/api/v0/teapots': {
     admin: ['GET', 'POST'],
     user: ['GET'],
@@ -58,6 +66,17 @@ export default {
       'user:removeById',
     ],
     user: ['authorization', 'user:getAll', 'user:getById'],
+  },
+  '/persons': {
+    admin: [
+      'authorization',
+      'person:getAll',
+      'person:getById',
+      'person:add',
+      'person:updateById',
+      'person:removeById',
+    ],
+    user: ['authorization', 'person:getAll', 'person:getById'],
   },
   '/teapots': {
     owner: [

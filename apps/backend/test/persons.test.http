@@ -1,0 +1,140 @@
+GET http://localhost:8004/api/v0/persons/
+###
+GET http://localhost:8004/api/v0/persons/101/
+###
+DELETE http://localhost:8004/api/v0/persons/102/
+cookie: sessionId=abcdef
+###
+POST http://localhost:8004/api/v0/persons/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"nickname":"ooo","password":"ooooo","email":"ooo@ooo.oo"}
+###
+
+PATCH http://localhost:8004/api/v0/persons/101/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"money":12345,"password":"xxxxx"}
+###
+###
+
+###
+###
+###
+### AuthN PROBLEMS
+
+DELETE http://localhost:8004/api/v0/persons/101/
+cookie: sessionId=xxx
+###
+POST http://localhost:8004/api/v0/persons/
+cookie: sessionId=xxx
+content-type: application/json
+
+{"nickname":"ooo","password":"ooooo","email":"ooo@ooo.oo"}
+###
+
+PATCH http://localhost:8004/api/v0/persons/101/
+cookie: sessionId=xxx
+content-type: application/json
+
+{"money":12345,"password":"xxxxx"}
+###
+###
+
+###
+###
+###
+### AuthZ PROBLEMS
+
+DELETE http://localhost:8004/api/v0/persons/101/
+cookie: sessionId=fedcba
+###
+POST http://localhost:8004/api/v0/persons/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"nickname":"ooo","password":"ooooo","email":"ooo@ooo.oo"}
+###
+
+PATCH http://localhost:8004/api/v0/persons/101/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"money":12345,"password":"xxxxx"}
+###
+###
+
+###
+###
+###
+### Path WRONG
+
+GET http://localhost:8004/api/v0/persons/666/
+###
+DELETE http://localhost:8004/api/v0/persons/666/
+cookie: sessionId=fedcba
+###
+PATCH http://localhost:8004/api/v0/persons/666/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"money":12345,"password":"xxxxx"}
+###
+GET http://localhost:8004/api/v0/persons/-666/
+###
+DELETE http://localhost:8004/api/v0/persons/-666/
+cookie: sessionId=fedcba
+###
+PATCH http://localhost:8004/api/v0/persons/-666/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"money":12345,"password":"xxxxx"}
+###
+GET http://localhost:8004/api/v0/persons/xxx/
+###
+DELETE http://localhost:8004/api/v0/persons/xxx/
+cookie: sessionId=fedcba
+###
+PATCH http://localhost:8004/api/v0/persons/xxx/
+cookie: sessionId=fedcba
+content-type: application/json
+
+{"money":12345,"password":"xxxxx"}
+###
+###
+
+###
+###
+###
+### Payload WRONG
+
+PATCH http://localhost:8004/api/v0/persons/101/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"money":-321,"password":"xxx"}
+### BAD
+POST http://localhost:8004/api/v0/persons/
+cookie: sessionId=abcdef
+content-type: application/json
+
+{"nickname":"oo","password":"oooo","email":"oooooo.oo", "x": "x"}
+### BAD
+PATCH http://localhost:8004/api/v0/persons/101/
+content-type: application/json
+
+{,}
+### BAD
+POST http://localhost:8004/api/v0/persons/
+content-type: application/json
+
+{,}
+### BAD
+
+GET http://localhost:8004/api/v0/persons/1001/foo/321/
+###
+DELETE http://localhost:8004/api/v0/persons/1001/foo/321/
+###

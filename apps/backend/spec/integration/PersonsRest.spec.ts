@@ -1,30 +1,30 @@
 import supertest from 'supertest'
 import appHttp from '../../src/appHttp.js'
-// import usersTable from '../../src/utils/tables/usersTable.js'
-import usersTable from '../../src/user/infra/usersTable.js'
-import usersSeed from '../seeds/usersSeed.js'
+// import personsTable from '../../src/utils/tables/personsTable.js'
+import personsTable from '../../src/person/infra/personsTable.js'
+import personsSeed from '../seeds/personsSeed.js'
 
-import dtoUserAddFixture from '../fixtures/users/dtoUserAddFixture.js'
-import dtoUserUpdFixture from '../fixtures/users/dtoUserUpdFixture.js'
+import dtoPersonAddFixture from '../fixtures/persons/dtoPersonAddFixture.js'
+import dtoPersonUpdFixture from '../fixtures/persons/dtoPersonUpdFixture.js'
 
-import respUserAddedFixture from '../fixtures/users/respUserAddedFixture.js'
-import respUserByIdFixture from '../fixtures/users/respUserByIdFixture.js'
-import respUserUpdatedFixture from '../fixtures/users/respUserUpdatedFixture.js'
-import respUsersAllFixture from '../fixtures/users/respUsersAllFixture.js'
+import respPersonAddedFixture from '../fixtures/persons/respPersonAddedFixture.js'
+import respPersonByIdFixture from '../fixtures/persons/respPersonByIdFixture.js'
+import respPersonUpdatedFixture from '../fixtures/persons/respPersonUpdatedFixture.js'
+import respPersonsAllFixture from '../fixtures/persons/respPersonsAllFixture.js'
 
-import tableUsersAllFixture from '../fixtures/users/tableUsersAllFixture.js'
-import tableUsersWithAddedFixture from '../fixtures/users/tableUsersWithAddedFixture.js'
-import tableUsersWithoutDeletedFixture from '../fixtures/users/tableUsersWithoutDeletedFixture.js'
-import tableUsersWithUpdatedFixture from '../fixtures/users/tableUsersWithUpdatedFixture.js'
+import tablePersonsAllFixture from '../fixtures/persons/tablePersonsAllFixture.js'
+import tablePersonsWithAddedFixture from '../fixtures/persons/tablePersonsWithAddedFixture.js'
+import tablePersonsWithoutDeletedFixture from '../fixtures/persons/tablePersonsWithoutDeletedFixture.js'
+import tablePersonsWithUpdatedFixture from '../fixtures/persons/tablePersonsWithUpdatedFixture.js'
 import { makeResetTable } from './helpers.js'
 
-const resetTable = makeResetTable(usersTable, usersSeed)
+const resetTable = makeResetTable(personsTable, personsSeed)
 
 beforeEach(() => {
   resetTable()
 })
 
-describe('Users REST API', () => {
+describe('Persons REST API', () => {
   let response
   afterEach(() => {
     // expect(response.headers['access-control-allow-origin']).toContain('*')
@@ -32,131 +32,131 @@ describe('Users REST API', () => {
     expect(response.headers['x-powered-by']).toBeUndefined()
   })
 
-  describe('GET /users', () => {
+  describe('GET /persons', () => {
     beforeAll(async () => {})
-    it('positive get all users', async () => {
+    it('positive get all persons', async () => {
       const agent = supertest(appHttp)
-      response = await agent.get('/api/v0/users')
+      response = await agent.get('/api/v0/persons')
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toBeInstanceOf(Array)
-      expect(response.body).toEqual(respUsersAllFixture)
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(response.body).toEqual(respPersonsAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
   })
 
-  describe('GET /users/:id', () => {
+  describe('GET /persons/:id', () => {
     beforeAll(async () => {})
-    it('positive get user by id', async () => {
+    it('positive get person by id', async () => {
       const agent = supertest(appHttp)
-      response = await agent.get('/api/v0/users/101')
+      response = await agent.get('/api/v0/persons/101')
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
-      expect(response.body).toEqual(respUserByIdFixture)
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(response.body).toEqual(respPersonByIdFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative get user by id that not exists', async () => {
+    it('negative get person by id that not exists', async () => {
       const agent = supertest(appHttp)
-      response = await agent.get('/api/v0/users/103')
+      response = await agent.get('/api/v0/persons/103')
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
   })
 
-  describe('DELETE /users/:id', () => {
+  describe('DELETE /persons/:id', () => {
     beforeAll(async () => {})
-    it('positive delete user by id', async () => {
+    it('positive delete person by id', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/users/101')
+        .delete('/api/v0/persons/101')
         .set('cookie', 'sessionId=abcdef')
       expect(response.status).toBe(204)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersWithoutDeletedFixture)
+      expect(personsTable).toEqual(tablePersonsWithoutDeletedFixture)
     })
-    it('negative delete user by id that not exists', async () => {
+    it('negative delete person by id that not exists', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/users/103')
+        .delete('/api/v0/persons/103')
         .set('cookie', 'sessionId=abcdef')
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative delete user by id dont send cookie sessionId', async () => {
+    it('negative delete person by id dont send cookie sessionId', async () => {
       const agent = supertest(appHttp)
-      response = await agent.delete('/api/v0/users/101')
+      response = await agent.delete('/api/v0/persons/101')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative delete user by id send cookie wrong sessionId', async () => {
+    it('negative delete person by id send cookie wrong sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/users/101')
+        .delete('/api/v0/persons/101')
         .set('cookie', 'sessionId=xxx')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative delete user by id send cookie sessionId low perm', async () => {
+    it('negative delete person by id send cookie sessionId low perm', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/users/101')
+        .delete('/api/v0/persons/101')
         .set('cookie', 'sessionId=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative delete user by id combine 404 and 401', async () => {
+    it('negative delete person by id combine 404 and 401', async () => {
       const agent = supertest(appHttp)
-      response = await agent.delete('/api/v0/users/103')
+      response = await agent.delete('/api/v0/persons/103')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative delete user by id combine 404 and 403', async () => {
+    it('negative delete person by id combine 404 and 403', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .delete('/api/v0/users/103')
+        .delete('/api/v0/persons/103')
         .set('cookie', 'sessionId=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
   })
 
-  describe('POST /users', () => {
-    it('positive post user', async () => {
+  describe('POST /persons', () => {
+    it('positive post person', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/users')
+        .post('/api/v0/persons')
         .set('cookie', 'sessionId=abcdef')
-        .send(dtoUserAddFixture)
+        .send(dtoPersonAddFixture)
       expect(response.status).toBe(201)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
-      expect(response.body).toEqual(respUserAddedFixture)
-      expect(usersTable).toEqual(tableUsersWithAddedFixture)
+      expect(response.body).toEqual(respPersonAddedFixture)
+      expect(personsTable).toEqual(tablePersonsWithAddedFixture)
     })
-    it('negative post user without necessary field', async () => {
-      const { email, ...userDtoAddFixtureBad } = dtoUserAddFixture
+    it('negative post person without necessary field', async () => {
+      const { email, ...personDtoAddFixtureBad } = dtoPersonAddFixture
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/users')
+        .post('/api/v0/persons')
         .set('cookie', 'sessionId=abcdef')
-        .send(userDtoAddFixtureBad)
+        .send(personDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
@@ -166,86 +166,86 @@ describe('Users REST API', () => {
           _errors: ['Required'],
         },
       })
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative post user with unnecessary field', async () => {
-      const userDtoAddFixtureBad = { ...dtoUserAddFixture, foo: 'bar' }
+    it('negative post person with unnecessary field', async () => {
+      const personDtoAddFixtureBad = { ...dtoPersonAddFixture, foo: 'bar' }
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/users')
+        .post('/api/v0/persons')
         .set('cookie', 'sessionId=abcdef')
-        .send(userDtoAddFixtureBad)
+        .send(personDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: ["Unrecognized key(s) in object: 'foo'"],
       })
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative post user without cookie sessionId', async () => {
+    it('negative post person without cookie sessionId', async () => {
       const agent = supertest(appHttp)
-      response = await agent.post('/api/v0/users').send(dtoUserAddFixture)
+      response = await agent.post('/api/v0/persons').send(dtoPersonAddFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative post user with invalid cookie sessionId', async () => {
+    it('negative post person with invalid cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/users')
+        .post('/api/v0/persons')
         .set('cookie', 'sessionId=xxx')
-        .send(dtoUserAddFixture)
+        .send(dtoPersonAddFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative post user with low perms cookie sessionId', async () => {
+    it('negative post person with low perms cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .post('/api/v0/users')
+        .post('/api/v0/persons')
         .set('cookie', 'sessionId=fedcba')
-        .send(dtoUserAddFixture)
+        .send(dtoPersonAddFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
   })
 
-  describe('PATCH /users/:id', () => {
-    it('positive patch user by id', async () => {
+  describe('PATCH /persons/:id', () => {
+    it('positive patch person by id', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/users/101')
+        .patch('/api/v0/persons/101')
         .set('cookie', 'sessionId=abcdef')
-        .send(dtoUserUpdFixture)
+        .send(dtoPersonUpdFixture)
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
-      expect(response.body).toEqual(respUserUpdatedFixture)
-      expect(usersTable).toEqual(tableUsersWithUpdatedFixture)
+      expect(response.body).toEqual(respPersonUpdatedFixture)
+      expect(personsTable).toEqual(tablePersonsWithUpdatedFixture)
     })
-    it('negative patch user by id that not exists', async () => {
+    it('negative patch person by id that not exists', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/users/103')
+        .patch('/api/v0/persons/103')
         .set('cookie', 'sessionId=abcdef')
-        .send(dtoUserUpdFixture)
+        .send(dtoPersonUpdFixture)
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative patch user by id without necessary field', async () => {
-      const { money, ...userDtoUpdFixtureBad } = dtoUserUpdFixture
+    it('negative patch person by id without necessary field', async () => {
+      const { money, ...personDtoUpdFixtureBad } = dtoPersonUpdFixture
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/users/101')
+        .patch('/api/v0/persons/101')
         .set('cookie', 'sessionId=abcdef')
-        .send(userDtoUpdFixtureBad)
+        .send(personDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
@@ -255,81 +255,85 @@ describe('Users REST API', () => {
           _errors: ['Required'],
         },
       })
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative patch user by id with unnecessary field', async () => {
-      const userDtoUpdFixtureBad = { ...dtoUserUpdFixture, foo: 'bar' }
+    it('negative patch person by id with unnecessary field', async () => {
+      const personDtoUpdFixtureBad = { ...dtoPersonUpdFixture, foo: 'bar' }
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/users/101')
+        .patch('/api/v0/persons/101')
         .set('cookie', 'sessionId=abcdef')
-        .send(userDtoUpdFixtureBad)
+        .send(personDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: ["Unrecognized key(s) in object: 'foo'"],
       })
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative patch user by id without cookie sessionId', async () => {
+    it('negative patch person by id without cookie sessionId', async () => {
       const agent = supertest(appHttp)
-      response = await agent.patch('/api/v0/users/101').send(dtoUserUpdFixture)
+      response = await agent
+        .patch('/api/v0/persons/101')
+        .send(dtoPersonUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative patch user by id with invalid cookie sessionId', async () => {
+    it('negative patch person by id with invalid cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/users/101')
+        .patch('/api/v0/persons/101')
         .set('cookie', 'sessionId=xxx')
-        .send(dtoUserUpdFixture)
+        .send(dtoPersonUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative patch user by id with low perms cookie sessionId', async () => {
+    it('negative patch person by id with low perms cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/users/101')
+        .patch('/api/v0/persons/101')
         .set('cookie', 'sessionId=fedcba')
-        .send(dtoUserUpdFixture)
+        .send(dtoPersonUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative patch user by id combine 404 and 401', async () => {
+    it('negative patch person by id combine 404 and 401', async () => {
       const agent = supertest(appHttp)
-      response = await agent.patch('/api/v0/users/103').send(dtoUserUpdFixture)
+      response = await agent
+        .patch('/api/v0/persons/103')
+        .send(dtoPersonUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
-    it('negative patch user by id combine 404 and 403', async () => {
+    it('negative patch person by id combine 404 and 403', async () => {
       const agent = supertest(appHttp)
       response = await agent
-        .patch('/api/v0/users/103')
+        .patch('/api/v0/persons/103')
         .set('cookie', 'sessionId=fedcba')
-        .send(dtoUserUpdFixture)
+        .send(dtoPersonUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
-      expect(usersTable).toEqual(tableUsersAllFixture)
+      expect(personsTable).toEqual(tablePersonsAllFixture)
     })
   })
 })
 
 let response
 
-it('negative post user with invalid json', async () => {
+it('negative post person with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
-    .post('/api/v0/users')
+    .post('/api/v0/persons')
     .set('cookie', 'sessionId=abcdef')
     .send('{,}')
   expect(response.status).toBe(400)
@@ -338,12 +342,12 @@ it('negative post user with invalid json', async () => {
   expect(response.body).toEqual({
     _errors: ['Required'],
   })
-  expect(usersTable).toEqual(tableUsersAllFixture)
+  expect(personsTable).toEqual(tablePersonsAllFixture)
 })
-it('negative post user with invalid json', async () => {
+it('negative post person with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
-    .post('/api/v0/users')
+    .post('/api/v0/persons')
     .set('cookie', 'sessionId=abcdef')
     .set('content-type', 'application/json')
     .send('{,}')
@@ -353,13 +357,13 @@ it('negative post user with invalid json', async () => {
   expect(response.body).toEqual({
     _errors: ['Невалидный JSON: {,}'],
   })
-  expect(usersTable).toEqual(tableUsersAllFixture)
+  expect(personsTable).toEqual(tablePersonsAllFixture)
 })
 
-it('negative patch user by id with invalid json', async () => {
+it('negative patch person by id with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
-    .patch('/api/v0/users/101')
+    .patch('/api/v0/persons/101')
     .set('cookie', 'sessionId=abcdef')
     .send('{,}')
   expect(response.status).toBe(400)
@@ -368,12 +372,12 @@ it('negative patch user by id with invalid json', async () => {
   expect(response.body).toEqual({
     _errors: ['Required'],
   })
-  expect(usersTable).toEqual(tableUsersAllFixture)
+  expect(personsTable).toEqual(tablePersonsAllFixture)
 })
-it('negative patch user by id with invalid json', async () => {
+it('negative patch person by id with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
-    .patch('/api/v0/users/101')
+    .patch('/api/v0/persons/101')
     .set('cookie', 'sessionId=abcdef')
     .set('content-type', 'application/json')
     .send('{,}')
@@ -383,5 +387,5 @@ it('negative patch user by id with invalid json', async () => {
   expect(response.body).toEqual({
     _errors: ['Невалидный JSON: {,}'],
   })
-  expect(usersTable).toEqual(tableUsersAllFixture)
+  expect(personsTable).toEqual(tablePersonsAllFixture)
 })
