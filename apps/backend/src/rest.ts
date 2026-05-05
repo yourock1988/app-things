@@ -15,7 +15,6 @@ import {
   carRouterRest,
 } from './_di.js'
 import { teapotRouterRest } from './teapot/teapotDi.js'
-import { userRouterRest } from './user/userDi.js'
 // import { carRouterRest } from './car/carDi.js'
 
 const APP_ORIGIN = String(process.env.APP_ORIGIN)
@@ -32,7 +31,6 @@ rest.use('/accounts', accountRouterRest)
 rest.use('/sessions', sessionRouterRest)
 rest.use('/teapots', teapotRouterRest)
 rest.use('/persons', personRouterRest)
-rest.use('/users', userRouterRest)
 rest.use('/auth', authRouterRest)
 rest.use('/cars', carRouterRest)
 

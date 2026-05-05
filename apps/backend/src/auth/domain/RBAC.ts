@@ -21,14 +21,6 @@ export default {
     admin: ['GET', 'PATCH', 'DELETE'],
     user: ['GET'],
   },
-  '/api/v0/users': {
-    admin: ['GET', 'POST'],
-    user: ['GET'],
-  },
-  '/api/v0/users/:id': {
-    admin: ['GET', 'PATCH', 'DELETE'],
-    user: ['GET'],
-  },
   '/api/v0/persons': {
     admin: ['GET', 'POST'],
     user: ['GET'],
@@ -55,17 +47,6 @@ export default {
       'car:removeById',
     ],
     user: ['authorization', 'car:getAll', 'car:getById'],
-  },
-  '/users': {
-    admin: [
-      'authorization',
-      'user:getAll',
-      'user:getById',
-      'user:add',
-      'user:updateById',
-      'user:removeById',
-    ],
-    user: ['authorization', 'user:getAll', 'user:getById'],
   },
   '/persons': {
     admin: [
