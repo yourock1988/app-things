@@ -1,10 +1,13 @@
-import Car from '../domain/Car.js'
-import { TCarAddDto } from '../domain/TCarDtos.js'
-import { TCarRecord } from './TCarRecord.js'
+import type { ClassOf } from '../../_utils/ClassOf.js'
+import type { TCarAddDto } from '../domain/TCarDtos.js'
+import type { TCarRecord } from './TCarRecord.js'
+import type TCar from '../domain/Car.js'
 
 export default class CarMapper {
-  static toModel(record: TCarRecord): Car {
-    return new Car(
+  constructor(readonly Car: ClassOf<TCar>) {}
+
+  toModel(record: TCarRecord): TCar {
+    return new this.Car(
       record.id,
       record.type,
       record.brand,
@@ -16,7 +19,8 @@ export default class CarMapper {
     )
   }
 
-  static toRecord(dto: TCarAddDto): TCarRecord {
+  // eslint-disable-next-line class-methods-use-this
+  toRecord(dto: TCarAddDto): TCarRecord {
     const carRecord: TCarRecord = {
       id: -1,
       type: dto.type,

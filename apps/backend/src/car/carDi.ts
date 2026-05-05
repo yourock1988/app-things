@@ -1,40 +1,37 @@
 import bindSelf from '@yourock88/bind-self'
-import Orm from '../_utils/Orm.js'
+import type { ClassOf } from '../_utils/ClassOf.js'
+import type TAuthist from '../_pres/TAuthist.js'
+import type TOrm from '../_utils/Orm.js'
+import IDrest from '../_pres/IDrest.js'
+import IDio from '../_pres/IDio.js'
+import Car from './domain/Car.js'
+import CarService from './domain/CarService.js'
+import CarMapper from './infra/CarMapper.js'
 import carsTable from './infra/carsTable.js'
 import CarRepositoryDb from './infra/CarRepositoryDb.js'
-import CarService from './domain/CarService.js'
 import CarControllerRest from './pres/CarControllerRest.js'
 import CarControllerIo from './pres/CarControllerIo.js'
 import CarRouterRest from './pres/CarRouterRest.js'
 import CarRouterIo from './pres/CarRouterIo.js'
 import mwCarRest from './pres/mwCarRest.js'
 import mwCarIo from './pres/mwCarIo.js'
-import IDrest from '../_pres/IDrest.js'
-import IDio from '../_pres/IDio.js'
-import { authist } from '../_di.js'
 
-const { AUTHrest, AUTHNio, AUTHZio } = authist
+export default function inject(Orm: ClassOf<TOrm>, authist: TAuthist) {
+  const { AUTHrest, AUTHNio, AUTHZio } = authist
+  const mwRest = { ...mwCarRest, ID: IDrest, AUTH: AUTHrest }
+  const mwIo = { ...mwCarIo, ID: IDio, AUTHN: AUTHNio, AUTHZ: AUTHZio }
+  const carsOrm = new Orm(carsTable)
+  const carMapper = new CarMapper(Car)
+  bindSelf(carMapper)
+  const carRepositoryDb = new CarRepositoryDb(carsOrm, carMapper)
+  const carService = new CarService(carRepositoryDb)
+  const carControllerRest = new CarControllerRest(carService)
+  const carControllerIo = new CarControllerIo(carService)
+  bindSelf(carControllerRest)
+  bindSelf(carControllerIo)
+  const carRouterRest = new CarRouterRest(carControllerRest, mwRest).router
+  const carRouterIo = new CarRouterIo(carControllerIo, mwIo)
+  bindSelf(carRouterIo)
 
-const carsOrm = new Orm(carsTable)
-const carRepositoryDb = new CarRepositoryDb(carsOrm)
-const carService = new CarService(carRepositoryDb)
-
-const carControllerRest = new CarControllerRest(carService)
-bindSelf(carControllerRest)
-const carRouterRest = new CarRouterRest(carControllerRest, {
-  ...mwCarRest,
-  ID: IDrest,
-  AUTH: AUTHrest,
-}).router
-
-const carControllerIo = new CarControllerIo(carService)
-bindSelf(carControllerIo)
-const carRouterIo = new CarRouterIo(carControllerIo, {
-  ...mwCarIo,
-  ID: IDio,
-  AUTHN: AUTHNio,
-  AUTHZ: AUTHZio,
-})
-bindSelf(carRouterIo)
-
-export { carRouterIo, carRouterRest }
+  return { carRouterIo, carRouterRest }
+}

@@ -1,4 +1,4 @@
-import { Namespace, Server } from 'socket.io'
+import type { Namespace, Server } from 'socket.io'
 import CoR from '../../_utils/CoR.js'
 import on from '../../_utils/on.js'
 

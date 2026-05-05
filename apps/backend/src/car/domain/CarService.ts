@@ -1,7 +1,7 @@
 import EventEmitter from 'node:events'
-import { ICarRepository } from './ICarRepository.js'
-import { TCarAddDto, TCarUpdateDto } from './TCarDtos.js'
-import Car from './Car.js'
+import type ICarRepository from './ICarRepository.js'
+import type { TCarAddDto, TCarUpdateDto } from './TCarDtos.js'
+import type Car from './Car.js'
 
 export default class CarService extends EventEmitter {
   constructor(readonly carRepository: ICarRepository) {

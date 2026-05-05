@@ -1,7 +1,7 @@
-import { TCarAddDto, TCarUpdateDto } from './TCarDtos.js'
-import Car from './Car.js'
+import type { TCarAddDto, TCarUpdateDto } from './TCarDtos.js'
+import type Car from './Car.js'
 
-export interface ICarRepository {
+export default interface ICarRepository {
   getAll(): Car[]
   getById(id: number): Car | null
   add(dto: TCarAddDto): Car

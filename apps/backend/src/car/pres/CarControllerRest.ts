@@ -1,6 +1,6 @@
-import { Request, Response } from 'express'
-import { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.js'
-import CarService from '../domain/CarService.js'
+import type { Request, Response } from 'express'
+import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.js'
+import type CarService from '../domain/CarService.js'
 
 export default class CarControllerRest {
   constructor(readonly carService: CarService) {}

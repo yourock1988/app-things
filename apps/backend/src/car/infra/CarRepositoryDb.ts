@@ -1,32 +1,35 @@
-import Orm from '../../_utils/Orm.js'
-import Car from '../domain/Car.js'
-import { ICarRepository } from '../domain/ICarRepository.js'
-import { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.js'
-import { TCarRecord } from './TCarRecord.js'
-import CarMapper from './CarMapper.js'
+import type TOrm from '../../_utils/Orm.js'
+import type TCar from '../domain/Car.js'
+import type ICarRepository from '../domain/ICarRepository.js'
+import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.js'
+import type { TCarRecord } from './TCarRecord.js'
+import type TCarMapper from './CarMapper.js'
 
 export default class CarRepositoryDb implements ICarRepository {
-  constructor(readonly orm: Orm) {}
+  constructor(
+    readonly orm: TOrm,
+    readonly carMapper: TCarMapper,
+  ) {}
 
-  getAll(): Car[] {
+  getAll(): TCar[] {
     const records: TCarRecord[] = this.orm.selectAll()
-    return records.map(CarMapper.toModel)
+    return records.map(this.carMapper.toModel)
   }
 
-  getById(id: number): Car | null {
+  getById(id: number): TCar | null {
     const record: TCarRecord = this.orm.selectById(id)
-    return record ? CarMapper.toModel(record) : null
+    return record ? this.carMapper.toModel(record) : null
   }
 
-  add(dto: TCarAddDto): Car {
-    const record = CarMapper.toRecord(dto)
+  add(dto: TCarAddDto): TCar {
+    const record = this.carMapper.toRecord(dto)
     const appendedRecord: TCarRecord = this.orm.insert(record)
-    return CarMapper.toModel(appendedRecord)
+    return this.carMapper.toModel(appendedRecord)
   }
 
-  updateById(id: number, dto: TCarUpdateDto): Car | null {
+  updateById(id: number, dto: TCarUpdateDto): TCar | null {
     const record: TCarRecord = this.orm.updateById(id, dto)
-    return record ? CarMapper.toModel(record) : null
+    return record ? this.carMapper.toModel(record) : null
   }
 
   removeById(id: number): boolean {

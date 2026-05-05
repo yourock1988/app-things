@@ -1,14 +1,19 @@
-import { Server, Namespace } from 'socket.io'
-import CarService from '../domain/CarService.js'
-import Car from '../domain/Car.js'
+import type { Server, Namespace } from 'socket.io'
+import type CarService from '../domain/CarService.js'
+import type Car from '../domain/Car.js'
 
 export default class CarControllerIo {
-  constructor(
-    readonly carService: CarService,
-    private carNamespace: Namespace | null = null,
-    private io: Server | null = null,
-  ) {
-    carService.on('bc-sv:car:added', (car: Car) => io?.emit('car:added', car))
+  private carNamespace: Namespace | null = null
+
+  private io: Server | null = null
+
+  private carService: CarService
+
+  constructor(carService: CarService) {
+    this.carService = carService
+    carService.on('bc-sv:car:added', (car: Car) =>
+      this.io?.emit('car:added', car),
+    )
   }
 
   init(carNamespace: Namespace, io: Server) {
