@@ -1,25 +1,36 @@
 import bindSelf from '@yourock88/bind-self'
-import Orm from '../_utils/Orm.js'
+import type { ClassOf } from '../_utils/ClassOf.js'
+import type TAuthist from '../_pres/TAuthist.js'
+import type TOrm from '../_utils/Orm.js'
+import IDrest from '../_pres/IDrest.js'
+import Account from './domain/Account.js'
+import AccountService from './domain/AccountService.js'
+import AccountMapper from './infra/AccountMapper.js'
 import accountsTable from './infra/accountsTable.js'
 import AccountRepositoryDb from './infra/AccountRepositoryDb.js'
-import AccountService from './domain/AccountService.js'
-
 import AccountControllerRest from './pres/AccountControllerRest.js'
 import AccountRouterRest from './pres/AccountRouterRest.js'
 import mwAccountRest from './pres/mwAccountRest.js'
-import IDrest from '../_pres/IDrest.js'
 
-const accountsOrm = new Orm(accountsTable)
-const accountRepositoryDb = new AccountRepositoryDb(accountsOrm)
-export const accountService = new AccountService(accountRepositoryDb)
-const accountControllerRest = new AccountControllerRest(accountService)
-bindSelf(accountControllerRest)
-
-export default function inject({ AUTHrest }) {
-  const accountRouterRest = new AccountRouterRest(accountControllerRest, {
-    ...mwAccountRest,
-    ID: IDrest,
-    AUTH: AUTHrest,
-  }).router
-  return accountRouterRest
+export default function inject(Orm: ClassOf<TOrm>) {
+  const accountsOrm = new Orm(accountsTable)
+  const accountMapper = new AccountMapper(Account)
+  bindSelf(accountMapper)
+  const accountRepositoryDb = new AccountRepositoryDb(
+    accountsOrm,
+    accountMapper,
+  )
+  const accountService = new AccountService(accountRepositoryDb)
+  function extra(authist: TAuthist) {
+    const { AUTHrest } = authist
+    const mwRest = { ...mwAccountRest, ID: IDrest, AUTH: AUTHrest }
+    const accountControllerRest = new AccountControllerRest(accountService)
+    bindSelf(accountControllerRest)
+    const accountRouterRest = new AccountRouterRest(
+      accountControllerRest,
+      mwRest,
+    ).router
+    return accountRouterRest
+  }
+  return { accountService, extra }
 }

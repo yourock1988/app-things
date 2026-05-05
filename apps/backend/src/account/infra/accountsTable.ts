@@ -1,4 +1,4 @@
-import { TAccountRecord } from './TAccountRecord.js'
+import type { TAccountRecord } from './TAccountRecord.js'
 
 const accountsTable: TAccountRecord[] = [
   {

@@ -1,12 +1,16 @@
 import EventEmitter from 'node:events'
-import Account from './Account.js'
-import { IAccountRepository } from './IAccountRepository.js'
-import {
+import type IAccountService from '../../_domain/IAccountService.js'
+import type Account from './Account.js'
+import type { IAccountRepository } from './IAccountRepository.js'
+import type {
   TAccountAddDto,
   TAccountUpdFullDto,
 } from '../../_domain/TAccountDtos.js'
 
-export default class AccountService extends EventEmitter {
+export default class AccountService
+  extends EventEmitter
+  implements IAccountService
+{
   constructor(readonly accountRepository: IAccountRepository) {
     super()
   }

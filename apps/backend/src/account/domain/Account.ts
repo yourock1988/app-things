@@ -1,4 +1,6 @@
-export default class Account {
+import type IAccount from '../../_domain/IAccount.js'
+
+export default class Account implements IAccount {
   constructor(
     readonly id: number,
     readonly nickname: string,

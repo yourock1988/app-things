@@ -1,9 +1,9 @@
-import { Request, Response } from 'express'
-import {
+import type { Request, Response } from 'express'
+import type {
   TAccountAddDto,
   TAccountUpdFullDto,
 } from '../../_domain/TAccountDtos.js'
-import AccountService from '../domain/AccountService.js'
+import type AccountService from '../domain/AccountService.js'
 
 export default class AccountControllerRest {
   constructor(readonly accountService: AccountService) {}

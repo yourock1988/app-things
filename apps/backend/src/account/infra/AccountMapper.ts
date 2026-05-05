@@ -1,10 +1,13 @@
-import { TAccountAddDto } from '../../_domain/TAccountDtos.js'
-import { TAccountRecord } from './TAccountRecord.js'
-import Account from '../domain/Account.js'
+import type { ClassOf } from '../../_utils/ClassOf.js'
+import type { TAccountAddDto } from '../../_domain/TAccountDtos.js'
+import type { TAccountRecord } from './TAccountRecord.js'
+import type TAccount from '../domain/Account.js'
 
 export default class AccountMapper {
-  static toModel(record: TAccountRecord): Account {
-    return new Account(
+  constructor(readonly Account: ClassOf<TAccount>) {}
+
+  toModel(record: TAccountRecord): TAccount {
+    return new this.Account(
       record.id,
       record.nickname,
       record.password,
@@ -22,7 +25,8 @@ export default class AccountMapper {
     )
   }
 
-  static toRecord(dto: TAccountAddDto): TAccountRecord {
+  // eslint-disable-next-line class-methods-use-this
+  toRecord(dto: TAccountAddDto): TAccountRecord {
     const accountRecord: TAccountRecord = {
       id: -1,
       nickname: dto.nickname,

@@ -1,5 +1,5 @@
-import { TAccountAddDto, TAccountUpdFullDto } from './TAccountDtos.js'
-import IAccount from './IAccount.js'
+import type { TAccountAddDto, TAccountUpdFullDto } from './TAccountDtos.js'
+import type IAccount from './IAccount.js'
 
 export default interface IAccountService {
   getAll(): IAccount[]

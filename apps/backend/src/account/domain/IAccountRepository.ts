@@ -1,5 +1,5 @@
-import Account from './Account.js'
-import {
+import type Account from './Account.js'
+import type {
   TAccountAddDto,
   TAccountUpdFullDto,
 } from '../../_domain/TAccountDtos.js'
