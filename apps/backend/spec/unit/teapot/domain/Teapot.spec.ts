@@ -1,4 +1,7 @@
+import RangeVo from '../../../../src/teapot/domain/RangeVo.js'
 import Teapot from '../../../../src/teapot/domain/Teapot.js'
+
+Teapot.inject(new RangeVo(0, 100))
 
 describe('создание чайника', () => {
   let teapot: Teapot

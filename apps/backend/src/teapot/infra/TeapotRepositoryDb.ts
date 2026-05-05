@@ -1,38 +1,41 @@
 import EventEmitter from 'node:events'
-import { ITeapotRepository } from '../domain/ITeapotRepository.js'
-import { TTeapotAddDto, TTeapotUpdateDto } from '../domain/TTeapotDtos.js'
-import { TTeapotRecord } from './TTeapotRecord.js'
-import TeapotMapper from './TeapotMapper.js'
-import Teapot from '../domain/Teapot.js'
-import Orm from '../../_utils/Orm.js'
+import type { ITeapotRepository } from '../domain/ITeapotRepository.js'
+import type { TTeapotAddDto, TTeapotUpdateDto } from '../domain/TTeapotDtos.js'
+import type { TTeapotRecord } from './TTeapotRecord.js'
+import type TeapotMapper from './TeapotMapper.js'
+import type Teapot from '../domain/Teapot.js'
+import type Orm from '../../_utils/Orm.js'
 
 export default class TeapotRepositoryDb
   extends EventEmitter
   implements ITeapotRepository
 {
-  constructor(readonly orm: Orm) {
+  constructor(
+    readonly orm: Orm,
+    readonly teapotMapper: TeapotMapper,
+  ) {
     super()
   }
 
   getAll(): Teapot[] {
     const records: TTeapotRecord[] = this.orm.selectAll()
-    return records.map(TeapotMapper.toModel)
+    return records.map(this.teapotMapper.toModel)
   }
 
   getById(id: number): Teapot | null {
     const record: TTeapotRecord = this.orm.selectById(id)
-    return record ? TeapotMapper.toModel(record) : null
+    return record ? this.teapotMapper.toModel(record) : null
   }
 
   add(dto: TTeapotAddDto): Teapot {
-    const record = TeapotMapper.toRecord(dto)
+    const record = this.teapotMapper.toRecord(dto)
     const appendedRecord: TTeapotRecord = this.orm.insert(record)
-    return TeapotMapper.toModel(appendedRecord)
+    return this.teapotMapper.toModel(appendedRecord)
   }
 
   updateById(id: number, dto: TTeapotUpdateDto): Teapot | null {
     const record: TTeapotRecord = this.orm.updateById(id, dto)
-    return record ? TeapotMapper.toModel(record) : null
+    return record ? this.teapotMapper.toModel(record) : null
   }
 
   removeById(id: number): boolean {

@@ -1,15 +1,20 @@
-import { TTeapotUpdateDto } from '../domain/TTeapotDtos.js'
-import { TTeapotRecord } from './TTeapotRecord.js'
-import Teapot from '../domain/Teapot.js'
+import type { ClassOf } from '../../_utils/ClassOf.js'
+import type { TTeapotUpdateDto } from '../domain/TTeapotDtos.js'
+import type { TTeapotRecord } from './TTeapotRecord.js'
+import type TTeapot from '../domain/Teapot.js'
 
 // TTeapotAddDto
 
 export default class TeapotMapper {
-  static toModel(record: TTeapotRecord): Teapot {
-    return new Teapot(record.id, record.temperature, record.accountId)
+  constructor(readonly Teapot: ClassOf<TTeapot>) {}
+
+  // единственная точка инстансирования чайников! 👍
+  toModel(record: TTeapotRecord): TTeapot {
+    return new this.Teapot(record.id, record.temperature, record.accountId)
   }
 
-  static toRecord(dto: any): TTeapotRecord {
+  // eslint-disable-next-line class-methods-use-this
+  toRecord(dto: any): TTeapotRecord {
     return {
       id: -1,
       temperature: dto.temperature,
@@ -18,7 +23,8 @@ export default class TeapotMapper {
     }
   }
 
-  static toRecord2(teapot: Teapot): TTeapotUpdateDto {
+  // eslint-disable-next-line class-methods-use-this
+  toRecord2(teapot: TTeapot): TTeapotUpdateDto {
     return {
       temperature: teapot.temperature,
       // ongoing: teapot.ongoing,

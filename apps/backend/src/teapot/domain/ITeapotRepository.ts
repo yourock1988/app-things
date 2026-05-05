@@ -1,5 +1,5 @@
-import { TTeapotAddDto, TTeapotUpdateDto } from './TTeapotDtos.js'
-import Teapot from './Teapot.js'
+import type { TTeapotAddDto, TTeapotUpdateDto } from './TTeapotDtos.js'
+import type Teapot from './Teapot.js'
 
 export interface ITeapotRepository {
   getAll(): Teapot[]

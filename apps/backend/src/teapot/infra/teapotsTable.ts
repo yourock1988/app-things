@@ -1,4 +1,4 @@
-import { TTeapotRecord } from './TTeapotRecord.js'
+import type { TTeapotRecord } from './TTeapotRecord.js'
 
 const teapotsTable: TTeapotRecord[] = [
   {

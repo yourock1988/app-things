@@ -1,5 +1,5 @@
 import { TEAPOT } from '@app-x/cmd'
-import { Namespace, Server } from 'socket.io'
+import type { Namespace, Server } from 'socket.io'
 import on from '../../_utils/on.js'
 import CoR from '../../_utils/CoR.js'
 

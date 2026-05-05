@@ -1,6 +1,6 @@
-import { Request, Response } from 'express'
-import { TTeapotAddDto, TTeapotUpdateDto } from '../domain/TTeapotDtos.js'
-import TeapotService from '../domain/TeapotService.js'
+import type { Request, Response } from 'express'
+import type { TTeapotAddDto, TTeapotUpdateDto } from '../domain/TTeapotDtos.js'
+import type TeapotService from '../domain/TeapotService.js'
 
 export default class TeapotControllerRest {
   constructor(readonly teapotService: TeapotService) {}

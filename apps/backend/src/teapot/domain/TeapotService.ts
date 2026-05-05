@@ -1,14 +1,15 @@
 import EventEmitter from 'node:events'
-import { ITeapotRepository } from './ITeapotRepository.js'
-import { TTeapotAddDto, TTeapotUpdateDto } from './TTeapotDtos.js'
-import Teapot from './Teapot.js'
-import TeapotMapper from '../infra/TeapotMapper.js' // ???
-import TeapotOnline from './TeapotOnline.js'
+import type { ITeapotRepository } from './ITeapotRepository.js'
+import type { TTeapotAddDto, TTeapotUpdateDto } from './TTeapotDtos.js'
+import type Teapot from './Teapot.js'
+import type TeapotMapper from '../infra/TeapotMapper.js' // ???
+import type TeapotOnline from './TeapotOnline.js'
 
 export default class TeapotService extends EventEmitter {
   constructor(
     readonly teapotRepository: ITeapotRepository,
     readonly teapotOnline: TeapotOnline,
+    readonly teapotMapper: TeapotMapper,
   ) {
     super()
   }
@@ -46,7 +47,7 @@ export default class TeapotService extends EventEmitter {
     if (isJoined) {
       teapot.on('ready', () => {
         if (!teapot.isOnline) return
-        const dto = TeapotMapper.toRecord2(teapot)
+        const dto = this.teapotMapper.toRecord2(teapot)
         this.teapotRepository.updateById(teapot.id, dto)
         this.emit('teapot!ready', teapot)
       })
@@ -59,7 +60,7 @@ export default class TeapotService extends EventEmitter {
     if (isLeaved) {
       teapot.removeAllListeners('ready')
       teapot.turnOff() // в бд нельзя сохранять крутящиеся сущности
-      const dto = TeapotMapper.toRecord2(teapot)
+      const dto = this.teapotMapper.toRecord2(teapot)
       this.teapotRepository.updateById(teapot.id, dto)
     }
     return isLeaved
@@ -68,7 +69,7 @@ export default class TeapotService extends EventEmitter {
   doTurnOn(teapot: Teapot): boolean {
     const isTurned = teapot.turnOn()
     if (isTurned) {
-      const dto = TeapotMapper.toRecord2(teapot)
+      const dto = this.teapotMapper.toRecord2(teapot)
       this.teapotRepository.updateById(teapot.id, dto)
     }
     return isTurned
@@ -77,7 +78,7 @@ export default class TeapotService extends EventEmitter {
   doTurnOff(teapot: Teapot): boolean {
     const isTurned = teapot.turnOff()
     if (isTurned) {
-      const dto = TeapotMapper.toRecord2(teapot)
+      const dto = this.teapotMapper.toRecord2(teapot)
       this.teapotRepository.updateById(teapot.id, dto)
     }
     return isTurned
@@ -86,7 +87,7 @@ export default class TeapotService extends EventEmitter {
   doTurnDrain(teapot: Teapot): boolean {
     const isTurned = teapot.turnDrain()
     if (isTurned) {
-      const dto = TeapotMapper.toRecord2(teapot)
+      const dto = this.teapotMapper.toRecord2(teapot)
       this.teapotRepository.updateById(teapot.id, dto)
     }
     return isTurned

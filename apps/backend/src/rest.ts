@@ -13,8 +13,9 @@ import {
   sessionRouterRest,
   personRouterRest,
   carRouterRest,
+  teapotRouterRest,
 } from './_di.js'
-import { teapotRouterRest } from './teapot/teapotDi.js'
+// import { teapotRouterRest } from './teapot/teapotDi.js'
 // import { carRouterRest } from './car/carDi.js'
 
 const APP_ORIGIN = String(process.env.APP_ORIGIN)
