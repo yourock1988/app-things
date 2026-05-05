@@ -1,5 +1,5 @@
 <script>
-import { add, getAll, removeById, updateById } from '@/api/io/usersApiIo.js'
+import { add, getAll, removeById, updateById } from '@/api/io/personsApiIo.js'
 import TurboTable from '@/ui/TurboTable.vue'
 import TurboForm from '@/ui/TurboForm.vue'
 import FormSheet from '@/ui/FormSheet.vue'
@@ -27,20 +27,20 @@ export default {
     }
   },
   computed: {
-    users: {
+    persons: {
       get() {
-        return this.$store.state.usersStore.users
+        return this.$store.state.personsStore.persons
       },
       set(val) {
-        this.SET_USERS(val)
+        this.SET_PERSONS(val)
       },
     },
   },
   methods: {
-    ...mapMutations('usersStore', [
+    ...mapMutations('personsStore', [
       // eslint-disable-next-line vue/no-unused-properties
-      'SET_USERS',
-      'ADD_USER',
+      'SET_PERSONS',
+      'ADD_PERSON',
     ]),
     add,
     getAll,
@@ -59,16 +59,22 @@ export default {
 
 <template>
   <div>
-    <h3>PAGE USERS</h3>
-    <FormSheet caption="Create user" :sizing>
+    <h3>PAGE PERSONS</h3>
+    <FormSheet caption="Create person" :sizing>
       <TurboForm
         :add
         :cols
         :fields="fieldsForm"
         :init-test
-        @submitted="ADD_USER($event)"
+        @submitted="ADD_PERSON($event)"
       />
     </FormSheet>
-    <TurboTable v-model="users" :fields :get-all :update-by-id :remove-by-id />
+    <TurboTable
+      v-model="persons"
+      :fields
+      :get-all
+      :update-by-id
+      :remove-by-id
+    />
   </div>
 </template>

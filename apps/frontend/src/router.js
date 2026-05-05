@@ -7,7 +7,7 @@ import PageSignUp from '@/pages/PageSignUp.vue'
 import PageSignIn from '@/pages/PageSignIn.vue'
 import PagePicsum from '@/pages/PagePicsum.vue'
 import PageTests from '@/pages/PageTests.vue'
-import PageUsers from '@/pages/PageUsers.vue'
+import PagePersons from '@/pages/PagePersons.vue'
 import PageCars from '@/pages/PageCars.vue'
 import PageMain from '@/pages/PageMain.vue'
 
@@ -41,8 +41,8 @@ const routes = [
     component: PageSessions,
   },
   {
-    path: '/users',
-    component: PageUsers,
+    path: '/persons',
+    component: PagePersons,
   },
   {
     path: '/cars',

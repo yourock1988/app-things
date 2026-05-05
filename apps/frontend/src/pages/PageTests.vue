@@ -6,15 +6,15 @@ export default {
   components: { TurboBtn },
 
   computed: {
-    ...mapState('usersStore', ['err']),
+    ...mapState('personsStore', ['err']),
   },
 
   methods: {
-    ...mapActions('users', [
-      'createUser',
-      'deleteUserById',
-      'updateUserById',
-      'readUserById',
+    ...mapActions('persons', [
+      'createPerson',
+      'deletePersonById',
+      'updatePersonById',
+      'readPersonById',
     ]),
   },
 }
@@ -31,31 +31,39 @@ export default {
 
     <div>{{ err }}</div>
 
-    <button @click="deleteUserById(42)">WTF DELETE</button>
+    <button @click="deletePersonById(42)">WTF DELETE</button>
 
     <button
-      @click="updateUserById({ id: 111, user: { money: 0, password: 'xxxx' } })"
+      @click="
+        updatePersonById({ id: 111, person: { money: 0, password: 'xxxx' } })
+      "
     >
       WTF UPDATE 0
     </button>
 
-    <button @click="updateUserById({ id: 42, user: {} })">WTF UPDATE 1</button>
+    <button @click="updatePersonById({ id: 42, person: {} })">
+      WTF UPDATE 1
+    </button>
 
     <button
-      @click="updateUserById({ id: 42, user: { money: 0, password: 'xxxx' } })"
+      @click="
+        updatePersonById({ id: 42, person: { money: 0, password: 'xxxx' } })
+      "
     >
       WTF UPDATE 2
     </button>
 
     <button
-      @click="updateUserById({ id: 42, user: { money: 0, password: 'xxxxx' } })"
+      @click="
+        updatePersonById({ id: 42, person: { money: 0, password: 'xxxxx' } })
+      "
     >
       WTF UPDATE 3
     </button>
 
     <button
       @click="
-        createUser({
+        createPerson({
           nickname: 'nicknameSchema',
           password: 'passwordSchema',
           email: 'emailSchema',
@@ -65,6 +73,6 @@ export default {
       WTF CREATE
     </button>
 
-    <button @click="readUserById(42)">WTF GET</button>
+    <button @click="readPersonById(42)">WTF GET</button>
   </div>
 </template>
