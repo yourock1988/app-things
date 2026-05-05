@@ -1,6 +1,9 @@
-import { Request, Response } from 'express'
-import { TAccountAddDto, TAccountGetDto } from '../../_domain/TAccountDtos.js'
-import IAuthService from '../../_domain/IAuthService.js'
+import type { Request, Response } from 'express'
+import type IAuthService from '../../_domain/IAuthService.js'
+import type {
+  TAccountAddDto,
+  TAccountGetDto,
+} from '../../_domain/TAccountDtos.js'
 
 export default class AuthControllerRest {
   constructor(readonly authService: IAuthService) {}
