@@ -1,12 +1,16 @@
 import EventEmitter from 'node:events'
-import { ISessionRepository } from './ISessionRepository.js'
-import {
+import type { ISessionRepository } from './ISessionRepository.js'
+import type {
   TSessionAddDto,
   TSessionUpdateDto,
 } from '../../_domain/TSessionDtos.js'
-import Session from './Session.js'
+import type Session from './Session.js'
+import ISessionService from '../../_domain/ISessionService.js'
 
-export default class SessionService extends EventEmitter {
+export default class SessionService
+  extends EventEmitter
+  implements ISessionService
+{
   constructor(readonly sessionRepository: ISessionRepository) {
     super()
   }

@@ -1,9 +1,9 @@
-import { Request, Response } from 'express'
-import {
+import type { Request, Response } from 'express'
+import type {
   TSessionAddDto,
   TSessionUpdateDto,
 } from '../../_domain/TSessionDtos.js'
-import SessionService from '../domain/SessionService.js'
+import type SessionService from '../domain/SessionService.js'
 
 export default class SessionControllerRest {
   constructor(readonly sessionService: SessionService) {}

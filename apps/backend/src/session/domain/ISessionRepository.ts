@@ -1,8 +1,8 @@
-import {
+import type {
   TSessionAddDto,
   TSessionUpdateDto,
 } from '../../_domain/TSessionDtos.js'
-import Session from './Session.js'
+import type Session from './Session.js'
 
 export interface ISessionRepository {
   getAll(): Session[]

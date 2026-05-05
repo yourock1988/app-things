@@ -1,5 +1,5 @@
-import { TSessionAddDto, TSessionUpdateDto } from './TSessionDtos.js'
-import ISession from './ISession.js'
+import type { TSessionAddDto, TSessionUpdateDto } from './TSessionDtos.js'
+import type ISession from './ISession.js'
 
 export default interface ISessionService {
   getAll(): ISession[]
