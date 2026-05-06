@@ -5,8 +5,6 @@ import PageTeapots from '@/pages/PageTeapots.vue'
 import PageOnline from '@/pages/PageOnline.vue'
 import PageSignUp from '@/pages/PageSignUp.vue'
 import PageSignIn from '@/pages/PageSignIn.vue'
-import PagePicsum from '@/pages/PagePicsum.vue'
-import PageTests from '@/pages/PageTests.vue'
 import PagePersons from '@/pages/PagePersons.vue'
 import PageCars from '@/pages/PageCars.vue'
 import PageMain from '@/pages/PageMain.vue'
@@ -33,14 +31,6 @@ const routes = [
     component: PageTeapots,
   },
   {
-    path: '/accounts',
-    component: PageAccounts,
-  },
-  {
-    path: '/sessions',
-    component: PageSessions,
-  },
-  {
     path: '/persons',
     component: PagePersons,
   },
@@ -49,12 +39,12 @@ const routes = [
     component: PageCars,
   },
   {
-    path: '/tests',
-    component: PageTests,
+    path: '/accounts',
+    component: PageAccounts,
   },
   {
-    path: '/pics',
-    component: PagePicsum,
+    path: '/sessions',
+    component: PageSessions,
   },
 ]
 
