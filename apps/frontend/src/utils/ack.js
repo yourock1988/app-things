@@ -4,10 +4,10 @@ export default function ack(res) {
   return (err, data) => {
     if (err) {
       if ([409, 401, 403, 404, 405, 500].includes(err)) {
-        return [new IoEmptyError('bad status', { cause: err })]
+        return res([new IoEmptyError('bad status', { cause: err })])
       }
       if (typeof err === 'object') {
-        return [new IoRespError('bad request', { cause: err })]
+        return res([new IoRespError('bad request', { cause: err })])
       }
       return res([new Error('unhandled error', { cause: err })])
     }
