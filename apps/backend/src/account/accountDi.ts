@@ -12,7 +12,7 @@ import AccountControllerRest from './pres/AccountControllerRest.js'
 import AccountRouterRest from './pres/AccountRouterRest.js'
 import mwAccountRest from './pres/mwAccountRest.js'
 
-export default function inject(Orm: ClassOf<TOrm>) {
+export default function accountDi(Orm: ClassOf<TOrm>) {
   const accountsOrm = new Orm(accountsTable)
   const accountMapper = new AccountMapper(Account)
   bindSelf(accountMapper)
@@ -21,7 +21,7 @@ export default function inject(Orm: ClassOf<TOrm>) {
     accountMapper,
   )
   const accountService = new AccountService(accountRepositoryDb)
-  function extra(authist: TAuthist) {
+  function accountDiExtra(authist: TAuthist) {
     const { AUTHrest } = authist
     const mwRest = { ...mwAccountRest, ID: IDrest, AUTH: AUTHrest }
     const accountControllerRest = new AccountControllerRest(accountService)
@@ -32,5 +32,5 @@ export default function inject(Orm: ClassOf<TOrm>) {
     ).router
     return accountRouterRest
   }
-  return { accountService, extra }
+  return { accountService, accountDiExtra }
 }

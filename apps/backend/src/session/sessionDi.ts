@@ -12,7 +12,7 @@ import SessionControllerRest from './pres/SessionControllerRest.js'
 import SessionRouterRest from './pres/SessionRouterRest.js'
 import mwSessionRest from './pres/mwSessionRest.js'
 
-export default function inject(Orm: ClassOf<TOrm>) {
+export default function sessionDi(Orm: ClassOf<TOrm>) {
   const sessionsOrm = new Orm(sessionsTable)
   const sessionMapper = new SessionMapper(Session)
   bindSelf(sessionMapper)
@@ -21,7 +21,7 @@ export default function inject(Orm: ClassOf<TOrm>) {
     sessionMapper,
   )
   const sessionService = new SessionService(sessionRepositoryDb)
-  function extra(authist: TAuthist) {
+  function sessionDiExtra(authist: TAuthist) {
     const { AUTHrest } = authist
     const mwRest = { ...mwSessionRest, ID: IDrest, AUTH: AUTHrest }
     const sessionControllerRest = new SessionControllerRest(sessionService)
@@ -32,5 +32,5 @@ export default function inject(Orm: ClassOf<TOrm>) {
     ).router
     return sessionRouterRest
   }
-  return { sessionService, extra }
+  return { sessionService, sessionDiExtra }
 }

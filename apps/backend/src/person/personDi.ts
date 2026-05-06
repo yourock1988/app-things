@@ -16,7 +16,7 @@ import PersonRouterIo from './pres/PersonRouterIo.js'
 import mwPersonRest from './pres/mwPersonRest.js'
 import mwPersonIo from './pres/mwPersonIo.js'
 
-export default function inject(Orm: ClassOf<TOrm>, authist: TAuthist) {
+export default function personDi(Orm: ClassOf<TOrm>, authist: TAuthist) {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
   const mwRest = { ...mwPersonRest, ID: IDrest, AUTH: AUTHrest }
   const mwIo = { ...mwPersonIo, ID: IDio, AUTHN: AUTHNio, AUTHZ: AUTHZio }

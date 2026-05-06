@@ -18,7 +18,7 @@ import TeapotRouterIo from './pres/TeapotRouterIo.js'
 import mwTeapotRest from './pres/mwTeapotRest.js'
 import mwTeapotIo from './pres/mwTeapotIo.js'
 
-export default function inject(Orm: ClassOf<TOrm>, authist: TAuthist) {
+export default function teapotDi(Orm: ClassOf<TOrm>, authist: TAuthist) {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
   const mwRest = { ...mwTeapotRest, ID: IDrest, AUTH: AUTHrest }
   const mwIo = { ...mwTeapotIo, ID: IDio, AUTHN: AUTHNio, AUTHZ: AUTHZio }

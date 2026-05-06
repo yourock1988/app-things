@@ -16,7 +16,7 @@ import CarRouterIo from './pres/CarRouterIo.js'
 import mwCarRest from './pres/mwCarRest.js'
 import mwCarIo from './pres/mwCarIo.js'
 
-export default function inject(Orm: ClassOf<TOrm>, authist: TAuthist) {
+export default function carDi(Orm: ClassOf<TOrm>, authist: TAuthist) {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
   const mwRest = { ...mwCarRest, ID: IDrest, AUTH: AUTHrest }
   const mwIo = { ...mwCarIo, ID: IDio, AUTHN: AUTHNio, AUTHZ: AUTHZio }

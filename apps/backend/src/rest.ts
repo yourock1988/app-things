@@ -1,6 +1,7 @@
-import cors from 'cors'
+import type { NextFunction, Request, Response } from 'express'
+import { json, Router } from 'express'
 import cookieParser from 'cookie-parser'
-import { json, NextFunction, Request, Response, Router } from 'express'
+import cors from 'cors'
 import {
   authRouterRest,
   accountRouterRest,

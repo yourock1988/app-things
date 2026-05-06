@@ -4,7 +4,7 @@ import mwAuthenticateIo from '../_pres/mwAuthenticateIo.js'
 import mwAuthorizeIo from '../_pres/mwAuthorizeIo.js'
 import mwAuthorizeRest from '../_pres/mwAuthorizeRest.js'
 
-export default function inject(authService: IAuthService): TAuthist {
+export default function authistDi(authService: IAuthService): TAuthist {
   return {
     AUTHrest: mwAuthorizeRest(authService),
     AUTHNio: mwAuthenticateIo(authService),

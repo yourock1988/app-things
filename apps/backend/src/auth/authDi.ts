@@ -6,7 +6,7 @@ import AuthControllerRest from './pres/AuthControllerRest.js'
 import AuthRouterRest from './pres/AuthRouterRest.js'
 import mwAuthRest from './pres/mwAuthRest.js'
 
-export default function inject(
+export default function authDi(
   accountService: IAccountService,
   sessionService: ISessionService,
 ) {

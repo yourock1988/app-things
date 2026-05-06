@@ -1,25 +1,24 @@
 import Orm from './_utils/Orm.js'
-import inject1 from './auth/authDi.js'
-import inject2 from './_infra/authistDi.js'
-import inject3 from './account/accountDi.js'
-import inject4 from './session/sessionDi.js'
-import inject5 from './car/carDi.js'
-import inject6 from './person/personDi.js'
-import inject7 from './teapot/teapotDi.js'
+import authistDi from './_infra/authistDi.js'
+import authDi from './auth/authDi.js'
+import accountDi from './account/accountDi.js'
+import sessionDi from './session/sessionDi.js'
+import teapotDi from './teapot/teapotDi.js'
+import personDi from './person/personDi.js'
+import carDi from './car/carDi.js'
 
-const { accountService, extra: injectAccount } = inject3(Orm)
-const { sessionService, extra: injectService } = inject4(Orm)
-const { authService, authRouterRest } = inject1(accountService, sessionService)
+const { accountService, accountDiExtra } = accountDi(Orm)
+const { sessionService, sessionDiExtra } = sessionDi(Orm)
+const { authService, authRouterRest } = authDi(accountService, sessionService)
+const authist = authistDi(authService)
 
-const authist = inject2(authService)
-const accountRouterRest = injectAccount(authist)
-const sessionRouterRest = injectService(authist)
-const { carRouterIo, carRouterRest } = inject5(Orm, authist)
-const { personRouterIo, personRouterRest } = inject6(Orm, authist)
-const { teapotRouterIo, teapotRouterRest } = inject7(Orm, authist)
+const accountRouterRest = accountDiExtra(authist)
+const sessionRouterRest = sessionDiExtra(authist)
+const { carRouterIo, carRouterRest } = carDi(Orm, authist)
+const { personRouterIo, personRouterRest } = personDi(Orm, authist)
+const { teapotRouterIo, teapotRouterRest } = teapotDi(Orm, authist)
 
 export {
-  authist,
   authRouterRest,
   accountRouterRest,
   sessionRouterRest,
