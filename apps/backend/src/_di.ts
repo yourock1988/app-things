@@ -9,11 +9,9 @@ import inject7 from './teapot/teapotDi.js'
 
 const { accountService, extra: injectAccount } = inject3(Orm)
 const { sessionService, extra: injectService } = inject4(Orm)
-
 const { authService, authRouterRest } = inject1(accountService, sessionService)
 
 const authist = inject2(authService)
-
 const accountRouterRest = injectAccount(authist)
 const sessionRouterRest = injectService(authist)
 const { carRouterIo, carRouterRest } = inject5(Orm, authist)

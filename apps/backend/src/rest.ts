@@ -1,12 +1,6 @@
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { json, NextFunction, Request, Response, Router } from 'express'
-// import accountRouterRest from './infra/di/accountDi.js'
-// import sessionRouterRest from './infra/di/sessionDi.js'
-// import { teapotRouterRest } from './infra/di/teapotDi.js'
-// import { userRouterRest } from './infra/di/userDi.js'
-// import { authRouterRest } from './infra/di/authDi.js'
-// import { carRouterRest } from './infra/di/carDi.js'
 import {
   authRouterRest,
   accountRouterRest,
@@ -15,8 +9,6 @@ import {
   carRouterRest,
   teapotRouterRest,
 } from './_di.js'
-// import { teapotRouterRest } from './teapot/teapotDi.js'
-// import { carRouterRest } from './car/carDi.js'
 
 const APP_ORIGIN = String(process.env.APP_ORIGIN)
 const WEB_DEV_SERV_PORT = 9000
