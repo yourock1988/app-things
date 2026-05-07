@@ -52,6 +52,16 @@ describe('client-role:admin', () => {
     expect(carsTable).toEqual(tableCarsAllFixture)
   })
 
+  // it('negative get all cars if invalid ack', async () => {
+  //   const r = await new Promise((resolve, reject) => {
+  //     cl.emit('car:getAll', '', '', {})
+  //   })
+  //   // if (err) reject(err)
+  //   // else resolve(data)
+  //   expect(r).toEqual(respCarsAllFixture)
+  //   expect(carsTable).toEqual(tableCarsAllFixture)
+  // })
+
   it('positive get car by id', async () => {
     const r = await clSend(cl, 'car:getById', 1001, '')
     expect(r).toEqual(respCarByIdFixture)

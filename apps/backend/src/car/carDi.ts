@@ -17,6 +17,7 @@ import mwCarRest from './pres/mwCarRest.js'
 import mwCarIo from './pres/mwCarIo.js'
 import SESSIDrest from '../_pres/SESSIDrest.js'
 import SESSIDio from '../_pres/SESSIDio.js'
+import ACK from '../_pres/ACK.js'
 
 export default function carDi(Orm: ClassOf<TOrm>, authist: TAuthist) {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
@@ -32,6 +33,7 @@ export default function carDi(Orm: ClassOf<TOrm>, authist: TAuthist) {
     AUTHN: AUTHNio,
     AUTHZ: AUTHZio,
     SESSID: SESSIDio,
+    ACK,
   }
   const carsOrm = new Orm(carsTable)
   const carMapper = new CarMapper(Car)

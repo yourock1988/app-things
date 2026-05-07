@@ -28,13 +28,20 @@ export default class CarRouterIo {
 
   connector(socket: any) {
     const { carControllerIo, mwCarIo } = this
-    const { ID, ADD, UPD, AUTHZ } = mwCarIo
+    const { ID, ADD, UPD, AUTHZ, ACK } = mwCarIo
     const { getAll, getById, add, updateById, removeById } = carControllerIo
 
-    on(socket, 'car:getAll', CoR(AUTHZ, getAll))
-    on(socket, 'car:getById', CoR(ID, AUTHZ, getById))
-    on(socket, 'car:add', CoR(ADD, AUTHZ, add))
-    on(socket, 'car:updateById', CoR(ID, UPD, AUTHZ, updateById))
-    on(socket, 'car:removeById', CoR(ID, AUTHZ, removeById))
+    // listen(socket)
+    //   .on('car:getAll', ACK, AUTHZ, getAll)
+    //   .on('car:getById', ACK, ID, AUTHZ, getById)
+    //   .on('car:add', ACK, ADD, AUTHZ, add)
+    //   .on('car:updateById', ACK, ID, UPD, AUTHZ, updateById)
+    //   .on('car:removeById', ACK, ID, AUTHZ, removeById)
+
+    on(socket, 'car:getAll', CoR(ACK, AUTHZ, getAll))
+    on(socket, 'car:getById', CoR(ACK, ID, AUTHZ, getById))
+    on(socket, 'car:add', CoR(ACK, ADD, AUTHZ, add))
+    on(socket, 'car:updateById', CoR(ACK, ID, UPD, AUTHZ, updateById))
+    on(socket, 'car:removeById', CoR(ACK, ID, AUTHZ, removeById))
   }
 }
