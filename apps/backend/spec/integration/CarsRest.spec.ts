@@ -275,9 +275,15 @@ describe('Cars REST API', () => {
     it('negative patch car by id without cookie sessionId', async () => {
       const agent = supertest(appHttp)
       response = await agent.patch('/api/v0/cars/101').send(dtoCarUpdFixture)
-      expect(response.status).toBe(401)
-      expect(response.headers['content-type']).toBeUndefined()
-      expect(response.body).toEqual({})
+      expect(response.status).toBe(400)
+      expect(response.headers['content-type']).toContain('application/json')
+      expect(response.headers['content-type']).toContain('utf-8')
+      expect(response.body).toEqual({
+        _errors: [],
+        sessionId: {
+          _errors: ['Пришлите это поле'],
+        },
+      })
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
     it('negative patch car by id with invalid cookie sessionId', async () => {
@@ -286,9 +292,15 @@ describe('Cars REST API', () => {
         .patch('/api/v0/cars/1001')
         .set('cookie', 'sessionId=xxx')
         .send(dtoCarUpdFixture)
-      expect(response.status).toBe(401)
-      expect(response.headers['content-type']).toBeUndefined()
-      expect(response.body).toEqual({})
+      expect(response.status).toBe(400)
+      expect(response.headers['content-type']).toContain('application/json')
+      expect(response.headers['content-type']).toContain('utf-8')
+      expect(response.body).toEqual({
+        _errors: [],
+        sessionId: {
+          _errors: ['String must contain at least 4 character(s)'],
+        },
+      })
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
     it('negative patch car by id with low perms cookie sessionId', async () => {
@@ -304,7 +316,10 @@ describe('Cars REST API', () => {
     })
     it('negative patch car by id combine 404 and 401', async () => {
       const agent = supertest(appHttp)
-      response = await agent.patch('/api/v0/cars/1003').send(dtoCarUpdFixture)
+      response = await agent
+        .patch('/api/v0/cars/1003')
+        .set('cookie', 'sessionId=xxxx')
+        .send(dtoCarUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})

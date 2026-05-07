@@ -2,7 +2,7 @@
 
 import { z } from 'zod'
 
-type TVariant = 'body' | 'params'
+type TVariant = 'body' | 'params' | 'headersAuth'
 
 const dict = {
   params: 0,
@@ -11,11 +11,12 @@ const dict = {
 
 export default function (variant: TVariant, schema: z.ZodSchema) {
   return (ctx, args: any[], next: any) => {
-    const dto = args.at(dict[variant])
-    const ack = args.at(2)
+    const { headersAuth } = ctx.socket
+    const dto = variant === 'headersAuth' ? headersAuth : args.at(dict[variant])
+    const ack = args?.at(2)
     const result = schema.safeParse(dto)
     if (result.success) {
-      args[dict[variant]] = result.data
+      if (variant !== 'headersAuth') args[dict[variant]] = result.data
       next()
     } else {
       ack?.(result.error.format()) // 400

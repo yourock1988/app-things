@@ -15,11 +15,24 @@ import CarRouterRest from './pres/CarRouterRest.js'
 import CarRouterIo from './pres/CarRouterIo.js'
 import mwCarRest from './pres/mwCarRest.js'
 import mwCarIo from './pres/mwCarIo.js'
+import SESSIDrest from '../_pres/SESSIDrest.js'
+import SESSIDio from '../_pres/SESSIDio.js'
 
 export default function carDi(Orm: ClassOf<TOrm>, authist: TAuthist) {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
-  const mwRest = { ...mwCarRest, ID: IDrest, AUTH: AUTHrest }
-  const mwIo = { ...mwCarIo, ID: IDio, AUTHN: AUTHNio, AUTHZ: AUTHZio }
+  const mwRest = {
+    ...mwCarRest,
+    ID: IDrest,
+    AUTH: AUTHrest,
+    SESSID: SESSIDrest,
+  }
+  const mwIo = {
+    ...mwCarIo,
+    ID: IDio,
+    AUTHN: AUTHNio,
+    AUTHZ: AUTHZio,
+    SESSID: SESSIDio,
+  }
   const carsOrm = new Orm(carsTable)
   const carMapper = new CarMapper(Car)
   bindSelf(carMapper)

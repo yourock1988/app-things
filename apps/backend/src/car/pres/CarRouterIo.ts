@@ -14,7 +14,11 @@ export default class CarRouterIo {
 
   authN(socket, next) {
     const ctx = { socket, eventName: 'authentication' }
-    this.mwCarIo.AUTHN(ctx, null, next)
+    const message = 'invalid-sessionid'
+    this.mwCarIo.SESSID(ctx, [0, 0, () => next({ message })], () => {
+      this.mwCarIo.AUTHN(ctx, null, next)
+    })
+    // setTimeout(() => next({ err: 'err' }, 500))
   }
 
   authZ(socket, next) {

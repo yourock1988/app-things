@@ -13,7 +13,7 @@ content-type: application/json
 ###
 
 PATCH http://localhost:8004/api/v0/cars/1001/
-cookie: sessionId=abcdef
+cookie: sessionId=abcdef;sessionId2=abcdef
 content-type: application/json
 
 {"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}

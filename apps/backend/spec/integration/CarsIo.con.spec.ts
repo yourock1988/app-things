@@ -42,8 +42,8 @@ it('unauthorized without session cookie', async () => {
     cl.on('connect', reject)
     cl.on('connect_error', resolve)
   })
-  expect(r.data).toBe(401)
-  expect(r.message).toBe('unauthorized')
+  expect(r.data).toBe(undefined)
+  expect(r.message).toBe('invalid-sessionid')
 })
 it('unauthorized with bad session cookie', async () => {
   const r = await new Promise<any>((resolve, reject) => {
@@ -51,8 +51,8 @@ it('unauthorized with bad session cookie', async () => {
     cl.on('connect', reject)
     cl.on('connect_error', resolve)
   })
-  expect(r.data).toBe(401)
-  expect(r.message).toBe('unauthorized')
+  expect(r.data).toBe(undefined)
+  expect(r.message).toBe('invalid-sessionid')
 })
 it('forbidden with low perm session cookie', async () => {
   const r = await new Promise<any>((resolve, reject) => {
