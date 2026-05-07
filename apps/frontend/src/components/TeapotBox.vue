@@ -24,9 +24,9 @@ export default {
     isBoiled() {
       return this.temperature === 100 && this.ongoing === 'idle'
     },
-    isBoiling() {
-      return this.ongoing === 'boiling'
-    },
+    // isBoiling() {
+    //   return this.ongoing === 'boiling'
+    // },
   },
   watch: {
     ongoing(newVal) {
@@ -47,6 +47,12 @@ export default {
       })
       await this.teapotSynchronizer?.sendEvent('getById')
     }, 100)
+    document.addEventListener('visibilitychange', async () => {
+      if (!document.hidden) {
+        await this.teapotSynchronizer?.sendEvent('getById')
+        window.console.log('teapot data synchronized')
+      }
+    })
   },
   unmounted() {
     this.teapotSynchronizer?.unsubscribe()
