@@ -1,6 +1,7 @@
 import type { Namespace, Server } from 'socket.io'
-import CoR from '../../_utils/CoR.js'
-import on from '../../_utils/on.js'
+// import CoR from '../../_utils/CoR.js'
+// import on from '../../_utils/on.js'
+import listen from '../../_utils/listen.js'
 
 export default class CarRouterIo {
   constructor(
@@ -31,17 +32,17 @@ export default class CarRouterIo {
     const { ID, ADD, UPD, AUTHZ, ACK } = mwCarIo
     const { getAll, getById, add, updateById, removeById } = carControllerIo
 
-    // listen(socket)
-    //   .on('car:getAll', ACK, AUTHZ, getAll)
-    //   .on('car:getById', ACK, ID, AUTHZ, getById)
-    //   .on('car:add', ACK, ADD, AUTHZ, add)
-    //   .on('car:updateById', ACK, ID, UPD, AUTHZ, updateById)
-    //   .on('car:removeById', ACK, ID, AUTHZ, removeById)
+    listen(socket)
+      .on('car:getAll', ACK, AUTHZ, getAll)
+      .on('car:getById', ACK, ID, AUTHZ, getById)
+      .on('car:add', ACK, ADD, AUTHZ, add)
+      .on('car:updateById', ACK, ID, UPD, AUTHZ, updateById)
+      .on('car:removeById', ACK, ID, AUTHZ, removeById)
 
-    on(socket, 'car:getAll', CoR(ACK, AUTHZ, getAll))
-    on(socket, 'car:getById', CoR(ACK, ID, AUTHZ, getById))
-    on(socket, 'car:add', CoR(ACK, ADD, AUTHZ, add))
-    on(socket, 'car:updateById', CoR(ACK, ID, UPD, AUTHZ, updateById))
-    on(socket, 'car:removeById', CoR(ACK, ID, AUTHZ, removeById))
+    // on(socket, 'car:getAll', CoR(ACK, AUTHZ, getAll))
+    // on(socket, 'car:getById', CoR(ACK, ID, AUTHZ, getById))
+    // on(socket, 'car:add', CoR(ACK, ADD, AUTHZ, add))
+    // on(socket, 'car:updateById', CoR(ACK, ID, UPD, AUTHZ, updateById))
+    // on(socket, 'car:removeById', CoR(ACK, ID, AUTHZ, removeById))
   }
 }
