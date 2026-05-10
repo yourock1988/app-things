@@ -276,7 +276,7 @@ describe('client-role:guest', () => {
   it('negative get teapot by id that not exists with low perm', async () => {
     let r, e
     try {
-      r = await clSend(cl, CL.GET_BY_ID, 4203, '')
+      r = await clSend(cl, CL.GET_BY_ID, 4204, '')
     } catch (err: any) {
       e = err
     }

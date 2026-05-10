@@ -13,7 +13,8 @@ export default {
   computed: {
     ...mapState('authStore', ['session']),
     sessIds() {
-      return this.sessions?.map(d => d.sessionId) ?? []
+      const result = this.sessions?.map(d => d.sessionId) ?? []
+      return result.concat(['x', 'xxxx'])
     },
   },
   watch: {

@@ -61,6 +61,7 @@ export default {
   },
   '/teapots': {
     owner: [
+      TEAPOT.CL.GET_BY_ID,
       TEAPOT.CL.SHOW,
       TEAPOT.CL.JOIN,
       TEAPOT.CL.LEAVE,

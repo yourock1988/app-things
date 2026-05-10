@@ -1,5 +1,7 @@
 <script>
+import { mapState } from 'vuex'
 import TeapotSynchronizer from '@/api/io/teapotsApiIo.js'
+import { getById } from '@/api/rest/accountsApiRest.js'
 import TurboBtn from '@/ui/TurboBtn.vue'
 
 const makeRange = (min, max) => val => Math.max(min, Math.min(val, max))
@@ -13,6 +15,8 @@ export default {
   data() {
     return {
       err: null,
+      ownerNickname: '',
+      ownerAccountId: -1,
       temperature: 0,
       ongoing: 'idle',
       isOnline: false,
@@ -22,6 +26,10 @@ export default {
     }
   },
   computed: {
+    ...mapState('authStore', ['session']),
+    isOwner() {
+      return this.session?.nickname === this.ownerNickname
+    },
     isBoiled() {
       return this.temperature === 100 && this.ongoing === 'idle'
     },
@@ -30,6 +38,11 @@ export default {
     // },
   },
   watch: {
+    async ownerAccountId(newVal) {
+      const [err, data] = await getById(newVal)
+      if (err) this.ownerNickname = ''
+      else this.ownerNickname = data.nickname
+    },
     ongoing(newVal) {
       return {
         idle: () => this.turnOff(),
@@ -41,13 +54,14 @@ export default {
     setTimeout(async () => {
       this.teapotSynchronizer = new TeapotSynchronizer(this.teapotId)
       this.teapotSynchronizer.subscribe()
-      this.teapotSynchronizer.on('update', serverState => {
+      this.teapotSynchronizer.on('update', async serverState => {
         if (serverState.err) {
           this.err = serverState.err
-          this.ongoing = 'idle'
+          if (this.isOwner) this.ongoing = 'idle'
           return
         }
         this.err = null
+        this.ownerAccountId = serverState.accountId
         this.temperature = serverState.temperature
         this.ongoing = serverState.ongoing
         this.isOnline = serverState.isOnline || false
@@ -115,7 +129,10 @@ export default {
 <template>
   <v-row justify="center">
     <v-col cols="6">
-      <v-sheet :class="{ 'bg-grey-darken-3': !isOnline }">
+      <v-sheet
+        border="primary opacity-75"
+        :class="{ 'bg-grey-darken-3': !isOnline, 'border-lg': isOwner }"
+      >
         <v-container class="text-center">
           <v-row>
             <v-col>
@@ -126,7 +143,7 @@ export default {
             </v-col>
           </v-row>
           <h1 class="mb-3" :class="isOnline ? 'text-green' : 'text-red'">
-            Teapot
+            {{ ownerNickname }} Teapot {{ isOwner }}
           </h1>
           <v-row>
             <v-col cols="12">
