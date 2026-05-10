@@ -1,4 +1,5 @@
 import EventEmitter from 'eventemitter3'
+import sendEvent from './sendEvent.js'
 
 export default class IoSynchronizer extends EventEmitter {
   constructor(namespace, eventsDict, eventsList, id) {
@@ -17,15 +18,18 @@ export default class IoSynchronizer extends EventEmitter {
     })
   }
 
-  emitWithAck(eventName) {
+  async emitWithAck(eventName) {
     this.awaitingCounter += 1
-    return new Promise(resolve => {
-      this.namespace.s?.emit(eventName, this.id, '', (err, data) => {
-        this.awaitingCounter -= 1
-        if (err) resolve([err.details ?? err])
-        else resolve([null, data])
-      })
-    })
+    const [err, data] = await sendEvent(this.namespace, eventName, this.id, '')
+    this.awaitingCounter -= 1
+    return [err, data]
+    // return new Promise(resolve => {
+    //   this.namespace.s?.emit(eventName, this.id, '', (err, data) => {
+    //     this.awaitingCounter -= 1
+    //     if (err) resolve([err.details ?? err])
+    //     else resolve([null, data])
+    //   })
+    // })
   }
 
   applyServerState = (state, isAck = false) => {
@@ -48,7 +52,7 @@ export default class IoSynchronizer extends EventEmitter {
     const eventName = this.eventsDict[methodName]
     const [err, state] = await this.emitWithAck(eventName)
     if (!err) this.applyServerState(state, true)
-    else this.applyServerState({ id: this.id, ongoing: 'idle' }, true)
+    else this.applyServerState({ id: this.id, err }, true)
     // в идеале бы запоминать последнее состояние перед ошибкой сервера,
     // хотя нах надо...
     // FIXME: при ошибке не нужно вызывать applyServerState

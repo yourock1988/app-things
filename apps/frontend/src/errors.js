@@ -11,3 +11,5 @@ export class HttpRespError extends Error {}
 export class IoEmptyError extends Error {}
 
 export class IoRespError extends Error {}
+
+export class IoAuthError extends Error {}

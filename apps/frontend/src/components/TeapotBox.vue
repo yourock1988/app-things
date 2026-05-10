@@ -12,6 +12,7 @@ export default {
 
   data() {
     return {
+      err: null,
       temperature: 0,
       ongoing: 'idle',
       isOnline: false,
@@ -41,6 +42,12 @@ export default {
       this.teapotSynchronizer = new TeapotSynchronizer(this.teapotId)
       this.teapotSynchronizer.subscribe()
       this.teapotSynchronizer.on('update', serverState => {
+        if (serverState.err) {
+          this.err = serverState.err
+          this.ongoing = 'idle'
+          return
+        }
+        this.err = null
         this.temperature = serverState.temperature
         this.ongoing = serverState.ongoing
         this.isOnline = serverState.isOnline || false
@@ -151,7 +158,8 @@ export default {
               <h1>READY!</h1>
             </v-col>
             <v-col v-else cols="12">
-              <h1>{{ ongoing }}...</h1>
+              <h1 v-if="err">{{ err._errors[0] }}...</h1>
+              <h1 v-else>{{ ongoing }}...</h1>
             </v-col>
           </v-row>
         </v-container>
