@@ -1,10 +1,13 @@
-import { IoAuthError, IoRespError } from '@/errors.js'
+import { IoAuthError, IoEmptyError, IoRespError } from '@/errors.js'
 
 export default function ack(res) {
   return (err, data) => {
     if (err) {
       if ([401, 403].includes(err.data)) {
         return res([new IoAuthError('auth error', { cause: err })])
+      }
+      if ([404, 405, 409, 500].includes(err)) {
+        return res([new IoEmptyError('auth error', { cause: err })])
       }
       if (typeof err === 'object') {
         return res([new IoRespError('bad request', { cause: err })])

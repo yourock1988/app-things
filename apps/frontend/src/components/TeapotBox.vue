@@ -94,20 +94,29 @@ export default {
       this.intervalId = undefined
     },
     async handleTurnOn() {
-      this.ongoing = 'boiling'
+      // клиентская проверка для optimistic loading, не настоящая защита
+      if (this.isOwner && this.isOnline) {
+        this.ongoing = 'boiling'
+      }
       // this.loading = 'handleTurnOn'
       await this.teapotSynchronizer?.sendEvent('turnOn')
       // this.loading = ''
     },
     async handleTurnOff() {
-      this.ongoing = 'idle'
+      // клиентская проверка для optimistic loading, не настоящая защита
+      if (this.isOwner && this.isOnline) {
+        this.ongoing = 'idle'
+      }
       // this.loading = 'handleTurnOff'
       await this.teapotSynchronizer?.sendEvent('turnOff')
       // this.loading = ''
     },
     async handleDrain() {
-      this.ongoing = 'idle'
-      this.temperature = 0
+      // клиентская проверка для optimistic loading, не настоящая защита
+      if (this.isOwner && this.isOnline) {
+        this.ongoing = 'idle'
+        this.temperature = 0
+      }
       // this.loading = 'handleDrain'
       await this.teapotSynchronizer?.sendEvent('drain')
       // this.loading = ''
