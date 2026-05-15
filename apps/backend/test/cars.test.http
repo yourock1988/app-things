@@ -9,17 +9,17 @@ GET http://localhost:8004/api/v0/cars/1001/full/
 GET http://localhost:8004/api/v0/cars/1002/full/
 ###
 DELETE http://localhost:8004/api/v0/cars/1002/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 POST http://localhost:8004/api/v0/cars/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"type":"SUV","brand":"Tesla","model":"X","price":42000,"engine":"EL","hasTurbo": false, "hp": 420}
 ###
 
 PATCH http://localhost:8004/api/v0/cars/1001/
-cookie: sessionId=abcdef;sessionId2=abcdef
+cookie: sessionid=abcdef;sessionId2=abcdef
 content-type: application/json
 
 {"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
@@ -32,17 +32,17 @@ content-type: application/json
 ### AuthN PROBLEMS
 
 DELETE http://localhost:8004/api/v0/cars/1001/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 ###
 POST http://localhost:8004/api/v0/cars/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 content-type: application/json
 
 {"type":"SUV","brand":"Tesla","model":"X","price":42000,"engine":"EL","hasTurbo": false, "hp": 420}
 ###
 
 PATCH http://localhost:8004/api/v0/cars/1001/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 content-type: application/json
 
 {"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
@@ -55,17 +55,17 @@ content-type: application/json
 ### AuthZ PROBLEMS
 
 DELETE http://localhost:8004/api/v0/cars/1001/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 POST http://localhost:8004/api/v0/cars/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"type":"SUV","brand":"Tesla","model":"X","price":42000,"engine":"EL","hasTurbo": false, "hp": 420}
 ###
 
 PATCH http://localhost:8004/api/v0/cars/1001/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
@@ -80,10 +80,10 @@ content-type: application/json
 GET http://localhost:8004/api/v0/cars/6666/
 ###
 DELETE http://localhost:8004/api/v0/cars/6666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 PATCH http://localhost:8004/api/v0/cars/6666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
@@ -91,10 +91,10 @@ content-type: application/json
 GET http://localhost:8004/api/v0/cars/-6666/
 ###
 DELETE http://localhost:8004/api/v0/cars/-6666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 PATCH http://localhost:8004/api/v0/cars/-6666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}
@@ -102,10 +102,10 @@ content-type: application/json
 GET http://localhost:8004/api/v0/cars/xxxx/
 ###
 DELETE http://localhost:8004/api/v0/cars/xxxx/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 PATCH http://localhost:8004/api/v0/cars/xxxx/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"price":12345,"engine":"V6", "hasTurbo": true, "hp": 123}

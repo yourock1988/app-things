@@ -3,17 +3,17 @@ GET http://localhost:8004/api/v0/teapots/
 GET http://localhost:8004/api/v0/teapots/4201/
 ###
 DELETE http://localhost:8004/api/v0/teapots/4202/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 POST http://localhost:8004/api/v0/teapots/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"temperature": 42}
 ###
 
 PATCH http://localhost:8004/api/v0/teapots/4201/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"temperature": 33}
@@ -26,17 +26,17 @@ content-type: application/json
 ### AuthN PROBLEMS
 
 DELETE http://localhost:8004/api/v0/teapots/4201/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 ###
 POST http://localhost:8004/api/v0/teapots/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 content-type: application/json
 
 {"temperature": 42}
 ###
 
 PATCH http://localhost:8004/api/v0/teapots/4201/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 content-type: application/json
 
 {"temperature": 42}
@@ -49,17 +49,17 @@ content-type: application/json
 ### AuthZ PROBLEMS
 
 DELETE http://localhost:8004/api/v0/teapots/4201/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 POST http://localhost:8004/api/v0/teapots/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"temperature": 42}
 ###
 
 PATCH http://localhost:8004/api/v0/teapots/4201/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"temperature": 42}
@@ -74,10 +74,10 @@ content-type: application/json
 GET http://localhost:8004/api/v0/teapots/6666/
 ###
 DELETE http://localhost:8004/api/v0/teapots/6666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 PATCH http://localhost:8004/api/v0/teapots/6666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"temperature": 42}
@@ -85,10 +85,10 @@ content-type: application/json
 GET http://localhost:8004/api/v0/teapots/-6666/
 ###
 DELETE http://localhost:8004/api/v0/teapots/-6666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 PATCH http://localhost:8004/api/v0/teapots/-6666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"foo": "bar"}
@@ -96,10 +96,10 @@ content-type: application/json
 GET http://localhost:8004/api/v0/teapots/xxxx/
 ###
 DELETE http://localhost:8004/api/v0/teapots/xxxx/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 PATCH http://localhost:8004/api/v0/teapots/xxxx/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"foo": "bar"}

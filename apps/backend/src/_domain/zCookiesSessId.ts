@@ -5,7 +5,7 @@ import msg from './messages.json' with { type: 'json' }
 
 export default z.object(
   {
-    sessionId: z.string({ required_error: msg.require }).min(4), // .uuid(),
+    sessionid: z.string({ required_error: msg.require }).min(4), // .uuid(),
   },
   { required_error: msg.dto },
 )

@@ -73,7 +73,7 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/cars/1001')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
       expect(response.status).toBe(204)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -83,13 +83,13 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/cars/1003')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
-    it('negative delete car by id dont send cookie sessionId', async () => {
+    it('negative delete car by id dont send cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent.delete('/api/v0/cars/1001')
       expect(response.status).toBe(401)
@@ -97,21 +97,21 @@ describe('Cars REST API', () => {
       expect(response.body).toEqual({})
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
-    it('negative delete car by id send cookie wrong sessionId', async () => {
+    it('negative delete car by id send cookie wrong sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/cars/1001')
-        .set('cookie', 'sessionId=xxx')
+        .set('cookie', 'sessionid=xxx')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
-    it('negative delete car by id send cookie sessionId low perm', async () => {
+    it('negative delete car by id send cookie sessionid low perm', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/cars/1001')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -129,7 +129,7 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/cars/1003')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -142,7 +142,7 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/cars')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(dtoCarAddFixture)
       expect(response.status).toBe(201)
       expect(response.headers['content-type']).toContain('application/json')
@@ -155,7 +155,7 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/cars')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(carDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -173,7 +173,7 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/cars')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(carDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -183,7 +183,7 @@ describe('Cars REST API', () => {
       })
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
-    it('negative post car without cookie sessionId', async () => {
+    it('negative post car without cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent.post('/api/v0/cars').send(dtoCarAddFixture)
       expect(response.status).toBe(401)
@@ -191,22 +191,22 @@ describe('Cars REST API', () => {
       expect(response.body).toEqual({})
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
-    it('negative post car with invalid cookie sessionId', async () => {
+    it('negative post car with invalid cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/cars')
-        .set('cookie', 'sessionId=xxx')
+        .set('cookie', 'sessionid=xxx')
         .send(dtoCarAddFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
-    it('negative post car with low perms cookie sessionId', async () => {
+    it('negative post car with low perms cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/cars')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
         .send(dtoCarAddFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
@@ -220,7 +220,7 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/cars/1001')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(dtoCarUpdFixture)
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
@@ -232,7 +232,7 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/cars/1003')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(dtoCarUpdFixture)
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
@@ -244,7 +244,7 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/cars/1001')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(carDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -262,7 +262,7 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/cars/1001')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(carDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -272,7 +272,7 @@ describe('Cars REST API', () => {
       })
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
-    it('negative patch car by id without cookie sessionId', async () => {
+    it('negative patch car by id without cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent.patch('/api/v0/cars/101').send(dtoCarUpdFixture)
       expect(response.status).toBe(400)
@@ -280,34 +280,34 @@ describe('Cars REST API', () => {
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: [],
-        sessionId: {
+        sessionid: {
           _errors: ['Пришлите это поле'],
         },
       })
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
-    it('negative patch car by id with invalid cookie sessionId', async () => {
+    it('negative patch car by id with invalid cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/cars/1001')
-        .set('cookie', 'sessionId=xxx')
+        .set('cookie', 'sessionid=xxx')
         .send(dtoCarUpdFixture)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
       expect(response.body).toEqual({
         _errors: [],
-        sessionId: {
+        sessionid: {
           _errors: ['String must contain at least 4 character(s)'],
         },
       })
       expect(carsTable).toEqual(tableCarsAllFixture)
     })
-    it('negative patch car by id with low perms cookie sessionId', async () => {
+    it('negative patch car by id with low perms cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/cars/1001')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
         .send(dtoCarUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
@@ -318,7 +318,7 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/cars/1003')
-        .set('cookie', 'sessionId=xxxx')
+        .set('cookie', 'sessionid=xxxx')
         .send(dtoCarUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
@@ -329,7 +329,7 @@ describe('Cars REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/cars/1003')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
         .send(dtoCarUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
@@ -345,7 +345,7 @@ it('negative post car with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .post('/api/v0/cars')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .send('{,}')
   expect(response.status).toBe(400)
   expect(response.headers['content-type']).toContain('application/json')
@@ -359,7 +359,7 @@ it('negative post car with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .post('/api/v0/cars')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .set('content-type', 'application/json')
     .send('{,}')
   expect(response.status).toBe(400)
@@ -375,7 +375,7 @@ it('negative patch car by id with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .patch('/api/v0/cars/1001')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .send('{,}')
   expect(response.status).toBe(400)
   expect(response.headers['content-type']).toContain('application/json')
@@ -389,7 +389,7 @@ it('negative patch car by id with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .patch('/api/v0/cars/1001')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .set('content-type', 'application/json')
     .send('{,}')
   expect(response.status).toBe(400)

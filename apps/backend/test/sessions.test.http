@@ -1,21 +1,21 @@
 GET http://localhost:8004/api/v0/sessions/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 GET http://localhost:8004/api/v0/sessions/11/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 DELETE http://localhost:8004/api/v0/sessions/12/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 POST http://localhost:8004/api/v0/sessions/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"nickname":"admin"}
 ###
 
 PATCH http://localhost:8004/api/v0/sessions/11/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"nickname":"admin"}
@@ -28,23 +28,23 @@ content-type: application/json
 ### AuthN PROBLEMS
 
 GET http://localhost:8004/api/v0/sessions/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 ###
 GET http://localhost:8004/api/v0/sessions/11/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 ###
 DELETE http://localhost:8004/api/v0/sessions/11/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 ###
 POST http://localhost:8004/api/v0/sessions/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 content-type: application/json
 
 {"nickname":"admin"}
 ###
 
 PATCH http://localhost:8004/api/v0/sessions/11/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 content-type: application/json
 
 {"nickname":"admin"}
@@ -57,23 +57,23 @@ content-type: application/json
 ### AuthZ PROBLEMS
 
 GET http://localhost:8004/api/v0/sessions/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 GET http://localhost:8004/api/v0/sessions/11/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 DELETE http://localhost:8004/api/v0/sessions/11/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 POST http://localhost:8004/api/v0/sessions/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"nickname":"admin"}
 ###
 
 PATCH http://localhost:8004/api/v0/sessions/11/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"nickname":"admin"}
@@ -86,37 +86,37 @@ content-type: application/json
 ### Path WRONG
 
 GET http://localhost:8004/api/v0/sessions/66/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 DELETE http://localhost:8004/api/v0/sessions/66/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 PATCH http://localhost:8004/api/v0/sessions/66/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"nickname":"admin"}
 ###
 GET http://localhost:8004/api/v0/sessions/-66/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 DELETE http://localhost:8004/api/v0/sessions/-66/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 PATCH http://localhost:8004/api/v0/sessions/-66/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"nickname":"admin"}
 ###
 GET http://localhost:8004/api/v0/sessions/xx/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 DELETE http://localhost:8004/api/v0/sessions/xx/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 PATCH http://localhost:8004/api/v0/sessions/xx/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"nickname":"admin"}

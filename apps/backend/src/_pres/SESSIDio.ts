@@ -1,6 +1,6 @@
 import compileMiddlewareIo from '../_utils/compileMiddlewareIo.js'
-import zCookiesSessId2 from '../_domain/zCookiesSessId2.js'
+import zCookiesSessId from '../_domain/zCookiesSessId.js'
 
-const SESSIDio = compileMiddlewareIo('headersAuth', zCookiesSessId2)
+const SESSIDio = compileMiddlewareIo('headersAuth', zCookiesSessId)
 
 export default SESSIDio

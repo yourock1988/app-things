@@ -3,17 +3,17 @@ GET http://localhost:8004/api/v0/persons/
 GET http://localhost:8004/api/v0/persons/101/
 ###
 DELETE http://localhost:8004/api/v0/persons/102/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 POST http://localhost:8004/api/v0/persons/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"nickname":"ooo","password":"ooooo","email":"ooo@ooo.oo"}
 ###
 
 PATCH http://localhost:8004/api/v0/persons/101/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"money":12345,"password":"xxxxx"}
@@ -26,17 +26,17 @@ content-type: application/json
 ### AuthN PROBLEMS
 
 DELETE http://localhost:8004/api/v0/persons/101/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 ###
 POST http://localhost:8004/api/v0/persons/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 content-type: application/json
 
 {"nickname":"ooo","password":"ooooo","email":"ooo@ooo.oo"}
 ###
 
 PATCH http://localhost:8004/api/v0/persons/101/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 content-type: application/json
 
 {"money":12345,"password":"xxxxx"}
@@ -49,17 +49,17 @@ content-type: application/json
 ### AuthZ PROBLEMS
 
 DELETE http://localhost:8004/api/v0/persons/101/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 POST http://localhost:8004/api/v0/persons/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"nickname":"ooo","password":"ooooo","email":"ooo@ooo.oo"}
 ###
 
 PATCH http://localhost:8004/api/v0/persons/101/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"money":12345,"password":"xxxxx"}
@@ -74,10 +74,10 @@ content-type: application/json
 GET http://localhost:8004/api/v0/persons/666/
 ###
 DELETE http://localhost:8004/api/v0/persons/666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 PATCH http://localhost:8004/api/v0/persons/666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"money":12345,"password":"xxxxx"}
@@ -85,10 +85,10 @@ content-type: application/json
 GET http://localhost:8004/api/v0/persons/-666/
 ###
 DELETE http://localhost:8004/api/v0/persons/-666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 PATCH http://localhost:8004/api/v0/persons/-666/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"money":12345,"password":"xxxxx"}
@@ -96,10 +96,10 @@ content-type: application/json
 GET http://localhost:8004/api/v0/persons/xxx/
 ###
 DELETE http://localhost:8004/api/v0/persons/xxx/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 PATCH http://localhost:8004/api/v0/persons/xxx/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"money":12345,"password":"xxxxx"}
@@ -112,13 +112,13 @@ content-type: application/json
 ### Payload WRONG
 
 PATCH http://localhost:8004/api/v0/persons/101/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"money":-321,"password":"xxx"}
 ### BAD
 POST http://localhost:8004/api/v0/persons/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"nickname":"oo","password":"oooo","email":"oooooo.oo", "x": "x"}

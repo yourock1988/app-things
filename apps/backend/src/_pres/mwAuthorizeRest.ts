@@ -4,13 +4,13 @@ import IAuthService from '../_domain/IAuthService.js'
 export default function mwAuthorizeRest(authService: IAuthService) {
   return function (req: Request, res: Response, next: NextFunction) {
     const {
-      cookies: { sessionId },
+      cookies: { sessionid },
       route: { path },
       baseUrl,
       method,
     } = req
     const resource = baseUrl + path
-    const session = authService.authN(sessionId)
+    const session = authService.authN(sessionid)
     if (!session) {
       res.status(401).send()
       return

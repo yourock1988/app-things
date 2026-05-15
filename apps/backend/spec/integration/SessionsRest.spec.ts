@@ -38,7 +38,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .get('/api/v0/sessions')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
@@ -46,7 +46,7 @@ describe('Sessions REST API', () => {
       expect(response.body).toEqual(respSessionsAllFixture)
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get all sessions without cookie sessionId', async () => {
+    it('negative get all sessions without cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent.get('/api/v0/sessions')
       expect(response.status).toBe(401)
@@ -54,21 +54,21 @@ describe('Sessions REST API', () => {
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get all sessions with invalid cookie sessionId', async () => {
+    it('negative get all sessions with invalid cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .get('/api/v0/sessions')
-        .set('cookie', 'sessionId=xxx')
+        .set('cookie', 'sessionid=xxx')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get all sessions with low perms cookie sessionId', async () => {
+    it('negative get all sessions with low perms cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .get('/api/v0/sessions')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -82,7 +82,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .get('/api/v0/sessions/11')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
       expect(response.headers['content-type']).toContain('utf-8')
@@ -93,13 +93,13 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .get('/api/v0/sessions/13')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get session by id without cookie sessionId', async () => {
+    it('negative get session by id without cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent.get('/api/v0/sessions/11')
       expect(response.status).toBe(401)
@@ -107,21 +107,21 @@ describe('Sessions REST API', () => {
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get session by id with invalid cookie sessionId', async () => {
+    it('negative get session by id with invalid cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .get('/api/v0/sessions/11')
-        .set('cookie', 'sessionId=xxx')
+        .set('cookie', 'sessionid=xxx')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative get session by id with low perms cookie sessionId', async () => {
+    it('negative get session by id with low perms cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .get('/api/v0/sessions/11')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -139,7 +139,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .get('/api/v0/sessions/13')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -153,7 +153,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/sessions/11')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
       expect(response.status).toBe(204)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -163,13 +163,13 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/sessions/13')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative delete session by id dont send cookie sessionId', async () => {
+    it('negative delete session by id dont send cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent.delete('/api/v0/sessions/11')
       expect(response.status).toBe(401)
@@ -177,21 +177,21 @@ describe('Sessions REST API', () => {
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative delete session by id send cookie wrong sessionId', async () => {
+    it('negative delete session by id send cookie wrong sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/sessions/11')
-        .set('cookie', 'sessionId=xxx')
+        .set('cookie', 'sessionid=xxx')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative delete session by id send cookie sessionId low perm', async () => {
+    it('negative delete session by id send cookie sessionid low perm', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/sessions/11')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -209,7 +209,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/sessions/13')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -222,7 +222,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/sessions')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(dtoSessionAddFixture)
       expect(response.status).toBe(201)
       expect(response.headers['content-type']).toContain('application/json')
@@ -235,7 +235,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/sessions')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(sessionDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -253,7 +253,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/sessions')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(sessionDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -263,7 +263,7 @@ describe('Sessions REST API', () => {
       })
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative post session without cookie sessionId', async () => {
+    it('negative post session without cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent.post('/api/v0/sessions').send(dtoSessionAddFixture)
       expect(response.status).toBe(401)
@@ -271,22 +271,22 @@ describe('Sessions REST API', () => {
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative post session with invalid cookie sessionId', async () => {
+    it('negative post session with invalid cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/sessions')
-        .set('cookie', 'sessionId=xxx')
+        .set('cookie', 'sessionid=xxx')
         .send(dtoSessionAddFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative post session with low perms cookie sessionId', async () => {
+    it('negative post session with low perms cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/sessions')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
         .send(dtoSessionAddFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
@@ -300,7 +300,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/sessions/11')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(dtoSessionUpdFixture)
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
@@ -312,7 +312,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/sessions/13')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(dtoSessionUpdFixture)
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
@@ -324,7 +324,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/sessions/11')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(sessionDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -342,7 +342,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/sessions/11')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(sessionDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -352,7 +352,7 @@ describe('Sessions REST API', () => {
       })
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative patch session by id without cookie sessionId', async () => {
+    it('negative patch session by id without cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/sessions/11')
@@ -362,22 +362,22 @@ describe('Sessions REST API', () => {
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative patch session by id with invalid cookie sessionId', async () => {
+    it('negative patch session by id with invalid cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/sessions/11')
-        .set('cookie', 'sessionId=xxx')
+        .set('cookie', 'sessionid=xxx')
         .send(dtoSessionUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(sessionsTable).toEqual(tableSessionsAllFixture)
     })
-    it('negative patch session by id with low perms cookie sessionId', async () => {
+    it('negative patch session by id with low perms cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/sessions/11')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
         .send(dtoSessionUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
@@ -398,7 +398,7 @@ describe('Sessions REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/sessions/13')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
         .send(dtoSessionUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
@@ -414,7 +414,7 @@ it('negative post session with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .post('/api/v0/sessions')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .send('{,}')
   expect(response.status).toBe(400)
   expect(response.headers['content-type']).toContain('application/json')
@@ -428,7 +428,7 @@ it('negative post session with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .post('/api/v0/sessions')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .set('content-type', 'application/json')
     .send('{,}')
   expect(response.status).toBe(400)
@@ -444,7 +444,7 @@ it('negative patch session by id with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .patch('/api/v0/sessions/11')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .send('{,}')
   expect(response.status).toBe(400)
   expect(response.headers['content-type']).toContain('application/json')
@@ -458,7 +458,7 @@ it('negative patch session by id with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .patch('/api/v0/sessions/11')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .set('content-type', 'application/json')
     .send('{,}')
   expect(response.status).toBe(400)

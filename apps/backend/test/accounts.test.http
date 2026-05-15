@@ -1,21 +1,21 @@
 GET http://localhost:8004/api/v0/accounts/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 GET http://localhost:8004/api/v0/accounts/1/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 DELETE http://localhost:8004/api/v0/accounts/2/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 POST http://localhost:8004/api/v0/accounts/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"nickname":"ooo","password":"oO1!oooo","repasswd":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true  }
 ###
 
 PATCH http://localhost:8004/api/v0/accounts/2/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"nickname":"ooo","password":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true, "role": "user", "isLoggedIn": true, "updatedAt": 1234567  }
@@ -28,23 +28,23 @@ content-type: application/json
 ### AuthN PROBLEMS
 
 GET http://localhost:8004/api/v0/accounts/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 ###
 GET http://localhost:8004/api/v0/accounts/1/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 ###
 DELETE http://localhost:8004/api/v0/accounts/1/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 ###
 POST http://localhost:8004/api/v0/accounts/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 content-type: application/json
 
 {"nickname":"ooo","password":"oO1!oooo","repasswd":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true  }
 ###
 
 PATCH http://localhost:8004/api/v0/accounts/1/
-cookie: sessionId=xxx
+cookie: sessionid=xxx
 content-type: application/json
 
 {"favoriteNumbers": [111,222,333]}
@@ -57,23 +57,23 @@ content-type: application/json
 ### AuthZ PROBLEMS
 
 GET http://localhost:8004/api/v0/accounts/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 GET http://localhost:8004/api/v0/accounts/1/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 DELETE http://localhost:8004/api/v0/accounts/1/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 ###
 POST http://localhost:8004/api/v0/accounts/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"nickname":"ooo","password":"oO1!oooo","repasswd":"oO1!oooo","email":"ooo@ooo.oo", "phone": "+380667654321", "country":"Зимбабвэ", "isAgree": true  }
 ###
 
 PATCH http://localhost:8004/api/v0/accounts/1/
-cookie: sessionId=fedcba
+cookie: sessionid=fedcba
 content-type: application/json
 
 {"favoriteNumbers": [111,222,333]}
@@ -86,38 +86,38 @@ content-type: application/json
 ### Path WRONG
 
 GET http://localhost:8004/api/v0/accounts/6/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 DELETE http://localhost:8004/api/v0/accounts/6/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 PATCH http://localhost:8004/api/v0/accounts/6/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"favoriteNumbers": [111,222,333]}
 ###
 GET http://localhost:8004/api/v0/accounts/-6/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 DELETE http://localhost:8004/api/v0/accounts/-6/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 PATCH http://localhost:8004/api/v0/accounts/-6/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"favoriteNumbers": [111,222,333]}
 ###
 
 GET http://localhost:8004/api/v0/accounts/xxx/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 DELETE http://localhost:8004/api/v0/accounts/xxx/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 ###
 PATCH http://localhost:8004/api/v0/accounts/xxx/
-cookie: sessionId=abcdef
+cookie: sessionid=abcdef
 content-type: application/json
 
 {"favoriteNumbers": [111,222,333]}

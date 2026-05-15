@@ -73,7 +73,7 @@ describe('Teapots REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/teapots/4201')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
       expect(response.status).toBe(204)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -83,13 +83,13 @@ describe('Teapots REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/teapots/4203')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(teapotsTable).toEqual(tableTeapotsAllFixture)
     })
-    it('negative delete teapot by id dont send cookie sessionId', async () => {
+    it('negative delete teapot by id dont send cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent.delete('/api/v0/teapots/4201')
       expect(response.status).toBe(401)
@@ -97,21 +97,21 @@ describe('Teapots REST API', () => {
       expect(response.body).toEqual({})
       expect(teapotsTable).toEqual(tableTeapotsAllFixture)
     })
-    it('negative delete teapot by id send cookie wrong sessionId', async () => {
+    it('negative delete teapot by id send cookie wrong sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/teapots/4201')
-        .set('cookie', 'sessionId=xxx')
+        .set('cookie', 'sessionid=xxx')
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(teapotsTable).toEqual(tableTeapotsAllFixture)
     })
-    it('negative delete teapot by id send cookie sessionId low perm', async () => {
+    it('negative delete teapot by id send cookie sessionid low perm', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/teapots/4201')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -129,7 +129,7 @@ describe('Teapots REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .delete('/api/v0/teapots/4203')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
@@ -142,7 +142,7 @@ describe('Teapots REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/teapots')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(dtoTeapotAddFixture)
       expect(response.status).toBe(201)
       expect(response.headers['content-type']).toContain('application/json')
@@ -155,7 +155,7 @@ describe('Teapots REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/teapots')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(teapotDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -173,7 +173,7 @@ describe('Teapots REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/teapots')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(teapotDtoAddFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -183,7 +183,7 @@ describe('Teapots REST API', () => {
       })
       expect(teapotsTable).toEqual(tableTeapotsAllFixture)
     })
-    it('negative post teapot without cookie sessionId', async () => {
+    it('negative post teapot without cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent.post('/api/v0/teapots').send(dtoTeapotAddFixture)
       expect(response.status).toBe(401)
@@ -191,22 +191,22 @@ describe('Teapots REST API', () => {
       expect(response.body).toEqual({})
       expect(teapotsTable).toEqual(tableTeapotsAllFixture)
     })
-    it('negative post teapot with invalid cookie sessionId', async () => {
+    it('negative post teapot with invalid cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/teapots')
-        .set('cookie', 'sessionId=xxx')
+        .set('cookie', 'sessionid=xxx')
         .send(dtoTeapotAddFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(teapotsTable).toEqual(tableTeapotsAllFixture)
     })
-    it('negative post teapot with low perms cookie sessionId', async () => {
+    it('negative post teapot with low perms cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .post('/api/v0/teapots')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
         .send(dtoTeapotAddFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
@@ -220,7 +220,7 @@ describe('Teapots REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/teapots/4201')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(dtoTeapotUpdFixture)
       expect(response.status).toBe(200)
       expect(response.headers['content-type']).toContain('application/json')
@@ -232,7 +232,7 @@ describe('Teapots REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/teapots/4203')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(dtoTeapotUpdFixture)
       expect(response.status).toBe(404)
       expect(response.headers['content-type']).toBeUndefined()
@@ -244,7 +244,7 @@ describe('Teapots REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/teapots/4201')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(teapotDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -262,7 +262,7 @@ describe('Teapots REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/teapots/4201')
-        .set('cookie', 'sessionId=abcdef')
+        .set('cookie', 'sessionid=abcdef')
         .send(teapotDtoUpdFixtureBad)
       expect(response.status).toBe(400)
       expect(response.headers['content-type']).toContain('application/json')
@@ -272,7 +272,7 @@ describe('Teapots REST API', () => {
       })
       expect(teapotsTable).toEqual(tableTeapotsAllFixture)
     })
-    it('negative patch teapot by id without cookie sessionId', async () => {
+    it('negative patch teapot by id without cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/teapots/101')
@@ -282,22 +282,22 @@ describe('Teapots REST API', () => {
       expect(response.body).toEqual({})
       expect(teapotsTable).toEqual(tableTeapotsAllFixture)
     })
-    it('negative patch teapot by id with invalid cookie sessionId', async () => {
+    it('negative patch teapot by id with invalid cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/teapots/4201')
-        .set('cookie', 'sessionId=xxx')
+        .set('cookie', 'sessionid=xxx')
         .send(dtoTeapotUpdFixture)
       expect(response.status).toBe(401)
       expect(response.headers['content-type']).toBeUndefined()
       expect(response.body).toEqual({})
       expect(teapotsTable).toEqual(tableTeapotsAllFixture)
     })
-    it('negative patch teapot by id with low perms cookie sessionId', async () => {
+    it('negative patch teapot by id with low perms cookie sessionid', async () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/teapots/4201')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
         .send(dtoTeapotUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
@@ -318,7 +318,7 @@ describe('Teapots REST API', () => {
       const agent = supertest(appHttp)
       response = await agent
         .patch('/api/v0/teapots/4203')
-        .set('cookie', 'sessionId=fedcba')
+        .set('cookie', 'sessionid=fedcba')
         .send(dtoTeapotUpdFixture)
       expect(response.status).toBe(403)
       expect(response.headers['content-type']).toBeUndefined()
@@ -334,7 +334,7 @@ it('negative post teapot with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .post('/api/v0/teapots')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .send('{,}')
   expect(response.status).toBe(400)
   expect(response.headers['content-type']).toContain('application/json')
@@ -348,7 +348,7 @@ it('negative post teapot with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .post('/api/v0/teapots')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .set('content-type', 'application/json')
     .send('{,}')
   expect(response.status).toBe(400)
@@ -364,7 +364,7 @@ it('negative patch teapot by id with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .patch('/api/v0/teapots/4201')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .send('{,}')
   expect(response.status).toBe(400)
   expect(response.headers['content-type']).toContain('application/json')
@@ -378,7 +378,7 @@ it('negative patch teapot by id with invalid json', async () => {
   const agent = supertest(appHttp)
   response = await agent
     .patch('/api/v0/teapots/4201')
-    .set('cookie', 'sessionId=abcdef')
+    .set('cookie', 'sessionid=abcdef')
     .set('content-type', 'application/json')
     .send('{,}')
   expect(response.status).toBe(400)
