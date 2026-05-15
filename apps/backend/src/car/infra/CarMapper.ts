@@ -1,10 +1,9 @@
-import type { ClassOf } from '../../_utils/ClassOf.js'
 import type { TCarAddDto } from '../domain/TCarDtos.js'
 import type { TCarRecord } from './TCarRecord.js'
 import type TCar from '../domain/Car.js'
 
 export default class CarMapper {
-  constructor(readonly Car: ClassOf<TCar>) {}
+  constructor(readonly Car: typeof TCar) {}
 
   toModel(record: TCarRecord): TCar {
     return new this.Car(
@@ -16,11 +15,13 @@ export default class CarMapper {
       record.engine,
       record.hasTurbo,
       record.hp,
+      record.personId,
     )
   }
 
   // eslint-disable-next-line class-methods-use-this
   toRecord(dto: TCarAddDto): TCarRecord {
+    // создать/обновить запись Person и выковырять из неё id
     const carRecord: TCarRecord = {
       id: -1,
       type: dto.type,
@@ -31,6 +32,7 @@ export default class CarMapper {
       hasTurbo: dto.hasTurbo,
       hp: dto.hp,
       isRunning: Math.random() > 0.5,
+      personId: 101,
     }
     return carRecord
   }

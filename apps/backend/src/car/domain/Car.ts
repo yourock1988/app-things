@@ -7,7 +7,8 @@ export default class Car {
     readonly price: number,
     readonly engine: string,
     readonly hasTurbo: boolean,
-    readonly hp: number
+    readonly hp: number,
+    readonly personId: number,
   ) {}
 
   // eslint-disable-next-line class-methods-use-this

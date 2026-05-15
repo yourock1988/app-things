@@ -1,5 +1,5 @@
 import type { ClassOf } from '../../_utils/ClassOf.js'
-import type { TPersonAddDto } from '../domain/TPersonDtos.js'
+import type { TPersonAddDto } from '../../_domain/TPersonDtos.js'
 import type { TPersonRecord } from './TPersonRecord.js'
 import type TPerson from '../domain/Person.js'
 

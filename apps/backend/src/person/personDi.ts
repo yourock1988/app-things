@@ -34,5 +34,5 @@ export default function personDi(Orm: ClassOf<TOrm>, authist: TAuthist) {
   const personRouterIo = new PersonRouterIo(personControllerIo, mwIo)
   bindSelf(personRouterIo)
 
-  return { personRouterIo, personRouterRest }
+  return { personRouterIo, personRouterRest, personService }
 }

@@ -1,13 +1,24 @@
 import type { Request, Response } from 'express'
 import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.js'
 import type CarService from '../domain/CarService.js'
+import type GetCarFullUseCase from '../domain/GetCarFullUseCase.js'
 
 export default class CarControllerRest {
-  constructor(readonly carService: CarService) {}
+  constructor(
+    readonly carService: CarService,
+    readonly getCarFullUseCase: GetCarFullUseCase,
+  ) {}
 
   getAll(_: Request, res: Response): void {
     const cars = this.carService.getAll()
     res.status(200).json(cars)
+  }
+
+  getFullById(req: Request, res: Response): void {
+    const id: number = +req.params.id
+    const carFull = this.getCarFullUseCase.getCarFullById(id)
+    if (carFull) res.status(200).json(carFull)
+    else res.status(404).send()
   }
 
   getById(req: Request, res: Response): void {

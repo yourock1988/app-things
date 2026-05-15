@@ -14,8 +14,11 @@ const authist = authistDi(authService)
 
 const accountRouterRest = accountDiExtra(authist)
 const sessionRouterRest = sessionDiExtra(authist)
-const { carRouterIo, carRouterRest } = carDi(Orm, authist)
-const { personRouterIo, personRouterRest } = personDi(Orm, authist)
+const { personRouterIo, personRouterRest, personService } = personDi(
+  Orm,
+  authist,
+)
+const { carRouterIo, carRouterRest } = carDi(Orm, authist, personService)
 const { teapotRouterIo, teapotRouterRest } = teapotDi(Orm, authist)
 
 export {

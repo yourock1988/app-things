@@ -1,7 +1,10 @@
 import type TOrm from '../../_utils/Orm.js'
 import type TPerson from '../domain/Person.js'
 import type IPersonRepository from '../domain/IPersonRepository.js'
-import type { TPersonAddDto, TPersonUpdateDto } from '../domain/TPersonDtos.js'
+import type {
+  TPersonAddDto,
+  TPersonUpdateDto,
+} from '../../_domain/TPersonDtos.js'
 import type { TPersonRecord } from './TPersonRecord.js'
 import type TPersonMapper from './PersonMapper.js'
 

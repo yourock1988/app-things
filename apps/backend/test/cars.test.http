@@ -2,6 +2,12 @@ GET http://localhost:8004/api/v0/cars/
 ###
 GET http://localhost:8004/api/v0/cars/1001/
 ###
+GET http://localhost:8004/api/v0/cars/1002/
+###
+GET http://localhost:8004/api/v0/cars/1001/full/
+###
+GET http://localhost:8004/api/v0/cars/1002/full/
+###
 DELETE http://localhost:8004/api/v0/cars/1002/
 cookie: sessionId=abcdef
 ###

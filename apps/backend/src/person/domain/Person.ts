@@ -1,4 +1,6 @@
-export default class Person {
+import IPerson from '../../_domain/IPerson.js'
+
+export default class Person implements IPerson {
   constructor(
     readonly id: number,
     readonly nickname: string,

@@ -1,4 +1,7 @@
-import type { TPersonAddDto, TPersonUpdateDto } from './TPersonDtos.js'
+import type {
+  TPersonAddDto,
+  TPersonUpdateDto,
+} from '../../_domain/TPersonDtos.js'
 import type Person from './Person.js'
 
 export default interface IPersonRepository {

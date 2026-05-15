@@ -1,4 +1,4 @@
-import { zPersonAddDto, zPersonUpdateDto } from '../domain/zPersonDtos.js'
+import { zPersonAddDto, zPersonUpdateDto } from '../../_domain/zPersonDtos.js'
 import compileMiddlewareIo from '../../_utils/compileMiddlewareIo.js'
 
 const ADD = compileMiddlewareIo('body', zPersonAddDto)

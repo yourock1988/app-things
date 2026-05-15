@@ -31,5 +31,6 @@ export default [
     hasTurbo: true,
     hp: 960,
     isRunning: expect.any(Boolean),
+    personId: expect.any(Number),
   },
 ]

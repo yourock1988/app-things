@@ -11,6 +11,7 @@ const carsTable: TCarRecord[] = [
     hasTurbo: false,
     hp: 600,
     isRunning: false,
+    personId: 101,
   },
   {
     id: 1002,
@@ -22,6 +23,7 @@ const carsTable: TCarRecord[] = [
     hasTurbo: true,
     hp: 800,
     isRunning: true,
+    personId: 102,
   },
 ]
 

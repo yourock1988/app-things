@@ -8,4 +8,5 @@ export type TCarRecord = {
   readonly hasTurbo: boolean
   readonly hp: number
   readonly isRunning: boolean
+  readonly personId: number
 }

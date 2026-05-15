@@ -11,6 +11,7 @@ export default class CarRouterRest {
     this.router = Router()
     this.router.get('', carControllerRest.getAll)
     this.router.get('/:id', ID, carControllerRest.getById)
+    this.router.get('/:id/full', ID, carControllerRest.getFullById)
     this.router.post('', ADD, AUTH, carControllerRest.add)
     this.router.patch(
       '/:id',

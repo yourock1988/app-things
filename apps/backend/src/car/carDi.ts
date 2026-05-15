@@ -2,10 +2,12 @@ import bindSelf from '@yourock88/bind-self'
 import type { ClassOf } from '../_utils/ClassOf.js'
 import type TAuthist from '../_pres/TAuthist.js'
 import type TOrm from '../_utils/Orm.js'
+import type IPersonService from '../_domain/IPersonService.js'
 import IDrest from '../_pres/IDrest.js'
 import IDio from '../_pres/IDio.js'
 import Car from './domain/Car.js'
 import CarService from './domain/CarService.js'
+import GetCarFullUseCase from './domain/GetCarFullUseCase.js'
 import CarMapper from './infra/CarMapper.js'
 import carsTable from './infra/carsTable.js'
 import CarRepositoryDb from './infra/CarRepositoryDb.js'
@@ -19,7 +21,11 @@ import SESSIDrest from '../_pres/SESSIDrest.js'
 import SESSIDio from '../_pres/SESSIDio.js'
 import ACK from '../_pres/ACK.js'
 
-export default function carDi(Orm: ClassOf<TOrm>, authist: TAuthist) {
+export default function carDi(
+  Orm: ClassOf<TOrm>,
+  authist: TAuthist,
+  personService: IPersonService,
+) {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
   const mwRest = {
     ...mwCarRest,
@@ -40,7 +46,8 @@ export default function carDi(Orm: ClassOf<TOrm>, authist: TAuthist) {
   bindSelf(carMapper)
   const carRepositoryDb = new CarRepositoryDb(carsOrm, carMapper)
   const carService = new CarService(carRepositoryDb)
-  const carControllerRest = new CarControllerRest(carService)
+  const getCarFullUseCase = new GetCarFullUseCase(carService, personService)
+  const carControllerRest = new CarControllerRest(carService, getCarFullUseCase)
   const carControllerIo = new CarControllerIo(carService)
   bindSelf(carControllerRest)
   bindSelf(carControllerIo)
@@ -48,5 +55,5 @@ export default function carDi(Orm: ClassOf<TOrm>, authist: TAuthist) {
   const carRouterIo = new CarRouterIo(carControllerIo, mwIo)
   bindSelf(carRouterIo)
 
-  return { carRouterIo, carRouterRest }
+  return { carRouterIo, carRouterRest, getCarFullUseCase }
 }

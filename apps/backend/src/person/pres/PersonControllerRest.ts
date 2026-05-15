@@ -1,5 +1,8 @@
 import type { Request, Response } from 'express'
-import type { TPersonAddDto, TPersonUpdateDto } from '../domain/TPersonDtos.js'
+import type {
+  TPersonAddDto,
+  TPersonUpdateDto,
+} from '../../_domain/TPersonDtos.js'
 import type PersonService from '../domain/PersonService.js'
 
 export default class PersonControllerRest {

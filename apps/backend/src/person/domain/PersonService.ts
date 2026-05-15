@@ -1,9 +1,16 @@
 import EventEmitter from 'node:events'
 import type IPersonRepository from './IPersonRepository.js'
-import type { TPersonAddDto, TPersonUpdateDto } from './TPersonDtos.js'
+import type {
+  TPersonAddDto,
+  TPersonUpdateDto,
+} from '../../_domain/TPersonDtos.js'
 import type Person from './Person.js'
+import type IPersonService from '../../_domain/IPersonService.js'
 
-export default class PersonService extends EventEmitter {
+export default class PersonService
+  extends EventEmitter
+  implements IPersonService
+{
   constructor(readonly personRepository: IPersonRepository) {
     super()
   }
