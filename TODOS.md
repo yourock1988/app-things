@@ -27,9 +27,9 @@ zSessIdField.safeParse(sessionId) для rest и io транспортов
 
 ✅ посадить person в car
 
-🔄 удалить ClassOf. вместо него использовать typeof ClassName
+✅ удалить ClassOf. вместо него использовать typeof ClassName
 
-конвергенция схем zCookiesSessId и zCookiesSessId2
+🔄 конвергенция схем zCookiesSessId и zCookiesSessId2
 
 переделать все роутеры. сделать деструктуризацию методов контроллера, чтоб одно и тоже не писать в каждом маршруте
 

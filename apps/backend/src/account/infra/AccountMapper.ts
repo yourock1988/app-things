@@ -1,10 +1,9 @@
-import type { ClassOf } from '../../_utils/ClassOf.js'
 import type { TAccountAddDto } from '../../_domain/TAccountDtos.js'
 import type { TAccountRecord } from './TAccountRecord.js'
 import type TAccount from '../domain/Account.js'
 
 export default class AccountMapper {
-  constructor(readonly Account: ClassOf<TAccount>) {}
+  constructor(readonly Account: typeof TAccount) {}
 
   toModel(record: TAccountRecord): TAccount {
     return new this.Account(

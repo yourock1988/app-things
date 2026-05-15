@@ -1,4 +1,3 @@
-import type { ClassOf } from '../../_utils/ClassOf.js'
 import type { TTeapotUpdateDto } from '../domain/TTeapotDtos.js'
 import type { TTeapotRecord } from './TTeapotRecord.js'
 import type TTeapot from '../domain/Teapot.js'
@@ -6,7 +5,7 @@ import type TTeapot from '../domain/Teapot.js'
 // TTeapotAddDto
 
 export default class TeapotMapper {
-  constructor(readonly Teapot: ClassOf<TTeapot>) {}
+  constructor(readonly Teapot: typeof TTeapot) {}
 
   // единственная точка инстансирования чайников! 👍
   toModel(record: TTeapotRecord): TTeapot {

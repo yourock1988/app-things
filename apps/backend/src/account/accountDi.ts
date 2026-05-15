@@ -1,5 +1,4 @@
 import bindSelf from '@yourock88/bind-self'
-import type { ClassOf } from '../_utils/ClassOf.js'
 import type TAuthist from '../_pres/TAuthist.js'
 import type TOrm from '../_utils/Orm.js'
 import IDrest from '../_pres/IDrest.js'
@@ -12,7 +11,7 @@ import AccountControllerRest from './pres/AccountControllerRest.js'
 import AccountRouterRest from './pres/AccountRouterRest.js'
 import mwAccountRest from './pres/mwAccountRest.js'
 
-export default function accountDi(Orm: ClassOf<TOrm>) {
+export default function accountDi(Orm: typeof TOrm) {
   const accountsOrm = new Orm(accountsTable)
   const accountMapper = new AccountMapper(Account)
   bindSelf(accountMapper)

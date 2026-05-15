@@ -1,5 +1,4 @@
 import bindSelf from '@yourock88/bind-self'
-import type { ClassOf } from '../_utils/ClassOf.js'
 import type TAuthist from '../_pres/TAuthist.js'
 import type TOrm from '../_utils/Orm.js'
 import IDrest from '../_pres/IDrest.js'
@@ -12,7 +11,7 @@ import SessionControllerRest from './pres/SessionControllerRest.js'
 import SessionRouterRest from './pres/SessionRouterRest.js'
 import mwSessionRest from './pres/mwSessionRest.js'
 
-export default function sessionDi(Orm: ClassOf<TOrm>) {
+export default function sessionDi(Orm: typeof TOrm) {
   const sessionsOrm = new Orm(sessionsTable)
   const sessionMapper = new SessionMapper(Session)
   bindSelf(sessionMapper)
