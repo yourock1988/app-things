@@ -7,12 +7,17 @@ export default class AccountRouterRest {
     readonly accountControllerRest: any,
     readonly mwAccountRest: any,
   ) {
+    const router = Router()
     const { ID, ADD, UPD, AUTH } = mwAccountRest
-    this.router = Router()
-    this.router.get('', AUTH, accountControllerRest.getAll)
-    this.router.get('/:id', ID, AUTH, accountControllerRest.getById)
-    this.router.post('', ADD, AUTH, accountControllerRest.add)
-    this.router.patch('/:id', ID, UPD, AUTH, accountControllerRest.updateById)
-    this.router.delete('/:id', ID, AUTH, accountControllerRest.removeById)
+    const { getAll, getById, add, updateById, removeById } =
+      accountControllerRest
+
+    router.get('', AUTH, getAll)
+    router.get('/:id', ID, AUTH, getById)
+    router.post('', ADD, AUTH, add)
+    router.patch('/:id', ID, UPD, AUTH, updateById)
+    router.delete('/:id', ID, AUTH, removeById)
+
+    this.router = router
   }
 }

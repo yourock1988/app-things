@@ -7,10 +7,14 @@ export default class AuthRouterRest {
     readonly authControllerRest: any,
     readonly mwAuthRest: any,
   ) {
+    const router = Router()
     const { SIGNUP, SIGNIN } = mwAuthRest
-    this.router = Router()
-    this.router.post('/sign-up', SIGNUP, authControllerRest.signUp)
-    this.router.post('/sign-in', SIGNIN, authControllerRest.signIn)
+    const { signUp, signIn } = authControllerRest
+
+    router.post('/sign-up', SIGNUP, signUp)
+    router.post('/sign-in', SIGNIN, signIn)
+
+    this.router = router
 
     // this.router.delete(
     //   '/sign-out/:sessionId',

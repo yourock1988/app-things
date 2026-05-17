@@ -7,20 +7,18 @@ export default class CarRouterRest {
     readonly carControllerRest: any,
     readonly mwCarRest: any,
   ) {
+    const router = Router()
     const { ID, ADD, UPD, AUTH, SESSID } = mwCarRest
-    this.router = Router()
-    this.router.get('', carControllerRest.getAll)
-    this.router.get('/:id', ID, carControllerRest.getById)
-    this.router.get('/:id/full', ID, carControllerRest.getFullById)
-    this.router.post('', ADD, AUTH, carControllerRest.add)
-    this.router.patch(
-      '/:id',
-      ID,
-      SESSID,
-      UPD,
-      AUTH,
-      carControllerRest.updateById,
-    )
-    this.router.delete('/:id', ID, AUTH, carControllerRest.removeById)
+    const { getAll, getById, getFullById, add, updateById, removeById } =
+      carControllerRest
+
+    router.get('', getAll)
+    router.get('/:id', ID, getById)
+    router.get('/:id/full', ID, getFullById)
+    router.post('', ADD, AUTH, add)
+    router.patch('/:id', ID, SESSID, UPD, AUTH, updateById)
+    router.delete('/:id', ID, AUTH, removeById)
+
+    this.router = router
   }
 }

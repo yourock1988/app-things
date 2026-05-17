@@ -7,12 +7,17 @@ export default class SessionRouterRest {
     readonly sessionControllerRest: any,
     readonly mwSessionRest: any,
   ) {
+    const router = Router()
     const { ID, ADD, UPD, AUTH } = mwSessionRest
-    this.router = Router()
-    this.router.get('', AUTH, sessionControllerRest.getAll)
-    this.router.get('/:id', ID, AUTH, sessionControllerRest.getById)
-    this.router.post('', ADD, AUTH, sessionControllerRest.add)
-    this.router.patch('/:id', ID, UPD, AUTH, sessionControllerRest.updateById)
-    this.router.delete('/:id', ID, AUTH, sessionControllerRest.removeById)
+    const { getAll, getById, add, updateById, removeById } =
+      sessionControllerRest
+
+    router.get('', AUTH, getAll)
+    router.get('/:id', ID, AUTH, getById)
+    router.post('', ADD, AUTH, add)
+    router.patch('/:id', ID, UPD, AUTH, updateById)
+    router.delete('/:id', ID, AUTH, removeById)
+
+    this.router = router
   }
 }

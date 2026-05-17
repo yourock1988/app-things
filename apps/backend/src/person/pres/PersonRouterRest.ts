@@ -7,12 +7,17 @@ export default class PersonRouterRest {
     readonly personControllerRest: any,
     readonly mwPersonRest: any,
   ) {
+    const router = Router()
     const { ID, ADD, UPD, AUTH } = mwPersonRest
-    this.router = Router()
-    this.router.get('', personControllerRest.getAll)
-    this.router.get('/:id', ID, personControllerRest.getById)
-    this.router.post('', ADD, AUTH, personControllerRest.add)
-    this.router.patch('/:id', ID, UPD, AUTH, personControllerRest.updateById)
-    this.router.delete('/:id', ID, AUTH, personControllerRest.removeById)
+    const { getAll, getById, add, updateById, removeById } =
+      personControllerRest
+
+    router.get('', getAll)
+    router.get('/:id', ID, getById)
+    router.post('', ADD, AUTH, add)
+    router.patch('/:id', ID, UPD, AUTH, updateById)
+    router.delete('/:id', ID, AUTH, removeById)
+
+    this.router = router
   }
 }
