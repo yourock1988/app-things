@@ -1,5 +1,6 @@
 import type { Namespace, Server } from 'socket.io'
 import listen from '../../_utils/listen.js'
+import CoR from '../../_utils/CoR.js'
 
 export default class CarRouterIo {
   constructor(
@@ -12,12 +13,11 @@ export default class CarRouterIo {
   }
 
   authN(socket, next) {
-    const ctx = { socket, eventName: 'authentication' }
     const message = 'invalid-sessionid'
-    this.mwCarIo.SESSID(ctx, [0, 0, () => next({ message })], () => {
-      this.mwCarIo.AUTHN(ctx, null, next)
-    })
-    // setTimeout(() => next({ err: 'err' }, 500))
+    const ctx = { socket, eventName: 'authentication' }
+    const args = [null, null, () => next({ message })]
+    const { SESSID, AUTHN } = this.mwCarIo
+    CoR(SESSID, AUTHN, () => next())(ctx, args)
   }
 
   authZ(socket, next) {
