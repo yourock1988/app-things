@@ -12,8 +12,4 @@ export default interface IAuthService {
   signIn(dto: TAccountGetDto): ISession | null
 
   getByNickname(nickname: string): IAccount | null
-
-  on(type: string, listener: (arg: any) => void): this
-
-  emit(eventName: string | symbol, ...args: any): boolean
 }

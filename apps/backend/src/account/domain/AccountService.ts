@@ -1,19 +1,13 @@
-import EventEmitter from 'node:events'
-import type IAccountService from '../../_domain/IAccountService.js'
-import type Account from './Account.js'
-import type { IAccountRepository } from './IAccountRepository.js'
 import type {
   TAccountAddDto,
   TAccountUpdFullDto,
 } from '../../_domain/TAccountDtos.js'
+import type IAccountService from '../../_domain/IAccountService.js'
+import type { IAccountRepository } from './IAccountRepository.js'
+import type Account from './Account.js'
 
-export default class AccountService
-  extends EventEmitter
-  implements IAccountService
-{
-  constructor(readonly accountRepository: IAccountRepository) {
-    super()
-  }
+export default class AccountService implements IAccountService {
+  constructor(readonly accountRepository: IAccountRepository) {}
 
   getAll(): Account[] {
     const accounts = this.accountRepository.getAll()
@@ -34,7 +28,6 @@ export default class AccountService
     const existedAccount = this.accountRepository.getByNickname(dto.nickname)
     if (existedAccount) return null
     const account = this.accountRepository.add(dto)
-    this.emit('account:added', account)
     return account
   }
 

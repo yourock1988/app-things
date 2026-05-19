@@ -1,4 +1,3 @@
-import EventEmitter from 'node:events'
 import type {
   TAccountAddDto,
   TAccountGetDto,
@@ -11,13 +10,11 @@ import type ISessionService from '../../_domain/ISessionService.js'
 import RBAC from './RBAC.js'
 import ACL from './ACL.js'
 
-export default class AuthService extends EventEmitter implements IAuthService {
+export default class AuthService implements IAuthService {
   constructor(
     readonly accountService: IAccountService,
     readonly sessionService: ISessionService,
-  ) {
-    super()
-  }
+  ) {}
 
   authN(sessionId: string): ISession | null {
     const session = this.sessionService.getBySessionId(sessionId)

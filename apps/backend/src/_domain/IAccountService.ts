@@ -13,8 +13,4 @@ export default interface IAccountService {
   updateById(id: number, dto: TAccountUpdFullDto): IAccount | null
 
   removeById(id: number): boolean
-
-  on(type: string, listener: (arg: any) => void): this
-
-  emit(eventName: string | symbol, ...args: any): boolean
 }

@@ -1,4 +1,3 @@
-import EventEmitter from 'node:events'
 import type { ISessionRepository } from './ISessionRepository.js'
 import type {
   TSessionAddDto,
@@ -7,13 +6,8 @@ import type {
 import type Session from './Session.js'
 import ISessionService from '../../_domain/ISessionService.js'
 
-export default class SessionService
-  extends EventEmitter
-  implements ISessionService
-{
-  constructor(readonly sessionRepository: ISessionRepository) {
-    super()
-  }
+export default class SessionService implements ISessionService {
+  constructor(readonly sessionRepository: ISessionRepository) {}
 
   getAll(): Session[] {
     const sessions = this.sessionRepository.getAll()
@@ -27,7 +21,6 @@ export default class SessionService
 
   add(dto: TSessionAddDto): Session {
     const session = this.sessionRepository.add(dto)
-    this.emit('session:added', session)
     return session
   }
 

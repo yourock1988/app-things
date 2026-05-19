@@ -1,12 +1,10 @@
-import EventEmitter from 'node:events'
 import type Teapot from './Teapot.js'
 
-export default class TeapotOnline extends EventEmitter {
+export default class TeapotOnline {
   private map: Map<number, Teapot>
 
   // походу нужно инжектировать репозиторий сюда, но я хз
   constructor() {
-    super()
     this.map = new Map()
   }
 

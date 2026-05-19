@@ -1,8 +1,7 @@
-import type EventEmitter from 'node:events'
-import type IPerson from './IPerson.js'
 import type { TPersonAddDto, TPersonUpdateDto } from './TPersonDtos.js'
+import type IPerson from './IPerson.js'
 
-export default interface IPersonService extends EventEmitter {
+export default interface IPersonService {
   getAll(): IPerson[]
 
   getById(id: number): IPerson | null

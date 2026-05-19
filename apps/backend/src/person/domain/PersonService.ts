@@ -1,4 +1,3 @@
-import EventEmitter from 'node:events'
 import type IPersonRepository from './IPersonRepository.js'
 import type {
   TPersonAddDto,
@@ -7,13 +6,8 @@ import type {
 import type Person from './Person.js'
 import type IPersonService from '../../_domain/IPersonService.js'
 
-export default class PersonService
-  extends EventEmitter
-  implements IPersonService
-{
-  constructor(readonly personRepository: IPersonRepository) {
-    super()
-  }
+export default class PersonService implements IPersonService {
+  constructor(readonly personRepository: IPersonRepository) {}
 
   getAll(): Person[] {
     const persons = this.personRepository.getAll()
@@ -27,7 +21,6 @@ export default class PersonService
 
   add(dto: TPersonAddDto): Person {
     const person = this.personRepository.add(dto)
-    this.emit('person:added', person)
     return person
   }
 

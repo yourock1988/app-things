@@ -1,6 +1,6 @@
 import type { Server, Namespace } from 'socket.io'
 import type PersonService from '../domain/PersonService.js'
-import type Person from '../domain/Person.js'
+// import type Person from '../domain/Person.js'
 
 export default class PersonControllerIo {
   private personNamespace: Namespace | null = null
@@ -11,9 +11,9 @@ export default class PersonControllerIo {
 
   constructor(personService: PersonService) {
     this.personService = personService
-    personService.on('bc-sv:person:added', (person: Person) =>
-      this.io?.emit('person:added', person),
-    )
+    // personService.on('bc-sv:person:added', (person: Person) =>
+    //   this.io?.emit('person:added', person),
+    // )
   }
 
   init(personNamespace: Namespace, io: Server) {
