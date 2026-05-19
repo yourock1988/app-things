@@ -1,4 +1,5 @@
 import bindSelf from '@yourock88/bind-self'
+import type { Router as TRouter } from 'express'
 import type TAuthist from '../_pres/TAuthist.js'
 import type TOrm from '../_utils/Orm.js'
 import IDrest from '../_pres/IDrest.js'
@@ -12,12 +13,16 @@ import teapotsTable from './infra/teapotsTable.js'
 import TeapotRepositoryDb from './infra/TeapotRepositoryDb.js'
 import TeapotControllerRest from './pres/TeapotControllerRest.js'
 import TeapotControllerIo from './pres/TeapotControllerIo.js'
-import TeapotRouterRest from './pres/TeapotRouterRest.js'
+import newTeapotRouterRest from './pres/TeapotRouterRest.js'
 import TeapotRouterIo from './pres/TeapotRouterIo.js'
 import mwTeapotRest from './pres/mwTeapotRest.js'
 import mwTeapotIo from './pres/mwTeapotIo.js'
 
-export default function teapotDi(Orm: typeof TOrm, authist: TAuthist) {
+export default function teapotDi(
+  Router: typeof TRouter,
+  Orm: typeof TOrm,
+  authist: TAuthist,
+) {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
   const mwRest = { ...mwTeapotRest, ID: IDrest, AUTH: AUTHrest }
   const mwIo = { ...mwTeapotIo, ID: IDio, AUTHN: AUTHNio, AUTHZ: AUTHZio }
@@ -37,8 +42,11 @@ export default function teapotDi(Orm: typeof TOrm, authist: TAuthist) {
   bindSelf(teapotControllerRest)
   bindSelf(teapotControllerIo)
   const teapotRouterIo = new TeapotRouterIo(teapotControllerIo, mwIo)
-  const teapotRouterRest = new TeapotRouterRest(teapotControllerRest, mwRest)
-    .router
+  const teapotRouterRest = newTeapotRouterRest(
+    Router,
+    teapotControllerRest,
+    mwRest,
+  )
   bindSelf(teapotRouterIo)
   Teapot.inject(rangeVo)
 

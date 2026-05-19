@@ -1,23 +1,19 @@
-import { Router } from 'express'
+import type { Router as TRouter } from 'express'
 
-export default class SessionRouterRest {
-  public readonly router: Router
+export default function (
+  Router: typeof TRouter,
+  sessionControllerRest: any,
+  mwSessionRest: any,
+): TRouter {
+  const router = Router()
+  const { ID, ADD, UPD, AUTH } = mwSessionRest
+  const { getAll, getById, add, updateById, removeById } = sessionControllerRest
 
-  constructor(
-    readonly sessionControllerRest: any,
-    readonly mwSessionRest: any,
-  ) {
-    const router = Router()
-    const { ID, ADD, UPD, AUTH } = mwSessionRest
-    const { getAll, getById, add, updateById, removeById } =
-      sessionControllerRest
+  router.get('', AUTH, getAll)
+  router.get('/:id', ID, AUTH, getById)
+  router.post('', ADD, AUTH, add)
+  router.patch('/:id', ID, UPD, AUTH, updateById)
+  router.delete('/:id', ID, AUTH, removeById)
 
-    router.get('', AUTH, getAll)
-    router.get('/:id', ID, AUTH, getById)
-    router.post('', ADD, AUTH, add)
-    router.patch('/:id', ID, UPD, AUTH, updateById)
-    router.delete('/:id', ID, AUTH, removeById)
-
-    this.router = router
-  }
+  return router
 }

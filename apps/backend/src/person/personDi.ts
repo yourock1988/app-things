@@ -1,4 +1,5 @@
 import bindSelf from '@yourock88/bind-self'
+import type { Router as TRouter } from 'express'
 import type TAuthist from '../_pres/TAuthist.js'
 import type TOrm from '../_utils/Orm.js'
 import IDrest from '../_pres/IDrest.js'
@@ -10,12 +11,16 @@ import personsTable from './infra/personsTable.js'
 import PersonRepositoryDb from './infra/PersonRepositoryDb.js'
 import PersonControllerRest from './pres/PersonControllerRest.js'
 import PersonControllerIo from './pres/PersonControllerIo.js'
-import PersonRouterRest from './pres/PersonRouterRest.js'
+import newPersonRouterRest from './pres/PersonRouterRest.js'
 import PersonRouterIo from './pres/PersonRouterIo.js'
 import mwPersonRest from './pres/mwPersonRest.js'
 import mwPersonIo from './pres/mwPersonIo.js'
 
-export default function personDi(Orm: typeof TOrm, authist: TAuthist) {
+export default function personDi(
+  Router: typeof TRouter,
+  Orm: typeof TOrm,
+  authist: TAuthist,
+) {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
   const mwRest = { ...mwPersonRest, ID: IDrest, AUTH: AUTHrest }
   const mwIo = { ...mwPersonIo, ID: IDio, AUTHN: AUTHNio, AUTHZ: AUTHZio }
@@ -28,8 +33,11 @@ export default function personDi(Orm: typeof TOrm, authist: TAuthist) {
   const personControllerIo = new PersonControllerIo(personService)
   bindSelf(personControllerRest)
   bindSelf(personControllerIo)
-  const personRouterRest = new PersonRouterRest(personControllerRest, mwRest)
-    .router
+  const personRouterRest = newPersonRouterRest(
+    Router,
+    personControllerRest,
+    mwRest,
+  )
   const personRouterIo = new PersonRouterIo(personControllerIo, mwIo)
   bindSelf(personRouterIo)
 

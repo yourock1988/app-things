@@ -1,4 +1,5 @@
 import bindSelf from '@yourock88/bind-self'
+import type { Router as TRouter } from 'express'
 import type TAuthist from '../_pres/TAuthist.js'
 import type TOrm from '../_utils/Orm.js'
 import type IPersonService from '../_domain/IPersonService.js'
@@ -12,7 +13,7 @@ import carsTable from './infra/carsTable.js'
 import CarRepositoryDb from './infra/CarRepositoryDb.js'
 import CarControllerRest from './pres/CarControllerRest.js'
 import CarControllerIo from './pres/CarControllerIo.js'
-import CarRouterRest from './pres/CarRouterRest.js'
+import newCarRouterRest from './pres/CarRouterRest.js'
 import CarRouterIo from './pres/CarRouterIo.js'
 import mwCarRest from './pres/mwCarRest.js'
 import mwCarIo from './pres/mwCarIo.js'
@@ -21,6 +22,7 @@ import SESSIDio from '../_pres/SESSIDio.js'
 import ACK from '../_pres/ACK.js'
 
 export default function carDi(
+  Router: typeof TRouter,
   Orm: typeof TOrm,
   authist: TAuthist,
   personService: IPersonService,
@@ -50,7 +52,7 @@ export default function carDi(
   const carControllerIo = new CarControllerIo(carService)
   bindSelf(carControllerRest)
   bindSelf(carControllerIo)
-  const carRouterRest = new CarRouterRest(carControllerRest, mwRest).router
+  const carRouterRest = newCarRouterRest(Router, carControllerRest, mwRest)
   const carRouterIo = new CarRouterIo(carControllerIo, mwIo)
   bindSelf(carRouterIo)
 
