@@ -22,7 +22,8 @@
     "lint:js": "eslint ./src",
     "lint-staged": "lint-staged",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "swc": "node --watch --import @swc-node/register/esm src/main.ts"
   },
   "lint-staged": {
     "*.js": "eslint"
@@ -37,6 +38,7 @@
   },
   "dependencies": {
     "@app-x/cmd": "^0.0.1",
+    "@types/express-serve-static-core": "^5.1.1",
     "@yourock88/bind-self": "^0.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -44,10 +46,12 @@
     "helmet": "^8.1.0",
     "libphonenumber-js": "^1.12.27",
     "socket.io": "^4.8.1",
-    "zod": "^3.25.76",
-    "@types/express-serve-static-core": "^5.1.1"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@swc-node/register": "^1.11.1",
+    "@swc/cli": "^0.8.1",
+    "@swc/core": "^1.15.32",
     "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.0",
     "@types/node": "^24.1.0",
