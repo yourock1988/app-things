@@ -1,7 +1,6 @@
 import { TEAPOT } from '@app-x/cmd'
 import type { Namespace, Server } from 'socket.io'
-import on from '../../_utils/on.js'
-import CoR from '../../_utils/CoR.js'
+import listen from '../../_utils/listen.js'
 
 const { CL } = TEAPOT
 
@@ -42,18 +41,19 @@ export default class TeapotRouterIo {
       handleDrain,
     } = teapotControllerIo
 
-    on(socket, CL.GET_ALL, CoR(AUTHZ, getAll))
-    on(socket, CL.GET_BY_ID, CoR(ID, AUTHZ, getById))
-    on(socket, CL.ADD, CoR(ADD, AUTHZ, add))
-    on(socket, CL.UPD_BY_ID, CoR(ID, UPD, AUTHZ, updateById))
-    on(socket, CL.DEL_BY_ID, CoR(ID, AUTHZ, removeById))
+    listen(socket)
+      .on(CL.GET_ALL, AUTHZ, getAll)
+      .on(CL.GET_BY_ID, ID, AUTHZ, getById)
+      .on(CL.ADD, ADD, AUTHZ, add)
+      .on(CL.UPD_BY_ID, ID, UPD, AUTHZ, updateById)
+      .on(CL.DEL_BY_ID, ID, AUTHZ, removeById)
 
-    on(socket, CL.SHOW, CoR(AUTHZ, show))
-    on(socket, CL.JOIN, CoR(AUTHZ, join))
-    on(socket, CL.LEAVE, CoR(AUTHZ, leave))
-    on(socket, CL.TURN_ON, CoR(AUTHZ, handleTurnOn))
-    on(socket, CL.TURN_OFF, CoR(AUTHZ, handleTurnOff))
-    on(socket, CL.TURN_DRAIN, CoR(AUTHZ, handleDrain))
+      .on(CL.SHOW, AUTHZ, show)
+      .on(CL.JOIN, AUTHZ, join)
+      .on(CL.LEAVE, AUTHZ, leave)
+      .on(CL.TURN_ON, AUTHZ, handleTurnOn)
+      .on(CL.TURN_OFF, AUTHZ, handleTurnOff)
+      .on(CL.TURN_DRAIN, AUTHZ, handleDrain)
   }
 
   getMiddleware() {

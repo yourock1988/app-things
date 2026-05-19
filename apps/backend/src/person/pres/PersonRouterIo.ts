@@ -1,6 +1,5 @@
 import type { Namespace, Server } from 'socket.io'
-import CoR from '../../_utils/CoR.js'
-import on from '../../_utils/on.js'
+import listen from '../../_utils/listen.js'
 
 export default class PersonRouterIo {
   constructor(
@@ -27,10 +26,11 @@ export default class PersonRouterIo {
     const { ID, ADD, UPD, AUTHZ } = mwPersonIo
     const { getAll, getById, add, updateById, removeById } = personControllerIo
 
-    on(socket, 'person:getAll', CoR(AUTHZ, getAll))
-    on(socket, 'person:getById', CoR(ID, AUTHZ, getById))
-    on(socket, 'person:add', CoR(ADD, AUTHZ, add))
-    on(socket, 'person:updateById', CoR(ID, UPD, AUTHZ, updateById))
-    on(socket, 'person:removeById', CoR(ID, AUTHZ, removeById))
+    listen(socket)
+      .on('person:getAll', AUTHZ, getAll)
+      .on('person:getById', ID, AUTHZ, getById)
+      .on('person:add', ADD, AUTHZ, add)
+      .on('person:updateById', ID, UPD, AUTHZ, updateById)
+      .on('person:removeById', ID, AUTHZ, removeById)
   }
 }
