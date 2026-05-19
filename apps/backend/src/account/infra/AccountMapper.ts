@@ -3,7 +3,11 @@ import type { TAccountRecord } from './TAccountRecord.js'
 import type TAccount from '../domain/Account.js'
 
 export default class AccountMapper {
-  constructor(readonly Account: typeof TAccount) {}
+  private readonly Account: typeof TAccount
+
+  constructor(Account: typeof TAccount) {
+    this.Account = Account
+  }
 
   toModel(record: TAccountRecord): TAccount {
     return new this.Account(
@@ -16,9 +20,6 @@ export default class AccountMapper {
       record.isAgree,
       record.role,
       record.isLoggedIn,
-      // record.favoriteNumbers,
-      // record.authorizationsCount,
-      // record.authenticationsCount,
       record.updatedAt,
       record.createdAt,
     )

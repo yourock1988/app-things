@@ -3,7 +3,11 @@ import type { TTeapotAddDto, TTeapotUpdateDto } from '../domain/TTeapotDtos.js'
 import type TeapotService from '../domain/TeapotService.js'
 
 export default class TeapotControllerRest {
-  constructor(readonly teapotService: TeapotService) {}
+  private readonly teapotService: TeapotService
+
+  constructor(teapotService: TeapotService) {
+    this.teapotService = teapotService
+  }
 
   getAll(_: Request, res: Response): void {
     const teapots = this.teapotService.getAll()

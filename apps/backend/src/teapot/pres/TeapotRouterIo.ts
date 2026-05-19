@@ -1,14 +1,19 @@
 import { TEAPOT } from '@app-x/cmd'
 import type { Namespace, Server } from 'socket.io'
+import type TeapotControllerIo from './TeapotControllerIo.js'
 import listen from '../../_utils/listen.js'
 
 const { CL } = TEAPOT
 
 export default class TeapotRouterIo {
-  constructor(
-    readonly teapotControllerIo: any,
-    readonly mwTeapotIo: any,
-  ) {}
+  private readonly teapotControllerIo: TeapotControllerIo
+
+  private readonly mwTeapotIo: any
+
+  constructor(teapotControllerIo: TeapotControllerIo, mwTeapotIo: any) {
+    this.teapotControllerIo = teapotControllerIo
+    this.mwTeapotIo = mwTeapotIo
+  }
 
   public init(teapotNamespace: Namespace, io: Server) {
     this.teapotControllerIo.init(teapotNamespace, io)

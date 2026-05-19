@@ -3,28 +3,32 @@ import type {
   TSessionAddDto,
   TSessionUpdateDto,
 } from '../../_domain/TSessionDtos.js'
-import type Session from './Session.js'
-import ISessionService from '../../_domain/ISessionService.js'
+import type ISessionService from '../../_domain/ISessionService.js'
+import type ISession from '../../_domain/ISession.js'
 
 export default class SessionService implements ISessionService {
-  constructor(readonly sessionRepository: ISessionRepository) {}
+  private readonly sessionRepository: ISessionRepository
 
-  getAll(): Session[] {
+  constructor(sessionRepository: ISessionRepository) {
+    this.sessionRepository = sessionRepository
+  }
+
+  getAll(): ISession[] {
     const sessions = this.sessionRepository.getAll()
     return sessions
   }
 
-  getById(id: number): Session | null {
+  getById(id: number): ISession | null {
     const session = this.sessionRepository.getById(id)
     return session
   }
 
-  add(dto: TSessionAddDto): Session {
+  add(dto: TSessionAddDto): ISession {
     const session = this.sessionRepository.add(dto)
     return session
   }
 
-  updateById(id: number, dto: TSessionUpdateDto): Session | null {
+  updateById(id: number, dto: TSessionUpdateDto): ISession | null {
     const session = this.sessionRepository.updateById(id, { ...dto })
     return session
   }
@@ -33,7 +37,7 @@ export default class SessionService implements ISessionService {
     return this.sessionRepository.removeById(id)
   }
 
-  getBySessionId(sessionId: string): Session | null {
+  getBySessionId(sessionId: string): ISession | null {
     const session = this.sessionRepository.getBySessionId(sessionId)
     return session
   }

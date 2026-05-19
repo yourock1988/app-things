@@ -3,37 +3,39 @@ import type Car from './Car.js'
 
 export default class CarFull {
   /* eslint-disable lines-between-class-members */
-  readonly id: number
-  readonly type: string
-  readonly brand: string
-  readonly model: string
-  readonly price: number
-  readonly engine: string
-  readonly hasTurbo: boolean
-  readonly hp: number
-  readonly personId: number
-  readonly person: IPerson
+  private readonly id!: number
+  private readonly type!: string
+  private readonly brand!: string
+  private readonly model!: string
+  private readonly price!: number
+  private readonly engine!: string
+  private readonly hasTurbo!: boolean
+  private readonly hp!: number
+  private readonly personId!: number
+  private readonly person: IPerson
   /* eslint-enable lines-between-class-members */
 
   constructor(car: Car, person: IPerson) {
-    this.id = car.id
-    this.type = car.type
-    this.brand = car.brand
-    this.model = car.model
-    this.price = car.price
-    this.engine = car.engine
-    this.hasTurbo = car.hasTurbo
-    this.hp = car.hp
-    this.personId = car.personId
+    const carJson = car.toJSON()
+    Object.assign(this, carJson)
+    // this.id = carJson.id
+    // this.type = carJson.type
+    // this.brand = carJson.brand
+    // this.model = carJson.model
+    // this.price = carJson.price
+    // this.engine = carJson.engine
+    // this.hasTurbo = carJson.hasTurbo
+    // this.hp = carJson.hp
+    // this.personId = carJson.personId
     this.person = person
   }
 
   // eslint-disable-next-line class-methods-use-this
-  isRunning() {
+  isRunning(): boolean {
     return Math.random() > 0.5
   }
 
-  run() {
+  run(): boolean {
     return this.person.isOnline && this.isRunning()
   }
 

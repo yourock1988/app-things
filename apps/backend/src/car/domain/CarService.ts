@@ -3,7 +3,11 @@ import type { TCarAddDto, TCarUpdateDto } from './TCarDtos.js'
 import type Car from './Car.js'
 
 export default class CarService {
-  constructor(readonly carRepository: ICarRepository) {}
+  private readonly carRepository: ICarRepository
+
+  constructor(carRepository: ICarRepository) {
+    this.carRepository = carRepository
+  }
 
   getAll(): Car[] {
     const cars = this.carRepository.getAll()

@@ -2,13 +2,13 @@ import type {
   TSessionAddDto,
   TSessionUpdateDto,
 } from '../../_domain/TSessionDtos.js'
-import type Session from './Session.js'
+import type ISession from '../../_domain/ISession.js'
 
 export interface ISessionRepository {
-  getAll(): Session[]
-  getById(id: number): Session | null
-  add(dto: TSessionAddDto): Session
-  updateById(id: number, dto: TSessionUpdateDto): Session | null
+  getAll(): ISession[]
+  getById(id: number): ISession | null
+  add(dto: TSessionAddDto): ISession
+  updateById(id: number, dto: TSessionUpdateDto): ISession | null
   removeById(id: number): boolean
-  getBySessionId(sessionId: string): Session | null
+  getBySessionId(sessionId: string): ISession | null
 }

@@ -3,7 +3,11 @@ import type { TSessionRecord } from './TSessionRecord.js'
 import type TSession from '../domain/Session.js'
 
 export default class SessionMapper {
-  constructor(readonly Session: typeof TSession) {}
+  private readonly Session: typeof TSession
+
+  constructor(Session: typeof TSession) {
+    this.Session = Session
+  }
 
   toModel(record: TSessionRecord): TSession {
     return new this.Session(

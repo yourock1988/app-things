@@ -3,10 +3,14 @@ import type {
   TPersonAddDto,
   TPersonUpdateDto,
 } from '../../_domain/TPersonDtos.js'
-import type PersonService from '../domain/PersonService.js'
+import type IPersonService from '../../_domain/IPersonService.js'
 
 export default class PersonControllerRest {
-  constructor(readonly personService: PersonService) {}
+  private readonly personService: IPersonService
+
+  constructor(personService: IPersonService) {
+    this.personService = personService
+  }
 
   getAll(_: Request, res: Response): void {
     const persons = this.personService.getAll()

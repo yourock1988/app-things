@@ -11,10 +11,17 @@ import RBAC from './RBAC.js'
 import ACL from './ACL.js'
 
 export default class AuthService implements IAuthService {
+  private readonly accountService: IAccountService
+
+  private readonly sessionService: ISessionService
+
   constructor(
-    readonly accountService: IAccountService,
-    readonly sessionService: ISessionService,
-  ) {}
+    accountService: IAccountService,
+    sessionService: ISessionService,
+  ) {
+    this.accountService = accountService
+    this.sessionService = sessionService
+  }
 
   authN(sessionId: string): ISession | null {
     const session = this.sessionService.getBySessionId(sessionId)

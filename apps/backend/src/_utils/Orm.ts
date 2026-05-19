@@ -1,23 +1,27 @@
 import randId from './randId.js'
 
-export default class Orm {
-  constructor(readonly table: any[]) {}
+export default class Orm<T extends { id: number }> {
+  private readonly table: T[]
 
-  selectAll() {
+  constructor(table: T[]) {
+    this.table = table
+  }
+
+  selectAll(): T[] {
     return this.table
   }
 
-  selectById(id: number) {
+  selectById(id: number): T | null {
     return this.table.find(u => u.id === id) ?? null
   }
 
-  insert(record: any) {
-    const appendedRecord = { ...record, id: randId() }
+  insert(protoRecord: any): T {
+    const appendedRecord = { ...protoRecord, id: randId() }
     this.table.push(appendedRecord)
     return appendedRecord
   }
 
-  updateById(id: number, dto: any) {
+  updateById(id: number, dto: any): T | null {
     const record = this.selectById(id)
     if (record) Object.assign(record, dto)
     return record
@@ -32,11 +36,7 @@ export default class Orm {
     return false
   }
 
-  selectByNickname(nickname: string) {
-    return this.table.find(u => u.nickname === nickname) ?? null
-  }
-
-  selectBySessionId(sessionId: string) {
-    return this.table.find(u => u.sessionId === sessionId) ?? null
+  selectByPropName(propName: keyof T, nickname: string): T | null {
+    return this.table.find(u => u[propName] === nickname) ?? null
   }
 }

@@ -1,4 +1,6 @@
-function preware(socket: any, next) {
+import type { ExtendedError, Server } from 'socket.io'
+
+function preware(socket, next: (err?: ExtendedError) => void): void {
   const { headers, auth } = socket.handshake
   // eslint-disable-next-line no-param-reassign
   socket.headersAuth = { ...headers, ...auth }
@@ -6,9 +8,13 @@ function preware(socket: any, next) {
 }
 
 export default class Bus {
-  constructor(readonly io: any) {}
+  private readonly io: Server
 
-  use(pathName: any, router: any) {
+  constructor(io: Server) {
+    this.io = io
+  }
+
+  use(pathName: string, router): void {
     const nsp = this.io
       .of(pathName)
       .use(preware)

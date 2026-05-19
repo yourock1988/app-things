@@ -6,7 +6,11 @@ import type {
 } from '../../_domain/TAccountDtos.js'
 
 export default class AuthControllerRest {
-  constructor(readonly authService: IAuthService) {}
+  private readonly authService: IAuthService
+
+  constructor(authService: IAuthService) {
+    this.authService = authService
+  }
 
   signUp(req: Request, res: Response): void {
     const dto: TAccountAddDto = req.body

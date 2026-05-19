@@ -3,7 +3,11 @@ import type { TCarRecord } from './TCarRecord.js'
 import type TCar from '../domain/Car.js'
 
 export default class CarMapper {
-  constructor(readonly Car: typeof TCar) {}
+  private readonly Car: typeof TCar
+
+  constructor(Car: typeof TCar) {
+    this.Car = Car
+  }
 
   toModel(record: TCarRecord): TCar {
     return new this.Car(

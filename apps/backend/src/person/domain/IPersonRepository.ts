@@ -2,12 +2,12 @@ import type {
   TPersonAddDto,
   TPersonUpdateDto,
 } from '../../_domain/TPersonDtos.js'
-import type Person from './Person.js'
+import IPerson from '../../_domain/IPerson.js'
 
 export default interface IPersonRepository {
-  getAll(): Person[]
-  getById(id: number): Person | null
-  add(dto: TPersonAddDto): Person
-  updateById(id: number, dto: TPersonUpdateDto): Person | null
+  getAll(): IPerson[]
+  getById(id: number): IPerson | null
+  add(dto: TPersonAddDto): IPerson
+  updateById(id: number, dto: TPersonUpdateDto): IPerson | null
   removeById(id: number): boolean
 }

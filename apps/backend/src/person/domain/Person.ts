@@ -1,21 +1,35 @@
-import IPerson from '../../_domain/IPerson.js'
+import type IPerson from '../../_domain/IPerson.js'
 
 export default class Person implements IPerson {
+  /* eslint-disable lines-between-class-members */
+  private readonly id: number
+  private readonly nickname: string
+  private readonly password: string
+  private readonly email: string
+  private readonly money: number
+  /* eslint-enable lines-between-class-members */
+
   constructor(
-    readonly id: number,
-    readonly nickname: string,
-    readonly password: string,
-    readonly email: string,
-    readonly money: number,
-  ) {}
+    id: number,
+    nickname: string,
+    password: string,
+    email: string,
+    money: number,
+  ) {
+    this.id = id
+    this.nickname = nickname
+    this.password = password
+    this.email = email
+    this.money = money
+  }
 
   // eslint-disable-next-line
-  sayHello(info: string) {
+  sayHello(info: string): void {
     // global.console.log(`${info} : hello! i am ${this.nickname}`)
   }
 
   // eslint-disable-next-line class-methods-use-this
-  get isOnline() {
+  get isOnline(): boolean {
     return Math.random() > 0.5
   }
 

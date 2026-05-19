@@ -3,10 +3,14 @@ import type {
   TAccountAddDto,
   TAccountUpdFullDto,
 } from '../../_domain/TAccountDtos.js'
-import type AccountService from '../domain/AccountService.js'
+import type IAccountService from '../../_domain/IAccountService.js'
 
 export default class AccountControllerRest {
-  constructor(readonly accountService: AccountService) {}
+  private readonly accountService: IAccountService
+
+  constructor(accountService: IAccountService) {
+    this.accountService = accountService
+  }
 
   getAll(_: Request, res: Response): void {
     const accounts = this.accountService.getAll()

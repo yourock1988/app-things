@@ -4,10 +4,14 @@ import type CarService from '../domain/CarService.js'
 import type GetCarFullUseCase from '../domain/GetCarFullUseCase.js'
 
 export default class CarControllerRest {
-  constructor(
-    readonly carService: CarService,
-    readonly getCarFullUseCase: GetCarFullUseCase,
-  ) {}
+  private readonly carService: CarService
+
+  private readonly getCarFullUseCase: GetCarFullUseCase
+
+  constructor(carService: CarService, getCarFullUseCase: GetCarFullUseCase) {
+    this.carService = carService
+    this.getCarFullUseCase = getCarFullUseCase
+  }
 
   getAll(_: Request, res: Response): void {
     const cars = this.carService.getAll()

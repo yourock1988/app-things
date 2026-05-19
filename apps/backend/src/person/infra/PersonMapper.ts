@@ -3,7 +3,11 @@ import type { TPersonRecord } from './TPersonRecord.js'
 import type TPerson from '../domain/Person.js'
 
 export default class PersonMapper {
-  constructor(readonly Person: typeof TPerson) {}
+  private readonly Person: typeof TPerson
+
+  constructor(Person: typeof TPerson) {
+    this.Person = Person
+  }
 
   toModel(record: TPersonRecord): TPerson {
     return new this.Person(

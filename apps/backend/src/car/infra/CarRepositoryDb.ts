@@ -1,4 +1,4 @@
-import type TOrm from '../../_utils/Orm.js'
+import type Orm from '../../_utils/Orm.js'
 import type TCar from '../domain/Car.js'
 import type ICarRepository from '../domain/ICarRepository.js'
 import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.js'
@@ -6,10 +6,14 @@ import type { TCarRecord } from './TCarRecord.js'
 import type TCarMapper from './CarMapper.js'
 
 export default class CarRepositoryDb implements ICarRepository {
-  constructor(
-    readonly orm: TOrm,
-    readonly carMapper: TCarMapper,
-  ) {}
+  private readonly orm: Orm<TCarRecord>
+
+  private readonly carMapper: TCarMapper
+
+  constructor(orm: Orm<TCarRecord>, carMapper: TCarMapper) {
+    this.orm = orm
+    this.carMapper = carMapper
+  }
 
   getAll(): TCar[] {
     const records: TCarRecord[] = this.orm.selectAll()
@@ -17,7 +21,7 @@ export default class CarRepositoryDb implements ICarRepository {
   }
 
   getById(id: number): TCar | null {
-    const record: TCarRecord = this.orm.selectById(id)
+    const record = this.orm.selectById(id)
     return record ? this.carMapper.toModel(record) : null
   }
 
@@ -28,7 +32,7 @@ export default class CarRepositoryDb implements ICarRepository {
   }
 
   updateById(id: number, dto: TCarUpdateDto): TCar | null {
-    const record: TCarRecord = this.orm.updateById(id, dto)
+    const record = this.orm.updateById(id, dto)
     return record ? this.carMapper.toModel(record) : null
   }
 

@@ -6,7 +6,8 @@ Teapot.inject(new RangeVo(0, 100))
 describe('создание чайника', () => {
   let teapot: Teapot
   beforeEach(() => {
-    teapot = new Teapot(42, 0, -1, 'idle', true)
+    teapot = new Teapot(42, 0, -1)
+    teapot.isOnline = true
   })
   it('правильный id', () => {
     expect(teapot.id).toBe(42)
@@ -26,7 +27,8 @@ describe('создание чайника', () => {
 describe('кипячение', () => {
   let teapot: Teapot
   beforeEach(() => {
-    teapot = new Teapot(42, 0, -1, 'idle', true)
+    teapot = new Teapot(42, 0, -1)
+    teapot.isOnline = true
   })
   afterEach(() => {
     teapot.turnOff()

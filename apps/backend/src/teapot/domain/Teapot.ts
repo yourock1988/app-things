@@ -2,21 +2,24 @@ import EventEmitter from 'node:events'
 import type RangeVo from './RangeVo.js'
 
 export default class Teapot extends EventEmitter {
+  /* eslint-disable lines-between-class-members */
   private static range: RangeVo | null
-
   static inject(range: RangeVo) {
     Teapot.range = range
   }
+  readonly id: number
+  temperature: number
+  readonly accountId: number
+  ongoing: 'idle' | 'boiling' = 'idle'
+  isOnline: boolean = false
+  private intervalId: NodeJS.Timeout | undefined = undefined
+  /* eslint-enable lines-between-class-members */
 
-  constructor(
-    public readonly id: number,
-    public temperature: number,
-    public accountId: number,
-    public ongoing: 'idle' | 'boiling' = 'idle',
-    public isOnline: boolean = false,
-    private intervalId: NodeJS.Timeout | undefined = undefined,
-  ) {
+  constructor(id: number, temperature: number, accountId: number) {
     super()
+    this.id = id
+    this.temperature = temperature
+    this.accountId = accountId
   }
 
   private ready() {
@@ -27,7 +30,7 @@ export default class Teapot extends EventEmitter {
 
   private boil() {
     this.temperature = Teapot.range?.calc(this.temperature + 1) ?? 0
-    if (this.temperature === Teapot.range?.max) this.ready()
+    if (Teapot.range?.isMax(this.temperature)) this.ready()
     // global.console.log(this.id, this.ongoing, this.temperature)
   }
 

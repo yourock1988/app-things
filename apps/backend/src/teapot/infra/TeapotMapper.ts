@@ -5,7 +5,11 @@ import type TTeapot from '../domain/Teapot.js'
 // TTeapotAddDto
 
 export default class TeapotMapper {
-  constructor(readonly Teapot: typeof TTeapot) {}
+  private readonly Teapot: typeof TTeapot
+
+  constructor(Teapot: typeof TTeapot) {
+    this.Teapot = Teapot
+  }
 
   // единственная точка инстансирования чайников! 👍
   toModel(record: TTeapotRecord): TTeapot {

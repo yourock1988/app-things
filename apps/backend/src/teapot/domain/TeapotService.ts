@@ -6,12 +6,21 @@ import type TeapotMapper from '../infra/TeapotMapper.js' // ???
 import type TeapotOnline from './TeapotOnline.js'
 
 export default class TeapotService extends EventEmitter {
+  private readonly teapotRepository: ITeapotRepository
+
+  private readonly teapotOnline: TeapotOnline
+
+  private readonly teapotMapper: TeapotMapper
+
   constructor(
-    readonly teapotRepository: ITeapotRepository,
-    readonly teapotOnline: TeapotOnline,
-    readonly teapotMapper: TeapotMapper,
+    teapotRepository: ITeapotRepository,
+    teapotOnline: TeapotOnline,
+    teapotMapper: TeapotMapper,
   ) {
     super()
+    this.teapotRepository = teapotRepository
+    this.teapotOnline = teapotOnline
+    this.teapotMapper = teapotMapper
   }
 
   getAll(): Teapot[] {
@@ -42,7 +51,7 @@ export default class TeapotService extends EventEmitter {
     return this.teapotOnline.getById(id)
   }
 
-  join(teapot: Teapot) {
+  join(teapot: Teapot): boolean {
     const isJoined = this.teapotOnline.join(teapot)
     if (isJoined) {
       teapot.on('ready', () => {
@@ -55,7 +64,7 @@ export default class TeapotService extends EventEmitter {
     return isJoined
   }
 
-  leave(teapot: Teapot) {
+  leave(teapot: Teapot): boolean {
     const isLeaved = this.teapotOnline.leaveById(teapot.id)
     if (isLeaved) {
       teapot.removeAllListeners('ready')

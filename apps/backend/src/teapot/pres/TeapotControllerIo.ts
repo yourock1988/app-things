@@ -6,36 +6,39 @@ import type Teapot from '../domain/Teapot.js'
 const { BC_CL, BC_SV } = TEAPOT
 
 export default class TeapotControllerIo {
-  constructor(
-    readonly teapotService: TeapotService,
-    private teapotNamespace: Namespace | null = null,
-    private io: Server | null = null,
-  ) {
+  private readonly teapotService: TeapotService
+
+  private teapotNamespace: Namespace | null = null
+
+  private io: Server | null = null
+
+  constructor(teapotService: TeapotService) {
+    this.teapotService = teapotService
     this.teapotService.on('teapot!ready', (t: Teapot) => {
       this.teapotNamespace?.emit(BC_SV.BOILED, t)
       this.teapotNamespace?.emit(BC_CL.UPDATED, t)
     })
   }
 
-  init(teapotNamespace: Namespace, io: Server) {
+  init(teapotNamespace: Namespace, io: Server): void {
     this.teapotNamespace = teapotNamespace
     this.io = io
   }
 
-  getAll(ctx, args) {
+  getAll(ctx, args): void {
     const [, , ack] = args
     const teapots = this.teapotService.getAll()
     ack?.(null, teapots)
   }
 
-  getById(ctx, args) {
+  getById(ctx, args): void {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(+id)
     if (!teapot) ack?.(404)
     else ack?.(null, teapot)
   }
 
-  add(ctx, args) {
+  add(ctx, args): void {
     const [, dto, ack] = args
     const o = { ...dto, accountId: ctx.socket.account.id }
     const teapotJson = this.teapotService.add(o).toJSON()
@@ -43,7 +46,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  updateById(ctx, args) {
+  updateById(ctx, args): void {
     const [{ id }, dto, ack] = args
     const teapotJson = this.teapotService.updateById(id, dto)?.toJSON()
     if (!teapotJson) {
@@ -54,7 +57,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  removeById(ctx, args) {
+  removeById(ctx, args): void {
     const [{ id }, , ack] = args
     const hasBeenExists = this.teapotService.removeById(id)
     if (!hasBeenExists) {
@@ -65,14 +68,14 @@ export default class TeapotControllerIo {
     ack?.(null)
   }
 
-  show(ctx, args) {
+  show(ctx, args): void {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) ack?.(404)
     else ack?.(null, teapot)
   }
 
-  join(ctx, args) {
+  join(ctx, args): void {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(id)
     if (!teapot) {
@@ -88,7 +91,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  leave(ctx, args) {
+  leave(ctx, args): void {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(id)
     if (!teapot) {
@@ -104,7 +107,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  handleTurnOn(ctx, args) {
+  handleTurnOn(ctx, args): void {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
@@ -120,7 +123,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  handleTurnOff(ctx, args) {
+  handleTurnOff(ctx, args): void {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
@@ -136,7 +139,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  handleDrain(ctx, args) {
+  handleDrain(ctx, args): void {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {

@@ -1,18 +1,23 @@
-import type { Namespace, Server } from 'socket.io'
+import type { Namespace, Server, Socket } from 'socket.io'
+import type CarControllerIo from './CarControllerIo.js'
 import listen from '../../_utils/listen.js'
 import CoR from '../../_utils/CoR.js'
 
 export default class CarRouterIo {
-  constructor(
-    readonly carControllerIo: any,
-    readonly mwCarIo: any,
-  ) {}
+  private readonly carControllerIo: CarControllerIo
 
-  public init(carNamespace: Namespace, io: Server) {
+  private readonly mwCarIo: any
+
+  constructor(carControllerIo: CarControllerIo, mwCarIo) {
+    this.carControllerIo = carControllerIo
+    this.mwCarIo = mwCarIo
+  }
+
+  public init(carNamespace: Namespace, io: Server): void {
     this.carControllerIo.init(carNamespace, io)
   }
 
-  authN(socket, next) {
+  authN(socket: Socket, next): void {
     const message = 'invalid-sessionid'
     const ctx = { socket, eventName: 'authentication' }
     const args = [null, null, () => next({ message })]
@@ -20,12 +25,12 @@ export default class CarRouterIo {
     CoR(SESSID, AUTHN, () => next())(ctx, args)
   }
 
-  authZ(socket, next) {
+  authZ(socket, next): void {
     const ctx = { socket, eventName: 'authorization' }
     this.mwCarIo.AUTHZ(ctx, null, next)
   }
 
-  connector(socket: any) {
+  connector(socket: Socket): void {
     const { carControllerIo, mwCarIo } = this
     const { ID, ADD, UPD, AUTHZ, ACK } = mwCarIo
     const { getAll, getById, add, updateById, removeById } = carControllerIo

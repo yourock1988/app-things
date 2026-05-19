@@ -6,29 +6,33 @@ import type Teapot from '../domain/Teapot.js'
 import type Orm from '../../_utils/Orm.js'
 
 export default class TeapotRepositoryDb implements ITeapotRepository {
-  constructor(
-    readonly orm: Orm,
-    readonly teapotMapper: TeapotMapper,
-  ) {}
+  private readonly orm: Orm<TTeapotRecord>
+
+  private readonly teapotMapper: TeapotMapper
+
+  constructor(orm: Orm<TTeapotRecord>, teapotMapper: TeapotMapper) {
+    this.orm = orm
+    this.teapotMapper = teapotMapper
+  }
 
   getAll(): Teapot[] {
-    const records: TTeapotRecord[] = this.orm.selectAll()
+    const records = this.orm.selectAll()
     return records.map(this.teapotMapper.toModel)
   }
 
   getById(id: number): Teapot | null {
-    const record: TTeapotRecord = this.orm.selectById(id)
+    const record = this.orm.selectById(id)
     return record ? this.teapotMapper.toModel(record) : null
   }
 
   add(dto: TTeapotAddDto): Teapot {
     const record = this.teapotMapper.toRecord(dto)
-    const appendedRecord: TTeapotRecord = this.orm.insert(record)
+    const appendedRecord = this.orm.insert(record)
     return this.teapotMapper.toModel(appendedRecord)
   }
 
   updateById(id: number, dto: TTeapotUpdateDto): Teapot | null {
-    const record: TTeapotRecord = this.orm.updateById(id, dto)
+    const record = this.orm.updateById(id, dto)
     return record ? this.teapotMapper.toModel(record) : null
   }
 

@@ -3,10 +3,14 @@ import type {
   TSessionAddDto,
   TSessionUpdateDto,
 } from '../../_domain/TSessionDtos.js'
-import type SessionService from '../domain/SessionService.js'
+import type ISessionService from '../../_domain/ISessionService.js'
 
 export default class SessionControllerRest {
-  constructor(readonly sessionService: SessionService) {}
+  private readonly sessionService: ISessionService
+
+  constructor(sessionService: ISessionService) {
+    this.sessionService = sessionService
+  }
 
   getAll(_: Request, res: Response): void {
     const sessions = this.sessionService.getAll()

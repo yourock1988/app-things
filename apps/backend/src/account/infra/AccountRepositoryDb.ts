@@ -9,10 +9,14 @@ import type { TAccountRecord } from './TAccountRecord.js'
 import type AccountMapper from './AccountMapper.js'
 
 export default class AccountRepositoryDb implements IAccountRepository {
-  constructor(
-    readonly orm: Orm,
-    readonly accountMapper: AccountMapper,
-  ) {}
+  private readonly orm: Orm<TAccountRecord>
+
+  private readonly accountMapper: AccountMapper
+
+  constructor(orm: Orm<TAccountRecord>, accountMapper: AccountMapper) {
+    this.orm = orm
+    this.accountMapper = accountMapper
+  }
 
   getAll(): Account[] {
     const records: TAccountRecord[] = this.orm.selectAll()
@@ -20,7 +24,7 @@ export default class AccountRepositoryDb implements IAccountRepository {
   }
 
   getById(id: number): Account | null {
-    const record: TAccountRecord = this.orm.selectById(id)
+    const record = this.orm.selectById(id)
     return record ? this.accountMapper.toModel(record) : null
   }
 
@@ -31,7 +35,7 @@ export default class AccountRepositoryDb implements IAccountRepository {
   }
 
   updateInfoById(id: number, dto: TAccountUpdFullDto): Account | null {
-    const record: TAccountRecord = this.orm.updateById(id, dto)
+    const record = this.orm.updateById(id, dto)
     return record ? this.accountMapper.toModel(record) : null
   }
 
@@ -40,7 +44,7 @@ export default class AccountRepositoryDb implements IAccountRepository {
   }
 
   getByNickname(nickname: string): Account | null {
-    const record: TAccountRecord = this.orm.selectByNickname(nickname)
+    const record = this.orm.selectByPropName('nickname', nickname)
     return record ? this.accountMapper.toModel(record) : null
   }
 }
