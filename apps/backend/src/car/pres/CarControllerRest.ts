@@ -3,6 +3,8 @@ import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.ts'
 import type CarService from '../domain/CarService.ts'
 import type GetCarFullUseCase from '../domain/GetCarFullUseCase.ts'
 
+type TParamsId = { id: number }
+
 export default class CarControllerRest {
   private readonly carService: CarService
 
@@ -18,14 +20,14 @@ export default class CarControllerRest {
     res.status(200).json(cars)
   }
 
-  getFullById(req: Request, res: Response): void {
+  getFullById(req: Request<TParamsId>, res: Response): void {
     const id: number = +req.params.id
     const carFull = this.getCarFullUseCase.getCarFullById(id)
     if (carFull) res.status(200).json(carFull)
     else res.status(404).send()
   }
 
-  getById(req: Request, res: Response): void {
+  getById(req: Request<TParamsId>, res: Response): void {
     const id: number = +req.params.id
     const car = this.carService.getById(id)
     if (car) res.status(200).json(car)
@@ -38,7 +40,7 @@ export default class CarControllerRest {
     res.status(201).json(car)
   }
 
-  updateById(req: Request, res: Response): void {
+  updateById(req: Request<TParamsId>, res: Response): void {
     const id: number = +req.params.id
     const dto: TCarUpdateDto = req.body
     const car = this.carService.updateById(id, dto)
@@ -46,7 +48,7 @@ export default class CarControllerRest {
     else res.status(404).send()
   }
 
-  removeById(req: Request, res: Response): void {
+  removeById(req: Request<TParamsId>, res: Response): void {
     const id: number = +req.params.id
     const hasBeenExists = this.carService.removeById(id)
     if (hasBeenExists) res.status(204).send()

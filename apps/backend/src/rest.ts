@@ -28,7 +28,9 @@ rest.use('/persons', personRouterRest)
 rest.use('/auth', authRouterRest)
 rest.use('/cars', carRouterRest)
 
-rest.use('/*unknown', (req: Request, res: Response) => {
+type TParams = { unknown: string }
+
+rest.use('/*unknown', (req: Request<TParams>, res: Response) => {
   const message = `Неизвестный маршрут ${req.params.unknown}`
   res.status(404).send(message)
 })

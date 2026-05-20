@@ -1,26 +1,51 @@
 {
+  "include": ["src/**/*.ts", "spec/**/*.ts", "types"],
+  "exclude": ["node_modules", "build", "dist", "out", "frontend/**/*"],
+
   "compilerOptions": {
     "types": ["vitest/globals"],
-    "target": "esnext",
-    "module": "nodenext",
-    "outDir": "../../build/server",
-    "rootDir": "./",
-    "checkJs": false,
-    "allowJs": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "noEmitOnError": true,
+
+    "rootDir": ".",
+    "outDir": "out",
+    // "outDir": "../../build/server",
+    "allowImportingTsExtensions": true,
     "noEmit": true,
-    "sourceMap": false,
-    "declarationMap": false,
-    "declaration": false,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
+    "noEmitOnError": true,
+    "allowJs": true,
+    "checkJs": true,
+
+    // "typeRoots": ["../../node_modules/@types", "../../node_modules", "./types"],
+    // "types": ["vitest/globals", "node"],
+
+    //===== Type checking =====
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    // "allowUnreachableCode": false,
+    // "allowUnusedLabels": false,
+    // "noUnusedParameters": true, ПОТОМ ВКЛЮЧИТЬ!!!!
+    // "noUnusedLocals": true, ПОТОМ ВКЛЮЧИТЬ!!!!
     "noImplicitAny": false,
-    "removeComments": true,
-    "allowImportingTsExtensions": true
-  },
-  "include": ["src/**/*.ts", "spec/**/*.ts", "types"],
-  "exclude": ["node_modules", "build", "dist", "frontend/**/*"]
+
+    //===== Interoperability: help external tools =====
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
+    "isolatedModules": true,
+    // "isolatedDeclarations": true,
+
+    // "allowSyntheticDefaultImports": true,
+
+    //===== Output: JavaScript =====
+    "resolveJsonModule": true,
+    "noUncheckedSideEffectImports": true, // warn on import 'foo.ts'
+    "skipLibCheck": true, // ignore .d.ts at node_modules/
+    // "esModuleInterop": true, // для компиляции ts в cjs
+    // "moduleResolution": "nodenext", module "nodenext" sets it up automatic
+    "module": "nodenext",
+    "target": "esnext"
+  }
 }

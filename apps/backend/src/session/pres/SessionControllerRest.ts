@@ -5,6 +5,8 @@ import type {
 } from '../../_domain/TSessionDtos.ts'
 import type ISessionService from '../../_domain/ISessionService.ts'
 
+type TParamsId = { id: number }
+
 export default class SessionControllerRest {
   private readonly sessionService: ISessionService
 
@@ -17,7 +19,7 @@ export default class SessionControllerRest {
     res.status(200).json(sessions)
   }
 
-  getById(req: Request, res: Response): void {
+  getById(req: Request<TParamsId>, res: Response): void {
     const id: number = +req.params.id
     const session = this.sessionService.getById(id)
     if (session) res.status(200).json(session)
@@ -30,7 +32,7 @@ export default class SessionControllerRest {
     res.status(201).json(session)
   }
 
-  updateById(req: Request, res: Response): void {
+  updateById(req: Request<TParamsId>, res: Response): void {
     const id: number = +req.params.id
     const dto: TSessionUpdateDto = req.body
     const session = this.sessionService.updateById(id, dto)
@@ -38,7 +40,7 @@ export default class SessionControllerRest {
     else res.status(404).send()
   }
 
-  removeById(req: Request, res: Response): void {
+  removeById(req: Request<TParamsId>, res: Response): void {
     const id: number = +req.params.id
     const hasBeenExists = this.sessionService.removeById(id)
     if (hasBeenExists) res.status(204).send()

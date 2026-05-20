@@ -2,7 +2,7 @@ import type {
   TPersonAddDto,
   TPersonUpdateDto,
 } from '../../_domain/TPersonDtos.ts'
-import IPerson from '../../_domain/IPerson.ts'
+import type IPerson from '../../_domain/IPerson.ts'
 
 export default interface IPersonRepository {
   getAll(): IPerson[]

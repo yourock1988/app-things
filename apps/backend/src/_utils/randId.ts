@@ -1,1 +1,1 @@
-export default () => parseInt(crypto.randomUUID().split('-')[1], 16)
+export default () => parseInt(crypto.randomUUID().split('-')[1]!, 16)

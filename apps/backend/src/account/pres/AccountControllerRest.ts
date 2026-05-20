@@ -5,6 +5,8 @@ import type {
 } from '../../_domain/TAccountDtos.ts'
 import type IAccountService from '../../_domain/IAccountService.ts'
 
+type TParamsId = { id: number }
+
 export default class AccountControllerRest {
   private readonly accountService: IAccountService
 
@@ -17,7 +19,7 @@ export default class AccountControllerRest {
     res.status(200).json(accounts)
   }
 
-  getById(req: Request, res: Response): void {
+  getById(req: Request<TParamsId>, res: Response): void {
     const id: number = +req.params.id
     const account = this.accountService.getById(id)
     if (account) res.status(200).json(account)
@@ -31,7 +33,7 @@ export default class AccountControllerRest {
     else res.status(409).send()
   }
 
-  updateById(req: Request, res: Response): void {
+  updateById(req: Request<TParamsId>, res: Response): void {
     const id: number = +req.params.id
     const dto: TAccountUpdFullDto = req.body // тайпскрипту похуй
     const account = this.accountService.updateById(id, dto)
@@ -39,7 +41,7 @@ export default class AccountControllerRest {
     else res.status(404).send()
   }
 
-  removeById(req: Request, res: Response): void {
+  removeById(req: Request<TParamsId>, res: Response): void {
     const id: number = +req.params.id
     const hasBeenExists = this.accountService.removeById(id)
     if (hasBeenExists) res.status(204).send()

@@ -1,6 +1,6 @@
 import bindSelf from '@yourock88/bind-self'
 import type { Router as TRouter } from 'express'
-import type TAuthist from '../_pres/TAuthist.ts'
+import type { TAuthist } from '../_pres/TAuthist.ts'
 import type TOrm from '../_utils/Orm.ts'
 import type IPersonService from '../_domain/IPersonService.ts'
 import IDrest from '../_pres/IDrest.ts'
