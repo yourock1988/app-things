@@ -1,7 +1,7 @@
 // import helmet from 'helmet'
 import express from 'express'
-import staticRouter from './staticRouter.js'
-import rest from './rest.js'
+import staticRouter from './staticRouter.ts'
+import rest from './rest.ts'
 
 const appHttp = express()
 

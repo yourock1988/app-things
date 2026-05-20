@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import CoR from './CoR.js'
+import CoR from './CoR.ts'
 
 export default function listen(socket) {
   return {

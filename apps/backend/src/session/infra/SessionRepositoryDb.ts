@@ -1,12 +1,12 @@
-import type { ISessionRepository } from '../domain/ISessionRepository.js'
+import type { ISessionRepository } from '../domain/ISessionRepository.ts'
 import type {
   TSessionAddDto,
   TSessionUpdateDto,
-} from '../../_domain/TSessionDtos.js'
-import type { TSessionRecord } from './TSessionRecord.js'
-import type SessionMapper from './SessionMapper.js'
-import type ISession from '../../_domain/ISession.js'
-import type Orm from '../../_utils/Orm.js'
+} from '../../_domain/TSessionDtos.ts'
+import type { TSessionRecord } from './TSessionRecord.ts'
+import type SessionMapper from './SessionMapper.ts'
+import type ISession from '../../_domain/ISession.ts'
+import type Orm from '../../_utils/Orm.ts'
 
 export default class SessionRepositoryDb implements ISessionRepository {
   private readonly orm: Orm<TSessionRecord>

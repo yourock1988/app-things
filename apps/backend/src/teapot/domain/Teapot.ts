@@ -1,5 +1,5 @@
 import EventEmitter from 'node:events'
-import type RangeVo from './RangeVo.js'
+import type RangeVo from './RangeVo.ts'
 
 export default class Teapot extends EventEmitter {
   /* eslint-disable lines-between-class-members */

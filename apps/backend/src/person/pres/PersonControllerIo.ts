@@ -1,6 +1,6 @@
 import type { Server, Namespace } from 'socket.io'
-import type PersonService from '../domain/PersonService.js'
-// import type Person from '../domain/Person.js'
+import type PersonService from '../domain/PersonService.ts'
+// import type Person from '../domain/Person.ts'
 
 export default class PersonControllerIo {
   private personNamespace: Namespace | null = null

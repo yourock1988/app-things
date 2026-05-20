@@ -1,4 +1,4 @@
-import type Teapot from './Teapot.js'
+import type Teapot from './Teapot.ts'
 
 export default class TeapotOnline {
   private map: Map<number, Teapot>

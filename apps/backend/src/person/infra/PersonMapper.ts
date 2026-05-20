@@ -1,6 +1,6 @@
-import type { TPersonAddDto } from '../../_domain/TPersonDtos.js'
-import type { TPersonRecord } from './TPersonRecord.js'
-import type TPerson from '../domain/Person.js'
+import type { TPersonAddDto } from '../../_domain/TPersonDtos.ts'
+import type { TPersonRecord } from './TPersonRecord.ts'
+import type TPerson from '../domain/Person.ts'
 
 export default class PersonMapper {
   private readonly Person: typeof TPerson

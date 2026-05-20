@@ -1,5 +1,5 @@
-import appHttp from './appHttp.js'
-import appIo from './appIo.js'
+import appHttp from './appHttp.ts'
+import appIo from './appIo.ts'
 
 const PORT_HTTP = Number(process.env.APP_BE_PORT)
 const PORT_IO = Number(process.env.APP_WS_PORT)

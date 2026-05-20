@@ -1,12 +1,12 @@
 import type {
   TAccountAddDto,
   TAccountUpdFullDto,
-} from '../../_domain/TAccountDtos.js'
-import type Orm from '../../_utils/Orm.js'
-import type Account from '../domain/Account.js'
-import type { IAccountRepository } from '../domain/IAccountRepository.js'
-import type { TAccountRecord } from './TAccountRecord.js'
-import type AccountMapper from './AccountMapper.js'
+} from '../../_domain/TAccountDtos.ts'
+import type Orm from '../../_utils/Orm.ts'
+import type Account from '../domain/Account.ts'
+import type { IAccountRepository } from '../domain/IAccountRepository.ts'
+import type { TAccountRecord } from './TAccountRecord.ts'
+import type AccountMapper from './AccountMapper.ts'
 
 export default class AccountRepositoryDb implements IAccountRepository {
   private readonly orm: Orm<TAccountRecord>

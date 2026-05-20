@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from 'express'
-import IAuthService from '../_domain/IAuthService.js'
+import type { NextFunction, Request, Response } from 'express'
+import type IAuthService from '../_domain/IAuthService.ts'
 
 export default function mwAuthorizeRest(authService: IAuthService) {
   return function (req: Request, res: Response, next: NextFunction) {

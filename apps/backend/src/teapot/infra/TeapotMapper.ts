@@ -1,6 +1,6 @@
-import type { TTeapotUpdateDto } from '../domain/TTeapotDtos.js'
-import type { TTeapotRecord } from './TTeapotRecord.js'
-import type TTeapot from '../domain/Teapot.js'
+import type { TTeapotUpdateDto } from '../domain/TTeapotDtos.ts'
+import type { TTeapotRecord } from './TTeapotRecord.ts'
+import type TTeapot from '../domain/Teapot.ts'
 
 // TTeapotAddDto
 

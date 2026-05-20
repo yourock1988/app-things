@@ -1,4 +1,4 @@
-import type { TPersonRecord } from './TPersonRecord.js'
+import type { TPersonRecord } from './TPersonRecord.ts'
 
 const personsTable: TPersonRecord[] = [
   {

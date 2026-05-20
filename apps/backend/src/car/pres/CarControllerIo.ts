@@ -1,6 +1,6 @@
 import type { Server, Namespace } from 'socket.io'
-import type CarService from '../domain/CarService.js'
-// import type Car from '../domain/Car.js'
+import type CarService from '../domain/CarService.ts'
+// import type Car from '../domain/Car.ts'
 
 export default class CarControllerIo {
   private carNamespace: Namespace | null = null

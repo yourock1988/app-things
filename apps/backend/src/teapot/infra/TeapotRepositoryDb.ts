@@ -1,9 +1,9 @@
-import type { ITeapotRepository } from '../domain/ITeapotRepository.js'
-import type { TTeapotAddDto, TTeapotUpdateDto } from '../domain/TTeapotDtos.js'
-import type { TTeapotRecord } from './TTeapotRecord.js'
-import type TeapotMapper from './TeapotMapper.js'
-import type Teapot from '../domain/Teapot.js'
-import type Orm from '../../_utils/Orm.js'
+import type { ITeapotRepository } from '../domain/ITeapotRepository.ts'
+import type { TTeapotAddDto, TTeapotUpdateDto } from '../domain/TTeapotDtos.ts'
+import type { TTeapotRecord } from './TTeapotRecord.ts'
+import type TeapotMapper from './TeapotMapper.ts'
+import type Teapot from '../domain/Teapot.ts'
+import type Orm from '../../_utils/Orm.ts'
 
 export default class TeapotRepositoryDb implements ITeapotRepository {
   private readonly orm: Orm<TTeapotRecord>

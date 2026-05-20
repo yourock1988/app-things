@@ -1,4 +1,4 @@
-import IAuthService from '../_domain/IAuthService.js'
+import type IAuthService from '../_domain/IAuthService.ts'
 
 /* eslint-disable no-param-reassign */
 export default function mwAuthorizeIo(authService: IAuthService) {

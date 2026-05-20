@@ -2,8 +2,8 @@ import type { Request, Response } from 'express'
 import type {
   TPersonAddDto,
   TPersonUpdateDto,
-} from '../../_domain/TPersonDtos.js'
-import type IPersonService from '../../_domain/IPersonService.js'
+} from '../../_domain/TPersonDtos.ts'
+import type IPersonService from '../../_domain/IPersonService.ts'
 
 export default class PersonControllerRest {
   private readonly personService: IPersonService

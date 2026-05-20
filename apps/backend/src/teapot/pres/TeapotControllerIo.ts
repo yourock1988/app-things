@@ -1,7 +1,7 @@
 import { TEAPOT } from '@app-x/cmd'
 import type { Server, Namespace } from 'socket.io'
-import type TeapotService from '../domain/TeapotService.js'
-import type Teapot from '../domain/Teapot.js'
+import type TeapotService from '../domain/TeapotService.ts'
+import type Teapot from '../domain/Teapot.ts'
 
 const { BC_CL, BC_SV } = TEAPOT
 

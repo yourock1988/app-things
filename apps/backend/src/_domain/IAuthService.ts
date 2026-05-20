@@ -1,6 +1,6 @@
-import type { TAccountAddDto, TAccountGetDto } from './TAccountDtos.js'
-import type IAccount from './IAccount.js'
-import type ISession from './ISession.js'
+import type { TAccountAddDto, TAccountGetDto } from './TAccountDtos.ts'
+import type IAccount from './IAccount.ts'
+import type ISession from './ISession.ts'
 
 export default interface IAuthService {
   authN(sessionId: string): ISession | null

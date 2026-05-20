@@ -1,4 +1,4 @@
-import randId from './randId.js'
+import randId from './randId.ts'
 
 export default class Orm<T extends { id: number }> {
   private readonly table: T[]

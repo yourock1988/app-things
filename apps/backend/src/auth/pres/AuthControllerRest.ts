@@ -1,9 +1,9 @@
 import type { Request, Response } from 'express'
-import type IAuthService from '../../_domain/IAuthService.js'
+import type IAuthService from '../../_domain/IAuthService.ts'
 import type {
   TAccountAddDto,
   TAccountGetDto,
-} from '../../_domain/TAccountDtos.js'
+} from '../../_domain/TAccountDtos.ts'
 
 export default class AuthControllerRest {
   private readonly authService: IAuthService

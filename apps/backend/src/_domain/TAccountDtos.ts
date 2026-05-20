@@ -6,7 +6,7 @@ import type {
   zAccountUpdRoleDto,
   zAccountUpdPasswordDto,
   zAccountUpdFullDto,
-} from './zAccountDtos.js'
+} from './zAccountDtos.ts'
 
 export type TAccountGetDto = z.infer<typeof zAccountGetDto>
 export type TAccountAddDto = z.infer<typeof zAccountAddDto>

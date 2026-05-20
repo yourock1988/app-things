@@ -1,5 +1,5 @@
-import type IPerson from '../../_domain/IPerson.js'
-import type Car from './Car.js'
+import type IPerson from '../../_domain/IPerson.ts'
+import type Car from './Car.ts'
 
 export default class CarFull {
   /* eslint-disable lines-between-class-members */

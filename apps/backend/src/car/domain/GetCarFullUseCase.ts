@@ -1,6 +1,6 @@
-import type IPersonService from '../../_domain/IPersonService.js'
-import type CarService from './CarService.js'
-import CarFull from './CarFull.js'
+import type IPersonService from '../../_domain/IPersonService.ts'
+import type CarService from './CarService.ts'
+import CarFull from './CarFull.ts'
 
 export default class GetCarFullUseCase {
   private readonly carService: CarService

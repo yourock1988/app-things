@@ -1,7 +1,7 @@
 import type { Namespace, Server, Socket } from 'socket.io'
-import type CarControllerIo from './CarControllerIo.js'
-import listen from '../../_utils/listen.js'
-import CoR from '../../_utils/CoR.js'
+import type CarControllerIo from './CarControllerIo.ts'
+import listen from '../../_utils/listen.ts'
+import CoR from '../../_utils/CoR.ts'
 
 export default class CarRouterIo {
   private readonly carControllerIo: CarControllerIo

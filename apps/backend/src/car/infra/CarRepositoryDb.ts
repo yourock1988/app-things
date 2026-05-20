@@ -1,9 +1,9 @@
-import type Orm from '../../_utils/Orm.js'
-import type TCar from '../domain/Car.js'
-import type ICarRepository from '../domain/ICarRepository.js'
-import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.js'
-import type { TCarRecord } from './TCarRecord.js'
-import type TCarMapper from './CarMapper.js'
+import type Orm from '../../_utils/Orm.ts'
+import type TCar from '../domain/Car.ts'
+import type ICarRepository from '../domain/ICarRepository.ts'
+import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.ts'
+import type { TCarRecord } from './TCarRecord.ts'
+import type TCarMapper from './CarMapper.ts'
 
 export default class CarRepositoryDb implements ICarRepository {
   private readonly orm: Orm<TCarRecord>

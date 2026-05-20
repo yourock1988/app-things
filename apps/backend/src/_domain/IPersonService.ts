@@ -1,5 +1,5 @@
-import type { TPersonAddDto, TPersonUpdateDto } from './TPersonDtos.js'
-import type IPerson from './IPerson.js'
+import type { TPersonAddDto, TPersonUpdateDto } from './TPersonDtos.ts'
+import type IPerson from './IPerson.ts'
 
 export default interface IPersonService {
   getAll(): IPerson[]

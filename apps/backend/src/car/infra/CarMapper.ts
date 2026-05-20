@@ -1,6 +1,6 @@
-import type { TCarAddDto } from '../domain/TCarDtos.js'
-import type { TCarRecord } from './TCarRecord.js'
-import type TCar from '../domain/Car.js'
+import type { TCarAddDto } from '../domain/TCarDtos.ts'
+import type { TCarRecord } from './TCarRecord.ts'
+import type TCar from '../domain/Car.ts'
 
 export default class CarMapper {
   private readonly Car: typeof TCar

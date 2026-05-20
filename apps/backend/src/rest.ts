@@ -9,7 +9,7 @@ import {
   personRouterRest,
   carRouterRest,
   teapotRouterRest,
-} from './_di.js'
+} from './_di.ts'
 
 const APP_ORIGIN = String(process.env.APP_ORIGIN)
 const WEB_DEV_SERV_PORT = 9000

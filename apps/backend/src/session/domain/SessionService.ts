@@ -1,10 +1,10 @@
-import type { ISessionRepository } from './ISessionRepository.js'
+import type { ISessionRepository } from './ISessionRepository.ts'
 import type {
   TSessionAddDto,
   TSessionUpdateDto,
-} from '../../_domain/TSessionDtos.js'
-import type ISessionService from '../../_domain/ISessionService.js'
-import type ISession from '../../_domain/ISession.js'
+} from '../../_domain/TSessionDtos.ts'
+import type ISessionService from '../../_domain/ISessionService.ts'
+import type ISession from '../../_domain/ISession.ts'
 
 export default class SessionService implements ISessionService {
   private readonly sessionRepository: ISessionRepository

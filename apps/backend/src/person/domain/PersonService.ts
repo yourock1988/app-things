@@ -1,10 +1,10 @@
 import type {
   TPersonAddDto,
   TPersonUpdateDto,
-} from '../../_domain/TPersonDtos.js'
-import type IPerson from '../../_domain/IPerson.js'
-import type IPersonService from '../../_domain/IPersonService.js'
-import type IPersonRepository from './IPersonRepository.js'
+} from '../../_domain/TPersonDtos.ts'
+import type IPerson from '../../_domain/IPerson.ts'
+import type IPersonService from '../../_domain/IPersonService.ts'
+import type IPersonRepository from './IPersonRepository.ts'
 
 export default class PersonService implements IPersonService {
   private readonly personRepository: IPersonRepository

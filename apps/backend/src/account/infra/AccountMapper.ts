@@ -1,6 +1,6 @@
-import type { TAccountAddDto } from '../../_domain/TAccountDtos.js'
-import type { TAccountRecord } from './TAccountRecord.js'
-import type TAccount from '../domain/Account.js'
+import type { TAccountAddDto } from '../../_domain/TAccountDtos.ts'
+import type { TAccountRecord } from './TAccountRecord.ts'
+import type TAccount from '../domain/Account.ts'
 
 export default class AccountMapper {
   private readonly Account: typeof TAccount

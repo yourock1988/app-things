@@ -2,8 +2,8 @@ import type { Request, Response } from 'express'
 import type {
   TSessionAddDto,
   TSessionUpdateDto,
-} from '../../_domain/TSessionDtos.js'
-import type ISessionService from '../../_domain/ISessionService.js'
+} from '../../_domain/TSessionDtos.ts'
+import type ISessionService from '../../_domain/ISessionService.ts'
 
 export default class SessionControllerRest {
   private readonly sessionService: ISessionService

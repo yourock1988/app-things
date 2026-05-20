@@ -1,14 +1,14 @@
 import type {
   TAccountAddDto,
   TAccountGetDto,
-} from '../../_domain/TAccountDtos.js'
-import type IAccount from '../../_domain/IAccount.js'
-import type ISession from '../../_domain/ISession.js'
-import type IAuthService from '../../_domain/IAuthService.js'
-import type IAccountService from '../../_domain/IAccountService.js'
-import type ISessionService from '../../_domain/ISessionService.js'
-import RBAC from './RBAC.js'
-import ACL from './ACL.js'
+} from '../../_domain/TAccountDtos.ts'
+import type IAccount from '../../_domain/IAccount.ts'
+import type ISession from '../../_domain/ISession.ts'
+import type IAuthService from '../../_domain/IAuthService.ts'
+import type IAccountService from '../../_domain/IAccountService.ts'
+import type ISessionService from '../../_domain/ISessionService.ts'
+import RBAC from './RBAC.ts'
+import ACL from './ACL.ts'
 
 export default class AuthService implements IAuthService {
   private readonly accountService: IAccountService

@@ -1,8 +1,8 @@
 import {
   zSessionAddDto,
   zSessionUpdateDto,
-} from '../../_domain/zSessionDtos.js'
-import compileMiddlewareRest from '../../_utils/compileMiddlewareRest.js'
+} from '../../_domain/zSessionDtos.ts'
+import compileMiddlewareRest from '../../_utils/compileMiddlewareRest.ts'
 
 const ADD = compileMiddlewareRest('body', zSessionAddDto)
 const UPD = compileMiddlewareRest('body', zSessionUpdateDto)

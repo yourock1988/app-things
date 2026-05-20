@@ -1,8 +1,8 @@
 import type {
   TSessionAddDto,
   TSessionUpdateDto,
-} from '../../_domain/TSessionDtos.js'
-import type ISession from '../../_domain/ISession.js'
+} from '../../_domain/TSessionDtos.ts'
+import type ISession from '../../_domain/ISession.ts'
 
 export interface ISessionRepository {
   getAll(): ISession[]

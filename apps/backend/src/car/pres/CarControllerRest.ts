@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express'
-import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.js'
-import type CarService from '../domain/CarService.js'
-import type GetCarFullUseCase from '../domain/GetCarFullUseCase.js'
+import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.ts'
+import type CarService from '../domain/CarService.ts'
+import type GetCarFullUseCase from '../domain/GetCarFullUseCase.ts'
 
 export default class CarControllerRest {
   private readonly carService: CarService

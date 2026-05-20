@@ -1,4 +1,4 @@
-import type IAccount from '../../_domain/IAccount.js'
+import type IAccount from '../../_domain/IAccount.ts'
 
 export default class Account implements IAccount {
   /* eslint-disable lines-between-class-members */

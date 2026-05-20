@@ -23,7 +23,7 @@
     "lint-staged": "lint-staged",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "swc": "node --watch --import @swc-node/register/esm src/main.ts"
+    "swc": "node --env-file=../../.env.dev --watch --import @swc-node/register/esm src/main.ts"
   },
   "lint-staged": {
     "*.js": "eslint"

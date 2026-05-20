@@ -1,9 +1,9 @@
 import { z } from 'zod'
 import msg from './messages.json' with { type: 'json' }
-import passwordSchema from './field/passwordSchema.js'
-import isAgreeSchema from './field/isAgreeSchema.js'
-import emailSchema from './field/emailSchema.js'
-import phoneSchema from './field/phoneSchema.js'
+import passwordSchema from './field/passwordSchema.ts'
+import isAgreeSchema from './field/isAgreeSchema.ts'
+import emailSchema from './field/emailSchema.ts'
+import phoneSchema from './field/phoneSchema.ts'
 
 const nicknameSchema = z.string({ required_error: msg.require }).min(2).max(15)
 const countrySchema = z.string({ required_error: msg.require }).min(3).max(21)

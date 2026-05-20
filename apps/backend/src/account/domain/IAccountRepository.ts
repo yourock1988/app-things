@@ -1,8 +1,8 @@
-import type Account from './Account.js'
+import type Account from './Account.ts'
 import type {
   TAccountAddDto,
   TAccountUpdFullDto,
-} from '../../_domain/TAccountDtos.js'
+} from '../../_domain/TAccountDtos.ts'
 
 export interface IAccountRepository {
   getAll(): Account[]

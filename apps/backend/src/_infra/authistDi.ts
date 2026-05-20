@@ -1,8 +1,8 @@
-import type TAuthist from '../_pres/TAuthist.js'
-import type IAuthService from '../_domain/IAuthService.js'
-import mwAuthenticateIo from '../_pres/mwAuthenticateIo.js'
-import mwAuthorizeIo from '../_pres/mwAuthorizeIo.js'
-import mwAuthorizeRest from '../_pres/mwAuthorizeRest.js'
+import type TAuthist from '../_pres/TAuthist.ts'
+import type IAuthService from '../_domain/IAuthService.ts'
+import mwAuthenticateIo from '../_pres/mwAuthenticateIo.ts'
+import mwAuthorizeIo from '../_pres/mwAuthorizeIo.ts'
+import mwAuthorizeRest from '../_pres/mwAuthorizeRest.ts'
 
 export default function authistDi(authService: IAuthService): TAuthist {
   return {

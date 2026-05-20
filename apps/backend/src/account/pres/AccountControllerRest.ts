@@ -2,8 +2,8 @@ import type { Request, Response } from 'express'
 import type {
   TAccountAddDto,
   TAccountUpdFullDto,
-} from '../../_domain/TAccountDtos.js'
-import type IAccountService from '../../_domain/IAccountService.js'
+} from '../../_domain/TAccountDtos.ts'
+import type IAccountService from '../../_domain/IAccountService.ts'
 
 export default class AccountControllerRest {
   private readonly accountService: IAccountService

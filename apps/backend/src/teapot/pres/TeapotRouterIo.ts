@@ -1,7 +1,7 @@
 import { TEAPOT } from '@app-x/cmd'
 import type { Namespace, Server } from 'socket.io'
-import type TeapotControllerIo from './TeapotControllerIo.js'
-import listen from '../../_utils/listen.js'
+import type TeapotControllerIo from './TeapotControllerIo.ts'
+import listen from '../../_utils/listen.ts'
 
 const { CL } = TEAPOT
 

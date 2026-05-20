@@ -1,6 +1,6 @@
 import { Server } from 'socket.io'
-import Bus from './_utils/Bus.js'
-import { carRouterIo, personRouterIo, teapotRouterIo } from './_di.js'
+import Bus from './_utils/Bus.ts'
+import { carRouterIo, personRouterIo, teapotRouterIo } from './_di.ts'
 
 const io = new Server()
 const bus = new Bus(io)

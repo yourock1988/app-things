@@ -1,10 +1,10 @@
 import type {
   TAccountAddDto,
   TAccountUpdFullDto,
-} from '../../_domain/TAccountDtos.js'
-import type IAccount from '../../_domain/IAccount.js'
-import type IAccountService from '../../_domain/IAccountService.js'
-import type { IAccountRepository } from './IAccountRepository.js'
+} from '../../_domain/TAccountDtos.ts'
+import type IAccount from '../../_domain/IAccount.ts'
+import type IAccountService from '../../_domain/IAccountService.ts'
+import type { IAccountRepository } from './IAccountRepository.ts'
 
 export default class AccountService implements IAccountService {
   private readonly accountRepository: IAccountRepository

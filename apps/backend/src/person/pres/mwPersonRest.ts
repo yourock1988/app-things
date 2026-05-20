@@ -1,5 +1,5 @@
-import { zPersonAddDto, zPersonUpdateDto } from '../../_domain/zPersonDtos.js'
-import compileMiddlewareRest from '../../_utils/compileMiddlewareRest.js'
+import { zPersonAddDto, zPersonUpdateDto } from '../../_domain/zPersonDtos.ts'
+import compileMiddlewareRest from '../../_utils/compileMiddlewareRest.ts'
 
 const ADD = compileMiddlewareRest('body', zPersonAddDto)
 const UPD = compileMiddlewareRest('body', zPersonUpdateDto)

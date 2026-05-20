@@ -1,6 +1,6 @@
-import type { TSessionAddDto } from '../../_domain/TSessionDtos.js'
-import type { TSessionRecord } from './TSessionRecord.js'
-import type TSession from '../domain/Session.js'
+import type { TSessionAddDto } from '../../_domain/TSessionDtos.ts'
+import type { TSessionRecord } from './TSessionRecord.ts'
+import type TSession from '../domain/Session.ts'
 
 export default class SessionMapper {
   private readonly Session: typeof TSession

@@ -1,4 +1,4 @@
-import type IPerson from '../../_domain/IPerson.js'
+import type IPerson from '../../_domain/IPerson.ts'
 
 export default class Person implements IPerson {
   /* eslint-disable lines-between-class-members */

@@ -1,5 +1,5 @@
-import { zCarAddDto, zCarUpdateDto } from '../domain/zCarDtos.js'
-import compileMiddlewareRest from '../../_utils/compileMiddlewareRest.js'
+import { zCarAddDto, zCarUpdateDto } from '../domain/zCarDtos.ts'
+import compileMiddlewareRest from '../../_utils/compileMiddlewareRest.ts'
 
 const ADD = compileMiddlewareRest('body', zCarAddDto)
 const UPD = compileMiddlewareRest('body', zCarUpdateDto)

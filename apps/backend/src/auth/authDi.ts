@@ -1,11 +1,11 @@
 import bindSelf from '@yourock88/bind-self'
 import type { Router as TRouter } from 'express'
-import type IAccountService from '../_domain/IAccountService.js'
-import type ISessionService from '../_domain/ISessionService.js'
-import AuthService from './domain/AuthService.js'
-import AuthControllerRest from './pres/AuthControllerRest.js'
-import newAuthRouterRest from './pres/AuthRouterRest.js'
-import mwAuthRest from './pres/mwAuthRest.js'
+import type IAccountService from '../_domain/IAccountService.ts'
+import type ISessionService from '../_domain/ISessionService.ts'
+import AuthService from './domain/AuthService.ts'
+import AuthControllerRest from './pres/AuthControllerRest.ts'
+import newAuthRouterRest from './pres/AuthRouterRest.ts'
+import mwAuthRest from './pres/mwAuthRest.ts'
 
 export default function authDi(
   Router: typeof TRouter,

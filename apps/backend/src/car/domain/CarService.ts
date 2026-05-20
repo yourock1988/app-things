@@ -1,6 +1,6 @@
-import type ICarRepository from './ICarRepository.js'
-import type { TCarAddDto, TCarUpdateDto } from './TCarDtos.js'
-import type Car from './Car.js'
+import type ICarRepository from './ICarRepository.ts'
+import type { TCarAddDto, TCarUpdateDto } from './TCarDtos.ts'
+import type Car from './Car.ts'
 
 export default class CarService {
   private readonly carRepository: ICarRepository

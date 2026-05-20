@@ -1,5 +1,5 @@
-import { zCarAddDto, zCarUpdateDto } from '../domain/zCarDtos.js'
-import compileMiddlewareIo from '../../_utils/compileMiddlewareIo.js'
+import { zCarAddDto, zCarUpdateDto } from '../domain/zCarDtos.ts'
+import compileMiddlewareIo from '../../_utils/compileMiddlewareIo.ts'
 
 const ADD = compileMiddlewareIo('body', zCarAddDto)
 const UPD = compileMiddlewareIo('body', zCarUpdateDto)

@@ -1,6 +1,6 @@
 import type { Namespace, Server } from 'socket.io'
-import type PersonControllerIo from './PersonControllerIo.js'
-import listen from '../../_utils/listen.js'
+import type PersonControllerIo from './PersonControllerIo.ts'
+import listen from '../../_utils/listen.ts'
 
 export default class PersonRouterIo {
   private readonly personControllerIo: PersonControllerIo

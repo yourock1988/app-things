@@ -1,4 +1,4 @@
-import type ISession from '../../_domain/ISession.js'
+import type ISession from '../../_domain/ISession.ts'
 
 export default class Session implements ISession {
   /* eslint-disable lines-between-class-members */

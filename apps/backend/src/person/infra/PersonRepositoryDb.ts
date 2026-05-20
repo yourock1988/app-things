@@ -1,12 +1,12 @@
-import type Orm from '../../_utils/Orm.js'
-import type IPerson from '../../_domain/IPerson.js'
-import type IPersonRepository from '../domain/IPersonRepository.js'
+import type Orm from '../../_utils/Orm.ts'
+import type IPerson from '../../_domain/IPerson.ts'
+import type IPersonRepository from '../domain/IPersonRepository.ts'
 import type {
   TPersonAddDto,
   TPersonUpdateDto,
-} from '../../_domain/TPersonDtos.js'
-import type { TPersonRecord } from './TPersonRecord.js'
-import type TPersonMapper from './PersonMapper.js'
+} from '../../_domain/TPersonDtos.ts'
+import type { TPersonRecord } from './TPersonRecord.ts'
+import type TPersonMapper from './PersonMapper.ts'
 
 export default class PersonRepositoryDb implements IPersonRepository {
   private readonly orm: Orm<TPersonRecord>

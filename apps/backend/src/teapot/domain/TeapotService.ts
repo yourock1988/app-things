@@ -1,9 +1,9 @@
 import EventEmitter from 'node:events'
-import type { ITeapotRepository } from './ITeapotRepository.js'
-import type { TTeapotAddDto, TTeapotUpdateDto } from './TTeapotDtos.js'
-import type Teapot from './Teapot.js'
-import type TeapotMapper from '../infra/TeapotMapper.js' // ???
-import type TeapotOnline from './TeapotOnline.js'
+import type { ITeapotRepository } from './ITeapotRepository.ts'
+import type { TTeapotAddDto, TTeapotUpdateDto } from './TTeapotDtos.ts'
+import type Teapot from './Teapot.ts'
+import type TeapotMapper from '../infra/TeapotMapper.ts' // ???
+import type TeapotOnline from './TeapotOnline.ts'
 
 export default class TeapotService extends EventEmitter {
   private readonly teapotRepository: ITeapotRepository

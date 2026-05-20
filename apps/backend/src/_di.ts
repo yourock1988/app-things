@@ -1,12 +1,12 @@
 import { Router } from 'express'
-import Orm from './_utils/Orm.js'
-import authistDi from './_infra/authistDi.js'
-import authDi from './auth/authDi.js'
-import accountDi from './account/accountDi.js'
-import sessionDi from './session/sessionDi.js'
-import teapotDi from './teapot/teapotDi.js'
-import personDi from './person/personDi.js'
-import carDi from './car/carDi.js'
+import Orm from './_utils/Orm.ts'
+import authistDi from './_infra/authistDi.ts'
+import authDi from './auth/authDi.ts'
+import accountDi from './account/accountDi.ts'
+import sessionDi from './session/sessionDi.ts'
+import teapotDi from './teapot/teapotDi.ts'
+import personDi from './person/personDi.ts'
+import carDi from './car/carDi.ts'
 
 const { accountService, accountDiExtra } = accountDi(Router, Orm)
 const { sessionService, sessionDiExtra } = sessionDi(Router, Orm)
