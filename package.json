@@ -27,9 +27,9 @@
     "start:test:tmp": "npm run start:test -- -- --tmp",
     "backend:dev": "npm run dev --workspace=@app-x/backend",
     "frontend:dev": "npm run dev:simple --workspace=@app-x/frontend",
-    "backend:build:dev": "npm run build:dev --workspace=@app-x/backend",
+    "backend:build:dev": "npm run build --workspace=@app-x/backend",
     "frontend:build:dev": "npm run build:dev --workspace=@app-x/frontend",
-    "backend:build:prod": "npm run build:prod --workspace=@app-x/backend",
+    "backend:build:prod": "npm run dist --workspace=@app-x/backend",
     "frontend:build:prod": "npm run build:prod --workspace=@app-x/frontend",
     "frontend:build:test": "npm run build:test --workspace=@app-x/frontend",
     "test": "npm run test --workspace=@app-x/backend"

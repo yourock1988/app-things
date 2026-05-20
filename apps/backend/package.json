@@ -5,17 +5,9 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "dev": "run-p nm ts",
-    "start": "node --env-file=../../.env.prod ../../dist/server/main.js",
-    "start:test": "node --env-file=../../.env.test ../../dist/server/main.js",
-    "build:dev": "run-s clean ts:dev static:dev",
-    "build:prod": "run-s clean ts:prod babel:prod static:prod",
     "look": "nodemon --env-file=../../.env.dev ../../build/server/main.js",
-    "ts": "tsc -p ./tsconfig.build.json --watch --sourceMap --declarationMap --declaration",
     "nm": "nodemon --watch ../../build/server --watch ../../.env.dev --env-file=../../.env.dev ../../build/server/main.js",
     "clean": "rimraf ../../build/server",
-    "static:dev": "cp -R ./static ../../build/server/static",
-    "static:prod": "cp -R ./static ../../dist/server/static",
     "ts:dev": "tsc -p ./tsconfig.build.json --sourceMap --declarationMap --declaration",
     "ts:prod": "tsc -p ./tsconfig.build.json",
     "babel:prod": "babel -d ../../dist/server ../../build/server --delete-dir-on-start --copy-files",
@@ -23,7 +15,17 @@
     "lint-staged": "lint-staged",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "swc": "node --env-file=../../.env.dev --watch --import @swc-node/register/esm src/main.ts"
+    "ts": "npx tsc --watch",
+    "swc": "node --env-file=../../.env.dev --watch --import @swc-node/register/esm src/main.ts",
+    "swc:build": "swc src --copy-files --strip-leading-paths --delete-dir-on-start --out-file-extension ts -d ../../build/server --source-maps",
+    "swc:dist": "swc src --copy-files --strip-leading-paths --delete-dir-on-start --out-file-extension ts -d ../../dist/server",
+    "static:build": "cp -R ./static ../../build/server/static",
+    "static:dist": "cp -R ./static ../../dist/server/static",
+    "start:test": "node --env-file=../../.env.test ../../dist/server/main.ts",
+    "start": "node --env-file=../../.env.prod ../../dist/server/main.ts",
+    "build": "run-s swc:build static:build",
+    "dist": "run-s swc:dist static:dist",
+    "dev": "run-p swc ts"
   },
   "lint-staged": {
     "*.js": "eslint"
