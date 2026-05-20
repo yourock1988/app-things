@@ -21,8 +21,6 @@
     "build:test": "run-s backend:build:prod frontend:build:test",
     "clean:all": "rimraf build dist node_modules",
     "clean": "rimraf build dist",
-    "look": "run-s frontend:build:dev backend:build:dev backend:look",
-    "backend:look": "npm run look --workspace=@app-x/backend",
     "start:tmp": "npm run start -- -- --tmp",
     "start:test:tmp": "npm run start:test -- -- --tmp",
     "backend:dev": "npm run dev --workspace=@app-x/backend",

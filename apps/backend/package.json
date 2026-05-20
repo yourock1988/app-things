@@ -5,12 +5,6 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "look": "nodemon --env-file=../../.env.dev ../../build/server/main.js",
-    "nm": "nodemon --watch ../../build/server --watch ../../.env.dev --env-file=../../.env.dev ../../build/server/main.js",
-    "clean": "rimraf ../../build/server",
-    "ts:dev": "tsc -p ./tsconfig.build.json --sourceMap --declarationMap --declaration",
-    "ts:prod": "tsc -p ./tsconfig.build.json",
-    "babel:prod": "babel -d ../../dist/server ../../build/server --delete-dir-on-start --copy-files",
     "lint:js": "eslint ./src",
     "lint-staged": "lint-staged",
     "test": "vitest",
@@ -34,9 +28,6 @@
     "extends": [
       "../../packages/eslint-config/node.json"
     ]
-  },
-  "babel": {
-    "extends": "../../packages/babel-config/node.json"
   },
   "dependencies": {
     "@app-x/cmd": "^0.0.1",
