@@ -1,10 +1,9 @@
 import bindSelf from '@yourock88/bind-self'
 import type { Router as TRouter } from 'express'
 import type { TAuthist } from '../_pres/TAuthist.ts'
+import type { TSharedMiddlewares } from '../_pres/TSharedMiddlewares.ts'
 import type TOrm from '../_utils/Orm.ts'
 import type IPersonService from '../_domain/IPersonService.ts'
-import IDrest from '../_pres/IDrest.ts'
-import IDio from '../_pres/IDio.ts'
 import Car from './domain/Car.ts'
 import CarService from './domain/CarService.ts'
 import GetCarFullUseCase from './domain/GetCarFullUseCase.ts'
@@ -17,29 +16,28 @@ import newCarRouterRest from './pres/CarRouterRest.ts'
 import CarRouterIo from './pres/CarRouterIo.ts'
 import mwCarRest from './pres/mwCarRest.ts'
 import mwCarIo from './pres/mwCarIo.ts'
-import SESSIDrest from '../_pres/SESSIDrest.ts'
-import SESSIDio from '../_pres/SESSIDio.ts'
-import ACK from '../_pres/ACK.ts'
 
 export default function carDi(
   Router: typeof TRouter,
   Orm: typeof TOrm,
   authist: TAuthist,
   personService: IPersonService,
+  sharedMws: TSharedMiddlewares,
 ) {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
+  const { IDrest, SESSIDrest, IDio, SESSIDio, ACK } = sharedMws
   const mwRest = {
     ...mwCarRest,
     ID: IDrest,
-    AUTH: AUTHrest,
     SESSID: SESSIDrest,
+    AUTH: AUTHrest,
   }
   const mwIo = {
     ...mwCarIo,
     ID: IDio,
+    SESSID: SESSIDio,
     AUTHN: AUTHNio,
     AUTHZ: AUTHZio,
-    SESSID: SESSIDio,
     ACK,
   }
   const carsOrm = new Orm(carsTable)

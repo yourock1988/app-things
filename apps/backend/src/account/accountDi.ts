@@ -1,8 +1,8 @@
 import bindSelf from '@yourock88/bind-self'
 import type { Router as TRouter } from 'express'
 import type { TAuthist } from '../_pres/TAuthist.ts'
+import type { TSharedMiddlewares } from '../_pres/TSharedMiddlewares.ts'
 import type TOrm from '../_utils/Orm.ts'
-import IDrest from '../_pres/IDrest.ts'
 import Account from './domain/Account.ts'
 import AccountService from './domain/AccountService.ts'
 import AccountMapper from './infra/AccountMapper.ts'
@@ -21,9 +21,15 @@ export default function accountDi(Router: typeof TRouter, Orm: typeof TOrm) {
     accountMapper,
   )
   const accountService = new AccountService(accountRepositoryDb)
-  function accountDiExtra(authist: TAuthist) {
+  function accountDiExtra(authist: TAuthist, sharedMws: TSharedMiddlewares) {
     const { AUTHrest } = authist
-    const mwRest = { ...mwAccountRest, ID: IDrest, AUTH: AUTHrest }
+    const { IDrest, SESSIDrest } = sharedMws
+    const mwRest = {
+      ...mwAccountRest,
+      ID: IDrest,
+      SESSID: SESSIDrest,
+      AUTH: AUTHrest,
+    }
     const accountControllerRest = new AccountControllerRest(accountService)
     bindSelf(accountControllerRest)
     const accountRouterRest = newAccountRouterRest(

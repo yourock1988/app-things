@@ -7,7 +7,9 @@ import sessionDi from './session/sessionDi.ts'
 import teapotDi from './teapot/teapotDi.ts'
 import personDi from './person/personDi.ts'
 import carDi from './car/carDi.ts'
+import sharedMiddlewaresDi from './_pres/sharedMiddlewaresDi.ts'
 
+const sharedMws = sharedMiddlewaresDi()
 const { accountService, accountDiExtra } = accountDi(Router, Orm)
 const { sessionService, sessionDiExtra } = sessionDi(Router, Orm)
 const { authService, authRouterRest } = authDi(
@@ -17,20 +19,27 @@ const { authService, authRouterRest } = authDi(
 )
 const authist = authistDi(authService)
 
-const accountRouterRest = accountDiExtra(authist)
-const sessionRouterRest = sessionDiExtra(authist)
+const accountRouterRest = accountDiExtra(authist, sharedMws)
+const sessionRouterRest = sessionDiExtra(authist, sharedMws)
 const { personRouterIo, personRouterRest, personService } = personDi(
   Router,
   Orm,
   authist,
+  sharedMws,
 )
 const { carRouterIo, carRouterRest } = carDi(
   Router,
   Orm,
   authist,
   personService,
+  sharedMws,
 )
-const { teapotRouterIo, teapotRouterRest } = teapotDi(Router, Orm, authist)
+const { teapotRouterIo, teapotRouterRest } = teapotDi(
+  Router,
+  Orm,
+  authist,
+  sharedMws,
+)
 
 export {
   authRouterRest,

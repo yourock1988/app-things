@@ -1,8 +1,8 @@
 import bindSelf from '@yourock88/bind-self'
 import type { Router as TRouter } from 'express'
 import type { TAuthist } from '../_pres/TAuthist.ts'
+import type { TSharedMiddlewares } from '../_pres/TSharedMiddlewares.ts'
 import type TOrm from '../_utils/Orm.ts'
-import IDrest from '../_pres/IDrest.ts'
 import Session from './domain/Session.ts'
 import SessionService from './domain/SessionService.ts'
 import SessionMapper from './infra/SessionMapper.ts'
@@ -21,9 +21,15 @@ export default function sessionDi(Router: typeof TRouter, Orm: typeof TOrm) {
     sessionMapper,
   )
   const sessionService = new SessionService(sessionRepositoryDb)
-  function sessionDiExtra(authist: TAuthist) {
+  function sessionDiExtra(authist: TAuthist, sharedMws: TSharedMiddlewares) {
     const { AUTHrest } = authist
-    const mwRest = { ...mwSessionRest, ID: IDrest, AUTH: AUTHrest }
+    const { IDrest, SESSIDrest } = sharedMws
+    const mwRest = {
+      ...mwSessionRest,
+      ID: IDrest,
+      SESSID: SESSIDrest,
+      AUTH: AUTHrest,
+    }
     const sessionControllerRest = new SessionControllerRest(sessionService)
     bindSelf(sessionControllerRest)
     const sessionRouterRest = newSessionRouterRest(
