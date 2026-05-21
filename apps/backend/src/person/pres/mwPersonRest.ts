@@ -1,5 +1,5 @@
 import { zPersonAddDto, zPersonUpdateDto } from '../../_domain/zPersonDtos.ts'
-import spawnMiddlewareValidatorRest from '../../_utils/spawnMiddlewareValidatorRest.ts'
+import spawnMiddlewareValidatorRest from '../../_pres/spawnMiddlewareValidatorRest.ts'
 
 const ADD = spawnMiddlewareValidatorRest('body', zPersonAddDto)
 const UPD = spawnMiddlewareValidatorRest('body', zPersonUpdateDto)

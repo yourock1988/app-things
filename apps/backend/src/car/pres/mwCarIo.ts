@@ -1,5 +1,5 @@
 import { zCarAddDto, zCarUpdateDto } from '../domain/zCarDtos.ts'
-import spawnMiddlewareValidatorIo from '../../_utils/spawnMiddlewareValidatorIo.ts'
+import spawnMiddlewareValidatorIo from '../../_pres/spawnMiddlewareValidatorIo.ts'
 
 const ADD = spawnMiddlewareValidatorIo('body', zCarAddDto)
 const UPD = spawnMiddlewareValidatorIo('body', zCarUpdateDto)

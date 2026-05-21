@@ -1,8 +1,8 @@
-import type { TAuthist } from '../_pres/TAuthist.ts'
+import type { TAuthist } from './TAuthist.ts'
 import type IAuthService from '../_domain/IAuthService.ts'
-import spawnMiddlewareAuthenticatorIo from '../_pres/spawnMiddlewareAuthenticatorIo.ts'
-import spawnMiddlewareAuthorizerIo from '../_pres/spawnMiddlewareAuthorizerIo.ts'
-import spawnMiddlewareAuthorizerRest from '../_pres/spawnMiddlewareAuthorizerRest.ts'
+import spawnMiddlewareAuthenticatorIo from './spawnMiddlewareAuthenticatorIo.ts'
+import spawnMiddlewareAuthorizerIo from './spawnMiddlewareAuthorizerIo.ts'
+import spawnMiddlewareAuthorizerRest from './spawnMiddlewareAuthorizerRest.ts'
 
 export default function authistDi(authService: IAuthService): TAuthist {
   return {

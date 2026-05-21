@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import Orm from './_utils/Orm.ts'
-import authistDi from './_infra/authistDi.ts'
+import authistDi from './_pres/authistDi.ts'
 import authDi from './auth/authDi.ts'
 import accountDi from './account/accountDi.ts'
 import sessionDi from './session/sessionDi.ts'

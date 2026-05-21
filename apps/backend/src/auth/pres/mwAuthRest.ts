@@ -2,7 +2,7 @@
 // аутх более урезанный вроде как должен быть
 
 import { zAccountGetDto, zAccountAddDto } from '../../_domain/zAccountDtos.ts'
-import spawnMiddlewareValidatorRest from '../../_utils/spawnMiddlewareValidatorRest.ts'
+import spawnMiddlewareValidatorRest from '../../_pres/spawnMiddlewareValidatorRest.ts'
 
 const SIGNUP = spawnMiddlewareValidatorRest('body', zAccountAddDto)
 const SIGNIN = spawnMiddlewareValidatorRest('body', zAccountGetDto)
