@@ -1,8 +1,8 @@
 import { zTeapotAddDto, zTeapotUpdateDto } from '../domain/zTeapotDtos.ts'
-import compileMiddlewareRest from '../../_utils/compileMiddlewareRest.ts'
+import spawnMiddlewareValidatorRest from '../../_utils/spawnMiddlewareValidatorRest.ts'
 
-const ADD = compileMiddlewareRest('body', zTeapotAddDto)
-const UPD = compileMiddlewareRest('body', zTeapotUpdateDto)
+const ADD = spawnMiddlewareValidatorRest('body', zTeapotAddDto)
+const UPD = spawnMiddlewareValidatorRest('body', zTeapotUpdateDto)
 
 const mwTeapotRest = { ADD, UPD }
 

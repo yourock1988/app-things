@@ -1,8 +1,8 @@
 import { zPersonAddDto, zPersonUpdateDto } from '../../_domain/zPersonDtos.ts'
-import compileMiddlewareIo from '../../_utils/compileMiddlewareIo.ts'
+import spawnMiddlewareValidatorIo from '../../_utils/spawnMiddlewareValidatorIo.ts'
 
-const ADD = compileMiddlewareIo('body', zPersonAddDto)
-const UPD = compileMiddlewareIo('body', zPersonUpdateDto)
+const ADD = spawnMiddlewareValidatorIo('body', zPersonAddDto)
+const UPD = spawnMiddlewareValidatorIo('body', zPersonUpdateDto)
 
 const mwPersonIo = { ADD, UPD }
 

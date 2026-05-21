@@ -1,8 +1,10 @@
+/* eslint-disable no-param-reassign */
+
 import type IAuthService from '../_domain/IAuthService.ts'
 
-/* eslint-disable no-param-reassign */
-export default function mwAuthorizeIo(authService: IAuthService) {
-  return function (ctx, args: any[], next: any) {
+// spawnMiddlewareAuthorizerIo
+export default function (authService: IAuthService) {
+  return (ctx, args: any[], next: any) => {
     const { id } = args?.at(0) ?? {}
     const { nickname } = ctx.socket.account
     const resource = ctx.socket.nsp.name

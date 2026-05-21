@@ -1,8 +1,10 @@
+/* eslint-disable no-param-reassign */
+
 import type IAuthService from '../_domain/IAuthService.ts'
 
-/* eslint-disable no-param-reassign */
-export default function mwAuthenticateIo(authService: IAuthService) {
-  return function (ctx, args: any[], next: any) {
+// spawnMiddlewareAuthenticatorIo
+export default function (authService: IAuthService) {
+  return (ctx, args: any[], next: any) => {
     const { sessionid } = ctx.socket.headersAuth
     const session = authService.authN(sessionid)
     if (!session) {

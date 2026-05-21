@@ -1,8 +1,10 @@
 import type { NextFunction, Request, Response } from 'express'
 import type IAuthService from '../_domain/IAuthService.ts'
 
-export default function mwAuthorizeRest(authService: IAuthService) {
-  return function (req: Request, res: Response, next: NextFunction) {
+// spawnMiddlewareAuthorizerRest
+// spawnMiddlewareAuthenticatorRest
+export default function (authService: IAuthService) {
+  return (req: Request, res: Response, next: NextFunction) => {
     const {
       cookies: { sessionid },
       route: { path },

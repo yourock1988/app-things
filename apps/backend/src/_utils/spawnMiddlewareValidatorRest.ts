@@ -3,6 +3,7 @@ import { z } from 'zod'
 
 type TVariant = 'body' | 'query' | 'params' | 'cookies'
 
+// spawnMiddlewareValidatorRest
 export default function (variant: TVariant, schema: z.ZodSchema) {
   return (req: Request, res: Response, next: NextFunction) => {
     const dto = req[variant]

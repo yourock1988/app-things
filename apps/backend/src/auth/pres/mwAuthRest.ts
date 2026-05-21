@@ -2,10 +2,10 @@
 // аутх более урезанный вроде как должен быть
 
 import { zAccountGetDto, zAccountAddDto } from '../../_domain/zAccountDtos.ts'
-import compileMiddlewareRest from '../../_utils/compileMiddlewareRest.ts'
+import spawnMiddlewareValidatorRest from '../../_utils/spawnMiddlewareValidatorRest.ts'
 
-const SIGNUP = compileMiddlewareRest('body', zAccountAddDto)
-const SIGNIN = compileMiddlewareRest('body', zAccountGetDto)
+const SIGNUP = spawnMiddlewareValidatorRest('body', zAccountAddDto)
+const SIGNIN = spawnMiddlewareValidatorRest('body', zAccountGetDto)
 
 const mwAuthRest = { SIGNUP, SIGNIN }
 

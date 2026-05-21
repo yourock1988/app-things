@@ -2,10 +2,10 @@ import {
   zSessionAddDto,
   zSessionUpdateDto,
 } from '../../_domain/zSessionDtos.ts'
-import compileMiddlewareRest from '../../_utils/compileMiddlewareRest.ts'
+import spawnMiddlewareValidatorRest from '../../_utils/spawnMiddlewareValidatorRest.ts'
 
-const ADD = compileMiddlewareRest('body', zSessionAddDto)
-const UPD = compileMiddlewareRest('body', zSessionUpdateDto)
+const ADD = spawnMiddlewareValidatorRest('body', zSessionAddDto)
+const UPD = spawnMiddlewareValidatorRest('body', zSessionUpdateDto)
 
 const mwSessionRest = { ADD, UPD }
 

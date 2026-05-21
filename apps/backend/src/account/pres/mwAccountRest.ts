@@ -2,10 +2,10 @@ import {
   zAccountAddDto,
   zAccountUpdFullDto,
 } from '../../_domain/zAccountDtos.ts'
-import compileMiddlewareRest from '../../_utils/compileMiddlewareRest.ts'
+import spawnMiddlewareValidatorRest from '../../_utils/spawnMiddlewareValidatorRest.ts'
 
-const ADD = compileMiddlewareRest('body', zAccountAddDto)
-const UPD = compileMiddlewareRest('body', zAccountUpdFullDto)
+const ADD = spawnMiddlewareValidatorRest('body', zAccountAddDto)
+const UPD = spawnMiddlewareValidatorRest('body', zAccountUpdFullDto)
 
 const mwAccountRest = { ADD, UPD }
 

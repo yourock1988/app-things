@@ -1,6 +1,6 @@
-import compileMiddlewareRest from '../_utils/compileMiddlewareRest.ts'
+import spawnMiddlewareValidatorRest from '../_utils/spawnMiddlewareValidatorRest.ts'
 import zCookiesSessId from '../_domain/zCookiesSessId.ts'
 
-const SESSIDrest = compileMiddlewareRest('cookies', zCookiesSessId)
+const SESSIDrest = spawnMiddlewareValidatorRest('cookies', zCookiesSessId)
 
 export default SESSIDrest

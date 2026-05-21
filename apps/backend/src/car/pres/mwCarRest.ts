@@ -1,8 +1,8 @@
 import { zCarAddDto, zCarUpdateDto } from '../domain/zCarDtos.ts'
-import compileMiddlewareRest from '../../_utils/compileMiddlewareRest.ts'
+import spawnMiddlewareValidatorRest from '../../_utils/spawnMiddlewareValidatorRest.ts'
 
-const ADD = compileMiddlewareRest('body', zCarAddDto)
-const UPD = compileMiddlewareRest('body', zCarUpdateDto)
+const ADD = spawnMiddlewareValidatorRest('body', zCarAddDto)
+const UPD = spawnMiddlewareValidatorRest('body', zCarUpdateDto)
 
 const mwCarRest = { ADD, UPD }
 

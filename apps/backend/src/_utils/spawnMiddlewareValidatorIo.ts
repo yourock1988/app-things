@@ -9,6 +9,7 @@ const dict = {
   body: 1,
 }
 
+// spawnMiddlewareValidatorIo
 export default function (variant: TVariant, schema: z.ZodSchema) {
   return (ctx, args: any[], next: any) => {
     const { headersAuth } = ctx.socket

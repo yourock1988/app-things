@@ -1,6 +1,6 @@
-import compileMiddlewareIo from '../_utils/compileMiddlewareIo.ts'
+import spawnMiddlewareValidatorIo from '../_utils/spawnMiddlewareValidatorIo.ts'
 import zCookiesSessId from '../_domain/zCookiesSessId.ts'
 
-const SESSIDio = compileMiddlewareIo('headersAuth', zCookiesSessId)
+const SESSIDio = spawnMiddlewareValidatorIo('headersAuth', zCookiesSessId)
 
 export default SESSIDio
