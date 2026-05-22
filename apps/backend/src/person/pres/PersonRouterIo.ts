@@ -16,14 +16,12 @@ export default class PersonRouterIo {
     this.personControllerIo.init(personNamespace, io)
   }
 
-  authN(socket: any, next: any) {
-    const ctx = { socket, eventName: 'authentication' }
-    this.mwPersonIo.AUTHN(ctx, null, next)
-  }
-
-  authZ(socket: any, next: any) {
-    const ctx = { socket, eventName: 'authorization' }
-    this.mwPersonIo.AUTHZ(ctx, null, next)
+  getMiddlewares() {
+    const { SESSID, AUTHN, AUTHZ } = this.mwPersonIo
+    SESSID.txt = 'invalid-sessionid'
+    AUTHN.txt = 'authentication'
+    AUTHZ.txt = 'authorization'
+    return [AUTHN, AUTHZ]
   }
 
   connector(socket: any) {

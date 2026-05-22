@@ -19,14 +19,12 @@ export default class TeapotRouterIo {
     this.teapotControllerIo.init(teapotNamespace, io)
   }
 
-  authN(socket, next) {
-    const ctx = { socket, eventName: 'authentication' }
-    this.mwTeapotIo.AUTHN(ctx, null, next)
-  }
-
-  authZ(socket, next) {
-    const ctx = { socket, eventName: 'authorization' }
-    this.mwTeapotIo.AUTHZ(ctx, null, next)
+  getMiddlewares() {
+    const { SESSID, AUTHN, AUTHZ } = this.mwTeapotIo
+    SESSID.txt = 'invalid-sessionid'
+    AUTHN.txt = 'authentication'
+    AUTHZ.txt = 'authorization'
+    return [AUTHN, AUTHZ]
   }
 
   connector(socket: any) {

@@ -1,5 +1,4 @@
 import type { ExtendedError, Server } from 'socket.io'
-import CarRouterIo from '../car/pres/CarRouterIo.ts'
 
 function preware(socket, next: (err?: ExtendedError) => void): void {
   const { headers, auth } = socket.handshake
@@ -16,21 +15,11 @@ export default class Bus {
   }
 
   use(pathName: string, router): void {
-    if (router instanceof CarRouterIo) {
-      const nsp = this.io.of(pathName).use(preware)
-      router.getMiddlewares().forEach(mw => {
-        nsp.use((socket, next) => mw({ socket, eventName: mw.txt }, null, next))
-      })
-      nsp.on('connection', router.connector)
-      router.init(nsp, this.io)
-    } else {
-      const nsp = this.io
-        .of(pathName)
-        .use(preware)
-        .use(router.authN)
-        .use(router.authZ)
-        .on('connection', router.connector)
-      router.init(nsp, this.io)
-    }
+    const nsp = this.io.of(pathName).use(preware)
+    router.getMiddlewares().forEach(mw => {
+      nsp.use((socket, next) => mw({ socket, eventName: mw.txt }, null, next))
+    })
+    nsp.on('connection', router.connector)
+    router.init(nsp, this.io)
   }
 }
