@@ -1,8 +1,9 @@
 import type { Namespace, Server, Socket } from 'socket.io'
+import type IRouterIo from '../../_domain/IRouterIo.ts'
 import type CarControllerIo from './CarControllerIo.ts'
 import listen from '../../_utils/listen.ts'
 
-export default class CarRouterIo {
+export default class CarRouterIo implements IRouterIo {
   private readonly carControllerIo: CarControllerIo
 
   private readonly mwCarIo: any
@@ -16,7 +17,7 @@ export default class CarRouterIo {
     this.carControllerIo.init(carNamespace, io)
   }
 
-  getMiddlewares() {
+  getMiddlewares(): any[] {
     const { SESSID, AUTHN, AUTHZ } = this.mwCarIo
     return [SESSID, AUTHN, AUTHZ]
   }

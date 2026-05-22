@@ -1,11 +1,12 @@
 import { TEAPOT } from '@app-x/cmd'
 import type { Namespace, Server } from 'socket.io'
+import type IRouterIo from '../../_domain/IRouterIo.ts'
 import type TeapotControllerIo from './TeapotControllerIo.ts'
 import listen from '../../_utils/listen.ts'
 
 const { CL } = TEAPOT
 
-export default class TeapotRouterIo {
+export default class TeapotRouterIo implements IRouterIo {
   private readonly teapotControllerIo: TeapotControllerIo
 
   private readonly mwTeapotIo: any

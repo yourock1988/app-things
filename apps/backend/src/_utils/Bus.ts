@@ -1,4 +1,5 @@
 import type { ExtendedError, Server } from 'socket.io'
+import type IRouterIo from '../_domain/IRouterIo.ts'
 
 function preware(socket, next: (err?: ExtendedError) => void): void {
   const { headers, auth } = socket.handshake
@@ -14,7 +15,7 @@ export default class Bus {
     this.io = io
   }
 
-  use(pathName: string, router): void {
+  use(pathName: string, router: IRouterIo): void {
     const nsp = this.io.of(pathName).use(preware)
     router.getMiddlewares().forEach(mw => {
       nsp.use((socket, next) => mw({ socket, eventName: mw.msg }, null, next))

@@ -1,8 +1,9 @@
 import type { Namespace, Server } from 'socket.io'
+import type IRouterIo from '../../_domain/IRouterIo.ts'
 import type PersonControllerIo from './PersonControllerIo.ts'
 import listen from '../../_utils/listen.ts'
 
-export default class PersonRouterIo {
+export default class PersonRouterIo implements IRouterIo {
   private readonly personControllerIo: PersonControllerIo
 
   private readonly mwPersonIo: any
