@@ -17,7 +17,7 @@ export default class Bus {
   use(pathName: string, router): void {
     const nsp = this.io.of(pathName).use(preware)
     router.getMiddlewares().forEach(mw => {
-      nsp.use((socket, next) => mw({ socket, eventName: mw.txt }, null, next))
+      nsp.use((socket, next) => mw({ socket, eventName: mw.msg }, null, next))
     })
     nsp.on('connection', router.connector)
     router.init(nsp, this.io)

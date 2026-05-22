@@ -11,7 +11,10 @@ const dict = {
 }
 
 // spawnMiddlewareValidatorIo
-export default function (variant: TVariant, schema: z.ZodSchema) {
+export default function (
+  variant: TVariant,
+  schema: z.ZodSchema,
+): ((ctx: any, args: any[], next: any) => void) & { msg?: string } {
   return (ctx, args: any[], next: any) => {
     const { headersAuth } = ctx.socket
     const dto = variant === 'headersAuth' ? headersAuth : args.at(dict[variant])

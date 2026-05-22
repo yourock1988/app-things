@@ -12,7 +12,7 @@ export type TSharedMiddlewares = {
     res: Response,
     next: NextFunction,
   ) => void
-  SESSIDio: (ctx: any, args: any[], next: any) => void
+  SESSIDio: ((ctx: any, args: any[], next: any) => void) & { msg?: string }
   SESSIDrest: (req: Request, res: Response, next: NextFunction) => void
   ACK: (ctx: any, args: any[], next: any) => void
 }

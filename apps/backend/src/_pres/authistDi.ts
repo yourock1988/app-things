@@ -5,9 +5,12 @@ import spawnMiddlewareAuthorizerIo from './spawnMiddlewareAuthorizerIo.ts'
 import spawnMiddlewareAuthorizerRest from './spawnMiddlewareAuthorizerRest.ts'
 
 export default function authistDi(authService: IAuthService): TAuthist {
-  return {
+  const authist = {
     AUTHNio: spawnMiddlewareAuthenticatorIo(authService),
     AUTHZio: spawnMiddlewareAuthorizerIo(authService),
     AUTHrest: spawnMiddlewareAuthorizerRest(authService),
   }
+  authist.AUTHNio.msg = 'authentication'
+  authist.AUTHZio.msg = 'authorization'
+  return authist
 }

@@ -6,11 +6,13 @@ import zParamsIdDto from '../_domain/zParamsIdDto.ts'
 import ACK from './ACK.ts'
 
 export default function sharedMiddlewaresDi(): TSharedMiddlewares {
-  return {
+  const sharedMiddlewares = {
     IDio: middlewareValidatorIo('params', zParamsIdDto),
     IDrest: middlewareValidatorRest('params', zParamsIdDto),
     SESSIDio: middlewareValidatorIo('headersAuth', zCookiesSessId),
     SESSIDrest: middlewareValidatorRest('cookies', zCookiesSessId),
     ACK,
   }
+  sharedMiddlewares.SESSIDio.msg = 'invalid-sessionid'
+  return sharedMiddlewares
 }

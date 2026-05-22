@@ -20,10 +20,7 @@ export default class TeapotRouterIo {
   }
 
   getMiddlewares() {
-    const { SESSID, AUTHN, AUTHZ } = this.mwTeapotIo
-    SESSID.txt = 'invalid-sessionid'
-    AUTHN.txt = 'authentication'
-    AUTHZ.txt = 'authorization'
+    const { AUTHN, AUTHZ } = this.mwTeapotIo
     return [AUTHN, AUTHZ]
   }
 

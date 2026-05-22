@@ -17,10 +17,7 @@ export default class PersonRouterIo {
   }
 
   getMiddlewares() {
-    const { SESSID, AUTHN, AUTHZ } = this.mwPersonIo
-    SESSID.txt = 'invalid-sessionid'
-    AUTHN.txt = 'authentication'
-    AUTHZ.txt = 'authorization'
+    const { AUTHN, AUTHZ } = this.mwPersonIo
     return [AUTHN, AUTHZ]
   }
 

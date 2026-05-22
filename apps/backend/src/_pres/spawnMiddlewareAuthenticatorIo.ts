@@ -3,7 +3,9 @@
 import type IAuthService from '../_domain/IAuthService.ts'
 
 // spawnMiddlewareAuthenticatorIo
-export default function (authService: IAuthService) {
+export default function (
+  authService: IAuthService,
+): ((ctx: any, args: any[], next: any) => void) & { msg?: string } {
   return (ctx, args: any[], next: any) => {
     const { sessionid } = ctx.socket.headersAuth
     const session = authService.authN(sessionid)

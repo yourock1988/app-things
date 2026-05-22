@@ -3,7 +3,9 @@
 import type IAuthService from '../_domain/IAuthService.ts'
 
 // spawnMiddlewareAuthorizerIo
-export default function (authService: IAuthService) {
+export default function (
+  authService: IAuthService,
+): ((ctx: any, args: any[], next: any) => void) & { msg?: string } {
   return (ctx, args: any[], next: any) => {
     const { id } = args?.at(0) ?? {}
     const { nickname } = ctx.socket.account

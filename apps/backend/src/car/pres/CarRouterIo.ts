@@ -18,9 +18,6 @@ export default class CarRouterIo {
 
   getMiddlewares() {
     const { SESSID, AUTHN, AUTHZ } = this.mwCarIo
-    SESSID.txt = 'invalid-sessionid'
-    AUTHN.txt = 'authentication'
-    AUTHZ.txt = 'authorization'
     return [SESSID, AUTHN, AUTHZ]
   }
 
