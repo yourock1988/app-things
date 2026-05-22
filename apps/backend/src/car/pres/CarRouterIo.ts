@@ -1,7 +1,6 @@
 import type { Namespace, Server, Socket } from 'socket.io'
 import type CarControllerIo from './CarControllerIo.ts'
 import listen from '../../_utils/listen.ts'
-import CoR from '../../_utils/CoR.ts'
 
 export default class CarRouterIo {
   private readonly carControllerIo: CarControllerIo
@@ -17,17 +16,12 @@ export default class CarRouterIo {
     this.carControllerIo.init(carNamespace, io)
   }
 
-  authN(socket: Socket, next): void {
-    const message = 'invalid-sessionid'
-    const ctx = { socket, eventName: 'authentication' }
-    const args = [null, null, () => next({ message })]
-    const { SESSID, AUTHN } = this.mwCarIo
-    CoR(SESSID, AUTHN, () => next())(ctx, args)
-  }
-
-  authZ(socket, next): void {
-    const ctx = { socket, eventName: 'authorization' }
-    this.mwCarIo.AUTHZ(ctx, null, next)
+  getMiddlewares() {
+    const { SESSID, AUTHN, AUTHZ } = this.mwCarIo
+    SESSID.txt = 'invalid-sessionid'
+    AUTHN.txt = 'authentication'
+    AUTHZ.txt = 'authorization'
+    return [SESSID, AUTHN, AUTHZ]
   }
 
   connector(socket: Socket): void {

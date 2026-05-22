@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable no-lonely-if */
 
 import { z } from 'zod'
 
@@ -20,7 +21,8 @@ export default function (variant: TVariant, schema: z.ZodSchema) {
       if (variant !== 'headersAuth') args[dict[variant]] = result.data
       next()
     } else {
-      ack?.(result.error.format()) // 400
+      if (variant !== 'headersAuth') ack?.(result.error.format())
+      else next({ message: ctx.eventName })
     }
   }
 }
