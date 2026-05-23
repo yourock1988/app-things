@@ -1,10 +1,11 @@
 import type { NextFunction, Request, Response } from 'express'
+import type { RequestHandler } from 'express-serve-static-core'
 import type IAuthService from '../_domain/IAuthService.ts'
 
 // spawnMiddlewareAuthorizerRest
 // spawnMiddlewareAuthenticatorRest
-export default function (authService: IAuthService) {
-  return (req: Request, res: Response, next: NextFunction) => {
+export default function (authService: IAuthService): RequestHandler {
+  return (req: Request, res: Response, next: NextFunction): void => {
     const {
       cookies: { sessionid },
       route: { path },

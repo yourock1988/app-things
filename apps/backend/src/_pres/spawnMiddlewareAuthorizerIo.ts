@@ -1,14 +1,13 @@
 /* eslint-disable no-param-reassign */
 
 import type IAuthService from '../_domain/IAuthService.ts'
+import type { TMwareIo, TMwareIoCtx } from './TMwareIo.ts'
 
 // spawnMiddlewareAuthorizerIo
-export default function (
-  authService: IAuthService,
-): ((ctx: any, args: any[], next: any) => void) & { msg?: string } {
-  return (ctx, args: any[], next: any) => {
+export default function (authService: IAuthService): TMwareIo {
+  return (ctx: TMwareIoCtx, args: any[], next: any): void => {
     const { id } = args?.at(0) ?? {}
-    const { nickname } = ctx.socket.account
+    const { nickname } = ctx.socket
     const resource = ctx.socket.nsp.name
     const method = ctx.eventName
     const isAccessGranted = authService.authZ(nickname, resource, method, id)

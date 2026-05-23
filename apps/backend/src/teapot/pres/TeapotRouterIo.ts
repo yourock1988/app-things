@@ -2,6 +2,7 @@ import { TEAPOT } from '@app-x/cmd'
 import type { Namespace, Server } from 'socket.io'
 import type IRouterIo from '../../_domain/IRouterIo.ts'
 import type TeapotControllerIo from './TeapotControllerIo.ts'
+import type { TMwareIo } from '../../_pres/TMwareIo.ts'
 import listen from '../../_utils/listen.ts'
 
 const { CL } = TEAPOT
@@ -9,9 +10,12 @@ const { CL } = TEAPOT
 export default class TeapotRouterIo implements IRouterIo {
   private readonly teapotControllerIo: TeapotControllerIo
 
-  private readonly mwTeapotIo: any
+  private readonly mwTeapotIo: Record<string, TMwareIo>
 
-  constructor(teapotControllerIo: TeapotControllerIo, mwTeapotIo: any) {
+  constructor(
+    teapotControllerIo: TeapotControllerIo,
+    mwTeapotIo: Record<string, TMwareIo>,
+  ) {
     this.teapotControllerIo = teapotControllerIo
     this.mwTeapotIo = mwTeapotIo
   }
@@ -20,8 +24,9 @@ export default class TeapotRouterIo implements IRouterIo {
     this.teapotControllerIo.init(teapotNamespace, io)
   }
 
-  getMiddlewares() {
+  getMiddlewares(): TMwareIo[] {
     const { AUTHN, AUTHZ } = this.mwTeapotIo
+    if (!AUTHN || !AUTHZ) throw new Error('no mware')
     return [AUTHN, AUTHZ]
   }
 

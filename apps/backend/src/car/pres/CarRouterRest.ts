@@ -1,14 +1,17 @@
 import type { Router as TRouter } from 'express'
+import type { RequestHandler } from 'express-serve-static-core'
 
 export default function (
   Router: typeof TRouter,
   carControllerRest: any,
-  mwCarRest: any,
+  mwCarRest: Record<string, RequestHandler>,
 ): TRouter {
   const router = Router()
   const { ID, ADD, UPD, AUTH, SESSID } = mwCarRest
   const { getAll, getById, getFullById, add, updateById, removeById } =
     carControllerRest
+
+  if (!ID || !ADD || !UPD || !AUTH || !SESSID) throw new Error('no mware')
 
   router.get('', getAll)
   router.get('/:id', ID, getById)

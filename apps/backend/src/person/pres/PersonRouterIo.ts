@@ -1,14 +1,18 @@
 import type { Namespace, Server } from 'socket.io'
 import type IRouterIo from '../../_domain/IRouterIo.ts'
 import type PersonControllerIo from './PersonControllerIo.ts'
+import type { TMwareIo } from '../../_pres/TMwareIo.ts'
 import listen from '../../_utils/listen.ts'
 
 export default class PersonRouterIo implements IRouterIo {
   private readonly personControllerIo: PersonControllerIo
 
-  private readonly mwPersonIo: any
+  private readonly mwPersonIo: Record<string, TMwareIo>
 
-  constructor(personControllerIo: PersonControllerIo, mwPersonIo: any) {
+  constructor(
+    personControllerIo: PersonControllerIo,
+    mwPersonIo: Record<string, TMwareIo>,
+  ) {
     this.personControllerIo = personControllerIo
     this.mwPersonIo = mwPersonIo
   }
@@ -17,8 +21,9 @@ export default class PersonRouterIo implements IRouterIo {
     this.personControllerIo.init(personNamespace, io)
   }
 
-  getMiddlewares() {
+  getMiddlewares(): TMwareIo[] {
     const { AUTHN, AUTHZ } = this.mwPersonIo
+    if (!AUTHN || !AUTHZ) throw new Error('no mware')
     return [AUTHN, AUTHZ]
   }
 

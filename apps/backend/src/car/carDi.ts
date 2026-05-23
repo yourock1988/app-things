@@ -21,8 +21,8 @@ export default function carDi(
   Router: typeof TRouter,
   Orm: typeof TOrm,
   authist: TAuthist,
-  personService: IPersonService,
   sharedMws: TSharedMiddlewares,
+  personService: IPersonService,
 ) {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
   const { IDrest, SESSIDrest, IDio, SESSIDio, ACK } = sharedMws

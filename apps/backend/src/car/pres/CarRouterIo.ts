@@ -1,14 +1,18 @@
 import type { Namespace, Server, Socket } from 'socket.io'
 import type IRouterIo from '../../_domain/IRouterIo.ts'
 import type CarControllerIo from './CarControllerIo.ts'
+import type { TMwareIo } from '../../_pres/TMwareIo.ts'
 import listen from '../../_utils/listen.ts'
 
 export default class CarRouterIo implements IRouterIo {
   private readonly carControllerIo: CarControllerIo
 
-  private readonly mwCarIo: any
+  private readonly mwCarIo: Record<string, TMwareIo>
 
-  constructor(carControllerIo: CarControllerIo, mwCarIo) {
+  constructor(
+    carControllerIo: CarControllerIo,
+    mwCarIo: Record<string, TMwareIo>,
+  ) {
     this.carControllerIo = carControllerIo
     this.mwCarIo = mwCarIo
   }
@@ -17,8 +21,9 @@ export default class CarRouterIo implements IRouterIo {
     this.carControllerIo.init(carNamespace, io)
   }
 
-  getMiddlewares(): any[] {
+  getMiddlewares(): TMwareIo[] {
     const { SESSID, AUTHN, AUTHZ } = this.mwCarIo
+    if (!SESSID || !AUTHN || !AUTHZ) throw new Error('no mware')
     return [SESSID, AUTHN, AUTHZ]
   }
 

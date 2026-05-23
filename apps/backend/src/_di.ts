@@ -31,8 +31,8 @@ const { carRouterIo, carRouterRest } = carDi(
   Router,
   Orm,
   authist,
-  personService,
   sharedMws,
+  personService,
 )
 const { teapotRouterIo, teapotRouterRest } = teapotDi(
   Router,

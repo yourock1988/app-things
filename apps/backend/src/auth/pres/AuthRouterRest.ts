@@ -1,13 +1,16 @@
 import type { Router as TRouter } from 'express'
+import type { RequestHandler } from 'express-serve-static-core'
 
 export default function (
   Router: typeof TRouter,
   authControllerRest: any,
-  mwAuthRest: any,
+  mwAuthRest: Record<string, RequestHandler>,
 ): TRouter {
   const router = Router()
   const { SIGNUP, SIGNIN } = mwAuthRest
   const { signUp, signIn } = authControllerRest
+
+  if (!SIGNUP || !SIGNIN) throw new Error('no mware')
 
   router.post('/sign-up', SIGNUP, signUp)
   router.post('/sign-in', SIGNIN, signIn)

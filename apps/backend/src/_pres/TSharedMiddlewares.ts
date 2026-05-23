@@ -1,18 +1,10 @@
-import type {
-  NextFunction,
-  ParamsDictionary,
-  Request,
-  Response,
-} from 'express-serve-static-core'
+import type { RequestHandler } from 'express-serve-static-core'
+import type { TMwareIo } from './TMwareIo.ts'
 
 export type TSharedMiddlewares = {
-  IDio: (ctx: any, args: any[], next: any) => void
-  IDrest: (
-    req: Request<ParamsDictionary, any, any, any, Record<string, any>>,
-    res: Response,
-    next: NextFunction,
-  ) => void
-  SESSIDio: ((ctx: any, args: any[], next: any) => void) & { msg?: string }
-  SESSIDrest: (req: Request, res: Response, next: NextFunction) => void
-  ACK: (ctx: any, args: any[], next: any) => void
+  IDio: TMwareIo
+  IDrest: RequestHandler
+  SESSIDio: TMwareIo
+  SESSIDrest: RequestHandler
+  ACK: TMwareIo
 }
