@@ -19,5 +19,3 @@ app.use(router)
 app.use(store)
 
 window.vm = app.mount('#app')
-
-var x = 42

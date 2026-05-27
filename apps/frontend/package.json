@@ -14,10 +14,6 @@
     "lint:vue": "eslint ./src --ext .js,.vue",
     "lint-staged": "lint-staged"
   },
-  "lint-staged": {
-    "*.js": "eslint --max-warnings 2",
-    "*.vue": "eslint --max-warnings 2"
-  },
   "browserslist": [
     "> 0.01%",
     "last 15 versions",
