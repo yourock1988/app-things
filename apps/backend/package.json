@@ -21,9 +21,6 @@
     "dist": "run-s swc:dist static:dist",
     "dev": "run-p swc ts"
   },
-  "lint-staged": {
-    "*.js": "eslint"
-  },
   "dependencies": {
     "@app-x/cmd": "^0.0.1",
     "@types/express-serve-static-core": "^5.1.1",

@@ -31,6 +31,7 @@ const typescriptConfig = {
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
+    // 'no-console': 'warn',
     // '@typescript-eslint/explicit-function-return-type': 'error',
     // '@typescript-eslint/explicit-module-boundary-types': 'error',
     // '@typescript-eslint/max-params': ['error', { max: 1 }],

@@ -8,15 +8,6 @@ import teapotDi from './teapot/teapotDi.ts'
 import personDi from './person/personDi.ts'
 import carDi from './car/carDi.ts'
 import sharedMiddlewaresDi from './_pres/sharedMiddlewaresDi.ts'
-import _di from './_di.ts'
-
-var x: number = 's'
-
-function fx(a: any) {
-  return 42
-}
-
-console.log(fx())
 
 const sharedMws = sharedMiddlewaresDi()
 const { accountService, accountDiExtra } = accountDi(Router, Orm)
