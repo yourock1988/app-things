@@ -24,11 +24,6 @@
   "lint-staged": {
     "*.js": "eslint"
   },
-  "eslintConfig": {
-    "extends": [
-      "../../packages/eslint-config/node.json"
-    ]
-  },
   "dependencies": {
     "@app-x/cmd": "^0.0.1",
     "@types/express-serve-static-core": "^5.1.1",
