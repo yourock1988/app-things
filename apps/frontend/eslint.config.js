@@ -6,6 +6,5 @@ export default antfu({
   rules: {
     'node/prefer-global/process': 'off',
     'perfectionist/sort-imports': 'off',
-    // 'vue/multi-word-component-names': 'off',
   },
 })

@@ -4,15 +4,7 @@
   "author": "YouROCK",
   "license": "MIT",
   "type": "module",
-  "description": "eslint configuration files",
-  "exports": {
-    "./vue-js": "./vue.js",
-    "./node-ts": "./node-ts.js"
-  },
-  "files": [
-    "vue-js.js",
-    "node-ts.js"
-  ],
+  "description": "eslint dependencies",
   "devDependencies": {
     "@antfu/eslint-config": "^8.2.0",
     "@eslint/js": "^10.0.1",
