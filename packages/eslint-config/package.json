@@ -6,25 +6,22 @@
   "type": "module",
   "description": "eslint configuration files",
   "exports": {
-    "./vue": "./vue.json",
-    "./node": "./node.json",
-    "./node-ts": "./node-ts.js",
-    ".": "./node.json"
+    "./vue-js": "./vue.js",
+    "./node-ts": "./node-ts.js"
   },
   "files": [
-    "vue.json",
+    "vue-js.js",
     "node-ts.js"
   ],
   "devDependencies": {
+    "@antfu/eslint-config": "^8.2.0",
     "@eslint/js": "^10.0.1",
     "@typescript-eslint/parser": "^8.59.1",
     "eslint": "^10.2.1",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-boundaries": "^6.0.2",
     "eslint-plugin-import-x": "^4.16.2",
-    "eslint-plugin-vue": "^10.9.0",
     "globals": "^17.5.0",
-    "typescript-eslint": "^8.59.1",
-    "vue-eslint-parser": "^10.4.0"
+    "typescript-eslint": "^8.59.1"
   }
 }
