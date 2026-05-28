@@ -9,6 +9,8 @@
     "packages/*"
   ],
   "scripts": {
+    "git:hook": "git config core.hooksPath git-hooks",
+    "git:hook:clean": "git config --unset core.hooksPath",
     "lint-staged:be": "npm run lint-staged --workspace=@app-x/backend",
     "lint-staged:fe": "npm run lint-staged --workspace=@app-x/frontend",
     "lint-staged": "run-s lint-staged:be lint-staged:fe",
