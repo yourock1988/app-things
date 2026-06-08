@@ -8,19 +8,19 @@ export default class TeapotOnline {
     this.map = new Map()
   }
 
-  isOnlineById(id: number) {
+  isOnlineById(id: number): boolean {
     return this.map.has(id)
   }
 
-  getAll() {
+  getAll(): MapIterator<Teapot> {
     return this.map.values()
   }
 
-  getById(id: number) {
+  getById(id: number): Teapot | null {
     return this.map.get(id) ?? null
   }
 
-  join(teapot: Teapot) {
+  join(teapot: Teapot): boolean {
     if (this.isOnlineById(teapot.id)) return false
     // eslint-disable-next-line no-param-reassign
     teapot.isOnline = true
@@ -28,7 +28,7 @@ export default class TeapotOnline {
     return true
   }
 
-  leaveById(id: number) {
+  leaveById(id: number): boolean {
     // при выходе нужно сохранить состояние в базу данных
     const teapot = this.getById(id)
     if (!teapot) return false

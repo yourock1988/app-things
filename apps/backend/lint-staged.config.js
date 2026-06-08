@@ -1,7 +1,7 @@
 export default {
   '*.ts': [
     'prettier --check',
-    'eslint --max-warnings 0',
+    'eslint --max-warnings 0 --no-warn-ignored',
     () => 'npx tsc --noEmit',
   ],
 }

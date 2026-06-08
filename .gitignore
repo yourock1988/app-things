@@ -2,6 +2,7 @@ coverage/
 ssl_cert/
 build/
 dist/
+out/
 node_modules/
 npm-debug.log
 logs/

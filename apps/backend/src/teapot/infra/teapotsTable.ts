@@ -1,5 +1,6 @@
 import type { TTeapotRecord } from './TTeapotRecord.ts'
 
+// eslint-disable-next-line no-restricted-syntax
 const teapotsTable: TTeapotRecord[] = [
   {
     id: 4201,

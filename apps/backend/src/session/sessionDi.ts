@@ -12,7 +12,13 @@ import SessionControllerRest from './pres/SessionControllerRest.ts'
 import newSessionRouterRest from './pres/SessionRouterRest.ts'
 import mwSessionRest from './pres/mwSessionRest.ts'
 
-export default function sessionDi(Router: typeof TRouter, Orm: typeof TOrm) {
+export default function sessionDi(
+  Router: typeof TRouter,
+  Orm: typeof TOrm,
+): {
+  sessionService: SessionService
+  sessionDiExtra: (authist: TAuthist, sharedMws: TSharedMiddlewares) => TRouter
+} {
   const sessionsOrm = new Orm(sessionsTable)
   const sessionMapper = new SessionMapper(Session)
   bindSelf(sessionMapper)

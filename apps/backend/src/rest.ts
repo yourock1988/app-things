@@ -34,7 +34,7 @@ rest.use('/*unknown', (req: Request<TParams>, res: Response) => {
   const message = `Неизвестный маршрут ${req.params.unknown}`
   res.status(404).send(message)
 })
-rest.use((err: any, req: Request, res: Response, next: NextFunction) => {
+rest.use((err: any, _: unknown, res: Response, next: NextFunction) => {
   if (err && 'body' in err && err.status === 400) {
     const message = `Невалидный JSON: ${err.body}`
     return res.status(400).send({ _errors: [message] })
