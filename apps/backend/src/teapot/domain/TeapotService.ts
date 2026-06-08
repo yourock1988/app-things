@@ -2,6 +2,7 @@ import EventEmitter from 'node:events'
 import type { ITeapotRepository } from './ITeapotRepository.ts'
 import type { TTeapotAddDto, TTeapotUpdateDto } from './TTeapotDtos.ts'
 import type Teapot from './Teapot.ts'
+// eslint-disable-next-line boundaries/dependencies
 import type TeapotMapper from '../infra/TeapotMapper.ts' // ???
 import type TeapotOnline from './TeapotOnline.ts'
 
@@ -33,8 +34,8 @@ export default class TeapotService extends EventEmitter {
     return this.teapotOnline.getById(id) ?? this.teapotRepository.getById(id)
   }
 
-  add(dto: TTeapotAddDto): Teapot {
-    return this.teapotRepository.add(dto)
+  add(dtoFull: TTeapotAddDto & { accountId: number }): Teapot {
+    return this.teapotRepository.add(dtoFull)
   }
 
   updateById(id: number, dto: TTeapotUpdateDto): Teapot | null {

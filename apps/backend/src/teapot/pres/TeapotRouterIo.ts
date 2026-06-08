@@ -1,5 +1,5 @@
 import { TEAPOT } from '@app-x/cmd'
-import type { Namespace, Server } from 'socket.io'
+import type { Namespace, Server, Socket } from 'socket.io'
 import type IRouterIo from '../../_domain/IRouterIo.ts'
 import type TeapotControllerIo from './TeapotControllerIo.ts'
 import type { TMwareIo } from '../../_pres/TMwareIo.ts'
@@ -20,7 +20,7 @@ export default class TeapotRouterIo implements IRouterIo {
     this.mwTeapotIo = mwTeapotIo
   }
 
-  public init(teapotNamespace: Namespace, io: Server) {
+  init(teapotNamespace: Namespace, io: Server): void {
     this.teapotControllerIo.init(teapotNamespace, io)
   }
 
@@ -30,7 +30,7 @@ export default class TeapotRouterIo implements IRouterIo {
     return [AUTHN, AUTHZ]
   }
 
-  connector(socket: any) {
+  connector(socket: Socket): void {
     const { teapotControllerIo, mwTeapotIo } = this
     const { ID, ADD, UPD, AUTHZ } = mwTeapotIo
     const {
@@ -62,7 +62,7 @@ export default class TeapotRouterIo implements IRouterIo {
       .on(CL.TURN_DRAIN, AUTHZ, handleDrain)
   }
 
-  getMiddleware() {
+  getMiddleware(): Record<string, TMwareIo> {
     return this.mwTeapotIo
   }
 }

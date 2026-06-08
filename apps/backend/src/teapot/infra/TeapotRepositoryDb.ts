@@ -25,8 +25,8 @@ export default class TeapotRepositoryDb implements ITeapotRepository {
     return record ? this.teapotMapper.toModel(record) : null
   }
 
-  add(dto: TTeapotAddDto): Teapot {
-    const record = this.teapotMapper.toRecord(dto)
+  add(dtoFull: TTeapotAddDto & { accountId: number }): Teapot {
+    const record = this.teapotMapper.toRecord(dtoFull)
     const appendedRecord = this.orm.insert(record)
     return this.teapotMapper.toModel(appendedRecord)
   }

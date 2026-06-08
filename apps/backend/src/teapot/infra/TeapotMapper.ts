@@ -1,8 +1,6 @@
-import type { TTeapotUpdateDto } from '../domain/TTeapotDtos.ts'
+import type { TTeapotAddDto, TTeapotUpdateDto } from '../domain/TTeapotDtos.ts'
 import type { TTeapotRecord } from './TTeapotRecord.ts'
 import type TTeapot from '../domain/Teapot.ts'
-
-// TTeapotAddDto
 
 export default class TeapotMapper {
   private readonly Teapot: typeof TTeapot
@@ -17,11 +15,11 @@ export default class TeapotMapper {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  toRecord(dto: any): TTeapotRecord {
+  toRecord(dtoFull: TTeapotAddDto & { accountId: number }): TTeapotRecord {
     return {
       id: -1,
-      temperature: dto.temperature,
-      accountId: dto.accountId,
+      temperature: dtoFull.temperature,
+      accountId: dtoFull.accountId,
       // ongoing: dto.ongoing,
     }
   }
