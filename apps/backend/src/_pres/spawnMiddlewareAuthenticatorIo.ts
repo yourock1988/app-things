@@ -5,7 +5,7 @@ import type { TMwareIo, TMwareIoCtx } from './TMwareIo.ts'
 
 // spawnMiddlewareAuthenticatorIo
 export default function (authService: IAuthService): TMwareIo {
-  return (ctx: TMwareIoCtx, args: any[], next: any): void => {
+  return (ctx: TMwareIoCtx, _: any[], next: any): void => {
     const { sessionid } = ctx.socket.headersAuth
     const session = authService.authN(sessionid)
     if (!session) {

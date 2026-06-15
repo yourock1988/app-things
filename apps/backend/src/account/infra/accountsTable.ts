@@ -1,5 +1,6 @@
 import type { TAccountRecord } from './TAccountRecord.ts'
 
+// eslint-disable-next-line no-restricted-syntax
 const accountsTable: TAccountRecord[] = [
   {
     id: 1,

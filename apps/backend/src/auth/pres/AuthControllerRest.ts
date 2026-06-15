@@ -1,9 +1,5 @@
-import type { Request, Response } from 'express'
+import type { RequestHandler } from 'express-serve-static-core'
 import type IAuthService from '../../_domain/IAuthService.ts'
-import type {
-  TAccountAddDto,
-  TAccountGetDto,
-} from '../../_domain/TAccountDtos.ts'
 
 export default class AuthControllerRest {
   private readonly authService: IAuthService
@@ -12,15 +8,15 @@ export default class AuthControllerRest {
     this.authService = authService
   }
 
-  signUp(req: Request, res: Response): void {
-    const dto: TAccountAddDto = req.body
+  signUp: RequestHandler = (req, res) => {
+    const dto = req.body
     const profile = this.authService.signUp(dto)
     if (profile) res.status(201).json(profile)
     else res.status(409).send()
   }
 
-  signIn(req: Request, res: Response): void {
-    const dto: TAccountGetDto = req.body
+  signIn: RequestHandler = (req, res) => {
+    const dto = req.body
     const session = this.authService.signIn(dto)
     if (session) res.status(201).json(session)
     else res.status(404).send()

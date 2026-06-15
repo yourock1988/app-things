@@ -28,11 +28,11 @@ export default class AuthService implements IAuthService {
     return session
   }
 
-  authZ(nickname: string, resource: string, method: string, id?: any): boolean {
+  authZ(nickname: string, from: string, method: string, id?: number): boolean {
     const account = this.accountService.getByNickname(nickname)
     if (!account) return false
-    const isOwner = id && ACL[resource]?.[id] === nickname
-    const permissions = RBAC[resource]
+    const isOwner = id && ACL[from]?.[id] === nickname
+    const permissions = RBAC[from]
     const hasAccess = permissions?.[account.role]?.includes(method)
     const hasControl = isOwner && permissions?.owner?.includes(method)
     if (hasAccess || hasControl) {

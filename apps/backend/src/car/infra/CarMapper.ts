@@ -26,7 +26,7 @@ export default class CarMapper {
   // eslint-disable-next-line class-methods-use-this
   toRecord(dto: TCarAddDto): TCarRecord {
     // создать/обновить запись Person и выковырять из неё id
-    const carRecord: TCarRecord = {
+    return {
       id: -1,
       type: dto.type,
       brand: dto.brand,
@@ -38,6 +38,5 @@ export default class CarMapper {
       isRunning: Math.random() > 0.5,
       personId: 101,
     }
-    return carRecord
   }
 }

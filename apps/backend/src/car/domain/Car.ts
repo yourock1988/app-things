@@ -1,14 +1,14 @@
 export default class Car {
   /* eslint-disable lines-between-class-members */
-  private readonly id: number
-  private readonly type: string
-  private readonly brand: string
-  private readonly model: string
-  private readonly price: number
-  private readonly engine: string
-  private readonly hasTurbo: boolean
-  private readonly hp: number
-  public readonly personId: number
+  readonly id: number
+  readonly type: string
+  readonly brand: string
+  readonly model: string
+  readonly price: number
+  readonly engine: string
+  readonly hasTurbo: boolean
+  readonly hp: number
+  readonly personId: number
   /* eslint-enable lines-between-class-members */
 
   constructor(
@@ -38,7 +38,7 @@ export default class Car {
     return Math.random() > 0.5
   }
 
-  toJSON() {
+  toJSON(): Car {
     return { ...this, isRunning: this.isRunning() }
   }
 }

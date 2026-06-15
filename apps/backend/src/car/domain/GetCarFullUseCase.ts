@@ -12,7 +12,7 @@ export default class GetCarFullUseCase {
     this.personService = personService
   }
 
-  getCarFullById(id: number) {
+  getCarFullById(id: number): CarFull | null {
     const car = this.carService.getById(id)
     if (!car) return null
     const person = this.personService.getById(car.personId)

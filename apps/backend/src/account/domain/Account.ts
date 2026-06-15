@@ -2,17 +2,17 @@ import type IAccount from '../../_domain/IAccount.ts'
 
 export default class Account implements IAccount {
   /* eslint-disable lines-between-class-members */
-  private readonly id: number
-  public readonly nickname: string
-  public readonly password: string
-  private readonly email: string
-  private readonly phone: string
-  private readonly country: string
-  private readonly isAgree: boolean
-  public readonly role: string
-  private readonly isLoggedIn: boolean
-  private readonly updatedAt: number
-  private readonly createdAt: number
+  readonly id: number
+  readonly nickname: string
+  readonly password: string
+  readonly email: string
+  readonly phone: string
+  readonly country: string
+  readonly isAgree: boolean
+  readonly role: string
+  readonly isLoggedIn: boolean
+  readonly updatedAt: number
+  readonly createdAt: number
   /* eslint-enable lines-between-class-members */
 
   constructor(
@@ -41,7 +41,7 @@ export default class Account implements IAccount {
     this.createdAt = createdAt
   }
 
-  toJSON() {
+  toJSON(): Account {
     return { ...this }
   }
 }

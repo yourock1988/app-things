@@ -191,3 +191,30 @@ auth0/google
 если таблица в базе данных обновилась по rest, то нужно разослать bc-sv сообщение об этом обновлении
 
 на фронтенде при тестовом переключении сессий создаётся множество дублированных соединений socket-io. нужно сделать так чтоб открытым был всегда только 1 сокет
+
+<!--
+
+-->
+
+type TParamsId = { id: string }
+type TLocals = { account: IAccount }
+type T = RequestHandler<TParamsId, any, TTeapotAddDto, any, TLocals>
+
+type TParamsId = { id: string }
+type TLocals = { account: IAccount }
+type T = RequestHandler<TParamsId, any, TSessionAddDto, any, TLocals>
+
+type TRhndLocalsId<T> = RequestHandler<TParamsId, any, T, any, TLocals>
+type TRhndLocals<T> = RequestHandler<ParamsDictionary, any, T, any, TLocals>
+
+type TParamsId = { id: string; foo: number }
+type TLocals = { account: IAccount }
+// type TTeapotAddDtoWithId = TTeapotAddDto & { accountId: number }
+// Передаем дженерики по порядку: Params, ResBody, ReqBody, ReqQuery, Locals
+type TGetAll = RequestHandler
+type TGetById = RequestHandler<TParamsId>
+type TAdd = RequestHandler<ParamsDictionary, any, TTeapotAddDto, any, TLocals>
+type TUpd = RequestHandler<TParamsId, any, TTeapotUpdateDto>
+type TDel = RequestHandler<TParamsId>
+
+https://excalidraw.com/#room=cbf9338dd8aa462127b6,mCe9s69znPUPi3pmnq7QEg

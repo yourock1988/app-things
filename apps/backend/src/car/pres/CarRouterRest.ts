@@ -1,9 +1,10 @@
 import type { Router as TRouter } from 'express'
 import type { RequestHandler } from 'express-serve-static-core'
+import type CarControllerRest from './CarControllerRest.ts'
 
 export default function (
   Router: typeof TRouter,
-  carControllerRest: any,
+  carControllerRest: CarControllerRest,
   mwCarRest: Record<string, RequestHandler>,
 ): TRouter {
   const router = Router()

@@ -1,4 +1,4 @@
-import type { Namespace, Server } from 'socket.io'
+import type { Namespace, Server, Socket } from 'socket.io'
 import type IRouterIo from '../../_domain/IRouterIo.ts'
 import type PersonControllerIo from './PersonControllerIo.ts'
 import type { TMwareIo } from '../../_pres/TMwareIo.ts'
@@ -17,7 +17,7 @@ export default class PersonRouterIo implements IRouterIo {
     this.mwPersonIo = mwPersonIo
   }
 
-  public init(personNamespace: Namespace, io: Server) {
+  init(personNamespace: Namespace, io: Server): void {
     this.personControllerIo.init(personNamespace, io)
   }
 
@@ -27,7 +27,7 @@ export default class PersonRouterIo implements IRouterIo {
     return [AUTHN, AUTHZ]
   }
 
-  connector(socket: any) {
+  connector(socket: Socket): void {
     const { personControllerIo, mwPersonIo } = this
     const { ID, ADD, UPD, AUTHZ } = mwPersonIo
     const { getAll, getById, add, updateById, removeById } = personControllerIo

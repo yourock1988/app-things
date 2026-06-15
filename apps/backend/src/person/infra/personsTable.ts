@@ -1,5 +1,6 @@
 import type { TPersonRecord } from './TPersonRecord.ts'
 
+// eslint-disable-next-line no-restricted-syntax
 const personsTable: TPersonRecord[] = [
   {
     id: 101,

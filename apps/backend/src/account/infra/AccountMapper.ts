@@ -27,7 +27,7 @@ export default class AccountMapper {
 
   // eslint-disable-next-line class-methods-use-this
   toRecord(dto: TAccountAddDto): TAccountRecord {
-    const accountRecord: TAccountRecord = {
+    return {
       id: -1,
       nickname: dto.nickname,
       password: dto.password,
@@ -43,6 +43,5 @@ export default class AccountMapper {
       updatedAt: Date.now(),
       createdAt: Date.now(),
     }
-    return accountRecord
   }
 }

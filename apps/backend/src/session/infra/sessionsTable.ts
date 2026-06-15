@@ -1,5 +1,6 @@
 import type { TSessionRecord } from './TSessionRecord.ts'
 
+// eslint-disable-next-line no-restricted-syntax
 const sessionsTable: TSessionRecord[] = [
   {
     id: 11,

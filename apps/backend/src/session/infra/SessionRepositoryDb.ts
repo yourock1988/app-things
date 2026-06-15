@@ -19,7 +19,7 @@ export default class SessionRepositoryDb implements ISessionRepository {
   }
 
   getAll(): ISession[] {
-    const records: TSessionRecord[] = this.orm.selectAll()
+    const records = this.orm.selectAll()
     return records.map(this.sessionMapper.toModel)
   }
 
@@ -30,7 +30,7 @@ export default class SessionRepositoryDb implements ISessionRepository {
 
   add(dto: TSessionAddDto): ISession {
     const record = this.sessionMapper.toRecord(dto)
-    const appendedRecord: TSessionRecord = this.orm.insert(record)
+    const appendedRecord = this.orm.insert(record)
     return this.sessionMapper.toModel(appendedRecord)
   }
 

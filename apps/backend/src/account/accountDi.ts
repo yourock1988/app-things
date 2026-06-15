@@ -12,7 +12,13 @@ import AccountControllerRest from './pres/AccountControllerRest.ts'
 import newAccountRouterRest from './pres/AccountRouterRest.ts'
 import mwAccountRest from './pres/mwAccountRest.ts'
 
-export default function accountDi(Router: typeof TRouter, Orm: typeof TOrm) {
+export default function accountDi(
+  Router: typeof TRouter,
+  Orm: typeof TOrm,
+): {
+  accountService: AccountService
+  accountDiExtra: (authist: TAuthist, sharedMws: TSharedMiddlewares) => TRouter
+} {
   const accountsOrm = new Orm(accountsTable)
   const accountMapper = new AccountMapper(Account)
   bindSelf(accountMapper)

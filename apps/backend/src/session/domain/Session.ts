@@ -2,11 +2,11 @@ import type ISession from '../../_domain/ISession.ts'
 
 export default class Session implements ISession {
   /* eslint-disable lines-between-class-members */
-  private readonly id: number
-  private readonly sessionId: string
-  public readonly nickname: string
-  private readonly createdAt: number
-  private readonly updatedAt: number
+  readonly id: number
+  readonly sessionId: string
+  readonly nickname: string
+  readonly createdAt: number
+  readonly updatedAt: number
   /* eslint-enable lines-between-class-members */
 
   constructor(
@@ -23,7 +23,7 @@ export default class Session implements ISession {
     this.updatedAt = updatedAt
   }
 
-  toJSON() {
+  toJSON(): Session {
     return { ...this }
   }
 }

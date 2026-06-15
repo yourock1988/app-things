@@ -19,7 +19,7 @@ export default class AccountRepositoryDb implements IAccountRepository {
   }
 
   getAll(): Account[] {
-    const records: TAccountRecord[] = this.orm.selectAll()
+    const records = this.orm.selectAll()
     return records.map(this.accountMapper.toModel)
   }
 
@@ -30,7 +30,7 @@ export default class AccountRepositoryDb implements IAccountRepository {
 
   add(dto: TAccountAddDto): Account {
     const record = this.accountMapper.toRecord(dto)
-    const appendedRecord: TAccountRecord = this.orm.insert(record)
+    const appendedRecord = this.orm.insert(record)
     return this.accountMapper.toModel(appendedRecord)
   }
 

@@ -20,7 +20,11 @@ export default function personDi(
   Orm: typeof TOrm,
   authist: TAuthist,
   sharedMws: TSharedMiddlewares,
-) {
+): {
+  personRouterIo: PersonRouterIo
+  personRouterRest: TRouter
+  personService: PersonService
+} {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
   const { IDrest, SESSIDrest, IDio, SESSIDio, ACK } = sharedMws
   const mwRest = {

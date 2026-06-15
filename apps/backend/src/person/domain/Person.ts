@@ -2,11 +2,11 @@ import type IPerson from '../../_domain/IPerson.ts'
 
 export default class Person implements IPerson {
   /* eslint-disable lines-between-class-members */
-  private readonly id: number
-  private readonly nickname: string
-  private readonly password: string
-  private readonly email: string
-  private readonly money: number
+  readonly id: number
+  readonly nickname: string
+  readonly password: string
+  readonly email: string
+  readonly money: number
   /* eslint-enable lines-between-class-members */
 
   constructor(
@@ -24,7 +24,7 @@ export default class Person implements IPerson {
   }
 
   // eslint-disable-next-line
-  sayHello(info: string): void {
+  sayHello(): void {
     // global.console.log(`${info} : hello! i am ${this.nickname}`)
   }
 
@@ -33,7 +33,7 @@ export default class Person implements IPerson {
     return Math.random() > 0.5
   }
 
-  toJSON() {
+  toJSON(): Person {
     return { ...this, isOnline: this.isOnline }
   }
 }

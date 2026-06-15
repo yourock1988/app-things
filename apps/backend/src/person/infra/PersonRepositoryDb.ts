@@ -19,7 +19,7 @@ export default class PersonRepositoryDb implements IPersonRepository {
   }
 
   getAll(): IPerson[] {
-    const records: TPersonRecord[] = this.orm.selectAll()
+    const records = this.orm.selectAll()
     return records.map(this.personMapper.toModel)
   }
 
@@ -30,7 +30,7 @@ export default class PersonRepositoryDb implements IPersonRepository {
 
   add(dto: TPersonAddDto): IPerson {
     const record = this.personMapper.toRecord(dto)
-    const appendedRecord: TPersonRecord = this.orm.insert(record)
+    const appendedRecord = this.orm.insert(record)
     return this.personMapper.toModel(appendedRecord)
   }
 

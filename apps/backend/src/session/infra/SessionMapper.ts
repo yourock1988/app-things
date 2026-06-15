@@ -21,13 +21,12 @@ export default class SessionMapper {
 
   // eslint-disable-next-line class-methods-use-this
   toRecord(dto: TSessionAddDto): TSessionRecord {
-    const sessionRecord: TSessionRecord = {
+    return {
       id: -1,
       sessionId: crypto.randomUUID(),
       nickname: dto.nickname,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     }
-    return sessionRecord
   }
 }

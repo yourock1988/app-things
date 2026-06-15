@@ -1,6 +1,18 @@
-import type { Server, Namespace } from 'socket.io'
+import type { Server, Namespace, Socket } from 'socket.io'
 import type CarService from '../domain/CarService.ts'
+import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.ts'
 // import type Car from '../domain/Car.ts'
+
+type Tctx = {
+  socket: Socket
+  eventName: string
+}
+
+type Targs<Tdto = undefined> = [
+  { id: number },
+  Tdto,
+  (err: null | number, data?: any) => void,
+]
 
 export default class CarControllerIo {
   private carNamespace: Namespace | null = null
@@ -16,38 +28,36 @@ export default class CarControllerIo {
     // )
   }
 
-  init(carNamespace: Namespace, io: Server) {
+  init(carNamespace: Namespace, io: Server): void {
     this.carNamespace = carNamespace
     this.io = io
+    this.io.to('room-101').emit('foo', 'bar')
+    this.carNamespace.emit('foo', 'bar')
   }
 
-  getAll(ctx, args) {
-    const ack = args.at(2)
+  getAll(_: unknown, args: Targs): void {
+    const [, , ack] = args
     const cars = this.carService.getAll()
     ack?.(null, cars)
   }
 
-  getById(ctx, args) {
-    const { id } = args.at(0)
-    const ack = args.at(2)
+  getById(_: unknown, args: Targs): void {
+    const [{ id }, , ack] = args
     const car = this.carService.getById(+id)
     if (car) ack?.(null, car)
     else ack?.(404)
   }
 
-  add(ctx, args) {
-    const ack = args.at(2)
-    const dto = args.at(1)
+  add(ctx: Tctx, args: Targs<TCarAddDto>): void {
+    const [, dto, ack] = args
     const car = this.carService.add(dto).toJSON()
     ack?.(null, car)
     ctx.socket.broadcast.emit('bc-cl:car:added', car)
     // this.io.emit('bc-sv:car:added', car)
   }
 
-  updateById(ctx, args) {
-    const { id } = args.at(0)
-    const dto = args.at(1)
-    const ack = args.at(2)
+  updateById(ctx: Tctx, args: Targs<TCarUpdateDto>): void {
+    const [{ id }, dto, ack] = args
     const car = this.carService.updateById(id, dto)
     if (car) {
       const carJson = car.toJSON()
@@ -58,9 +68,8 @@ export default class CarControllerIo {
     }
   }
 
-  removeById(ctx, args) {
-    const { id } = args.at(0)
-    const ack = args.at(2)
+  removeById(ctx: Tctx, args: Targs): void {
+    const [{ id }, , ack] = args
     const hasBeenExists = this.carService.removeById(id)
     if (hasBeenExists) {
       ack?.(null)

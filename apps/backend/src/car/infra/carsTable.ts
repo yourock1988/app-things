@@ -1,5 +1,6 @@
 import type { TCarRecord } from './TCarRecord.ts'
 
+// eslint-disable-next-line no-restricted-syntax
 const carsTable: TCarRecord[] = [
   {
     id: 1001,

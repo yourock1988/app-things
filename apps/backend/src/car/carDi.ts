@@ -23,7 +23,11 @@ export default function carDi(
   authist: TAuthist,
   sharedMws: TSharedMiddlewares,
   personService: IPersonService,
-) {
+): {
+  carRouterIo: CarRouterIo
+  carRouterRest: TRouter
+  getCarFullUseCase: GetCarFullUseCase
+} {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
   const { IDrest, SESSIDrest, IDio, SESSIDio, ACK } = sharedMws
   const mwRest = {

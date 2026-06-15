@@ -55,17 +55,18 @@ zSessIdField.safeParse(sessionId) для rest и io транспортов
 
 ✅ описать общий тип для rest mws и io mws
 
-🔄 прийдётся настроить eslint... причем новый... 😥
+✅ прийдётся настроить eslint... причем новый... 😥
 
--1: ts: типизировать все Di
+✅ -1: ts: типизировать все Di
 
-в rest контроллерах и rest мидлварях перенести locals из req в res потому что в res его проще типизировать
+✅ в rest контроллерах и rest мидлварях перенести locals из req в res потому что в res его проще типизировать
 
-0. js: ВЕЗДЕ перенести авторизационные данные из req.locals в res.locals
+✅ 0. js: ВЕЗДЕ перенести авторизационные данные из req.locals в res.locals
 
-типизацию начинаем с самого простого - Person
+✅ типизацию начинаем с самого простого - Person
 
-1. ts: явно типизировать все функции rest хендлеров как дефолтный RequestHandler
+✅ 1. ts: явно типизировать все функции rest хендлеров как дефолтный RequestHandler
+
 2. ts: создать кастомный тип на основе RequestHandler только с params.id: string
 3. ts: добавить в этот кастомный тип проверку типа req.body: TDto
 4. ts: создать тип TDtoWithAccountId
@@ -73,6 +74,10 @@ zSessIdField.safeParse(sessionId) для rest и io транспортов
 6. после типизации Person распространить эти типы на весь проект
 
 добавить npm test в pre-commit хук
+
+типизировать функцию spawnMiddlewareAuthorizerIo
+
+убрать излишнюю типизацию spawn функций
 
 типизировать ивенты...
 

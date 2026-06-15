@@ -16,7 +16,7 @@ export default class CarRepositoryDb implements ICarRepository {
   }
 
   getAll(): TCar[] {
-    const records: TCarRecord[] = this.orm.selectAll()
+    const records = this.orm.selectAll()
     return records.map(this.carMapper.toModel)
   }
 
@@ -27,7 +27,7 @@ export default class CarRepositoryDb implements ICarRepository {
 
   add(dto: TCarAddDto): TCar {
     const record = this.carMapper.toRecord(dto)
-    const appendedRecord: TCarRecord = this.orm.insert(record)
+    const appendedRecord = this.orm.insert(record)
     return this.carMapper.toModel(appendedRecord)
   }
 

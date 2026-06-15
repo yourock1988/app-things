@@ -11,7 +11,10 @@ export default function authDi(
   Router: typeof TRouter,
   accountService: IAccountService,
   sessionService: ISessionService,
-) {
+): {
+  authService: AuthService
+  authRouterRest: TRouter
+} {
   const authService = new AuthService(accountService, sessionService)
   const authControllerRest = new AuthControllerRest(authService)
 

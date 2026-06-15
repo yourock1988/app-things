@@ -22,7 +22,10 @@ export default function teapotDi(
   Orm: typeof TOrm,
   authist: TAuthist,
   sharedMws: TSharedMiddlewares,
-) {
+): {
+  teapotRouterIo: TeapotRouterIo
+  teapotRouterRest: TRouter
+} {
   const { AUTHrest, AUTHNio, AUTHZio } = authist
   const { IDrest, SESSIDrest, IDio, SESSIDio, ACK } = sharedMws
 

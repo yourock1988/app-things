@@ -21,13 +21,12 @@ export default class PersonMapper {
 
   // eslint-disable-next-line class-methods-use-this
   toRecord(dto: TPersonAddDto): TPersonRecord {
-    const personRecord: TPersonRecord = {
+    return {
       id: -1,
       nickname: dto.nickname,
       password: dto.password,
       email: dto.email,
       money: 0,
     }
-    return personRecord
   }
 }

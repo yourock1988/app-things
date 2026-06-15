@@ -1,9 +1,10 @@
 import type { Router as TRouter } from 'express'
 import type { RequestHandler } from 'express-serve-static-core'
+import type PersonControllerRest from './PersonControllerRest.ts'
 
 export default function (
   Router: typeof TRouter,
-  personControllerRest: any,
+  personControllerRest: PersonControllerRest,
   mwPersonRest: Record<string, RequestHandler>,
 ): TRouter {
   const router = Router()

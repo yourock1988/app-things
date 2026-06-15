@@ -1,9 +1,8 @@
-import type { Request, Response } from 'express'
-import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.ts'
+import type { RequestHandler } from 'express-serve-static-core'
 import type CarService from '../domain/CarService.ts'
 import type GetCarFullUseCase from '../domain/GetCarFullUseCase.ts'
 
-type TParamsId = { id: number }
+type TParamsId = { id: string }
 
 export default class CarControllerRest {
   private readonly carService: CarService
@@ -15,41 +14,41 @@ export default class CarControllerRest {
     this.getCarFullUseCase = getCarFullUseCase
   }
 
-  getAll(_: Request, res: Response): void {
+  getAll: RequestHandler = (_, res) => {
     const cars = this.carService.getAll()
     res.status(200).json(cars)
   }
 
-  getFullById(req: Request<TParamsId>, res: Response): void {
-    const id: number = +req.params.id
+  getFullById: RequestHandler<TParamsId> = (req, res) => {
+    const id = +req.params.id
     const carFull = this.getCarFullUseCase.getCarFullById(id)
     if (carFull) res.status(200).json(carFull)
     else res.status(404).send()
   }
 
-  getById(req: Request<TParamsId>, res: Response): void {
-    const id: number = +req.params.id
+  getById: RequestHandler<TParamsId> = (req, res) => {
+    const id = +req.params.id
     const car = this.carService.getById(id)
     if (car) res.status(200).json(car)
     else res.status(404).send()
   }
 
-  add(req: Request, res: Response): void {
-    const dto: TCarAddDto = req.body
+  add: RequestHandler = (req, res) => {
+    const dto = req.body
     const car = this.carService.add(dto)
     res.status(201).json(car)
   }
 
-  updateById(req: Request<TParamsId>, res: Response): void {
-    const id: number = +req.params.id
-    const dto: TCarUpdateDto = req.body
+  updateById: RequestHandler<TParamsId> = (req, res) => {
+    const id = +req.params.id
+    const dto = req.body
     const car = this.carService.updateById(id, dto)
     if (car) res.status(200).json(car)
     else res.status(404).send()
   }
 
-  removeById(req: Request<TParamsId>, res: Response): void {
-    const id: number = +req.params.id
+  removeById: RequestHandler<TParamsId> = (req, res) => {
+    const id = +req.params.id
     const hasBeenExists = this.carService.removeById(id)
     if (hasBeenExists) res.status(204).send()
     else res.status(404).send()

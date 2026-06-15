@@ -1,11 +1,10 @@
-import type { NextFunction, Request, Response } from 'express'
 import type { RequestHandler } from 'express-serve-static-core'
 import type IAuthService from '../_domain/IAuthService.ts'
 
 // spawnMiddlewareAuthorizerRest
 // spawnMiddlewareAuthenticatorRest
 export default function (authService: IAuthService): RequestHandler {
-  return (req: Request, res: Response, next: NextFunction): void => {
+  return (req, res, next) => {
     const {
       cookies: { sessionid },
       route: { path },
@@ -24,8 +23,10 @@ export default function (authService: IAuthService): RequestHandler {
       res.status(403).send()
       return
     }
-    req.locals ??= {}
-    req.locals.account = authService.getByNickname(nickname)
+    // eslint-disable-next-line no-param-reassign
+    res.locals ??= {}
+    // eslint-disable-next-line no-param-reassign
+    res.locals['account'] = authService.getByNickname(nickname) // ?
     next()
   }
 }
