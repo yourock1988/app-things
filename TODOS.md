@@ -73,7 +73,7 @@ zSessIdField.safeParse(sessionId) для rest и io транспортов
 5. ts: типизировать параметры io хендлеров
 6. после типизации Person распространить эти типы на весь проект
 
-добавить npm test в pre-commit хук
+✅ добавить npm test в pre-commit хук
 
 типизировать функцию spawnMiddlewareAuthorizerIo
 
