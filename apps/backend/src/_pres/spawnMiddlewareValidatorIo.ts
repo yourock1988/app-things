@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-lonely-if */
+/* eslint-disable no-sparse-arrays */
 
-import { z } from 'zod'
-import type { TMwareIo, TMwareIoCtx } from './TMwareIo.ts'
+import type { ZodSchema } from 'zod'
+import type { TMwareIo } from './TMwareIo.ts'
 
 type TVariant = 'body' | 'params' | 'headersAuth'
 
@@ -12,18 +13,19 @@ const dict = {
 }
 
 // spawnMiddlewareValidatorIo
-export default function (variant: TVariant, schema: z.ZodSchema): TMwareIo {
-  return (ctx: TMwareIoCtx, args: any[], next: any): void => {
+export default function (variant: TVariant, schema: ZodSchema): TMwareIo {
+  return (ctx, args, next) => {
     const { headersAuth } = ctx.socket
-    const dto = variant === 'headersAuth' ? headersAuth : args.at(dict[variant])
-    const ack = args?.at(2)
+    const dto =
+      variant === 'headersAuth' ? headersAuth : args?.at(dict[variant])
+    const [, , ack] = args ?? [, , () => {}]
     const result = schema.safeParse(dto)
     if (result.success) {
-      if (variant !== 'headersAuth') args[dict[variant]] = result.data
+      if (variant !== 'headersAuth' && args) args[dict[variant]] = result.data
       next()
     } else {
       if (variant !== 'headersAuth') ack?.(result.error.format())
-      else next({ message: ctx.eventName })
+      else next({ message: ctx.eventName, data: 400 })
     }
   }
 }

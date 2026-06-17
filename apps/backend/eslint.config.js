@@ -33,10 +33,12 @@ const typescriptConfig = {
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
+    '@typescript-eslint/consistent-type-imports': 'error',
     'lines-between-class-members': 'warn',
     'class-methods-use-this': 'warn',
     'no-console': 'warn',
     'no-plusplus': 'warn',
+    'no-lonely-if': 'warn',
     'no-param-reassign': ['warn', { props: true }],
     // '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'warn',

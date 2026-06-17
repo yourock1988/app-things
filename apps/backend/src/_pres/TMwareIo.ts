@@ -8,13 +8,22 @@ import type { Socket } from 'socket.io'
 //   nickname?: string
 // }
 
-export type TMwareIoCtx = {
-  socket: Socket
-  eventName: string
-}
+// type TNextFnErr = { message: string } | { _errors: string[]; data: number }
 
-export type TMwareIo = ((
-  ctx: TMwareIoCtx,
-  args: any[],
-  next: (...params: any[]) => void,
-) => void) & { msg?: string }
+// type TNextFnErr = ExtendedError | { _errors: string[] }
+
+type TNextFnErr = { message: string; data: number }
+
+type TAckFnErr = null | number | { _errors: string[] }
+
+type TAckFn = (err: TAckFnErr, data?: unknown) => void
+
+type TCtx = { socket: Socket; eventName: string }
+
+type TArgs = [{ id: number }, object, TAckFn] | null
+
+type TNextFn = (err?: TNextFnErr) => void
+
+export type TMwareIo = ((ctx: TCtx, args: TArgs, next: TNextFn) => void) & {
+  msg?: string
+}
