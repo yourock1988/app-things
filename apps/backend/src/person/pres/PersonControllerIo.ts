@@ -1,21 +1,10 @@
-import type { Server, Namespace, Socket } from 'socket.io'
+import type { Server, Namespace } from 'socket.io'
+import type { TMwareIo } from '../../_pres/TMwareIo.ts'
 import type PersonService from '../domain/PersonService.ts'
 import type {
   TPersonAddDto,
   TPersonUpdateDto,
 } from '../../_domain/TPersonDtos.ts'
-// import type Person from '../domain/Person.ts'
-
-type Tctx = {
-  socket: Socket
-  eventName: string
-}
-
-type Targs<Tdto = undefined> = [
-  { id: number },
-  Tdto,
-  (err: null | number, data?: any) => void,
-]
 
 export default class PersonControllerIo {
   private personNamespace: Namespace | null = null
@@ -38,20 +27,20 @@ export default class PersonControllerIo {
     this.personNamespace.emit('foo', 'bar')
   }
 
-  getAll(_: unknown, args: Targs): void {
+  getAll: TMwareIo = (_, args) => {
     const [, , ack] = args
     const persons = this.personService.getAll()
     ack?.(null, persons)
   }
 
-  getById(_: unknown, args: Targs): void {
+  getById: TMwareIo = (_, args) => {
     const [{ id }, , ack] = args
     const person = this.personService.getById(+id)
     if (person) ack?.(null, person)
     else ack?.(404)
   }
 
-  add(ctx: Tctx, args: Targs<TPersonAddDto>): void {
+  add: TMwareIo<TPersonAddDto> = (ctx, args) => {
     const [, dto, ack] = args
     const person = this.personService.add(dto).toJSON()
     ack?.(null, person)
@@ -59,7 +48,7 @@ export default class PersonControllerIo {
     // this.io.emit('bc-sv:person:added', person)
   }
 
-  updateById(ctx: Tctx, args: Targs<TPersonUpdateDto>): void {
+  updateById: TMwareIo<TPersonUpdateDto> = (ctx, args) => {
     const [{ id }, dto, ack] = args
     const person = this.personService.updateById(id, dto)
     if (person) {
@@ -71,7 +60,7 @@ export default class PersonControllerIo {
     }
   }
 
-  removeById(ctx: Tctx, args: Targs): void {
+  removeById: TMwareIo = (ctx, args) => {
     const [{ id }, , ack] = args
     const hasBeenExists = this.personService.removeById(id)
     if (hasBeenExists) {

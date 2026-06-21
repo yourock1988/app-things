@@ -63,8 +63,4 @@ export default class TeapotRouterIo implements IRouterIo {
       .on(CL.TURN_OFF, AUTHZ, handleTurnOff)
       .on(CL.TURN_DRAIN, AUTHZ, handleDrain)
   }
-
-  getMiddleware(): Record<string, TMwareIo> {
-    return this.mwTeapotIo
-  }
 }

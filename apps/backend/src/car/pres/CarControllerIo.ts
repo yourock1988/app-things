@@ -1,18 +1,7 @@
-import type { Server, Namespace, Socket } from 'socket.io'
+import type { Server, Namespace } from 'socket.io'
+import type { TMwareIo } from '../../_pres/TMwareIo.ts'
 import type CarService from '../domain/CarService.ts'
 import type { TCarAddDto, TCarUpdateDto } from '../domain/TCarDtos.ts'
-// import type Car from '../domain/Car.ts'
-
-type Tctx = {
-  socket: Socket
-  eventName: string
-}
-
-type Targs<Tdto = undefined> = [
-  { id: number },
-  Tdto,
-  (err: null | number, data?: any) => void,
-]
 
 export default class CarControllerIo {
   private carNamespace: Namespace | null = null
@@ -35,20 +24,20 @@ export default class CarControllerIo {
     this.carNamespace.emit('foo', 'bar')
   }
 
-  getAll(_: unknown, args: Targs): void {
+  getAll: TMwareIo = (_, args) => {
     const [, , ack] = args
     const cars = this.carService.getAll()
     ack?.(null, cars)
   }
 
-  getById(_: unknown, args: Targs): void {
+  getById: TMwareIo = (_, args) => {
     const [{ id }, , ack] = args
     const car = this.carService.getById(+id)
     if (car) ack?.(null, car)
     else ack?.(404)
   }
 
-  add(ctx: Tctx, args: Targs<TCarAddDto>): void {
+  add: TMwareIo<TCarAddDto> = (ctx, args) => {
     const [, dto, ack] = args
     const car = this.carService.add(dto).toJSON()
     ack?.(null, car)
@@ -56,7 +45,7 @@ export default class CarControllerIo {
     // this.io.emit('bc-sv:car:added', car)
   }
 
-  updateById(ctx: Tctx, args: Targs<TCarUpdateDto>): void {
+  updateById: TMwareIo<TCarUpdateDto> = (ctx, args) => {
     const [{ id }, dto, ack] = args
     const car = this.carService.updateById(id, dto)
     if (car) {
@@ -68,7 +57,7 @@ export default class CarControllerIo {
     }
   }
 
-  removeById(ctx: Tctx, args: Targs): void {
+  removeById: TMwareIo = (ctx, args) => {
     const [{ id }, , ack] = args
     const hasBeenExists = this.carService.removeById(id)
     if (hasBeenExists) {

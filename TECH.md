@@ -218,3 +218,19 @@ type TUpd = RequestHandler<TParamsId, any, TTeapotUpdateDto>
 type TDel = RequestHandler<TParamsId>
 
 https://excalidraw.com/#room=cbf9338dd8aa462127b6,mCe9s69znPUPi3pmnq7QEg
+
+ts: создать кастомный тип на основе RequestHandler только с params.id: string
+
+ts: добавить в этот кастомный тип проверку типа req.body: TDto
+
+ts: создать тип TDtoWithAccountId
+
+ts: типизировать ивенты... (нну нахер, лучше потом)
+
+ts: типизировать каждую мидварю отдельно вместо Record<string, TMware> и Record<string, RequestHandler>
+
+общие мидвари импортировать в обход сущности. внедрять сразу в роутер в общем di
+
+описать бекенд интерфейсы для контроллеров, роутеров и сервисов (полное покрытие типизацией)
+
+выделить абстрактные классы для переиспользования стандартных методов (getAll, getById, add, upd, del)

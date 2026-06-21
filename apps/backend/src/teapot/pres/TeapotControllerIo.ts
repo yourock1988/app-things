@@ -1,22 +1,11 @@
 import { TEAPOT } from '@app-x/cmd'
 import type { Server, Namespace } from 'socket.io'
+import type { TMwareIo } from '../../_pres/TMwareIo.ts'
 import type TeapotService from '../domain/TeapotService.ts'
 import type Teapot from '../domain/Teapot.ts'
 import type { TTeapotAddDto, TTeapotUpdateDto } from '../domain/TTeapotDtos.ts'
-import type { TMwareIo } from '../../_pres/TMwareIo.ts'
 
 const { BC_CL, BC_SV } = TEAPOT
-
-// type Tctx = {
-//   socket: Socket
-//   eventName: string
-// }
-
-// type Targs<Tdto = undefined> = [
-//   { id: number },
-//   Tdto,
-//   (err: null | number, data?: any) => void,
-// ]
 
 export default class TeapotControllerIo {
   private readonly teapotService: TeapotService
