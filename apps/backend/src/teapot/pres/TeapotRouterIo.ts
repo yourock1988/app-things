@@ -32,7 +32,7 @@ export default class TeapotRouterIo implements IRouterIo {
 
   connector(socket: Socket): void {
     const { teapotControllerIo, mwTeapotIo } = this
-    const { ID, ADD, UPD, AUTHZ } = mwTeapotIo
+    const { ID, ADD, UPD, AUTHZ, ACK } = mwTeapotIo
     const {
       getAll,
       getById,
@@ -47,20 +47,20 @@ export default class TeapotRouterIo implements IRouterIo {
       handleDrain,
     } = teapotControllerIo
 
-    if (!AUTHZ || !ID || !ADD || !UPD) throw new Error('no mware')
+    if (!ACK || !AUTHZ || !ID || !ADD || !UPD) throw new Error('no mware')
 
     listen(socket)
-      .on(CL.GET_ALL, AUTHZ, getAll)
-      .on(CL.GET_BY_ID, ID, AUTHZ, getById)
-      .on(CL.ADD, ADD, AUTHZ, add)
-      .on(CL.UPD_BY_ID, ID, UPD, AUTHZ, updateById)
-      .on(CL.DEL_BY_ID, ID, AUTHZ, removeById)
+      .on(CL.GET_ALL, ACK, AUTHZ, getAll)
+      .on(CL.GET_BY_ID, ACK, ID, AUTHZ, getById)
+      .on(CL.ADD, ADD, ACK, AUTHZ, add)
+      .on(CL.UPD_BY_ID, ACK, ID, UPD, AUTHZ, updateById)
+      .on(CL.DEL_BY_ID, ACK, ID, AUTHZ, removeById)
 
-      .on(CL.SHOW, AUTHZ, show)
-      .on(CL.JOIN, AUTHZ, join)
-      .on(CL.LEAVE, AUTHZ, leave)
-      .on(CL.TURN_ON, AUTHZ, handleTurnOn)
-      .on(CL.TURN_OFF, AUTHZ, handleTurnOff)
-      .on(CL.TURN_DRAIN, AUTHZ, handleDrain)
+      .on(CL.SHOW, ACK, AUTHZ, show)
+      .on(CL.JOIN, ACK, AUTHZ, join)
+      .on(CL.LEAVE, ACK, AUTHZ, leave)
+      .on(CL.TURN_ON, ACK, AUTHZ, handleTurnOn)
+      .on(CL.TURN_OFF, ACK, AUTHZ, handleTurnOff)
+      .on(CL.TURN_DRAIN, ACK, AUTHZ, handleDrain)
   }
 }

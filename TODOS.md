@@ -83,6 +83,8 @@ zSessIdField.safeParse(sessionId) для rest и io транспортов
 
 функции next и ack обязательно принимают разный тип ошибок. нет смысла в конвергенции next и ack ошибок
 
+✅ прокинуть ACK middleware в person и teapot router io
+
 ✅ типизировать утилиту listen для socket-io
 
 ✅ типизировать мидлвари в io роутерах (типизировать функцию listen)

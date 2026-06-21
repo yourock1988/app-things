@@ -29,16 +29,16 @@ export default class PersonRouterIo implements IRouterIo {
 
   connector(socket: Socket): void {
     const { personControllerIo, mwPersonIo } = this
-    const { ID, ADD, UPD, AUTHZ } = mwPersonIo
+    const { ID, ADD, UPD, AUTHZ, ACK } = mwPersonIo
     const { getAll, getById, add, updateById, removeById } = personControllerIo
 
-    if (!AUTHZ || !ID || !ADD || !UPD) throw new Error('no mware')
+    if (!ACK || !AUTHZ || !ID || !ADD || !UPD) throw new Error('no mware')
 
     listen(socket)
-      .on('person:getAll', AUTHZ, getAll)
-      .on('person:getById', ID, AUTHZ, getById)
-      .on('person:add', ADD, AUTHZ, add)
-      .on('person:updateById', ID, UPD, AUTHZ, updateById)
-      .on('person:removeById', ID, AUTHZ, removeById)
+      .on('person:getAll', ACK, AUTHZ, getAll)
+      .on('person:getById', ACK, ID, AUTHZ, getById)
+      .on('person:add', ACK, ADD, AUTHZ, add)
+      .on('person:updateById', ACK, ID, UPD, AUTHZ, updateById)
+      .on('person:removeById', ACK, ID, AUTHZ, removeById)
   }
 }
