@@ -1,21 +1,22 @@
 import { TEAPOT } from '@app-x/cmd'
-import type { Server, Namespace, Socket } from 'socket.io'
+import type { Server, Namespace } from 'socket.io'
 import type TeapotService from '../domain/TeapotService.ts'
 import type Teapot from '../domain/Teapot.ts'
 import type { TTeapotAddDto, TTeapotUpdateDto } from '../domain/TTeapotDtos.ts'
+import type { TMwareIo } from '../../_pres/TMwareIo.ts'
 
 const { BC_CL, BC_SV } = TEAPOT
 
-type Tctx = {
-  socket: Socket
-  eventName: string
-}
+// type Tctx = {
+//   socket: Socket
+//   eventName: string
+// }
 
-type Targs<Tdto = undefined> = [
-  { id: number },
-  Tdto,
-  (err: null | number, data?: any) => void,
-]
+// type Targs<Tdto = undefined> = [
+//   { id: number },
+//   Tdto,
+//   (err: null | number, data?: any) => void,
+// ]
 
 export default class TeapotControllerIo {
   private readonly teapotService: TeapotService
@@ -39,20 +40,20 @@ export default class TeapotControllerIo {
     this.io.use((_, next) => next())
   }
 
-  getAll(_: unknown, args: Targs): void {
+  getAll: TMwareIo = (_, args) => {
     const [, , ack] = args
     const teapots = this.teapotService.getAll()
     ack?.(null, teapots)
   }
 
-  getById(_: unknown, args: Targs): void {
+  getById: TMwareIo = (_, args) => {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(+id)
     if (!teapot) ack?.(404)
     else ack?.(null, teapot)
   }
 
-  add(ctx: Tctx, args: Targs<TTeapotAddDto>): void {
+  add: TMwareIo<TTeapotAddDto> = (ctx, args) => {
     const [, dto, ack] = args
     if (!ctx.socket.account) return ack?.(401)
     const o = { ...dto, accountId: ctx.socket.account.id }
@@ -61,7 +62,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  updateById(ctx: Tctx, args: Targs<TTeapotUpdateDto>): void {
+  updateById: TMwareIo<TTeapotUpdateDto> = (ctx, args) => {
     const [{ id }, dto, ack] = args
     const teapotJson = this.teapotService.updateById(id, dto)?.toJSON()
     if (!teapotJson) {
@@ -72,7 +73,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  removeById(ctx: Tctx, args: Targs): void {
+  removeById: TMwareIo = (ctx, args) => {
     const [{ id }, , ack] = args
     const hasBeenExists = this.teapotService.removeById(id)
     if (!hasBeenExists) {
@@ -83,14 +84,14 @@ export default class TeapotControllerIo {
     ack?.(null)
   }
 
-  show(_: unknown, args: Targs): void {
+  show: TMwareIo = (_, args) => {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) ack?.(404)
     else ack?.(null, teapot)
   }
 
-  join(ctx: Tctx, args: Targs): void {
+  join: TMwareIo = (ctx, args) => {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(id)
     if (!teapot) {
@@ -106,7 +107,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  leave(ctx: Tctx, args: Targs): void {
+  leave: TMwareIo = (ctx, args) => {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.getById(id)
     if (!teapot) {
@@ -122,7 +123,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  handleTurnOn(ctx: Tctx, args: Targs): void {
+  handleTurnOn: TMwareIo = (ctx, args) => {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
@@ -138,7 +139,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  handleTurnOff(ctx: Tctx, args: Targs): void {
+  handleTurnOff: TMwareIo = (ctx, args) => {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {
@@ -154,7 +155,7 @@ export default class TeapotControllerIo {
     ack?.(null, teapotJson)
   }
 
-  handleDrain(ctx: Tctx, args: Targs): void {
+  handleDrain: TMwareIo = (ctx, args) => {
     const [{ id }, , ack] = args
     const teapot = this.teapotService.show(id)
     if (!teapot) {

@@ -32,6 +32,8 @@ export default class PersonRouterIo implements IRouterIo {
     const { ID, ADD, UPD, AUTHZ } = mwPersonIo
     const { getAll, getById, add, updateById, removeById } = personControllerIo
 
+    if (!AUTHZ || !ID || !ADD || !UPD) throw new Error('no mware')
+
     listen(socket)
       .on('person:getAll', AUTHZ, getAll)
       .on('person:getById', ID, AUTHZ, getById)

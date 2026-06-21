@@ -47,6 +47,8 @@ export default class TeapotRouterIo implements IRouterIo {
       handleDrain,
     } = teapotControllerIo
 
+    if (!AUTHZ || !ID || !ADD || !UPD) throw new Error('no mware')
+
     listen(socket)
       .on(CL.GET_ALL, AUTHZ, getAll)
       .on(CL.GET_BY_ID, ID, AUTHZ, getById)

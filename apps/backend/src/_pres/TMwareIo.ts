@@ -20,10 +20,14 @@ type TAckFn = (err: TAckFnErr, data?: unknown) => void
 
 type TCtx = { socket: Socket; eventName: string }
 
-type TArgs = [{ id: number }, object, TAckFn] | null
+type TArgs<D> = [{ id: number }, D, TAckFn]
 
 type TNextFn = (err?: TNextFnErr) => void
 
-export type TMwareIo = ((ctx: TCtx, args: TArgs, next: TNextFn) => void) & {
+export type TMwareIo<D = unknown> = ((
+  ctx: TCtx,
+  args: TArgs<D>,
+  next: TNextFn,
+) => void) & {
   msg?: string
 }

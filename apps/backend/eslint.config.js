@@ -31,6 +31,7 @@ const typescriptConfig = {
     parserOptions: { project: ts },
   },
   rules: {
+    // '@typescript-eslint/no-confusing-void-expression': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/consistent-type-imports': 'error',

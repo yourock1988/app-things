@@ -32,6 +32,8 @@ export default class CarRouterIo implements IRouterIo {
     const { ID, ADD, UPD, AUTHZ, ACK } = mwCarIo
     const { getAll, getById, add, updateById, removeById } = carControllerIo
 
+    if (!ACK || !AUTHZ || !ID || !ADD || !UPD) throw new Error('no mware')
+
     listen(socket)
       .on('car:getAll', ACK, AUTHZ, getAll)
       .on('car:getById', ACK, ID, AUTHZ, getById)

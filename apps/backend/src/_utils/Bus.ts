@@ -20,10 +20,14 @@ export default class Bus {
     const nsp = this.io.of(pathName).use(preware)
     router.getMiddlewares().forEach(mw => {
       nsp.use((socket, next) => {
-        mw({ socket, eventName: mw.msg ?? '' }, null, err => {
-          if (err) next({ message: err.message, data: err.data, name: 'loh' })
-          else next()
-        })
+        mw(
+          { socket, eventName: mw.msg ?? '' },
+          [{ id: -1 }, [], () => {}],
+          err => {
+            if (err) next({ message: err.message, data: err.data, name: 'loh' })
+            else next()
+          },
+        )
       })
     })
     nsp.on('connection', router.connector)

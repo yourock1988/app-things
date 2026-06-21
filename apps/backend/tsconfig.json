@@ -30,7 +30,8 @@
     "noUnusedParameters": true, // ПОТОМ ВКЛЮЧИТЬ!!!!
     "noUnusedLocals": true, // ПОТОМ ВКЛЮЧИТЬ!!!!
     "noImplicitAny": false,
-    "strictNullChecks": true, // уже всегда включен в "strict": true
+    // "strictNullChecks": true, // уже всегда включен в "strict": true
+    // "strictFunctionTypes": true, // уже всегда включен в "strict": true
 
     //===== Interoperability: help external tools =====
     "verbatimModuleSyntax": true,
