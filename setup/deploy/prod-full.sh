@@ -7,12 +7,19 @@ fi
 set -e
 
 
+GROUP=developers
 USER=webmaster
 APP=app-things
 DOMAIN=$APP.web-app.click
 DOMAIN_IO=wss.$DOMAIN
 PORT=8804
 PORT_IO=7704
+
+echo "Настройка папки..."
+chown -R $USER /srv/$APP
+chgrp -R $GROUP /srv/$APP
+find /srv/$APP -type d -exec chmod 775 {} \;
+find /srv/$APP -type f -exec chmod 664 {} \;
 
 echo "Настройка nginx..."
 cat << EOF > /etc/nginx/sites-available/$DOMAIN

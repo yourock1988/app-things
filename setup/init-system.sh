@@ -7,8 +7,9 @@ fi
 set -e
 
 
-USER=webmaster
 GROUP=developers
+USER=webmaster
+APP=app-things
 
 
 echo "SHELL=/bin/bash" >> /etc/default/useradd
@@ -47,10 +48,6 @@ ln -s -f /snap/bin/certbot /usr/bin/certbot
 sudo -iu postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres1';"
 
 
-git clone https://github.com/yourock1988/app-things.git /srv/app-things
-chown -R $USER /srv/app-things
-chgrp -R $GROUP /srv/app-things
-find /srv/app-things -type d -exec chmod 775 {} \;
-find /srv/app-things -type f -exec chmod 664 {} \;
-cd /srv/app-things
-bash ./setup/deploy/test-full.sh
+git clone https://github.com/yourock1988/$APP.git /srv/$APP
+
+bash /srv/$APP/setup/deploy/test-full.sh
