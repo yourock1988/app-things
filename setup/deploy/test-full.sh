@@ -16,10 +16,11 @@ PORT=6604
 PORT_IO=5504
 
 echo "Настройка папки..."
-chown -R $USER /srv/$APP
-chgrp -R $GROUP /srv/$APP
 find /srv/$APP -type d -exec chmod 775 {} \;
 find /srv/$APP -type f -exec chmod 664 {} \;
+chmod +x /srv/$APP/git-hooks/pre-commit
+chgrp -R $GROUP /srv/$APP
+chown -R $USER /srv/$APP
 
 echo "Настройка nginx..."
 cat << EOF > /etc/nginx/sites-available/$DOMAIN
