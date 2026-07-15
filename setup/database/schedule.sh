@@ -8,7 +8,7 @@ set -e
 
 
 # создать бекап базы данных раз в сутки
-DB=pc_shop_v0
+DB=app_things_v0
 DB_USER=postgres
 PATH_BACKUP=/var/lib/postgresql/backup
 BACKUP=$DB-$(date +%Y-%m-%d).sql
