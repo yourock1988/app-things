@@ -4,7 +4,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 
-set -e
+set -euo pipefail
 
 
 GROUP=developers
@@ -12,6 +12,7 @@ USER=webmaster
 APP=app-things
 DOMAIN=$APP.web-app.click
 DOMAIN_IO=wss.$DOMAIN
+DOMAIN_API=api.$DOMAIN
 PORT=8804
 PORT_IO=7704
 
@@ -64,6 +65,7 @@ echo "Nginx успешно настроен."
 echo "Настройка certbot..."
 certbot --nginx -d $DOMAIN --non-interactive --redirect --agree-tos --email admin@$DOMAIN
 certbot --nginx -d $DOMAIN_IO --non-interactive --redirect --agree-tos --email admin@$DOMAIN_IO
+certbot --nginx -d $DOMAIN_API --non-interactive --redirect --agree-tos --email admin@$DOMAIN_IO
 nginx -s reload
 echo "Certbot успешно настроен."
 

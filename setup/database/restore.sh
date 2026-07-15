@@ -4,7 +4,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 
-set -e
+set -euo pipefail
 
 
 DB=app_things_v0
