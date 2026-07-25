@@ -19,6 +19,9 @@ RUN npm prune --omit=dev
 
 
 FROM deps-dev AS dev
+USER root
+RUN apk add --no-cache git
+USER node
 COPY --chown=node:node . .
 EXPOSE 7004
 EXPOSE 8004
