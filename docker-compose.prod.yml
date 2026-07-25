@@ -1,0 +1,8 @@
+services:
+  prod:
+    build:
+      context: .
+      target: prod
+    ports:
+      - '7704:7704'
+      - '8804:8804'

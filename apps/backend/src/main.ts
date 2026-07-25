@@ -5,7 +5,7 @@ const PORT_HTTP = Number(process.env.APP_BE_PORT)
 const PORT_IO = Number(process.env.APP_WS_PORT)
 
 global.console.log(process.env.APP_BE_COMMENT)
-appHttp.listen(PORT_HTTP, '127.0.0.1', () =>
+appHttp.listen(PORT_HTTP, '0.0.0.0', () =>
   global.console.log(`rest PORT: ${PORT_HTTP}`),
 )
 appIo.listen(PORT_IO)

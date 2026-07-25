@@ -1,0 +1,16 @@
+info
+.git
+node_modules
+out
+dist
+build
+coverage
+.vscode
+.idea
+*.log
+.cache
+.npm
+npm-debug.log*
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
