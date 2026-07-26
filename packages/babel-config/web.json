@@ -13,7 +13,6 @@
     [
       "@babel/preset-env",
       {
-        "corejs": 3,
         "targets": {
           "ie": "11"
         }

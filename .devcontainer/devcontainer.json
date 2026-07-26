@@ -1,0 +1,21 @@
+// этот конфиг не работает для "attach to running container"
+// необходимо "open attached container configuration file"
+// и вставить туда этот конфиг:
+
+// {
+//   "workspaceFolder": "/app/apps/backend",
+//   "extensions": [
+//     "dbaeumer.vscode-eslint",
+//     "esbenp.prettier-vscode",
+//     "fractalbrew.backticks",
+//     "jannisx11.batch-rename-extension",
+//     "oliversturm.fix-json",
+//     "streetsidesoftware.code-spell-checker",
+//     "streetsidesoftware.code-spell-checker-russian",
+//     "vue.volar",
+//     "will-wow.vscode-alternate-file",
+//     "wmaurer.change-case"
+//   ]
+// }
+
+// затем перезапустить docker compose up

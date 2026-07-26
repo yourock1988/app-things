@@ -33,3 +33,7 @@ install-be:
 
 install-pack:
 	docker exec -w /app/packages/babel-config app-things-dev-1 npm i $(name)
+
+rm-vscode-devcontainer:
+	docker exec -it app-things-dev-1 pkill -f vscode-server
+	docker exec -it app-things-dev-1 rm -rf /home/node/.vscode-server
