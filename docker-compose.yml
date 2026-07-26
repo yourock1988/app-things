@@ -11,13 +11,10 @@ services:
       - .:/app
       # - ./apps/backend/src:/app/apps/backend/src:ro
       # - ./apps/frontend/src:/app/apps/frontend/src:ro
-      # - /app/node_modules
+      - /app/node_modules
     develop:
       watch:
         - path: ./Dockerfile
-          action: rebuild
-
-        - path: ./package-lock.json
           action: rebuild
 
         # - path: ./src

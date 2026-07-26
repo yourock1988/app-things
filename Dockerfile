@@ -1,17 +1,21 @@
-FROM node:26-alpine3.24 AS base
+ARG IMG_DIGEST=e88a35be04478413b7c71c455cd9865de9b9360e1f43456be5951032d7ac1a66
+FROM node:26-alpine3.24@sha256:${IMG_DIGEST} AS base
 USER node
 WORKDIR /app
+COPY --chown=node:node packages/babel-config/package.json ./packages/babel-config/
+COPY --chown=node:node packages/eslint-config/package.json ./packages/eslint-config/
+COPY --chown=node:node packages/webpack-config/package.json ./packages/webpack-config/
 COPY --chown=node:node apps/frontend/package.json ./apps/frontend/
 COPY --chown=node:node apps/backend/package.json ./apps/backend/
 COPY --chown=node:node package*.json ./
 COPY --chown=node:node .env.prod ./
 COPY --chown=node:node .env.test ./
 COPY --chown=node:node .env.dev ./
-COPY --chown=node:node packages ./packages
+COPY --chown=node:node .npmrc ./
 
 
 FROM base AS deps-dev
-RUN npm ci
+RUN npm ci --package-lock-only=false
 
 
 FROM deps-dev AS deps-prod
@@ -35,6 +39,8 @@ RUN npm run build:prod
 
 FROM base AS prod
 COPY --from=builder --chown=node:node /app/dist ./dist
+COPY --from=builder --chown=node:node /app/packages/cmd ./packages/cmd
 COPY --from=deps-prod --chown=node:node /app/node_modules ./node_modules
-EXPOSE 3000
+EXPOSE 7704
+EXPOSE 8804
 CMD ["npm", "start"]
