@@ -10,10 +10,11 @@
     "./web": "./web.json"
   },
   "devDependencies": {
-    "@babel/cli": "^7.26.4",
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "@babel/register": "^7.25.9",
-    "core-js": "^3.40.0"
+    "@babel/cli": "^8.0.4",
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
+    "@babel/register": "^8.0.1",
+    "babel-plugin-polyfill-corejs3": "^1.0.0",
+    "core-js": "^3.49.0"
   }
 }
