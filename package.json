@@ -35,7 +35,10 @@
     "backend:build:prod": "npm run dist --workspace=@app-x/backend",
     "frontend:build:prod": "npm run build:prod --workspace=@app-x/frontend",
     "frontend:build:test": "npm run build:test --workspace=@app-x/frontend",
-    "test": "npm run test --workspace=@app-x/backend"
+    "test": "npm run test --workspace=@app-x/backend",
+    "check:be": "npm run check --workspace=@app-x/backend",
+    "check:fe": "npm run check --workspace=@app-x/frontend",
+    "check": "run-s check:be check:fe"
   },
   "devDependencies": {
     "lint-staged": "^17.0.8",

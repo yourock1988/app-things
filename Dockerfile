@@ -33,6 +33,17 @@ EXPOSE 9000
 CMD ["npm", "run", "dev"]
 
 
+FROM dev AS check
+WORKDIR /app/apps/backend
+RUN npm run chk:prettier
+RUN npm run chk:eslint
+RUN npm run chk:typescript
+RUN npm run chk:vitest
+WORKDIR /app/apps/frontend
+RUN npm run chk:prettier
+RUN npm run chk:eslint
+
+
 FROM dev AS builder
 RUN npm run build:prod
 

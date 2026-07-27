@@ -5,7 +5,6 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "lint:js": "eslint ./src",
     "lint-staged": "lint-staged",
     "test": "vitest",
     "coverage": "vitest run --coverage",
@@ -19,7 +18,12 @@
     "start": "node --env-file=../../.env.prod ../../dist/server/main.ts",
     "build": "run-s swc:build static:build",
     "dist": "run-s swc:dist static:dist",
-    "dev": "run-p swc ts"
+    "dev": "run-p swc ts",
+    "chk:prettier": "prettier --check ./src",
+    "chk:eslint": "eslint ./src",
+    "chk:typescript": "tsc --noEmit",
+    "chk:vitest": "vitest --run",
+    "check": "run-s chk:prettier chk:eslint chk:typescript chk:vitest"
   },
   "dependencies": {
     "@app-x/cmd": "^0.0.1",

@@ -2,7 +2,7 @@ prod:
 	docker compose -p app-things -f docker-compose.prod.yml up --build --detach
 
 dev:
-	docker compose -p app-things up --build --watch
+	docker compose -p app-things up --build
 
 test: 
 	docker exec -it app-things-dev-1 npm test
