@@ -1,16 +1,7 @@
 name: cd
-on: [pull_request]
+on: [push]
 jobs:
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v7
-  #     - run: echo ${{ vars.TEST_VAR }}
-  #     - run: echo ${{ secrets.TEST_SECRET }}
-  #     - run: pwd
-  #     - run: npm ci
-  #     - run: npm test
-  deploy:
+  cd:
     # needs: test
     runs-on: ubuntu-latest
     steps:
@@ -20,14 +11,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            #!/usr/bin/env bash -l
-            export PATH=/home/postal404/.nvm/versions/node/v22.11.0/bin:$PATH
-            set -e
-            kill $(lsof -t -i :8181) || true
-            cd app
-            git pull
-            npm ci
-            npm run build
-            npm prune --omit=dev
-            npm start > app.log 2>&1 & disown
-            echo "Деплой успешно завершён!"
+            #!/usr/bin/bash
+            set -euo pipefail
+            cd /srv/app
+            wget -O docker-compose.prod.yml https://raw.githubusercontent.com/yourock1988/app-things/refs/heads/master/docker-compose.prod.yml
+            docker compose -f docker-compose.prod.yml up --detach
