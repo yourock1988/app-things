@@ -15,21 +15,22 @@ COPY --chown=node:node .npmrc ./
 
 
 FROM base AS deps-dev
-RUN npm ci --package-lock-only=false
+RUN npm ci --package-lock-only=false && npm cache clean --force
 
 
 FROM deps-dev AS deps-prod
-RUN npm prune --omit=dev
+RUN npm prune --package-lock-only=false --omit=dev
 
 
-FROM deps-dev AS dev
+FROM base AS dev
 USER root
 RUN apk add --no-cache git
 USER node
 COPY --chown=node:node . .
-EXPOSE 7004
-EXPOSE 8004
-EXPOSE 9000
+COPY --from=deps-dev /app/node_modules ./node_modules
+COPY --from=deps-dev /app/apps/backend/node_modules ./apps/backend/node_modules
+COPY --from=deps-dev /app/packages/babel-config/node_modules ./packages/babel-config/node_modules
+EXPOSE 7004 8004 9000
 CMD ["npm", "run", "dev"]
 
 
@@ -51,7 +52,8 @@ RUN npm run build:prod
 FROM base AS prod
 COPY --from=builder --chown=node:node /app/dist ./dist
 COPY --from=builder --chown=node:node /app/packages/cmd ./packages/cmd
-COPY --from=deps-prod --chown=node:node /app/node_modules ./node_modules
-EXPOSE 7704
-EXPOSE 8804
+COPY --from=deps-prod /app/node_modules ./node_modules
+COPY --from=deps-prod /app/apps/backend/node_modules ./apps/backend/node_modules
+COPY --from=deps-prod /app/packages/babel-config/node_modules ./packages/babel-config/node_modules
+EXPOSE 7704 8804
 CMD ["npm", "start"]
