@@ -2,6 +2,7 @@ services:
   deploy:
     image: ghcr.io/yourock1988/app-things/app-things:latest
     pull_policy: always
+    restart: unless-stopped
     ports:
       - '7704:7704'
       - '8804:8804'
