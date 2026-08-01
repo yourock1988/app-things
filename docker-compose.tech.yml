@@ -1,0 +1,10 @@
+services:
+  tech:
+    build:
+      context: .
+      target: base
+    volumes:
+      - .:/app
+    command: sh
+    stdin_open: true # Аналог флага -i (оставляет stdin открытым)
+    tty: true # Аналог флага -t (выделяет TTY)

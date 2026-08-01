@@ -9,9 +9,12 @@ services:
       - '9000:9000'
     volumes:
       - .:/app
-      # - ./apps/backend/src:/app/apps/backend/src:ro
-      # - ./apps/frontend/src:/app/apps/frontend/src:ro
       - /app/node_modules
+      - /app/apps/backend/node_modules
+      - /app/packages/babel-config/node_modules
+      - /app/packages/eslint-config/node_modules
+    # - ./apps/backend/src:/app/apps/backend/src:ro
+    # - ./apps/frontend/src:/app/apps/frontend/src:ro
     # develop:
     #   watch:
     #     - path: ./Dockerfile
