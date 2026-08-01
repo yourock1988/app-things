@@ -11,7 +11,7 @@ services:
       - .:/app
       - /app/node_modules
       - /app/apps/backend/node_modules
-      - /app/packages/babel-config/node_modules
+      # - /app/packages/babel-config/node_modules
       - /app/packages/eslint-config/node_modules
     # - ./apps/backend/src:/app/apps/backend/src:ro
     # - ./apps/frontend/src:/app/apps/frontend/src:ro
