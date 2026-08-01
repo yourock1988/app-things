@@ -1,8 +1,7 @@
 import processError from '@/utils/processError.js'
 import sendRequest from '@/utils/sendRequest.js'
 
-const { APP_ORIGIN } = process.env
-const url = `${APP_ORIGIN}/api/v0/auth/sign-up`
+const url = `${process.env.APP_ORIGIN}/api/v0/auth/sign-up`
 
 export default async function signUp(dto) {
   const [err, data] = await sendRequest(url, 'POST', dto)

@@ -4,10 +4,9 @@ import { io } from 'socket.io-client'
 export default class IoNamespace extends EventEmitter {
   constructor(namespace) {
     super()
-    const { APP_WEBSOCK } = process.env
     this.namespace = namespace
     this.sessionid = ''
-    this.url = `${APP_WEBSOCK}${namespace}`
+    this.url = `${process.env.APP_WEBSOCK}${namespace}`
     this.s = null
   }
 
