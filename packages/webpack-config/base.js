@@ -54,8 +54,16 @@ module.exports = merge(webpackVueConfig, {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: { extends: path.join(PATHS.configBabel, 'web.json') },
+          loader: 'swc-loader',
+          options: {
+            sourceMaps: true,
+            jsc: { parser: { syntax: 'ecmascript' } },
+            env: {
+              targets: { chrome: '100' },
+              mode: 'usage',
+              coreJs: '3.48',
+            },
+          },
         },
       },
 
