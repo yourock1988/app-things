@@ -1,4 +1,4 @@
-import z from 'zod'
+import { z } from 'zod'
 import validatePhoneStrict from '../../_utils/validatePhoneStrict.ts'
 import messages from '../messages.json' with { type: 'json' }
 

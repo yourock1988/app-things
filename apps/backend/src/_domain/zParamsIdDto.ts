@@ -1,4 +1,4 @@
-import z from 'zod'
+import { z } from 'zod'
 import messages from './messages.json' with { type: 'json' }
 
 const msg = { ...messages, ...messages.id }
