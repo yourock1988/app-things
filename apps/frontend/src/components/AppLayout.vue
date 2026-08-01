@@ -37,7 +37,7 @@ export default {
     </v-navigation-drawer>
 
     <v-app-bar>
-      <v-toolbar-title>Application Bar !!!</v-toolbar-title>
+      <v-toolbar-title>Application Bar ###</v-toolbar-title>
 
       <template v-slot:prepend>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
