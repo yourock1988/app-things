@@ -2,9 +2,9 @@
 
 ✅ прикрутить ci/cd
 
-🔄 мигрировать webpack с babel-loader на swc-loader
+✅ мигрировать webpack с babel-loader на swc-loader
 
-мигрировать баундарис тайпс с 6 на 7
+🔄 мигрировать баундарис тайпс с 6 на 7
 
 база данных из dbml схемы
 

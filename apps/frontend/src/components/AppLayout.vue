@@ -61,6 +61,7 @@ export default {
 
     <v-main>
       <v-breadcrumbs
+        class="mt-0 mb-0"
         :items="['home', 'admin', 'things', 'cars']"
       ></v-breadcrumbs>
       <v-divider></v-divider>
